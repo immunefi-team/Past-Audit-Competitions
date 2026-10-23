@@ -5,7 +5,7 @@
 * **Report ID:** #36306
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Incorrect Emission of an Event
 
@@ -17,7 +17,7 @@ Incorrect nonce value emitted in \`TimeBasedCollateralPool::\_resetPool\` event
 
 ## Vulnerability Details
 
-If pool is in process to reset in \`\_resetPool\`(https://github.com/AcronymFoundation/anvil-contracts/blame/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L1022) the nonce is updated in this line here:
+If pool is in process to reset in \`\_resetPool\`(<https://github.com/AcronymFoundation/anvil-contracts/blame/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L1022>) the nonce is updated in this line here:
 
 \`\`\`js // NB: must be resetNonce++, NOT ++resetNonce uint256 resetNonce = contractStateStorage.resetNonce++; \`\`\` After the reset is done the the following event is emitted:
 

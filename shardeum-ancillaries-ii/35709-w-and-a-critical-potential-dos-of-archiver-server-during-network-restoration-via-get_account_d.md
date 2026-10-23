@@ -1,11 +1,11 @@
-# #35709 \[W\&A-Critical] Potential DoS of archiver-server during network restoration via get\_account\_data\_archiver call
+# #35709 \[W\&A-Critical] Potential DoS of archiver-server during network restoration via get\_account\_da
 
 **Submitted on Oct 4th 2024 at 08:45:54 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Ancillaries II**](https://immunefi.com/audit-competition/shardeum-ancillaries-ii-boost)
 
 * **Report ID:** #35709
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/dev
+* **Target:** <https://github.com/shardeum/archive-server/tree/dev>
 * **Impacts:**
   * Taking down the application/website
 
@@ -25,11 +25,11 @@ The archiver server is vulnerable to a potential DoS attack during network resto
 
 ## References
 
-https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/API.ts#L927
+<https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/API.ts#L927>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/e0bb113b033710c9e9ef677c8a0082b0
+<https://gist.github.com/periniondon630/e0bb113b033710c9e9ef677c8a0082b0>
 
 ## Proof of Concept
 

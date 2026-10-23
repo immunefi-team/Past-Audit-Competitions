@@ -1,11 +1,11 @@
-# #35908 \[SC-Low] If the collateral token''s decimal is <= the base token decimal in a market, \`collateral\_value\_to\_sell()\` will always revert & \`available\_to\_borrow()\` will return a wrong amount tha...
+# #35908 \[SC-Low] If the collateral token''s decimal is <= the base token decimal in a market, \`collat
 
 **Submitted on Oct 12th 2024 at 17:50:20 UTC by @SeveritySquad for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #35908
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw>
 * **Impacts:**
   * Temporary (1 hr) freezing of funds
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
@@ -20,11 +20,11 @@ On the line to get the scale which is later used to calculate the value of asset
 
 using \` collateral\_value\_to\_sell()\` as an instance:
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L882C3-L888C11 \`\`\`rust let scale = u256::from(10\_u64).pow( collateral\_configuration .decimals - storage .market\_configuration .read() .base\_token\_decimals, ); \`\`\` Supposing the base decimal is greater than the collateral, this will lead to a steady revert for such collateral (In sway overflow and underflow will lead to a revert for safety).
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L882C3-L888C11> \`\`\`rust let scale = u256::from(10\_u64).pow( collateral\_configuration .decimals - storage .market\_configuration .read() .base\_token\_decimals, ); \`\`\` Supposing the base decimal is greater than the collateral, this will lead to a steady revert for such collateral (In sway overflow and underflow will lead to a revert for safety).
 
 using \`available\_to\_borrow()\` as an instance :
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L707C1-L712C24
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L707C1-L712C24>
 
 \`\`\`rust let scale = u256::from(10\_u64).pow( collateral\_configuration.decimals + price\_exponent - market\_configuration.base\_token\_decimals, );
 
@@ -56,7 +56,7 @@ use an if-else block checking which is greater in order to get the right scale f
 
 To test this simply. make a simple change to the \`tokens.json\` file making the value of ETH less than the value of \`USDC's\` decimal(in the context of the tests it is the base token)
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/tests/tokens.json#L19 \`\`\`diff
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/tests/tokens.json#L19> \`\`\`diff
 * ```
   &quot;decimals&quot;: 9,
   ```

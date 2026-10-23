@@ -1,11 +1,11 @@
-# #37470 \[BC-Medium] SBTC Signers do not page through pending deposit requests making it trivially easy to block legit deposits by spamming Emily API
+# #37470 \[BC-Medium] SBTC Signers do not page through pending deposit requests making it trivially eas
 
 **Submitted on Dec 5th 2024 at 14:31:01 UTC by @throwing5tone7 for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37470
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Medium
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Temporarily Freezing Network Transactions
 
@@ -17,7 +17,7 @@ The Emily API to fetch deposit requests is designed to use paging of results, su
 
 ## Vulnerability Details
 
-The vulnerability resides in the `EmilyClient` implementation of `EmilyInteract::getDeposits` - specifically https://github.com/stacks-network/sbtc/blob/53cc756c0ddecff7518534a69bef59fadb5ab1d4/signer/src/emily\_client.rs#L220
+The vulnerability resides in the `EmilyClient` implementation of `EmilyInteract::getDeposits` - specifically <https://github.com/stacks-network/sbtc/blob/53cc756c0ddecff7518534a69bef59fadb5ab1d4/signer/src/emily\\_client.rs#L220>
 
 The code is as shown:
 
@@ -67,7 +67,7 @@ For example, a spam rate of 100 req/s should be trivial to achieve, in which cas
 
 ## Link to Proof of Concept
 
-https://gist.github.com/throwin5tone7/57a5d8351698151804838e40d23874f1
+<https://gist.github.com/throwin5tone7/57a5d8351698151804838e40d23874f1>
 
 ## Proof of Concept
 

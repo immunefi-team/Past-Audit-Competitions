@@ -1,11 +1,11 @@
-# #34672 \[SC-Low] Protocol runs insolvent due to incorrect reliance on depositBalance which doesn't match holder balances
+# #34672 \[SC-Low] Protocol runs insolvent due to incorrect reliance on depositBalance which doesn't ma
 
 **Submitted on Aug 20th 2024 at 09:12:58 UTC by @styphoiz for** [**Audit Comp | Acre**](https://immunefi.com/audit-competition/boost-acre)
 
 * **Report ID:** #34672
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0
+* **Target:** <https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0>
 * **Impacts:**
   * Protocol insolvency
 
@@ -25,9 +25,9 @@ Acre Staked Bitcoin (stBTC) holders attempting to redeem their tokens after the 
 
 ## References
 
-Acre Staked Bitcoin (stBTC) - https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3\
-Mezo Allocator - https://sepolia.etherscan.io/address/0xd5ebdd6ff384a465d56562d3a489c8cce1b92dd0\
-Mezo Portal - https://sepolia.etherscan.io/address/0x6978e3e11b8bc34ea836c1706fc742ac4cb6b0db
+Acre Staked Bitcoin (stBTC) - <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3\\>
+Mezo Allocator - <https://sepolia.etherscan.io/address/0xd5ebdd6ff384a465d56562d3a489c8cce1b92dd0\\>
+Mezo Portal - <https://sepolia.etherscan.io/address/0x6978e3e11b8bc34ea836c1706fc742ac4cb6b0db>
 
 ## Proof of Concept
 

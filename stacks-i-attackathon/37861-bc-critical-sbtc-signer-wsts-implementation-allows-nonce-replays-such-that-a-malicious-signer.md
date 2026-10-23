@@ -1,11 +1,11 @@
-# #37861 \[BC-Critical] SBTC Signer WSTS implementation allows nonce replays such that a malicious signer can steal all funds
+# #37861 \[BC-Critical] SBTC Signer WSTS implementation allows nonce replays such that a malicious sign
 
 **Submitted on Dec 17th 2024 at 19:24:33 UTC by @throwing5tone7 for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37861
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/Trust-Machines/wsts
+* **Target:** <https://github.com/Trust-Machines/wsts>
 * **Impacts:**
   * Direct loss of funds
   * Network not being able to confirm new transactions (total network shutdown)
@@ -19,13 +19,13 @@ The SBTC Signers collaborate to achieve threshold signing of Stacks & Bitcoin tr
 
 ### Scope considerations
 
-I am aware that the WSTS repo isn't strictly in scope for this Attackathon. However, I confirmed on public messages with the Stacks team that "a bug in WSTS which has a direct impact on the sBTC deposit flow" would be considered in scope. See the message from the technical team member here - https://discord.com/channels/787092485969150012/1311889396542214276/1314577660017643580. Since the WSTS flaw can ultimately lead to total loss of funds and hard freezing of the protocol I believe it is in scope. My PoC is a demonstration of a malicious signer deriving the secrets running in the context of sBTC signers coordinating to process deposit - so I clearly demonstrate that this flaw does affect the sBTC deposit process and isn't just a lower level bug that doesn't apply to sBTC's use of WSTS.
+I am aware that the WSTS repo isn't strictly in scope for this Attackathon. However, I confirmed on public messages with the Stacks team that "a bug in WSTS which has a direct impact on the sBTC deposit flow" would be considered in scope. See the message from the technical team member here - <https://discord.com/channels/787092485969150012/1311889396542214276/1314577660017643580>. Since the WSTS flaw can ultimately lead to total loss of funds and hard freezing of the protocol I believe it is in scope. My PoC is a demonstration of a malicious signer deriving the secrets running in the context of sBTC signers coordinating to process deposit - so I clearly demonstrate that this flaw does affect the sBTC deposit process and isn't just a lower level bug that doesn't apply to sBTC's use of WSTS.
 
 ## Vulnerability Details
 
 During sBTC signature signing, the WSTS signer process ultimately calls through to v2::Party::sign\_with\_tweak. As you can see from the code, this function relies on a nonce value that has been pre-generated (`self.nonce`), and the function itself does not clear or regenerate the nonce after use. This is a critical security vulnerability as any time attacker can observe multiple signatures on the same nonce values but over different messages, they can derive the underlying secret shares that authenticate the parties in the threshold signature protocol.
 
-Taken from https://github.com/Trust-Machines/wsts/blob/ebd7d7775ad5e44cdbf4f5c1fb468bdf6c467265/src/v2.rs - lines 193..244 (this is the revision that is used by sBTC currently but the code for this function is identical on the main branch too).
+Taken from <https://github.com/Trust-Machines/wsts/blob/ebd7d7775ad5e44cdbf4f5c1fb468bdf6c467265/src/v2.rs> - lines 193..244 (this is the revision that is used by sBTC currently but the code for this function is identical on the main branch too).
 
 ```
     pub fn sign_with_tweak(
@@ -134,7 +134,7 @@ The ongoing impacts of this are clearly:
 
 ## Link to Proof of Concept
 
-https://gist.github.com/throwin5tone7/a8a3de37b0e713c09d68e222f985e06e
+<https://gist.github.com/throwin5tone7/a8a3de37b0e713c09d68e222f985e06e>
 
 ## Proof of Concept
 

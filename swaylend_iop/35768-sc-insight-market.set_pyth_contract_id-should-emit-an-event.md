@@ -5,7 +5,7 @@
 * **Report ID:** #35768
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

@@ -1,11 +1,11 @@
-# #39539 \[SC-Insight] Insufficient validation of tokens when created in \`PlayCollateralTokenFactory::createCollateralToken\`
+# #39539 \[SC-Insight] Insufficient validation of tokens when created in \`PlayCollateralTokenFactory::c
 
 **Submitted on Feb 1st 2025 at 01:29:46 UTC by @Bx4 for** [**Audit Comp | Butter**](https://immunefi.com/audit-competition/audit-comp-butter)
 
 * **Report ID:** #39539
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1-playmoney
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1-playmoney>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -42,7 +42,7 @@ FOR INSTANCE: An attacker could create multiple tokens with the same name and sy
 
 Similar vulnerabilities have been disclosed by notable firms
 
-one example is : https://solodit.cyfrin.io/issues/insufficient-validation-of-token-name-and-symbol-in-liquidityfreelaunchfactory-zokyo-none-zap-markdown
+one example is : <https://solodit.cyfrin.io/issues/insufficient-validation-of-token-name-and-symbol-in-liquidityfreelaunchfactory-zokyo-none-zap-markdown>
 
 ## Proof of Concept
 

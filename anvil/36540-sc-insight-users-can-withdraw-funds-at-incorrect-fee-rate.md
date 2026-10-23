@@ -7,7 +7,7 @@
 * **Report ID:** #36540
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f
+* **Target:** <https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Protocol insolvency
@@ -90,9 +90,9 @@ if (_collateralizableAddress &#x3D;&#x3D; _accountAddress) {
 
 Run this foundry test on a fork of the mainnet
 
-This is the command I used to run the test \`forge test --fork-url https://eth-mainnet.g.alchemy.com/v2/$ALCHEMY\_KEY --fork-block-number 21121956 --gas-price 0 --via-ir -vvvv\`
+This is the command I used to run the test \`forge test --fork-url <https://eth-mainnet.g.alchemy.com/v2/$ALCHEMY\\_KEY> --fork-block-number 21121956 --gas-price 0 --via-ir -vvvv\`
 
-_**NOTE:**_ Make sure to add the \`setWithdrawalFeeBasisPoints\` and \`depositToAccount\` function signatures to the \`ICollateral\` interface before running.
+***NOTE:*** Make sure to add the \`setWithdrawalFeeBasisPoints\` and \`depositToAccount\` function signatures to the \`ICollateral\` interface before running.
 
 \`\`\`js // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.13;
 

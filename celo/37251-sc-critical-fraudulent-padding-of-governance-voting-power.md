@@ -5,7 +5,7 @@
 * **Report ID:** #37251
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts/governance/LockedGold.sol
+* **Target:** <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts/governance/LockedGold.sol>
 * **Impacts:**
   * Manipulation of governance voting result deviating from voted outcome and resulting in a direct change from intended effect of original results
 
@@ -25,7 +25,7 @@ The `slash` function increases or decreases the `nonvotingBalance` of the target
       _incrementNonvotingAccountBalance(reporter, reward);
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L505-L506
+<https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L505-L506>
 
 For example, if you look at the `lock` function, which is another process that increases `nonvotingBalance`, you can see that it also updates `DelegatedAmount`.
 
@@ -34,7 +34,7 @@ For example, if you look at the `lock` function, which is another process that i
     _updateDelegatedAmount(msg.sender);
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L150-L151
+<https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L150-L151>
 
 `slash` does not do this, so there is no consistency between the increase/decrease in `nonvotingBalance` and `DelegatedAmount`. This can lead to various attack methods and calculation errors, but I would like to introduce one example, which is inflating the number of voting rights.
 
@@ -47,15 +47,15 @@ I will explain the step-by-step process while implementing it within the POC.
 
 ## References
 
-https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L505-L506.\
-https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L150-L151
+<https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L505-L506.\\>
+<https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/contracts/governance/LockedGold.sol#L150-L151>
 
 ## Proof of Concept
 
 ## 3. Proof of Concept
 
-Please add the following `test_GovernanceVotingPowerFraudulentlyInflated` function to the `LockedGoldTest_slash` contract in `LockedGold.t.sol`. https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/governance/voting/LockedGold.t.sol.\
-https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/test-sol/unit/governance/voting/LockedGold.t.sol#L1096C10-L1096C30
+Please add the following `test_GovernanceVotingPowerFraudulentlyInflated` function to the `LockedGoldTest_slash` contract in `LockedGold.t.sol`. <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/governance/voting/LockedGold.t.sol.\\>
+<https://github.com/celo-org/celo-monorepo/blob/3c58a09455a12518916d2df38693325bafeb462b/packages/protocol/test-sol/unit/governance/voting/LockedGold.t.sol#L1096C10-L1096C30>
 
 ```
 function test_GovernanceVotingPowerFraudulentlyInflated() public {

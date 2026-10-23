@@ -1,11 +1,11 @@
-# #37384 \[BC-Medium] Attacker can front-run call to emily api with incorrect data, preventing legit user from registering their deposit
+# #37384 \[BC-Medium] Attacker can front-run call to emily api with incorrect data, preventing legit us
 
 **Submitted on Dec 3rd 2024 at 16:26:12 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37384
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Medium
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/emily
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/emily>
 * **Impacts:**
   * A bug in the respective layer 0/1/2 network code that results in unintended smart contract behavior with no concrete funds at direct risk
 

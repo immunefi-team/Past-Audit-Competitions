@@ -5,7 +5,7 @@
 * **Report ID:** #37285
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts/governance/LockedGold.sol
+* **Target:** <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts/governance/LockedGold.sol>
 * **Impacts:**
   * Manipulation of governance voting result deviating from voted outcome and resulting in a direct change from intended effect of original results
 

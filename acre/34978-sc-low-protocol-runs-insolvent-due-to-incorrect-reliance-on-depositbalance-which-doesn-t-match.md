@@ -1,4 +1,4 @@
-# #34978 \[SC-Low] protocol runs insolvent due to incorrect reliance on depositbalance which doesn t match holder balances
+# #34978 \[SC-Low] protocol runs insolvent due to incorrect reliance on depositbalance which doesn t ma
 
 ## #34978 \[SC-Low] Protocol runs insolvent due to incorrect reliance on depositBalance which doesn't match holder balances
 
@@ -7,7 +7,7 @@
 * **Report ID:** #34978
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Protocol insolvency
 
@@ -19,7 +19,7 @@ Currently, if all/sufficient holders of Acre Staked Bitcoin (stBTC) attempt to w
 
 ### Vulnerability Details
 
-This issue is logged separately from https://bugs.immunefi.com/dashboard/submission/34672, the flow is similar however this is a different function been called on the contract. The withdraw function in contract 0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3 is designed to work with the balance of tBTC held within the contract. When this balance is insufficient to cover redemptions, the contract attempts to withdraw additional funds from 0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0 using the depositBalance function. However, the issue arises when depositBalance returns a value lower than expected, leading to a shortfall of tBTC in the contract. As a result, even though there may be sufficient overall funds in the system, the reliance on depositBalance causes the contract to fail in meeting redemption requests, rendering the protocol insolvent.
+This issue is logged separately from <https://bugs.immunefi.com/dashboard/submission/34672>, the flow is similar however this is a different function been called on the contract. The withdraw function in contract 0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3 is designed to work with the balance of tBTC held within the contract. When this balance is insufficient to cover redemptions, the contract attempts to withdraw additional funds from 0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0 using the depositBalance function. However, the issue arises when depositBalance returns a value lower than expected, leading to a shortfall of tBTC in the contract. As a result, even though there may be sufficient overall funds in the system, the reliance on depositBalance causes the contract to fail in meeting redemption requests, rendering the protocol insolvent.
 
 ### Impact Details
 
@@ -27,7 +27,7 @@ Acre Staked Bitcoin (stBTC) holders attempting to withdraw their tokens after th
 
 ### References
 
-Acre Staked Bitcoin (stBTC) - https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3 Mezo Allocator - https://sepolia.etherscan.io/address/0xd5ebdd6ff384a465d56562d3a489c8cce1b92dd0 Mezo Portal - https://sepolia.etherscan.io/address/0x6978e3e11b8bc34ea836c1706fc742ac4cb6b0db
+Acre Staked Bitcoin (stBTC) - <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3> Mezo Allocator - <https://sepolia.etherscan.io/address/0xd5ebdd6ff384a465d56562d3a489c8cce1b92dd0> Mezo Portal - <https://sepolia.etherscan.io/address/0x6978e3e11b8bc34ea836c1706fc742ac4cb6b0db>
 
 ### Proof of Concept
 
@@ -35,7 +35,7 @@ Acre Staked Bitcoin (stBTC) - https://sepolia.etherscan.io/address/0x7e184179b1F
 
 ## Steps are provided below on what I had done to build this code.
 
-I had first went to https://sepolia.etherscan.io/token/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3#balances to get a list of holders of Acre Staked Bitcoin (stBTC)
+I had first went to <https://sepolia.etherscan.io/token/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3#balances> to get a list of holders of Acre Staked Bitcoin (stBTC)
 
 \`\`\` const ownerAddresses = \[ "0xCE06a2D105559C633451971ab1f843D667597265", "0x512f4f3a02862b0A7e7F1D796B885ce3D4EaB5cf", "0xB66ab5A4596250Ce20ff62262935CAB5E8A17695", "0x54567d825cE85a4E9C4314984CEe4D9253458B1B", "0x5476A06f08CD1F9669Ae6643C5eF9cc4F1848970", "0x16610D47659373cEE43F6983D46b02256c03F7C1", "0xD0B9584c57B6fFDeD640130232735388737dE251", "0x88744F5da4308317B459EFB205028AED77B1ae2C", "0x0763DfC2fb8b060e0629928B5D77466D1C4Ca379", // "0x21F071bd9Ed020fb6E3e9A661Ca547E94f713467", "0x6F1a421573082BE1BEAe22551259D4D793EfD2cE", "0x9B55cDe4d96aAa9CCCc4fC9Fd12Ab43292750294", "0x18361d831C81384fBd8c5BaCa1727cae64212B9d", "0x8b63f664eC49bA2AbCb24ACCC76E3Ee1522ddB9e", "0x8d951Dfe12e12ea4549e18382D7e4c9188046851", "0x247c356466D139Df16231E576eF52B1168528B6F", "0x18c3D37A85b4e44A5619d62Ee4900Bcc18b3bd5a", "0x719743739BD4E5154248705BF9bF67ac2D85b52F", "0x0483cD12aC9758e530dc184a1b542439BA6cDB8f", "0x82d930246C2e0F2a383d893E1F1DeB45CE602d1B", "0xA4761081d9Cb672d911d7df25E5a30D7925608CE", // "0xd2C6168Fd106908Df71Ab639f8b7e2F971Ab8205", "0x857173e7c7d76e051e80d30FCc3EA6A9C2b53756", "0x3df087df73576CA02f5f2D10ce95b00355482a51", "0x6e80164ea60673D64d5d6228beb684a1274Bb017", ]; \`\`\`
 

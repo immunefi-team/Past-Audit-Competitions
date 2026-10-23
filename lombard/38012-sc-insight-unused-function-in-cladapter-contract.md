@@ -5,7 +5,7 @@
 * **Report ID:** #38012
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/CLAdapter.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/CLAdapter.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

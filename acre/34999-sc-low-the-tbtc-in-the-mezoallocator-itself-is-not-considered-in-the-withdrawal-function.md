@@ -5,7 +5,7 @@
 * **Report ID:** #34999
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0
+* **Target:** <https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0>
 * **Impacts:**
   * Smart contract unable to operate due to lack of token funds
 
@@ -17,9 +17,9 @@
 
 ## Vulnerability Details
 
-The \`total assets\` of \`StBTC\` consist of three parts: its \`balance\`, the \`total assets\` of the \`MezoAllocator\`, and \`total debts\`. \`\`\` function totalAssets() public view override returns (uint256) {     return         IERC20(asset()).balanceOf(address(this)) +         dispatcher.totalAssets() +         totalDebt; } \`\`\` The \`MezoAllocator\`'s \`total assets\` include its \`balance\` and the amount \`deposited\` in the \`Portal\`. \`\`\` function totalAssets() external view returns (uint256) {     return depositBalance + tbtc.balanceOf(address(this)); } \`\`\` During a \`withdrawal\`, if \`StBTC\`'s current \`tBTC\` \`balance\` is insufficient, it attempts to \`withdraw\` the required amount from the \`Portal\`. \`\`\` function withdraw(     uint256 assets,     address receiver,     address owner ) public override returns (uint256) {     uint256 currentAssetsBalance = IERC20(asset()).balanceOf(address(this));     uint256 assetsWithFees = assets + \_feeOnRaw(assets, exitFeeBasisPoints);     if (assetsWithFees > currentAssetsBalance) {         dispatcher.withdraw(assetsWithFees - currentAssetsBalance);     }     return super.withdraw(assets, receiver, owner); } \`\`\` The \`withdraw\` function assumes that the requested amount is less than the amount \`deposited\` in the \`Portal\`. However, \`tBTC\` that hasn’t been \`deposited\` into the \`Portal\` yet—such as donated tokens or rewards—is not considered. As a result, the requested withdrawal amount could exceed the \`Portal\`'s \`deposits\` but still be less than the \`total assets\` of the \`MezoAllocator\`. \`\`\` function withdraw(uint256 amount) external {     if (msg.sender != address(stbtc)) revert CallerNotStbtc();
+The \`total assets\` of \`StBTC\` consist of three parts: its \`balance\`, the \`total assets\` of the \`MezoAllocator\`, and \`total debts\`. \`\`\` function totalAssets() public view override returns (uint256) { return IERC20(asset()).balanceOf(address(this)) + dispatcher.totalAssets() + totalDebt; } \`\`\` The \`MezoAllocator\`'s \`total assets\` include its \`balance\` and the amount \`deposited\` in the \`Portal\`. \`\`\` function totalAssets() external view returns (uint256) { return depositBalance + tbtc.balanceOf(address(this)); } \`\`\` During a \`withdrawal\`, if \`StBTC\`'s current \`tBTC\` \`balance\` is insufficient, it attempts to \`withdraw\` the required amount from the \`Portal\`. \`\`\` function withdraw( uint256 assets, address receiver, address owner ) public override returns (uint256) { uint256 currentAssetsBalance = IERC20(asset()).balanceOf(address(this)); uint256 assetsWithFees = assets + \_feeOnRaw(assets, exitFeeBasisPoints); if (assetsWithFees > currentAssetsBalance) { dispatcher.withdraw(assetsWithFees - currentAssetsBalance); } return super.withdraw(assets, receiver, owner); } \`\`\` The \`withdraw\` function assumes that the requested amount is less than the amount \`deposited\` in the \`Portal\`. However, \`tBTC\` that hasn’t been \`deposited\` into the \`Portal\` yet—such as donated tokens or rewards—is not considered. As a result, the requested withdrawal amount could exceed the \`Portal\`'s \`deposits\` but still be less than the \`total assets\` of the \`MezoAllocator\`. \`\`\` function withdraw(uint256 amount) external { if (msg.sender != address(stbtc)) revert CallerNotStbtc();
 
-&#x20;   if (amount < depositBalance) {         mezoPortal.withdrawPartially(             address(tbtc),             depositId,             uint96(amount)         );     } else {         mezoPortal.withdraw(address(tbtc), depositId);     }     depositBalance -= uint96(amount); // @audit: underflow when amount > depositBalance     tbtc.safeTransfer(address(stbtc), amount); } \`\`\` This discrepancy can cause a \`withdrawal\` failure due to \`underflow\`, effectively locking users' funds until the next \`allocation\` by \`MezoAllocator\` \`maintainers\`.
+if (amount < depositBalance) { mezoPortal.withdrawPartially( address(tbtc), depositId, uint96(amount) ); } else { mezoPortal.withdraw(address(tbtc), depositId); } depositBalance -= uint96(amount); // @audit: underflow when amount > depositBalance tbtc.safeTransfer(address(stbtc), amount); } \`\`\` This discrepancy can cause a \`withdrawal\` failure due to \`underflow\`, effectively locking users' funds until the next \`allocation\` by \`MezoAllocator\` \`maintainers\`.
 
 ## Impact Details
 
@@ -27,15 +27,15 @@ The impact is clear, as it can lead to a denial of service (DoS) and lock users'
 
 ## References
 
-https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L474-L479 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L297 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L442 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L241
+<https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L474-L479> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L297> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L442> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L241>
 
 ## Recommendation
 
-\`\`\` function withdraw(uint256 amount) external {     if (msg.sender != address(stbtc)) revert CallerNotStbtc();
+\`\`\` function withdraw(uint256 amount) external { if (msg.sender != address(stbtc)) revert CallerNotStbtc();
 
-&#x20;   if (amount < depositBalance) {         mezoPortal.withdrawPartially(             address(tbtc),             depositId,             uint96(amount)         );     } else {         mezoPortal.withdraw(address(tbtc), depositId);     } -    depositBalance -= uint96(amount);
+if (amount < depositBalance) { mezoPortal.withdrawPartially( address(tbtc), depositId, uint96(amount) ); } else { mezoPortal.withdraw(address(tbtc), depositId); } - depositBalance -= uint96(amount);
 
-* depositBalance = depositBalance > uint96(amount) ? depositBalance - uint96(amount) : 0;     tbtc.safeTransfer(address(stbtc), amount); } \`\`\`
+* depositBalance = depositBalance > uint96(amount) ? depositBalance - uint96(amount) : 0; tbtc.safeTransfer(address(stbtc), amount); } \`\`\`
 
 ## Proof of Concept
 

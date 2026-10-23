@@ -1,11 +1,11 @@
-# #38160 \[BC-Insight] Governance calling \`sbtc-registry.update-protocol-contract\` may cause Stacks' events to be ignored by the signer
+# #38160 \[BC-Insight] Governance calling \`sbtc-registry.update-protocol-contract\` may cause Stacks' ev
 
 **Submitted on Dec 26th 2024 at 14:52:55 UTC by @f4lc0n for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38160
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Permanent freezing of funds (fix requires hardfork)
   * API crash preventing correct processing of deposits

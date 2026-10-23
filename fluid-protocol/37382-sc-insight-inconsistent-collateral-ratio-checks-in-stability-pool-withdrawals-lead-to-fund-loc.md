@@ -1,11 +1,11 @@
-# #37382 \[SC-Insight] Inconsistent Collateral Ratio Checks in Stability Pool Withdrawals Lead to Fund-Locking DoS
+# #37382 \[SC-Insight] Inconsistent Collateral Ratio Checks in Stability Pool Withdrawals Lead to Fund-
 
 **Submitted on Dec 3rd 2024 at 16:14:10 UTC by @InquisitorScythe for** [**IOP | Fluid Protocol**](https://immunefi.com/audit-competition/iop-fluid-protocol)
 
 * **Report ID:** #37382
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/stability-pool-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/stability-pool-contract/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield

@@ -1,11 +1,11 @@
-# #37661 \[SC-High] Incorrect \`total\_active\_stake\` reduction causes loss of funds for the users and excessive fees collection over time
+# #37661 \[SC-High] Incorrect \`total\_active\_stake\` reduction causes loss of funds for the users and exc
 
 **Submitted on Dec 11th 2024 at 22:09:38 UTC by @holydevoti0n for** [**Audit Comp | Folks: Liquid Staking**](https://immunefi.com/audit-competition/folks-finance-liquid-staking-audit-competition)
 
 * **Report ID:** #37661
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield
@@ -18,7 +18,7 @@ The burn operation incorrectly reduces `total_active_stake` by including rewards
 
 ## Vulnerability Details
 
-When users burn xALGO, the contract incorrectly reduces `total_active_stake` by the full withdrawal amount (stake + `rewards`): https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L824
+When users burn xALGO, the contract incorrectly reduces `total_active_stake` by the full withdrawal amount (stake + `rewards`): <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L824>
 
 ```solidity
 def burn(send_xalgo: abi.AssetTransferTransaction, min_received: abi.Uint64) -> Expr:
@@ -51,7 +51,7 @@ def burn(send_xalgo: abi.AssetTransferTransaction, min_received: abi.Uint64) -> 
 2. Subsequent burns use this distorted `total_active_stake` value.
 3. Creates compounding error where each burn further distorts the rate.
 
-The second problem is that the `total_active_stake` is used to calculate the protocol fees and the total in rewards: https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L144-L147
+The second problem is that the `total_active_stake` is used to calculate the protocol fees and the total in rewards: <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L144-L147>
 
 ```solidity
 def update_total_rewards_and_unclaimed_fees():

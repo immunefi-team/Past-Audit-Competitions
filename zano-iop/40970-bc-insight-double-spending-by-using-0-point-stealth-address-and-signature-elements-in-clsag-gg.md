@@ -1,11 +1,11 @@
-# #40970 \[BC-Insight] Double spending by using 0-point stealth address and signature elements in CLSAG-GGX proof verification
+# #40970 \[BC-Insight] Double spending by using 0-point stealth address and signature elements in CLSAG
 
 **Submitted on Mar 8th 2025 at 12:46:32 UTC by @Blockian for** [**IOP | Zano**](https://immunefi.com/audit-competition/iop-zano)
 
 * **Report ID:** #40970
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/zano-iop/tree/main/src/crypto
+* **Target:** <https://github.com/immunefi-team/zano-iop/tree/main/src/crypto>
 * **Impacts:**
   * Direct loss of funds
 
@@ -22,7 +22,7 @@ As Immunefi's MD rederer doesn't render links nor Math, I suggest copying this r
 The original challenge-response relation that is required when validating a CLSAG-GGX signature is:
 
 $$
-c = H\left( r_gG + c(\alpha_0 S + \alpha_1 (A - \tilde{C})), \; r_gH(S) + c (\alpha_0 I + \alpha_1 K_1), r_xX + c\alpha_2 (Q - \tilde{Q}), r_xH(S) + c\alpha_2K_2 \right)
+c = H\left( r\_gG + c(\alpha\_0 S + \alpha\_1 (A - \tilde{C})), ; r\_gH(S) + c (\alpha\_0 I + \alpha\_1 K\_1), r\_xX + c\alpha\_2 (Q - \tilde{Q}), r\_xH(S) + c\alpha\_2K\_2 \right)
 $$
 
 Where:
@@ -51,7 +51,7 @@ $$
 This simplifies the verification equation when trying to spend that output to:
 
 $$
-c = H\left( r_gG + c(\alpha_1 (A - \tilde{C})), \; r_gH(S) + c (\alpha_0 I + \alpha_1 K_1), r_xX + c\alpha_2 (Q - \tilde{Q}), r_xH(S) + c\alpha_2K_2 \right)
+c = H\left( r\_gG + c(\alpha\_1 (A - \tilde{C})), ; r\_gH(S) + c (\alpha\_0 I + \alpha\_1 K\_1), r\_xX + c\alpha\_2 (Q - \tilde{Q}), r\_xH(S) + c\alpha\_2K\_2 \right)
 $$
 
 ## Step 2 - signature verification
@@ -63,7 +63,7 @@ Setting $\tilde{C} = A$ causes the term $A - \tilde{C}$ to vanish.\
 This simplifies the verification equation to:
 
 $$
-c = H\left( r_gG , \; r_gH(S) + c (\alpha_0 I + \alpha_1 K_1), r_xX + c\alpha_2 (Q - \tilde{Q}), r_xH(S) + c\alpha_2K_2 \right)
+c = H\left( r\_gG , ; r\_gH(S) + c (\alpha\_0 I + \alpha\_1 K\_1), r\_xX + c\alpha\_2 (Q - \tilde{Q}), r\_xH(S) + c\alpha\_2K\_2 \right)
 $$
 
 ### Second term
@@ -73,7 +73,7 @@ $K\_1$ is attacker controlled (the first public key) and is used to verify owner
 Setting both to a 0 point simplifies the equation even further:
 
 $$
-c = H\left( r_gG , \; r_gH(S), r_xX + c\alpha_2 (Q - \tilde{Q}), r_xH(S) + c\alpha_2K_2 \right)
+c = H\left( r\_gG , ; r\_gH(S), r\_xX + c\alpha\_2 (Q - \tilde{Q}), r\_xH(S) + c\alpha\_2K\_2 \right)
 $$
 
 ### Third term
@@ -82,7 +82,7 @@ $\tilde{Q}$ is attacker controlled and is used to verify the output asset is the
 Setting is to equal to $Q$ simplified the equation further:
 
 $$
-c = H\left( r_gG , \; r_gH(S), r_xX, r_xH(S) + c\alpha_2K_2 \right)
+c = H\left( r\_gG , ; r\_gH(S), r\_xX, r\_xH(S) + c\alpha\_2K\_2 \right)
 $$
 
 ### Fourth term
@@ -91,7 +91,7 @@ $K\_2$ is attacker controlled and is the second public key, aslo used to verify 
 Setting is to 0 simplifies the equation further to:
 
 $$
-c = H\left( r_gG , \; r_gH(S), r_xX, r_xH(S)\right)
+c = H\left( r\_gG , ; r\_gH(S), r\_xX, r\_xH(S)\right)
 $$
 
 ### Verification conclusion

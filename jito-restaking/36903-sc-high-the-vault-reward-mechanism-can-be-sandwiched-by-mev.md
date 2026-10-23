@@ -5,7 +5,7 @@
 * **Report ID:** #36903
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Theft of unclaimed yield
 

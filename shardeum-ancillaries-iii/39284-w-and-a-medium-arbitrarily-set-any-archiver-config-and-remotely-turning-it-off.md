@@ -5,7 +5,7 @@
 * **Report ID:** #39284
 * **Report Type:** Websites and Applications
 * **Report severity:** Medium
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Execute arbitrary system commands
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:

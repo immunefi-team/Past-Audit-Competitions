@@ -1,11 +1,11 @@
-# #35526 \[BC-Critical] An attacker can change the account balance after the transaction has been processed.
+# #35526 \[BC-Critical] An attacker can change the account balance after the transaction has been proce
 
 **Submitted on Sep 26th 2024 at 13:11:33 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Core II**](https://immunefi.com/audit-competition/shardeum-core-ii-boost)
 
 * **Report ID:** #35526
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Direct loss of funds
 
@@ -25,11 +25,11 @@ An attacker can set the balance to any value for any account involved in transac
 
 ## References
 
-https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/AccountPatcher.ts#L490
+<https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/AccountPatcher.ts#L490>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/ee50d02c09c87fb97d31d53b1f1bd9cf
+<https://gist.github.com/periniondon630/ee50d02c09c87fb97d31d53b1f1bd9cf>
 
 ## Proof of Concept
 

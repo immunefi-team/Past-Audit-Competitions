@@ -1,11 +1,11 @@
-# #38154 \[SC-Medium] The offchain data provided to the CLAdapter isn’t properly validated and can be from a different CCIP message, resulting in the freezing of funds
+# #38154 \[SC-Medium] The offchain data provided to the CLAdapter isn’t properly validated and can be f
 
 **Submitted on Dec 26th 2024 at 11:28:12 UTC by @iamandreiski for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38154
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/CLAdapter.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/CLAdapter.sol>
 * **Impacts:**
   * Permanent freezing of funds
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol (not lower than $1K))
@@ -273,12 +273,12 @@ Due to the lack of verification on the offchain data with the contents of the CC
 
 Examples of manual execution on different offRamps (you can find such on any live offRamp).
 
-* https://basescan.org/tx/0x37f0d904050a6abafbd76cbbb1f34be2a2f778127df11d64f0a1a2f1446889f2
-* https://etherscan.io/tx/0xbe9d8ff89974d41501cd141d981e66853ad21829aef78bd4b3dd864fccf7e5ac
+* <https://basescan.org/tx/0x37f0d904050a6abafbd76cbbb1f34be2a2f778127df11d64f0a1a2f1446889f2>
+* <https://etherscan.io/tx/0xbe9d8ff89974d41501cd141d981e66853ad21829aef78bd4b3dd864fccf7e5ac>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/iamandreiski/237da9c07e33968ff98de61b720b9845
+<https://gist.github.com/iamandreiski/237da9c07e33968ff98de61b720b9845>
 
 ## Proof of Concept
 

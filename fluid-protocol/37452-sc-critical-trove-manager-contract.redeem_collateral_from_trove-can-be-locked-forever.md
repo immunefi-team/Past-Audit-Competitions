@@ -5,7 +5,7 @@
 * **Report ID:** #37452
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
 

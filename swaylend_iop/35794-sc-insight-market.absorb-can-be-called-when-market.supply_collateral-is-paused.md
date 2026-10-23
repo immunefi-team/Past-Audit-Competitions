@@ -5,7 +5,7 @@
 * **Report ID:** #35794
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 

@@ -5,7 +5,7 @@
 * **Report ID:** #37668
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/stability-pool-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/stability-pool-contract/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

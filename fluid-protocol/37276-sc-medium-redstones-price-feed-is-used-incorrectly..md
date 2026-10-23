@@ -5,7 +5,7 @@
 * **Report ID:** #37276
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/oracle-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/oracle-contract/src/main.sw>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
@@ -62,7 +62,7 @@ And `redstone.read_timestamp` will be checked against with `current_time` in [ma
  94 }
 ````
 
-From above code, we can see that `timestamp()` returns \[The TAI64 timestamp of the current block.] (https://github.com/FuelLabs/sway/blob/6d9065b8d762a39eb475562426a2d4ed17d92d00/sway-lib-std/src/block.sw#L47)
+From above code, we can see that `timestamp()` returns \[The TAI64 timestamp of the current block.] (<https://github.com/FuelLabs/sway/blob/6d9065b8d762a39eb475562426a2d4ed17d92d00/sway-lib-std/src/block.sw#L47>)
 
 2. According to [redstone\_adapter.read\_timestamp](https://github.com/redstone-finance/redstone-oracles-monorepo/blob/187f358b9e48544133034af89da8630061c7df79/packages/fuel-connector/sway/contract_adapter/src/redstone_adapter.sw#L71-L74), the function uses `storage.timestamp` as return value.
 3. And `storage.timestamp` is written by [redstone\_adapter.sw#L139](https://github.com/redstone-finance/redstone-oracles-monorepo/blob/187f358b9e48544133034af89da8630061c7df79/packages/fuel-connector/sway/contract_adapter/src/redstone_adapter.sw#L139) in `redstone_adapter.overwrite_prices` function.

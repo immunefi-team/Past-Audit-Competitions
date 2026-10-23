@@ -1,11 +1,11 @@
-# #36065 \[SC-Insight] \`Market.update\_market\_configuration\` should reuse old configuration's \`base\_token.decimals\`
+# #36065 \[SC-Insight] \`Market.update\_market\_configuration\` should reuse old configuration's \`base\_toke
 
 **Submitted on Oct 17th 2024 at 16:05:55 UTC by @jasonxiale for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #36065
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/main/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/main/contracts/market/src/main.sw>
 * **Impacts:**
 
 ## Description
@@ -29,7 +29,7 @@ Add any relevant links to documentation or code
 
 ## Link to Proof of Concept
 
-https://gist.github.com/crazy4linux/382b80b244a219346a827755a3ea594e
+<https://gist.github.com/crazy4linux/382b80b244a219346a827755a3ea594e>
 
 ## Proof of Concept
 

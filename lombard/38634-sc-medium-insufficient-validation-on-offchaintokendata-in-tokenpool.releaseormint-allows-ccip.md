@@ -1,11 +1,11 @@
-# #38634 \[SC-Medium] Insufficient validation on offchainTokenData in TokenPool.releaseOrMint allows CCIP message to be executed with mismatched payload potentially leading to loss of funds in cross-ch...
+# #38634 \[SC-Medium] Insufficient validation on offchainTokenData in TokenPool.releaseOrMint allows CC
 
 **Submitted on Jan 8th 2025 at 13:20:56 UTC by @nnez for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38634
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
   * Permanent freezing of funds
@@ -63,7 +63,7 @@ Transfer B: amount=2, receiver=Bob
 
 Ideally, Transfer A's payload should only work with Transfer A's CCIP message. However, since `offchainTokenData` (containing the payload and proof) is not part of CCIP's message, it is possible to use Transfer B's payload with Transfer A's CCIP message and pass CCIP verification.
 
-See the comment explaning why `offchainTokenData` is user-control and untrusted: https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/pools/USDC/USDCTokenPool.sol#L127-L155
+See the comment explaning why `offchainTokenData` is user-control and untrusted: <https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/pools/USDC/USDCTokenPool.sol#L127-L155>
 
 Also, if we look further into `TokenPool.releaseOrMint` implementation:
 
@@ -84,7 +84,7 @@ function releaseOrMint(
 }
 ```
 
-_TokenPool.\_validateReleaseOrMint_: https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/pools/TokenPool.sol#L222-L235
+*TokenPool.\_validateReleaseOrMint*: <https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/pools/TokenPool.sol#L222-L235>
 
 We can see that it relies solely on `offchainTokenData` to verify and mint tokens to receiver. It doesn't check that CCIP message is corresponding with input `offChainTokenData`.
 
@@ -112,7 +112,7 @@ Eve pays 0.001 LBTC
 
 This scenario, while potentially occurring in specific use cases of LBTC cross-chain transfers, can result in the loss or freezing of funds. Although the impact may be limited to certain situations, this is a feasibility issue which should not affect the severity of its consequence (loss of funds -> Critical).
 
-Ref: https://immunefisupport.zendesk.com/hc/en-us/articles/16913132495377-Feasibility-Limitation-Standards
+Ref: <https://immunefisupport.zendesk.com/hc/en-us/articles/16913132495377-Feasibility-Limitation-Standards>
 
 ## Recommended Mitigations
 
@@ -120,7 +120,7 @@ Add a check that `descPoolData` (part of CCIP's message) is corresponding with i
 
 ## References
 
-1. Conditions where OffRamp skip calling ccipReceiver: https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L518-L530
+1. Conditions where OffRamp skip calling ccipReceiver: <https://github.com/smartcontractkit/ccip/blob/ccip-develop/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L518-L530>
 
 ## Proof of Concept
 

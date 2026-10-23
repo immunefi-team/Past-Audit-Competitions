@@ -5,7 +5,7 @@
 * **Report ID:** #36567
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://immunefi.com/
+* **Target:** <https://immunefi.com/>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -39,7 +39,7 @@ modify the if statement as follows \`\`\`solidity
 
 ## References
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/LetterOfCredit.sol#L372 https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/LetterOfCredit.sol#L275
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/LetterOfCredit.sol#L372> <https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/LetterOfCredit.sol#L275>
 
 ## Proof of Concept
 

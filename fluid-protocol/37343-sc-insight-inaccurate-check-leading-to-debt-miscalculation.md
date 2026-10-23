@@ -7,7 +7,7 @@
 * **Report ID:** #37343
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Contract fails to deliver promised returns, but doesn't lose value

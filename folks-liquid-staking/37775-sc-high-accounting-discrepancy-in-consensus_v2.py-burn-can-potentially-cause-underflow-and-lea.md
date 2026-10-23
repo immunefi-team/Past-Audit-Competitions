@@ -1,11 +1,11 @@
-# #37775 \[SC-High] Accounting Discrepancy in \`consensus\_v2.py::burn()\`can potentially cause underflow and lead to temporary Denial of Service and a deliberate DOS Attack
+# #37775 \[SC-High] Accounting Discrepancy in \`consensus\_v2.py::burn()\`can potentially cause underflow
 
 **Submitted on Dec 15th 2024 at 14:13:38 UTC by @Oxbakeng for** [**Audit Comp | Folks: Liquid Staking**](https://immunefi.com/audit-competition/folks-finance-liquid-staking-audit-competition)
 
 * **Report ID:** #37775
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Temporary freezing of funds for at least 1 hour
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
@@ -109,7 +109,7 @@ Note: While the contract can be upgraded/updated to mitigate this issue or by th
 
 ## References
 
-https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/main/contracts/xalgo/consensus\_v2.py
+<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/main/contracts/xalgo/consensus\\_v2.py>
 
 ## Proof of Concept
 

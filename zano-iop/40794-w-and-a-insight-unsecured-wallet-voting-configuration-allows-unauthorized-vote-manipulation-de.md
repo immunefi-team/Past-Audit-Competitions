@@ -1,11 +1,11 @@
-# #40794 \[W\&A-Insight] Unsecured Wallet Voting Configuration Allows Unauthorized Vote Manipulation Despite Password Protection
+# #40794 \[W\&A-Insight] Unsecured Wallet Voting Configuration Allows Unauthorized Vote Manipulation Des
 
 **Submitted on Mar 4th 2025 at 00:15:44 UTC by @jovi for** [**IOP | Zano**](https://immunefi.com/audit-competition/iop-zano)
 
 * **Report ID:** #40794
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/zano-iop/blob/main/src/wallet/wallets\_manager.cpp
+* **Target:** <https://github.com/immunefi-team/zano-iop/blob/main/src/wallet/wallets\\_manager.cpp>
 * **Impacts:**
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:
 * Changing registration information

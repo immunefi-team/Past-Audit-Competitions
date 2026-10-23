@@ -7,7 +7,7 @@
 * **Report ID:** #36450
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Temporary freezing of funds within the TimeBasedCollateralPool for at least 48 hours
 
@@ -223,7 +223,7 @@ Because the protocol team will need to investigate the root cause and pass a pro
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testtimebasedcollateralpool-sol
+<https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testtimebasedcollateralpool-sol>
 
 ### Proof of Concept
 
@@ -297,7 +297,7 @@ Test code to show: \`\`\`solidity function testUnStake() public {
 
 Test Log:
 
-https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testunstake\_241103\_0850-log
+<https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testunstake\\_241103\\_0850-log>
 
 \`\`\` \[PASS] testUnStake() (gas: 508557) Logs: Setup Precondition for the test case Deploying TimeBasedCollateralPool Proxy contract that is VisibleBeaconProxy points to TimeBasedCollateralPool\_beacon Initialize TimeBasedCollateralPool contract Approve the TimeBasedCollateralPool\_contract as the collateralizable contract Balance of USDC before depositing: 10000000000 Approve the CollateralVault\_contract to spend USDC to deposit USDC Step: Deposit 10000 USDC to CollateralVault for the user Balance of USDC before depositing: 10000000000 Approve the CollateralVault\_contract to spend USDC to deposit USDC Step: Deposit 10000 USDC to CollateralVault for the user Victim stake to TimeBasedCollateralPool. Stake amount: 100000000 user2 stake to TimeBasedCollateralPool, Stake amount: 100000000 Get getAccountTokenState accountTokenState: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7 100000000 0 Victim can unstake amount: 100000000 Scenario: 1 Step: reset pool Pool was reset accountTokenState before unstake victim: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7 accountTokenState before unstake accountTokenState.totalUnits: 100000000 accountTokenState before unstake accountTokenState.firstPendingUnstakeUnits: 0 Step : Victim Unstake from TimeBasedCollateralPool Victim stake to TimeBasedCollateralPool, stake amount: 50000000 Victim stake to TimeBasedCollateralPool Victim transaction expected to revert user2 stake to TimeBasedCollateralPool user2 transaction expected to revert
 
@@ -350,11 +350,11 @@ Note that:
 In the POC, I have created the code with more contract log to make sure my bug is valid.\
 To turn on the log, just modify the code and re-run the test
 
-\`\`\`solidity uint256 contract\_log = 1; \`\`\` Log: https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testunstake\_241103\_0900-log
+\`\`\`solidity uint256 contract\_log = 1; \`\`\` Log: <https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testunstake\\_241103\\_0900-log>
 
 Full POC:
 
-https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testtimebasedcollateralpool-sol
+<https://gist.github.com/Perseverancesuccess2021/f7643506a8ed7cc80ec111ce111151da#file-testtimebasedcollateralpool-sol>
 
 \`\`\`solidity // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.0;
 
@@ -581,7 +581,7 @@ function CreateSignature(uint256 PrivateKey, uint256 _allowanceAdjustment, uint2
 
 Just download the zip file:
 
-https://drive.google.com/file/d/1eaO4\_BvlBjyFhWe22rwnWAL2JzOKhE9m/view?usp=sharing
+<https://drive.google.com/file/d/1eaO4\\_BvlBjyFhWe22rwnWAL2JzOKhE9m/view?usp=sharing>
 
 The test code uses Foundry. Just Unzip and run the test case:
 

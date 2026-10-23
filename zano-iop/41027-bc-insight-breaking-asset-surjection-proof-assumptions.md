@@ -5,7 +5,7 @@
 * **Report ID:** #41027
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/zano-iop/tree/main/src/currency\_core/currency\_format\_utils.cpp
+* **Target:** <https://github.com/immunefi-team/zano-iop/tree/main/src/currency\\_core/currency\\_format\\_utils.cpp>
 * **Impacts:**
   * Cryptographic inconsistency
 

@@ -5,7 +5,7 @@
 * **Report ID:** #38341
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol (not lower than $1K))
 

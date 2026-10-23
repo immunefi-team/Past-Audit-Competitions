@@ -7,7 +7,7 @@
 * **Report ID:** #35979
 * **Report Type:** Websites and Applications
 * **Report severity:** High
-* **Target:** https://github.com/shardeum/archive-server/tree/dev
+* **Target:** <https://github.com/shardeum/archive-server/tree/dev>
 * **Impacts:**
   * Execute arbitrary system commands
   * Retrieve sensitive data/files from a running server, such as: /etc/shadow, database passwords, blockchain keys (this does not include non-sensitive environment variables, open source code, or usernames)
@@ -23,7 +23,7 @@
 
 An SQL injection vulnerability exists in all \`INSERT OR REPLACE INTO\` queries. This allows any actor capable of triggering these functions remotely (such as malicious Archivers or Validators) to execute arbitrary SQL code, potentially manipulating the database depending on their expertise with SQL injection techniques.
 
-Further details regarding the potential impact are provided in the [Impact Section](broken-reference) and [Deep Dive Section](broken-reference)
+Further details regarding the potential impact are provided in the [Impact Section](https://github.com/immunefi-team/Past-Audit-Competitions/blob/main/shardeum-ancillaries-ii/broken-reference/README.md) and [Deep Dive Section](https://github.com/immunefi-team/Past-Audit-Competitions/blob/main/shardeum-ancillaries-ii/broken-reference/README.md)
 
 ### Root Cause
 
@@ -45,7 +45,7 @@ The function \`bulkInsertOriginalTxsData\` is invoked by \`storeOriginalTxData\`
 2. Verifying that \`txId\` is not present in the \`processedOriginalTxsMap\` or \`originalTxsInValidationMap\`, or that the timestamp is different.
 3. Checking if \`validateOriginalTxData(originalTxData)\` returns true.
 
-However, the issues lies in \`validateOriginalTxData\`, which uses \`Utils.validateTypes\` to confirm the input matches the required type. Unfortunately, \`Utils.validateTypes\` does not reject additional, potentially malicious keys. This omission allows a malicious actor to submit a _**valid**_ (emphasis on valid) \`originalTxData\` object with extra keys containing SQL injection payloads.
+However, the issues lies in \`validateOriginalTxData\`, which uses \`Utils.validateTypes\` to confirm the input matches the required type. Unfortunately, \`Utils.validateTypes\` does not reject additional, potentially malicious keys. This omission allows a malicious actor to submit a ***valid*** (emphasis on valid) \`originalTxData\` object with extra keys containing SQL injection payloads.
 
 ### Deep Dive
 
@@ -92,7 +92,7 @@ This vulnerability is highly impactful, as SQL injection is a well-known vector 
 There are two primary solutions to address this issue:
 
 1. Avoid constructing SQL queries dynamically based on unsanitized object keys.
-2. Introduce a \`Utils.validateTypesStrict\` function that strictly enforces the presence of _**only**_ the necessary fields, rejecting any additional keys in the input.
+2. Introduce a \`Utils.validateTypesStrict\` function that strictly enforces the presence of ***only*** the necessary fields, rejecting any additional keys in the input.
 
 ### Proof of Concept
 
@@ -104,7 +104,7 @@ This proof of concept demonstrates how a malicious actor can exploit the vulnera
 
 ### Step 1
 
-_**Add a route to the validator**_: Add a new route to the validator to send \`DATA\` messages via the socket. \`\`\`js const blockianRoute: P2P.P2PTypes.Route\<Handler> = { method: 'POST', name: 'blockian', handler: (req, res) => { const body = req.body
+***Add a route to the validator***: Add a new route to the validator to send \`DATA\` messages via the socket. \`\`\`js const blockianRoute: P2P.P2PTypes.Route\<Handler> = { method: 'POST', name: 'blockian', handler: (req, res) => { const body = req.body
 
 ```
 let success &#x3D; true
@@ -148,7 +148,7 @@ Run the local network by following the instructions in the [Shardeum repository]
 
 ### Step 4
 
-Send a POST request to the malicious validator with the following payload:&#x20;
+Send a POST request to the malicious validator with the following payload:
 
 ```json
 {
@@ -162,7 +162,7 @@ Send a POST request to the malicious validator with the following payload:&#x20;
 }
 ```
 
-_**Note**_ For our example, this transaction data serves as the "real" transaction:&#x20;
+***Note*** For our example, this transaction data serves as the "real" transaction:
 
 ```json
 {
@@ -175,4 +175,4 @@ _**Note**_ For our example, this transaction data serves as the "real" transacti
 
 ### Step 5
 
-_**Verify the database changes**_: After the SQL injection, the following transactions will appear in the Archiver's database: \`(1, '{}', 1697192678, '12345')\` \`(22222, '{}', 1697192679, '123123')\`
+***Verify the database changes***: After the SQL injection, the following transactions will appear in the Archiver's database: \`(1, '{}', 1697192678, '12345')\` \`(22222, '{}', 1697192679, '123123')\`

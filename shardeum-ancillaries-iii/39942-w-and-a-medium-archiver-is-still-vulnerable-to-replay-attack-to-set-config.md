@@ -5,7 +5,7 @@
 * **Report ID:** #39942
 * **Report Type:** Websites and Applications
 * **Report severity:** Medium
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:
 * Changing registration information
@@ -20,7 +20,7 @@
 
 I decided to check how you addressed the #35824 report, and it turns out that the vulnerability still exists.
 
-https://github.com/shardeum/archiver/blob/cbe1d515e91058d17fa483f84361992cd3d1cf9c/src/DebugMode.ts#L5-L48
+<https://github.com/shardeum/archiver/blob/cbe1d515e91058d17fa483f84361992cd3d1cf9c/src/DebugMode.ts#L5-L48>
 
 According to the current policy (refer the attached screenshot),
 
@@ -33,7 +33,7 @@ Since `35824` is not mentioned in the list above, I believe the issue is in scop
 ## Vulnerability Details
 
 With your permission, I will not duplicate all the report details here. Please refer to the previous report on\
-https://bugs.immunefi.com/dashboard/submission/35824
+<https://bugs.immunefi.com/dashboard/submission/35824>
 
 Briefly, the `debugMiddleware` checks the protected endpoints request authenticity by checking:
 

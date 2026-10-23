@@ -7,7 +7,7 @@
 * **Report ID:** #39893
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Malicious interactions with an already-connected wallet, such as:
 * Modifying transaction arguments or parameters

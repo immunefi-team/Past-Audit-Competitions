@@ -5,7 +5,7 @@
 * **Report ID:** #38137
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/RateLimits.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/RateLimits.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -41,7 +41,7 @@ Rate limit functionality will be bypassed/broken and users will be able to depos
 
 ## References
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/RateLimits.sol#L91
+<https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/RateLimits.sol#L91>
 
 ## Mitigation
 

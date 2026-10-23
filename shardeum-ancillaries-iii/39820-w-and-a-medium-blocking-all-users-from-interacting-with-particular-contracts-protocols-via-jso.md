@@ -1,11 +1,11 @@
-# #39820 \[W\&A-Medium] Blocking all users from interacting with particular contracts/protocols via JSON-RPC server
+# #39820 \[W\&A-Medium] Blocking all users from interacting with particular contracts/protocols via JSON
 
 **Submitted on Feb 8th 2025 at 09:55:13 UTC by @anton\_quantish for** [**Audit Comp | Shardeum: Ancillaries III**](https://immunefi.com/audit-competition/audit-comp-shardeum-ancillaries-iii)
 
 * **Report ID:** #39820
 * **Report Type:** Websites and Applications
 * **Report severity:** Medium
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/itn4
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/itn4>
 * **Impacts:**
   * RPC API crash affecting projects with greater than or equal to 25% of the market capitalization on top of the respective layer
 
@@ -20,7 +20,7 @@ I found a way to prevent all the JSON-RPC users from interacting with particular
 Every JSON-RPC method call passes through the `rateLimitMiddleware` which, in turn, passes them through `utils.ts:isRequestOkay` checking method.
 
 If the method called is 'eth\_sendRawTransaction', the transaction object restores from the raw tx hash and, among the other checks, the `to` address requests history is checked:\
-https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L1114-L1142
+<https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L1114-L1142>
 
 ```js
 if (config.rateLimit && config.rateLimitOption.limitToAddress) {

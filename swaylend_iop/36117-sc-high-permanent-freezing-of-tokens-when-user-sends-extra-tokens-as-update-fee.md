@@ -5,7 +5,7 @@
 * **Report ID:** #36117
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw>
 * **Impacts:**
 
 ## Description
@@ -14,9 +14,9 @@
 
 Anyone can update the price of an assets using \`update\_price\_feeds\_if\_necessary\` function.
 
-https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1269-L1273 \`\`\`sway #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary(price\_data\_update: PriceDataUpdate) { reentrancy\_guard(); update\_price\_feeds\_if\_necessary\_internal(price\_data\_update) } \`\`\`
+<https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1269-L1273> \`\`\`sway #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary(price\_data\_update: PriceDataUpdate) { reentrancy\_guard(); update\_price\_feeds\_if\_necessary\_internal(price\_data\_update) } \`\`\`
 
-https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441-L1469 \`\`\`sway #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary\_internal(price\_data\_update: PriceDataUpdate) { let contract\_id = storage.pyth\_contract\_id.read(); require( contract\_id != ContractId::zero(), Error::OracleContractIdNotSet, );
+<https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441-L1469> \`\`\`sway #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary\_internal(price\_data\_update: PriceDataUpdate) { let contract\_id = storage.pyth\_contract\_id.read(); require( contract\_id != ContractId::zero(), Error::OracleContractIdNotSet, );
 
 ```
 // check if the payment is sufficient
@@ -55,8 +55,8 @@ Either return the remaining tokens back to the caller at the end of function OR 
 
 ## References
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1269-L1273
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441-L1469
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1269-L1273>
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441-L1469>
 
 ## Proof Of Concept
 

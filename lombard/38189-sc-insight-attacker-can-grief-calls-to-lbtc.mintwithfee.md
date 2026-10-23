@@ -5,7 +5,7 @@
 * **Report ID:** #38189
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol (not lower than $1K))
 
@@ -27,7 +27,7 @@ All calls to `lbtc.mintWithFee()` can be griefed by an attacker by frontrunning 
 
 ## References
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/LBTC/LBTC.sol#L415
+<https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/LBTC/LBTC.sol#L415>
 
 ## Proof of Concept
 

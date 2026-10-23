@@ -5,7 +5,7 @@
 * **Report ID:** #37409
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield
@@ -41,11 +41,11 @@ Ultimately, the zero address is added to `current_crs` and enters the redemption
 
 ## References
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L159
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L159>
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L331
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L331>
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/sorted-troves-contract/src/main.sw#L183
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/sorted-troves-contract/src/main.sw#L183>
 
 ## Impact Details
 

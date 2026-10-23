@@ -5,7 +5,7 @@
 * **Report ID:** #37354
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw>
 * **Impacts:**
   * Smart contract unable to operate due to lack of token funds
   * Contract fails to deliver promised returns, but doesn't lose value
@@ -67,7 +67,7 @@ This situation is rare as we can expect that the liquidation will eventually pro
 
 ## References
 
-Reference: https://github.com/Hydrogen-Labs/fluid-protocol/blob/78ab7bdd243b414b424fca6e1eb144218f36a18a/contracts/protocol-manager-contract/src/main.sw#L327
+Reference: <https://github.com/Hydrogen-Labs/fluid-protocol/blob/78ab7bdd243b414b424fca6e1eb144218f36a18a/contracts/protocol-manager-contract/src/main.sw#L327>
 
 ## Proof of Concept
 

@@ -5,7 +5,7 @@
 * **Report ID:** #37056
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/borrow-operations-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/borrow-operations-contract/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

@@ -1,11 +1,11 @@
-# #38053 \[BC-High] A single signer can continuously prevent signatures from being finalized, halting network operations
+# #38053 \[BC-High] A single signer can continuously prevent signatures from being finalized, halting n
 
 **Submitted on Dec 23rd 2024 at 11:35:57 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38053
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

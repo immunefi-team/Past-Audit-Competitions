@@ -5,7 +5,7 @@
 * **Report ID:** #35026
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * wrong return value
@@ -28,9 +28,9 @@ This returns a wrong value to the caller
 
 ## References
 
-repayDebt comment - https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L346
+repayDebt comment - <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L346>
 
-previewRepayDebt - https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L533-L535
+previewRepayDebt - <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L533-L535>
 
 ## Proof of Concept
 

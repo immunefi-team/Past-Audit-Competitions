@@ -1,11 +1,11 @@
-# #37311 \[SC-High] Attackers can steal rewards by depositing, updating vault balance and withdrawing immediately after a large reward is deposited
+# #37311 \[SC-High] Attackers can steal rewards by depositing, updating vault balance and withdrawing i
 
 **Submitted on Dec 2nd 2024 at 05:47:34 UTC by @niroh for** [**Audit Comp | Jito Restaking**](https://immunefi.com/audit-competition/jito-restaking-audit-competition)
 
 * **Report ID:** #37311
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Theft of unclaimed yield
 
@@ -55,7 +55,7 @@ mint\_to (deposit) instruction should update\_vault\_balance before calculating 
 
 ## References
 
-https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\_program/src/update\_vault\_balance.rs#L12
+<https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\\_program/src/update\\_vault\\_balance.rs#L12>
 
 ## Proof of Concept
 

@@ -5,7 +5,7 @@
 * **Report ID:** #35537
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/dev
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/dev>
 * **Impacts:**
   * Taking down the application/website
 
@@ -19,7 +19,7 @@ There is no limit on max number of elements in this map.
 
 ## Vulnerability Details
 
-Let's look at the code https://github.com/shardeum/json-rpc-server/blob/dev/src/websocket/index.ts#L94
+Let's look at the code <https://github.com/shardeum/json-rpc-server/blob/dev/src/websocket/index.ts#L94>
 
 \`\`\` if (method\_name === 'eth\_subscribe') { if (!CONFIG.websocket.enabled || !CONFIG.websocket.serveSubscriptions) { socket.send(JSON.stringify(constructRPCErrorRes('Subscription serving disabled', -1, request.id))) return } try { nestedCountersInstance.countEvent('websocket', 'eth\_subscribe') if ( typeof request.params\[1] === 'object' && ('address' in request.params\[1] || 'topics' in request.params\[1]) ) { let subscription\_id = crypto.randomBytes(32).toString('hex') subscription\_id = '0x' + crypto.createHash('sha256').update(subscription\_id).digest().toString('hex') subscription\_id = subscription\_id.substring(0, 46) request.params\[10] = subscription\_id const address = request.params\[1].address const topics = request.params\[1].topics ... ... if (request.params\[1].topics) { request.params\[1].topics = request.params\[1].topics.map((topic: string | undefined) => { return topic?.toLowerCase() }) } const subscriptionDetails: SubscriptionDetails = { address: request.params\[1].address as string\[], topics: request.params\[1].topics as string\[], }
 
@@ -40,7 +40,7 @@ By sending a lot of subscription requests via eth\_subscribe method, a remote at
 
 ## Link to Proof of Concept
 
-https://gist.github.com/gln7/ae95443ac53ed74d127f7637ae4ffb4a
+<https://gist.github.com/gln7/ae95443ac53ed74d127f7637ae4ffb4a>
 
 ## Proof of Concept
 

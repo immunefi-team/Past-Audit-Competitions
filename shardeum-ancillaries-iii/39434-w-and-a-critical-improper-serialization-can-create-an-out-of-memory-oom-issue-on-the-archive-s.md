@@ -1,11 +1,11 @@
-# #39434 \[W\&A-Critical] Improper serialization can create an out-of-memory (OOM) issue on the archive server.
+# #39434 \[W\&A-Critical] Improper serialization can create an out-of-memory (OOM) issue on the archive
 
 **Submitted on Jan 30th 2025 at 10:23:46 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Ancillaries III**](https://immunefi.com/audit-competition/audit-comp-shardeum-ancillaries-iii)
 
 * **Report ID:** #39434
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Taking down the application/website
 
@@ -37,11 +37,11 @@ An OOM condition can render the archive server unresponsive, legitimate processe
 
 ## References
 
-https://github.com/shardeum/lib-types/blob/ebf34c1538e8ece8a6e022cf4774ee27fd4ddcc7/src/utils/functions/stringify.ts#L122
+<https://github.com/shardeum/lib-types/blob/ebf34c1538e8ece8a6e022cf4774ee27fd4ddcc7/src/utils/functions/stringify.ts#L122>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/c19ee4b28d9d813c1503227cdfb15af7
+<https://gist.github.com/periniondon630/c19ee4b28d9d813c1503227cdfb15af7>
 
 ## Proof of Concept
 

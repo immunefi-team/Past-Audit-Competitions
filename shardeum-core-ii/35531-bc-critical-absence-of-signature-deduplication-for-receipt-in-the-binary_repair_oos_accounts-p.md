@@ -1,11 +1,11 @@
-# #35531 \[BC-Critical] Absence of signature deduplication for receipt in the binary\_repair\_oos\_accounts P2P handler
+# #35531 \[BC-Critical] Absence of signature deduplication for receipt in the binary\_repair\_oos\_account
 
 **Submitted on Sep 26th 2024 at 15:03:22 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Core II**](https://immunefi.com/audit-competition/shardeum-core-ii-boost)
 
 * **Report ID:** #35531
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Direct loss of funds
 
@@ -25,11 +25,11 @@ An attacker can set the balance to any value for any account stored on their act
 
 ## References
 
-https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/AccountPatcher.ts#L490 https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/TransactionConsensus.ts#L1714
+<https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/AccountPatcher.ts#L490> <https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/TransactionConsensus.ts#L1714>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/e7f4488062f558b8909ed7d528446e37
+<https://gist.github.com/periniondon630/e7f4488062f558b8909ed7d528446e37>
 
 ## Proof of Concept
 

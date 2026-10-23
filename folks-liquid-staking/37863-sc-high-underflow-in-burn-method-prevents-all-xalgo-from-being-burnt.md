@@ -5,7 +5,7 @@
 * **Report ID:** #37863
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Temporary freezing of funds for at least 1 hour
 
@@ -17,21 +17,21 @@ A portion of minted xALGO cannot be burned, leading to users losing their funds.
 
 ## Vulnerability Details
 
-The problem arises in `burn` method (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L793) due to a possible underflow at L824 (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L824). The underflow happens because the ALGO to be returned during the burn is allocated only from the `total_active_stake`, while the xALGO in reality represents also the portion of ALGO that have been received by the protocol as part of the staking rewards `total_reward`. Because the smart contract remains upgradable, a future smart contract upgrade could possibly recover these funds.
+The problem arises in `burn` method (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L793>) due to a possible underflow at L824 (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L824>). The underflow happens because the ALGO to be returned during the burn is allocated only from the `total_active_stake`, while the xALGO in reality represents also the portion of ALGO that have been received by the protocol as part of the staking rewards `total_reward`. Because the smart contract remains upgradable, a future smart contract upgrade could possibly recover these funds.
 
 ## Impact Details
 
-The amount of xALGO that cannot be burnt is increasing with the reward that the protocol is getting, i.e. `xALGO_{lost} = xALGO_{minted} * (R-U)/(A+R-U)`, where `A` is the `total_active_stake`, `R` the `total_reward`, and `U` the `total_unclaimed_fees`. Based on the current state of the Algorand Mainnet (application ID: 1134695678 (https://lora.algokit.io/mainnet/application/1134695678)), this would result in about 111,000 ALGO being lost by users that are last to burn their xALGO.
+The amount of xALGO that cannot be burnt is increasing with the reward that the protocol is getting, i.e. `xALGO_{lost} = xALGO_{minted} * (R-U)/(A+R-U)`, where `A` is the `total_active_stake`, `R` the `total_reward`, and `U` the `total_unclaimed_fees`. Based on the current state of the Algorand Mainnet (application ID: 1134695678 (<https://lora.algokit.io/mainnet/application/1134695678>)), this would result in about 111,000 ALGO being lost by users that are last to burn their xALGO.
 
 ## References
 
-This is the high-level security bug found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
+This is the high-level security bug found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84>. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-The test demonstrating that not all xALGO can be burned is implemented in `burn_test.py`, found in https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84 (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
+The test demonstrating that not all xALGO can be burned is implemented in `burn_test.py`, found in <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84> (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
 
 import pytest from algokit\_utils import ( TransactionParameters, ) from algokit\_utils.beta.account\_manager import AddressAndSigner from algokit\_utils.beta.algorand\_client import AlgorandClient from algokit\_utils.beta.composer import AssetTransferParams from algosdk.atomic\_transaction\_composer import ( AtomicTransactionComposer, TransactionWithSigner, ) from algosdk.error import AlgodHTTPError
 

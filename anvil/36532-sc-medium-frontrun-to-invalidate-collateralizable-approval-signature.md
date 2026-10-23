@@ -5,7 +5,7 @@
 * **Report ID:** #36532
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -38,19 +38,19 @@ So there will be cases when a malicious actor front-runs a staker by a transacti
 
 ## References
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L294-L311
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L294-L311>
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L793-L823
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L793-L823>
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L587-L630
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L587-L630>
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L648-L663
-
-## Proof of Concept
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L648-L663>
 
 ## Proof of Concept
 
-This PoC is created as a Solidity test file under repository https://github.com/AcronymFoundation/anvil-contracts/tree/main
+## Proof of Concept
+
+This PoC is created as a Solidity test file under repository <https://github.com/AcronymFoundation/anvil-contracts/tree/main>
 
 \`\`\`solidity pragma solidity 0.8.25;
 

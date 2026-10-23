@@ -5,7 +5,7 @@
 * **Report ID:** #36137
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw>
 * **Impacts:**
   * Block stuffing
 

@@ -1,11 +1,11 @@
-# #34836 \[SC-Medium] Malicious party can make it impossible for debt to be completely repaid by donating a few tbtc to \`stBTC.sol\`
+# #34836 \[SC-Medium] Malicious party can make it impossible for debt to be completely repaid by donati
 
 **Submitted on Aug 28th 2024 at 19:29:25 UTC by @Dliteofficial for** [**Audit Comp | Acre**](https://immunefi.com/audit-competition/boost-acre)
 
 * **Report ID:** #34836
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 

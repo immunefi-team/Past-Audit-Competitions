@@ -7,7 +7,7 @@
 * **Report ID:** #36303
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -73,7 +73,7 @@ It is easy to automate the attack
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-testtimebasedcollateralpool-sol
+<https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-testtimebasedcollateralpool-sol>
 
 ### Proof of Concept
 
@@ -125,7 +125,7 @@ But in the testStake\_hacked(), the attacker front-run the victim's transaction 
 
 Test Logs: Log file:
 
-https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-teststake\_241028\_2120-log
+<https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-teststake\\_241028\\_2120-log>
 
 \`\`\`Log No files changed, compilation skipped
 
@@ -145,7 +145,7 @@ Encountered a total of 1 failing tests, 1 tests succeeded
 
 Full POC:
 
-https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-testtimebasedcollateralpool-sol
+<https://gist.github.com/Perseverancesuccess2021/5dd1ab799db0034872a7a436614092b8#file-testtimebasedcollateralpool-sol>
 
 \`\`\`solidity // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.0;
 
@@ -286,7 +286,7 @@ function testStake_hacked() public {
 
 Just download the zip file:
 
-https://drive.google.com/file/d/1u6GpvBXKcHu\_OBxBmMPtw-d2EirSsKtw/view?usp=sharing
+<https://drive.google.com/file/d/1u6GpvBXKcHu\\_OBxBmMPtw-d2EirSsKtw/view?usp=sharing>
 
 The test code uses Foundry. Just Unzip and run the test case:
 

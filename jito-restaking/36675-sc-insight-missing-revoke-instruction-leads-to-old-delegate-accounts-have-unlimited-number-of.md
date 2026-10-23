@@ -1,23 +1,23 @@
-# #36675 \[SC-Insight] Missing revoke instruction leads to Old delegate accounts have unlimited number of token allowance
+# #36675 \[SC-Insight] Missing revoke instruction leads to Old delegate accounts have unlimited number
 
 **Submitted on Nov 10th 2024 at 19:00:49 UTC by @shanb1605 for** [**Audit Comp | Jito Restaking**](https://immunefi.com/audit-competition/jito-restaking-audit-competition)
 
 * **Report ID:** #36675
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/restaking\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/restaking\\_program>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
 ## Description
 
-_**Exact Affected Files:**_
+***Exact Affected Files:***
 
-https://github.com/jito-foundation/restaking/blob/master/restaking\_program/src/ncn\_delegate\_token\_account.rs
+<https://github.com/jito-foundation/restaking/blob/master/restaking\\_program/src/ncn\\_delegate\\_token\\_account.rs>
 
-https://github.com/jito-foundation/restaking/blob/master/restaking\_program/src/operator\_delegate\_token\_account.rs
+<https://github.com/jito-foundation/restaking/blob/master/restaking\\_program/src/operator\\_delegate\\_token\\_account.rs>
 
-https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/delegate\_token\_account.rs
+<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/delegate\\_token\\_account.rs>
 
 ## Brief/Intro
 
@@ -29,11 +29,11 @@ Since, there is no specific instruction or inbuilt instruction to revoke the old
 
 ## Vulnerability Details
 
-Unlimited token approval take place in the three process. _**ncn\_delegate\_token\_account.rs**_ https://github.com/jito-foundation/restaking/blob/master/restaking\_program/src/ncn\_delegate\_token\_account.rs#L62-L69
+Unlimited token approval take place in the three process. ***ncn\_delegate\_token\_account.rs*** <https://github.com/jito-foundation/restaking/blob/master/restaking\\_program/src/ncn\\_delegate\\_token\\_account.rs#L62-L69>
 
-_**Operator\_delegate\_token\_account.rs**_ https://github.com/jito-foundation/restaking/blob/master/restaking\_program/src/operator\_delegate\_token\_account.rs#L62-L69
+***Operator\_delegate\_token\_account.rs*** <https://github.com/jito-foundation/restaking/blob/master/restaking\\_program/src/operator\\_delegate\\_token\\_account.rs#L62-L69>
 
-_**delegate\_token\_account.rs (Vault program)**_ https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/delegate\_token\_account.rs#L65-L72
+***delegate\_token\_account.rs (Vault program)*** <https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/delegate\\_token\\_account.rs#L65-L72>
 
 The issue is not unlimited approvals, rather than missing instruction for revoking approvals inside those files or separate process function to revoke the approval from Old delegate account.
 
@@ -47,38 +47,38 @@ To describe the vulnerability, here is the necessary assumption:
 
 ## Impact Details
 
-The impact labelled as _**direct theft of user funds**_, as the report clearly states that past delegates have still some allowance amount left, and they are able to spend/steal the amount.
+The impact labelled as ***direct theft of user funds***, as the report clearly states that past delegates have still some allowance amount left, and they are able to spend/steal the amount.
 
 I searched for any revoke instruction written as separate process, it is not viable on in-scope repo. Since, there is missing revoke instruction, the allowance for old delegates stays forever on-chain leading to possible unauthorized spend.
 
 ## References
 
-The Solana staking documentation mentions deactivating the stake delegations must be one of the operations by the authority. https://solana.com/docs/economics/staking/stake-accounts#understanding-account-authorities
+The Solana staking documentation mentions deactivating the stake delegations must be one of the operations by the authority. <https://solana.com/docs/economics/staking/stake-accounts#understanding-account-authorities>
 
 ## Recommendation(s)
 
-Consider adding revoke functionality from SPL token 2022 program: https://docs.rs/spl-token-2022/latest/spl\_token\_2022/instruction/fn.revoke.html
+Consider adding revoke functionality from SPL token 2022 program: <https://docs.rs/spl-token-2022/latest/spl\\_token\\_2022/instruction/fn.revoke.html>
 
 It could be added in affected files or kept as separate process function.
 
 ## Link to Proof of Concept
 
-https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec
+<https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec>
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-POC demonstrates the assumptions stated in _**Vulnerability Description**_
+POC demonstrates the assumptions stated in ***Vulnerability Description***
 
-Make sure everything is set up through cloning the repo: https://github.com/jito-foundation/restaking/tree/master
+Make sure everything is set up through cloning the repo: <https://github.com/jito-foundation/restaking/tree/master>
 
 There is no specific instruction for viewing allowance, so the code logs the allowance amount from state variable after executing each process for Alice and Bob.
 
-Add this snippet to /integration\_tests/tests/restaking/ncn\_delegate\_token\_account.rs https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-ncn\_delegate\_token\_account-rs
+Add this snippet to /integration\_tests/tests/restaking/ncn\_delegate\_token\_account.rs <https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-ncn\\_delegate\\_token\\_account-rs>
 
-Add this snippet to /integration\_tests/tests/restaking/Operator\_delegate\_token\_account.rs https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-operator\_delegate\_token\_account-rs
+Add this snippet to /integration\_tests/tests/restaking/Operator\_delegate\_token\_account.rs <https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-operator\\_delegate\\_token\\_account-rs>
 
-Add this snippet to /integration\_tests/tests/vault/delegate\_token\_account.rs https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-delegate\_token\_account-rs
+Add this snippet to /integration\_tests/tests/vault/delegate\_token\_account.rs <https://gist.github.com/shanb1605/f11146e17f72880e0a5e30b53549b4ec#file-delegate\\_token\\_account-rs>
 
-Each step possess different commands to run, _**follow the snippet's comment on Line no: 1**_ to run the POC
+Each step possess different commands to run, ***follow the snippet's comment on Line no: 1*** to run the POC

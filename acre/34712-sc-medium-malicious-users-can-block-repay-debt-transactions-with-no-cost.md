@@ -5,7 +5,7 @@
 * **Report ID:** #34712
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Block stuffing
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
@@ -47,11 +47,11 @@ Authorized debtors can call the \`mintDebt\` function to mint shares, which they
 Consider the following scenario, demonstrated by a runnable Proof of Concept (PoC) included with this submission:
 
 1. Bob is authorized to incur a debt of \`100\`. He calls \`mintDebt\` to mint 100 shares, and the debt is recorded based on the current conversion rate.
-2.  Later, Bob decides to repay his debt and initiates a transaction to call \`repayDebt\`.
+2. Later, Bob decides to repay his debt and initiates a transaction to call \`repayDebt\`.
 
-    2.1 Alice, a malicious actor, front-runs Bob’s transaction by transferring \`2 wei\` of \`tBTC\` to the \`stBTC\` contract, thereby increasing the conversion rate
+   2.1 Alice, a malicious actor, front-runs Bob’s transaction by transferring \`2 wei\` of \`tBTC\` to the \`stBTC\` contract, thereby increasing the conversion rate
 
-    2.2 When Bob’s transaction begins executing, the \`assets\` value calculated by \`convertToAssets(shares)\` is now higher than his recorded debt, causing the transaction to revert: \`\`\`solidity assets = convertToAssets(shares); if (currentDebt\[msg.sender] < assets) {revert ExcessiveDebtRepayment( msg.sender, currentDebt\[msg.sender], assets );} \`\`\`
+   2.2 When Bob’s transaction begins executing, the \`assets\` value calculated by \`convertToAssets(shares)\` is now higher than his recorded debt, causing the transaction to revert: \`\`\`solidity assets = convertToAssets(shares); if (currentDebt\[msg.sender] < assets) {revert ExcessiveDebtRepayment( msg.sender, currentDebt\[msg.sender], assets );} \`\`\`
 
 This attack incurs no significant cost to the malicious user, as Alice only needs to slightly increase the \`stBTC\` assets (by 2 wei) just before the \`repayDebt\` function is executed.
 
@@ -61,7 +61,7 @@ Malicious users can indefinitely block \`repayDebt\` transactions at no signific
 
 ## References
 
-https://github.com/thesis/acre/blob/dc156f5a7f02142c1f80627267d14a26e5c99b30/solidity/contracts/stBTC.sol#L350-L353
+<https://github.com/thesis/acre/blob/dc156f5a7f02142c1f80627267d14a26e5c99b30/solidity/contracts/stBTC.sol#L350-L353>
 
 ## Proof of Concept
 

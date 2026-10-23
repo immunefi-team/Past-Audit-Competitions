@@ -7,7 +7,7 @@
 * **Report ID:** #37650
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
   * USDF Pegging Mechanism Issue

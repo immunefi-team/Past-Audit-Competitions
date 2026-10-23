@@ -1,11 +1,11 @@
-# #37479 \[BC-High] A single signer can lock users' funds by not notifying other signers of the executed \`sweep\` transaction
+# #37479 \[BC-High] A single signer can lock users' funds by not notifying other signers of the execute
 
 **Submitted on Dec 5th 2024 at 20:53:10 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37479
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Direct loss of funds
   * Permanent freezing of funds (fix requires hardfork)

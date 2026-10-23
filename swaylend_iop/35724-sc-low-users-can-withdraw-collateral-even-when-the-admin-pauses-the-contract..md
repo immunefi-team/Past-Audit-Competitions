@@ -5,7 +5,7 @@
 * **Report ID:** #35724
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/abis/market\_abi/src/abi.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/abis/market\\_abi/src/abi.sw>
 * **Impacts:**
   * Users can interact with some critical functionalities the protocol when paused
 
@@ -66,7 +66,7 @@ Here, users will be able to bypass the sanctions put by the admin on the market 
 
 ## References
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/63e7b1163216d1400b9436c8d256f0f0e043e225/contracts/market/src/main.sw#L304C1-L338C6
+* <https://github.com/Swaylend/swaylend-monorepo/blob/63e7b1163216d1400b9436c8d256f0f0e043e225/contracts/market/src/main.sw#L304C1-L338C6>
 
 ## Proof of Concept
 

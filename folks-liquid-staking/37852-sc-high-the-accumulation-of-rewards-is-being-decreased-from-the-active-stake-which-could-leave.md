@@ -1,11 +1,11 @@
-# #37852 \[SC-High] The accumulation of rewards is being decreased from the active stake which could leave out users unable to redeem xAlgo
+# #37852 \[SC-High] The accumulation of rewards is being decreased from the active stake which could le
 
 **Submitted on Dec 17th 2024 at 13:12:10 UTC by @dustykid for** [**Audit Comp | Folks: Liquid Staking**](https://immunefi.com/audit-competition/folks-finance-liquid-staking-audit-competition)
 
 * **Report ID:** #37852
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield
@@ -83,7 +83,7 @@ The mechanics described above will result in unjustly decreasing virtual balance
 
 ## Link to Proof of Concept
 
-https://gist.github.com/kaloyan-boyanov/6ae073753b682a31b4cc289d493fae5b
+<https://gist.github.com/kaloyan-boyanov/6ae073753b682a31b4cc289d493fae5b>
 
 ## Proof of Concept
 

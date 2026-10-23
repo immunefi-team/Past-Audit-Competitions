@@ -5,7 +5,7 @@
 * **Report ID:** #34748
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
@@ -26,7 +26,7 @@ If there is only one depositor in stBTC, they can be prevented from withdrawing.
 
 ## References
 
-https://github.com/thesis/acre/blob/dc156f5a7f02142c1f80627267d14a26e5c99b30/solidity/contracts/stBTC.sol#L474-L479
+<https://github.com/thesis/acre/blob/dc156f5a7f02142c1f80627267d14a26e5c99b30/solidity/contracts/stBTC.sol#L474-L479>
 
 ## Proof of Concept
 

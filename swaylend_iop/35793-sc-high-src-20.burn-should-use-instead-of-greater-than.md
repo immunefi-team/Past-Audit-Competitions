@@ -5,7 +5,7 @@
 * **Report ID:** #35793
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/src-20/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/src-20/src/main.sw>
 * **Impacts:**
   * Block stuffing
 

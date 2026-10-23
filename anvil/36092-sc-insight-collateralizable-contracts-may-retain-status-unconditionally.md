@@ -5,7 +5,7 @@
 * **Report ID:** #36092
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f
+* **Target:** <https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Unbounded gas consumption
@@ -55,7 +55,7 @@ Through the use of a [Return Bomb Attack](https://github.com/nomad-xyz/Excessive
 
 Notice that in the \`catch\` clause of the call to \`supportsInterface\`, the \`bytes memory\` variable remains. Although the variable is unnamed, this implementation specifically instructs the Solidity compiler to load the entirety of the returned data into memory, even though it is unused.
 
-Consequently, a malicious contract can force the call to \`upsertCollateralizableContractApprovals\` to \`revert\` by specifying an execessively large amount of data to return _from within the parent call context_.
+Consequently, a malicious contract can force the call to \`upsertCollateralizableContractApprovals\` to \`revert\` by specifying an execessively large amount of data to return *from within the parent call context*.
 
 This renders the \`upsertCollateralizableContractApprovals\` function impotent, enabling the \`collateralizableContract\` to retain it's role.
 
@@ -67,7 +67,7 @@ As the \`CollateralVault\` itself is immutable, the role will be held indefinite
 
 ## References
 
-https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\_source=immunefi#code
+<https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\\_source=immunefi#code>
 
 ## Proof of Concept
 

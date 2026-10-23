@@ -7,7 +7,7 @@
 * **Report ID:** #39626
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:
 * Changing registration information
@@ -256,47 +256,47 @@ index 8ac9ac3d..ca0e9c48 100644
 
 #### 1. Setup
 
-1.  In the Archiver repo:
+1. In the Archiver repo:
 
-    ```sh
-    npm link
-    ```
-2.  In the Core repo:
+   ```sh
+   npm link
+   ```
+2. In the Core repo:
 
-    ```sh
-    npm link
-    ```
-3.  In the Shardeum repo:
+   ```sh
+   npm link
+   ```
+3. In the Shardeum repo:
 
-    ```sh
-    npm link @shardeum-foundation/archiver @shardeum-foundation/core
-    ```
+   ```sh
+   npm link @shardeum-foundation/archiver @shardeum-foundation/core
+   ```
 
 #### 2. Attack Execution
 
-1.  Start the system:
+1. Start the system:
 
-    ```sh
-    LOAD_JSON_CONFIGS=debug-10-nodes.config.json shardus start 10
-    ```
-2.  Monitor logs for:
+   ```sh
+   LOAD_JSON_CONFIGS=debug-10-nodes.config.json shardus start 10
+   ```
+2. Monitor logs for:
 
-    ```
-    BLOCKIAN1 -> minCycleConfirmations: 2
-    ```
-3.  Identify the Validator submitting the cycle second using:
+   ```
+   BLOCKIAN1 -> minCycleConfirmations: 2
+   ```
+3. Identify the Validator submitting the cycle second using:
 
-    ```
-    BLOCKIAN2 -> receivedTimes: 2, senderInfo:
-    ```
-4.  Send a POST request to the malicious Validator’s new `blockian` route:
+   ```
+   BLOCKIAN2 -> receivedTimes: 2, senderInfo:
+   ```
+4. Send a POST request to the malicious Validator’s new `blockian` route:
 
-    ```json
-    {
-        "shouldModify": true,
-        "cycle": { "maxSyncTime":15000 }
-    }
-    ```
+   ```json
+   {
+       "shouldModify": true,
+       "cycle": { "maxSyncTime":15000 }
+   }
+   ```
 
 **NOTE**: `cycle` can contain and false information, for this POC we simply change the `maxSyncTime`.\
 5\. Observe the Archiver accepting and storing the fake cycle without issues.

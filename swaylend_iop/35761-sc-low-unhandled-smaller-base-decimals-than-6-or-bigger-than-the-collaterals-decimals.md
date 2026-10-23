@@ -5,7 +5,7 @@
 * **Report ID:** #35761
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -31,7 +31,7 @@ View functions (\`market::collateral\_value\_to\_sell()\` and \`market::availabl
 
 ## References
 
-https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L716 https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L568 https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L1489-L1499
+<https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L716> <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L568> <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L1489-L1499>
 
 ## Proof of Concept
 

@@ -7,7 +7,7 @@
 * **Report ID:** #35996
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/dev
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/dev>
 * **Impacts:**
   * Taking down the application/website
 
@@ -68,11 +68,11 @@ app.get('/api/originalTx', async (req, res) => { await sleep(100)
 
 res.json({ success: true, originalTxs: originalTxs, }); });
 
-app.listen(PORT, () => { console.log(\`Explorer attacker server running on http://localhost:${PORT}\`); }); \`\`\`
+app.listen(PORT, () => { console.log(\`Explorer attacker server running on [http://localhost:${PORT}\\\`](https://reports.immunefi.com/shardeum-ancillaries-ii/http:/localhost:${PORT}\\`)); }); \`\`\`
 
 main.js \`\`\`js const WebSocket = require('ws');
 
-const wsUrl = 'ws://localhost:8080';
+const wsUrl = 'ws\://localhost:8080';
 
 const ws = new WebSocket(wsUrl);
 

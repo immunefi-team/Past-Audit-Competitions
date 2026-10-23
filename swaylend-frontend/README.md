@@ -1,4 +1,4 @@
-# SwayLend Frontend
+# SwayLend frontend
 
 ## Reports by Severity
 

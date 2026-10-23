@@ -5,7 +5,7 @@
 * **Report ID:** #39271
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Unbounded gas consumption
 

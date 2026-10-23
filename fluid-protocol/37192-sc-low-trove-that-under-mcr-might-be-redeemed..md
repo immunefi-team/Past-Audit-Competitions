@@ -5,7 +5,7 @@
 * **Report ID:** #37192
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 
@@ -17,7 +17,7 @@
 
 ## Vulnerability Details
 
-Quting from [TroveManager.sol#L966-L969](https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L966-L969) and the comment [Loop through the Troves starting from the one with lowest collateral ratio until \_amount of LUSD is exchanged for collateral](https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L972). We can see that in `liquity's implementation`, the redeem starts first trove with ICR >= MCR, which is also the lowest collateral ratio. This applies to the our project's code in \[https://github.com/Hydrogen-Labs/fluid-protocol/blob/78ab7bdd243b414b424fca6e1eb144218f36a18a/contracts/protocol-manager-contract/src/main.sw#L326-L329]:
+Quting from [TroveManager.sol#L966-L969](https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L966-L969) and the comment [Loop through the Troves starting from the one with lowest collateral ratio until \_amount of LUSD is exchanged for collateral](https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L972). We can see that in `liquity's implementation`, the redeem starts first trove with ICR >= MCR, which is also the lowest collateral ratio. This applies to the our project's code in \[<https://github.com/Hydrogen-Labs/fluid-protocol/blob/78ab7bdd243b414b424fca6e1eb144218f36a18a/contracts/protocol-manager-contract/src/main.sw#L326-L329>]:
 
 ```rust
 294 // Get information about all assets in the system
@@ -63,7 +63,7 @@ Please consider the following case:
 
 ## References
 
-https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L966-L969 https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L972
+<https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L966-L969> <https://github.com/liquity/dev/blob/e38edf3dd67e5ca7e38b83bcf32d515f896a7d2f/packages/contracts/contracts/TroveManager.sol#L972>
 
 ## Proof of Concept
 

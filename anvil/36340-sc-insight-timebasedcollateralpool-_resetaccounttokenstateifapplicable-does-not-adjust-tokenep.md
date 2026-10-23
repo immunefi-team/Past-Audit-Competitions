@@ -1,11 +1,11 @@
-# #36340 \[SC-Insight] TimeBasedCollateralPool::\_resetAccountTokenStateIfApplicable does not adjust tokenEpochExitBalances after redeeming the account's unstake Units
+# #36340 \[SC-Insight] TimeBasedCollateralPool::\_resetAccountTokenStateIfApplicable does not adjust tok
 
 **Submitted on Oct 30th 2024 at 08:37:16 UTC by @niroh for** [**Audit Comp | Anvil**](https://immunefi.com/audit-competition/audit-comp-anvil)
 
 * **Report ID:** #36340
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Temporary freezing of funds within the TimeBasedCollateralPool for at least 48 hours
 

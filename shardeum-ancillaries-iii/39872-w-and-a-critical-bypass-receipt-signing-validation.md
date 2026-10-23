@@ -7,7 +7,7 @@
 * **Report ID:** #39872
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Direct theft of user funds
 

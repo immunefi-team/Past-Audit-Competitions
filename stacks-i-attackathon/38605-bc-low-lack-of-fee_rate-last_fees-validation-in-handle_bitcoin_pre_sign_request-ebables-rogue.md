@@ -1,11 +1,11 @@
-# #38605 \[BC-Low] Lack of fee\_rate/last\_fees validation in handle\_bitcoin\_pre\_sign\_request ebables rogue signer to cause financial loss to depositors
+# #38605 \[BC-Low] Lack of fee\_rate/last\_fees validation in handle\_bitcoin\_pre\_sign\_request ebables rog
 
 **Submitted on Jan 7th 2025 at 18:34:32 UTC by @niroh for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38605
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Low
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Direct loss of funds
 
@@ -44,7 +44,7 @@ Since the same attack can be achieved by spoofing a last\_fee, signers should al
 
 ## References
 
-https://github.com/stacks-network/sbtc/blob/83b316c5d26a3434a1b53d558bc7f899ce6c03f2/signer/src/transaction\_coordinator.rs#L1317 https://github.com/stacks-network/sbtc/blob/83b316c5d26a3434a1b53d558bc7f899ce6c03f2/signer/src/bitcoin/validation.rs#L224
+<https://github.com/stacks-network/sbtc/blob/83b316c5d26a3434a1b53d558bc7f899ce6c03f2/signer/src/transaction\\_coordinator.rs#L1317> <https://github.com/stacks-network/sbtc/blob/83b316c5d26a3434a1b53d558bc7f899ce6c03f2/signer/src/bitcoin/validation.rs#L224>
 
 ## Proof of Concept
 

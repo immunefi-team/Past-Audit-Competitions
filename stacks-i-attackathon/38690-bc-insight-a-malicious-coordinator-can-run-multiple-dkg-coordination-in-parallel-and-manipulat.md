@@ -1,11 +1,11 @@
-# #38690 \[BC-Insight] A malicious coordinator can run multiple DKG coordination in parallel and manipulate their order to break the signers network
+# #38690 \[BC-Insight] A malicious coordinator can run multiple DKG coordination in parallel and manipu
 
 **Submitted on Jan 10th 2025 at 05:54:16 UTC by @ZoA for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38690
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

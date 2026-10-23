@@ -5,7 +5,7 @@
 * **Report ID:** #37530
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

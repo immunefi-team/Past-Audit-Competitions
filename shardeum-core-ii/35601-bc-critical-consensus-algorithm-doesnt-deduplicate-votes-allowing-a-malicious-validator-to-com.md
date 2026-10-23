@@ -1,11 +1,11 @@
-# #35601 \[BC-Critical] Consensus algorithm doesn't deduplicate votes, allowing a malicious validator to completely falsify transactions
+# #35601 \[BC-Critical] Consensus algorithm doesn't deduplicate votes, allowing a malicious validator t
 
 **Submitted on Sep 30th 2024 at 13:59:00 UTC by @throwing5tone7 for** [**Audit Comp | Shardeum: Core II**](https://immunefi.com/audit-competition/shardeum-core-ii-boost)
 
 * **Report ID:** #35601
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Direct loss of funds
   * Permanent freezing of funds (fix requires hardfork)
@@ -18,7 +18,7 @@ When validating a receipt, the new consensus algorithm allows duplicate votes an
 
 ## Vulnerability Details
 
-The main issue lies in https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/TransactionConsensus.ts#L1742 and onwards, we can see that the code here (part of the \`verfiyAppliedReceipt\` function) is responsible for counting up the votes in the receipt to see if a quorum was reached:
+The main issue lies in <https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/state-manager/TransactionConsensus.ts#L1742> and onwards, we can see that the code here (part of the \`verfiyAppliedReceipt\` function) is responsible for counting up the votes in the receipt to see if a quorum was reached:
 
 \`\`\` for (let i = 0; i < receipt.signaturePack.length; i++) { const sign = receipt.signaturePack\[i] if (!executionGroupNodes.has(sign.owner)) continue appliedVoteHash.voteTime = receipt.voteOffsets\[i] const signedObject = { ...appliedVoteHash, sign }; if (this.crypto.verify(signedObject, sign.owner)) { validSignatures++; } }
 
@@ -69,17 +69,17 @@ In essence, they can perform any EVM-level effects on accounts in their shard. T
 
 ## References
 
-https://youtu.be/8-\_fydHRUbU - the video of my PoC
+<https://youtu.be/8-\\_fydHRUbU> - the video of my PoC
 
 ## Link to Proof of Concept
 
-[https://youtu.be/8-\_fydHRUbU](https://youtu.be/8-_fydHRUbU)
+<https://youtu.be/8-_fydHRUbU>
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-See the demo video in https://youtu.be/8-\_fydHRUbU for a direct demonstration
+See the demo video in <https://youtu.be/8-\\_fydHRUbU> for a direct demonstration
 
 The PoC uses a hacked validator node to connect to a network containing legitimate nodes. Most of the PoC functionality is built into this maliciously modified validator codebase. Although a range of effects are possible using this bug, in this PoC I demonstrate the ability to change account balances in illegitimate ways.
 
@@ -93,7 +93,7 @@ NOTE - I assume that the developers can do this another way - what is required i
 
 To follow the steps I use in the demo video:
 
-* Get source code for real shardeum down (https://github.com/shardeum/shardeum) to a folder of your choice, e.g. \`LEGIT\_Shardeum\`
+* Get source code for real shardeum down (<https://github.com/shardeum/shardeum>) to a folder of your choice, e.g. \`LEGIT\_Shardeum\`
 * Install dependencies using \`npm ci\`
 * Apply the config to use a smaller net for testing, and to allow localhost network addresses for nodes & archivers - \`git apply config-small-net-local-nodes.patch\`
 * Apply the patch to genesis.json to grant the attacker some funds - \`git apply net-genesis.patch\`
@@ -102,13 +102,13 @@ To follow the steps I use in the demo video:
 
 Maliciously modify shardus-core code:
 
-* Download a fresh copy of shardus-core repo (https://github.com/shardeum/shardus-core) to a folder where you modify it, e.g. \`HACKED\_shardus-core\`
+* Download a fresh copy of shardus-core repo (<https://github.com/shardeum/shardus-core>) to a folder where you modify it, e.g. \`HACKED\_shardus-core\`
   * Apply the patch to this \`HACKED\_shardus-core\` folder - \`git apply shardus-core.patch\`
   * Run \`npm install\` to ensure it's all up-to-date with the patches and to fetch all dependencies
 
 Maliciously modify shardeum app code:
 
-* Download a fresh copy of shardeum repo (https://github.com/shardeum/shardeum) to a folder where you modify it, e.g. \`HACKED\_shardeum\`
+* Download a fresh copy of shardeum repo (<https://github.com/shardeum/shardeum>) to a folder where you modify it, e.g. \`HACKED\_shardeum\`
   * Run \`npm ci\` to get the initial dependencies installed
   * Apply the **code patch** to this \`HACKED\_shardeum-folder\` - \`git apply shardeum-src-changes.patch\`
   * Ensure that this hacked shardeum code, uses the hacked shardus-core code rather than the legit dependency - \`git apply shardeum-package-changes.patch\`

@@ -5,7 +5,7 @@
 * **Report ID:** #35815
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 

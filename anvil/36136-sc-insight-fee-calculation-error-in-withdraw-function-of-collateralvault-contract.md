@@ -5,7 +5,7 @@
 * **Report ID:** #36136
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f
+* **Target:** <https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -25,7 +25,7 @@ If exploited or left unchecked, this bug leads to users being charged a higher f
 
 ## References
 
-https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\_source=immunefi#code#F1#L425
+<https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\\_source=immunefi#code#F1#L425>
 
 ## Proof of Concept
 

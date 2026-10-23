@@ -1,11 +1,11 @@
-# #36309 \[SC-Low] TimeBasedCollateralPool: After \_resetPool gets called (internally) a depositor can break most functionalities of the smart contract
+# #36309 \[SC-Low] TimeBasedCollateralPool: After \_resetPool gets called (internally) a depositor can b
 
 **Submitted on Oct 28th 2024 at 22:48:59 UTC by @max10afternoon for** [**Audit Comp | Anvil**](https://immunefi.com/audit-competition/audit-comp-anvil)
 
 * **Report ID:** #36309
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 

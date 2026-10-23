@@ -5,7 +5,7 @@
 * **Report ID:** #37058
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts-0.8/common/EpochManager.sol
+* **Target:** <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts-0.8/common/EpochManager.sol>
 * **Impacts:**
   * Theft of unclaimed royalties
 
@@ -23,7 +23,7 @@ In `setToProcessGroups`, rewards are assigned to the `group` corresponding to th
         processedGroups[group] = epochRewards == 0 ? type(uint256).max : epochRewards;
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L247
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L247>
 
 After that, rewards are distributed within the `processGroup`.
 
@@ -31,7 +31,7 @@ After that, rewards are distributed within the `processGroup`.
       election.distributeEpochRewards(group, epochRewards, lesser, greater);
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L288
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L288>
 
 At this point, `processedGroups` are deleted, but `electedAccounts` are not deleted.
 
@@ -39,7 +39,7 @@ At this point, `processedGroups` are deleted, but `electedAccounts` are not dele
     delete processedGroups[group];
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L291
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L291>
 
 In other words, by starting `setToProcessGroups` again, rewards are assigned to the same groups corresponding to the `electedAccounts` again.
 
@@ -48,7 +48,7 @@ In other words, by starting `setToProcessGroups` again, rewards are assigned to 
       address group = validators.getValidatorsGroup(electedAccounts[i]);
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L236-L237
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L236-L237>
 
 By repeating this, `group` can obtain as many rewards as they like. In the case of `finishNextEpochProcess`, where the same process is executed in batches, the `electedAccounts` are deleted each time the process is executed. This is not a problem.
 
@@ -57,7 +57,7 @@ By repeating this, `group` can obtain as many rewards as they like. In the case 
       delete electedSigners[i];
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L336-L337
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L336-L337>
 
 This problem occurs because there is no such process in `setToProcessGroups`.
 
@@ -67,11 +67,11 @@ A selected group of people can receive unlimited rewards.
 
 ## References
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L247.\
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L288.\
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L291.\
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L236-L237.\
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L336-L337.
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L247.\\>
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L288.\\>
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L291.\\>
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L236-L237.\\>
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts-0.8/common/EpochManager.sol#L336-L337>.
 
 ## Proof of Concept
 
@@ -102,12 +102,12 @@ distributedEpochRewards[group] += value;
 }
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts/governance/test/MockElection.sol#L104-L106
+<https://github.com/celo-org/celo-monorepo/blob/4903cfa3744f4e03c5c042c3f881cc93d4807b21/packages/protocol/contracts/governance/test/MockElection.sol#L104-L106>
 
 With this modification, the existing test will not fail.
 
 Now, we will begin the test of reward theft. As this is a repurposed version of an existing test, I have only written comments for the important parts. Please add the following contract to `EpochManager.t.sol`.\
-https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/common/EpochManager.t.sol
+<https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/common/EpochManager.t.sol>
 
 ```
 contract EpochManagerTest_UnlimitedReward is EpochManagerTest {

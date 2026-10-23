@@ -5,7 +5,7 @@
 * **Report ID:** #36970
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol
+* **Target:** <https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol>
 * **Impacts:**
   * Missing \`\_disableInitializer()\` implementation
 
@@ -28,10 +28,10 @@ An uninitialized implementation contract poses a significant security risk:
 
 ## References
 
-Please check the Initializing the Implementation Contract section. https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable
+Please check the Initializing the Implementation Contract section. <https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable>
 
 ## Proof of Concept
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/b03f034929b4c0972c8d81f2d0d33dd730056aa2/contracts/LetterOfCredit.sol#L157
+<https://github.com/AcronymFoundation/anvil-contracts/blob/b03f034929b4c0972c8d81f2d0d33dd730056aa2/contracts/LetterOfCredit.sol#L157>
 
 \`\`\`solidity constructor() initializer {} \`\`\`

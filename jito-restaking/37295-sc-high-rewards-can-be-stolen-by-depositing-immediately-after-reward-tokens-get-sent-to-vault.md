@@ -1,11 +1,11 @@
-# #37295 \[SC-High] Rewards can be stolen by depositing immediately after reward tokens get sent to vault
+# #37295 \[SC-High] Rewards can be stolen by depositing immediately after reward tokens get sent to vau
 
 **Submitted on Dec 1st 2024 at 23:15:36 UTC by @Emmanuel001 for** [**Audit Comp | Jito Restaking**](https://immunefi.com/audit-competition/jito-restaking-audit-competition)
 
 * **Report ID:** #37295
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Theft of unclaimed yield
 
@@ -19,10 +19,10 @@ The update\_vault\_balance function is designed to reward VRT holders by redistr
 
 In order to reward vrt holders, protocol exposes a `update_vault_balance` function, which does the following:
 
-* gets the current st token balance of the vault(new\_st\_balance)(https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L44)
-* st\_rewards received is gotten by subtracting the vault.tokens\_deposited(token balance accounted for by the vault) from the new\_st\_balance.(https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L47)
+* gets the current st token balance of the vault(new\_st\_balance)(<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L44>)
+* st\_rewards received is gotten by subtracting the vault.tokens\_deposited(token balance accounted for by the vault) from the new\_st\_balance.(<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L47>)
 * necessary fees, if any, gets deducted from the st\_rewards
-* tokens\_deposited gets updated to the new\_st\_balance, which means that each vrt is worth more(https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L60)
+* tokens\_deposited gets updated to the new\_st\_balance, which means that each vrt is worth more(<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L60>)
 
 So we can see that to reward vrt holders, rewarder first sends st\_tokens to the vault, then calls `update_vault_balance`. The issue is, any deposits made in between the rewarder sending st tokens, and calling `update_vault_balance`, will make the deposit elligible for the rewards. So an attacker can monitor blockchain for any st\_tokens sent to the vault, and then deposit immediately after, which would immediately make his deposited tokens to be worth more(at the expense of other vrt holders) when `update_vault_balance` gets called. This is a theft of rewards.
 
@@ -40,7 +40,7 @@ The vulnerability allows attackers to steal rewards meant for existing VRT holde
 
 ## References
 
-https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L44 https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L47 https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs#L60
+<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L44> <https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L47> <https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs#L60>
 
 ## Proof of Concept
 

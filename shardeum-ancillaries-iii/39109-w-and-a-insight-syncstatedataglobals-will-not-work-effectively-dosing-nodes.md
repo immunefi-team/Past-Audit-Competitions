@@ -5,7 +5,7 @@
 * **Report ID:** #39109
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * DOS
 
@@ -44,7 +44,7 @@ The root cause is the following line in the archiver repo:[AccountDataProvider.t
     const sql = `SELECT * FROM accounts WHERE accountId IN (?)`;
 ```
 
-&#x20;When using `(?)`, SQLite expects a single value, not an array. To properly handle an array of values with an IN clause, you need to create the correct number of parameter placeholders based on the array length.
+When using `(?)`, SQLite expects a single value, not an array. To properly handle an array of values with an IN clause, you need to create the correct number of parameter placeholders based on the array length.
 
 ## Impact
 
@@ -56,7 +56,7 @@ Change the query such that it accommodates for multiple values inside the array.
 
 ## Link to Proof of Concept
 
-https://gist.github.com/bronzepickaxe/fdbf068728a5262e8611624619370df1
+<https://gist.github.com/bronzepickaxe/fdbf068728a5262e8611624619370df1>
 
 ## Proof of Concept
 
@@ -64,4 +64,4 @@ https://gist.github.com/bronzepickaxe/fdbf068728a5262e8611624619370df1
 
 Check the gist here:
 
-* https://gist.github.com/bronzepickaxe/fdbf068728a5262e8611624619370df1
+* <https://gist.github.com/bronzepickaxe/fdbf068728a5262e8611624619370df1>

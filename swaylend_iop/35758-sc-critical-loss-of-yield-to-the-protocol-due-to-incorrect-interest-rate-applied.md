@@ -5,7 +5,7 @@
 * **Report ID:** #35758
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Theft of unclaimed yield
   * Permanent freezing of unclaimed yield
@@ -31,7 +31,7 @@ The Present value should be calculated as it is done in \`is\_borrow\_collateral
 
 ## References
 
-Problematic line: https://github.com/Swaylend/swaylend-monorepo/blob/d7fec5cd27bafa4b0d04a0690e71a2751fb66979/contracts/market/src/main.sw#L1379
+Problematic line: <https://github.com/Swaylend/swaylend-monorepo/blob/d7fec5cd27bafa4b0d04a0690e71a2751fb66979/contracts/market/src/main.sw#L1379>
 
 ## Proof of Concept
 

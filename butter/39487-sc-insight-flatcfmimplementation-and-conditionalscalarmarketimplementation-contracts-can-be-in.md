@@ -1,11 +1,11 @@
-# #39487 \[SC-Insight] flatCfmImplementation and conditionalScalarMarketImplementation contracts can be initialized by anyone
+# #39487 \[SC-Insight] flatCfmImplementation and conditionalScalarMarketImplementation contracts can be
 
 **Submitted on Jan 30th 2025 at 21:02:57 UTC by @onthesunnyside for** [**Audit Comp | Butter**](https://immunefi.com/audit-competition/audit-comp-butter)
 
 * **Report ID:** #39487
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -25,9 +25,9 @@ Conditional markets are created in a permissionless manner, but there are still 
 
 ## References
 
-Where these implementations are deployed and not initialized - https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFMFactory.sol#L86-L87
+Where these implementations are deployed and not initialized - <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFMFactory.sol#L86-L87>
 
-Accessible for anyone `initialize` function - https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/FlatCFM.sol#L37 and https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/ConditionalScalarMarket.sol#L49
+Accessible for anyone `initialize` function - <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/FlatCFM.sol#L37> and <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/ConditionalScalarMarket.sol#L49>
 
 ## Proof of Concept
 

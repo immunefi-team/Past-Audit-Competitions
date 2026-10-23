@@ -5,7 +5,7 @@
 * **Report ID:** #36552
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -71,17 +71,17 @@ Make sure the caller (\`msg.sender\`) for \`modifyCollateralizableTokenAllowance
 
 \`\`\`diff function modifyCollateralizableTokenAllowanceWithSignature( address \_accountAddress, address \_collateralizableContractAddress, address \_tokenAddress, int256 \_allowanceAdjustment, bytes calldata \_signature ) external {
 
-*   if (!collateralizableContracts\[msg.sender]) revert Unauthorized(msg.sender); if (\_allowanceAdjustment > 0 && !collateralizableContracts\[\_collateralizableContractAddress]) revert ContractNotApprovedByProtocol(\_collateralizableContractAddress);
+* if (!collateralizableContracts\[msg.sender]) revert Unauthorized(msg.sender); if (\_allowanceAdjustment > 0 && !collateralizableContracts\[\_collateralizableContractAddress]) revert ContractNotApprovedByProtocol(\_collateralizableContractAddress);
 
-    \_modifyCollateralizableTokenAllowanceWithSignature( \_accountAddress, \_collateralizableContractAddress, \_tokenAddress, \_allowanceAdjustment, \_signature ); } \`\`\`
+  \_modifyCollateralizableTokenAllowanceWithSignature( \_accountAddress, \_collateralizableContractAddress, \_tokenAddress, \_allowanceAdjustment, \_signature ); } \`\`\`
 
 ## References
 
-* CollateralVault: https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\_source=immunefi
-* TimeBasedCollateralPool: https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a?utm\_source=immunefi
+* CollateralVault: <https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f?utm\\_source=immunefi>
+* TimeBasedCollateralPool: <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a?utm\\_source=immunefi>
 
 ## Proof of Concept
 
 ## Proof Of Concept
 
-PoC Secret Gist: https://gist.github.com/pratraut/1a66b395e862383be9945713b89ff035
+PoC Secret Gist: <https://gist.github.com/pratraut/1a66b395e862383be9945713b89ff035>

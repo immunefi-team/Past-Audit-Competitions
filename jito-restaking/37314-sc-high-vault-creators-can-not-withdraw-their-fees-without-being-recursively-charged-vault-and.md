@@ -1,11 +1,11 @@
-# #37314 \[SC-High] Vault creators can not withdraw their fees without being recursively charged (vault and program) fees on their own fees which causes permanent loss of funds
+# #37314 \[SC-High] Vault creators can not withdraw their fees without being recursively charged (vault
 
 **Submitted on Dec 2nd 2024 at 05:56:27 UTC by @niroh for** [**Audit Comp | Jito Restaking**](https://immunefi.com/audit-competition/jito-restaking-audit-competition)
 
 * **Report ID:** #37314
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
@@ -44,7 +44,7 @@ This bug results in two main impacts:
 
 ## References
 
-https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\_program/src/burn\_withdrawal\_ticket.rs#L94 https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\_core/src/vault.rs#L1008
+<https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\\_program/src/burn\\_withdrawal\\_ticket.rs#L94> <https://github.com/jito-foundation/restaking/blob/406903e569da657035a2ca71ad16f8a930db6940/vault\\_core/src/vault.rs#L1008>
 
 ## Proof of Concept
 
