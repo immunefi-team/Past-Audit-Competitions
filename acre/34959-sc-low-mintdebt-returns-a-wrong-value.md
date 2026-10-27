@@ -5,7 +5,7 @@
 * **Report ID:** #34959
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * wrong return value
@@ -26,7 +26,7 @@ it will return a wrong value and it will break the ERC 4626 invariant because it
 
 ## References
 
-https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L307
+<https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L307>
 
 ## Proof of Concept
 

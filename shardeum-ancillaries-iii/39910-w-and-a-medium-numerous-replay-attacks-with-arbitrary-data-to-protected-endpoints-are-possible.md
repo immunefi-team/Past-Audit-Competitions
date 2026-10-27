@@ -1,11 +1,11 @@
-# #39910 \[W\&A-Medium] Numerous replay attacks (with arbitrary data) to protected endpoints are possible
+# #39910 \[W\&A-Medium] Numerous replay attacks (with arbitrary data) to protected endpoints are possibl
 
 **Submitted on Feb 10th 2025 at 15:10:03 UTC by @anton\_quantish for** [**Audit Comp | Shardeum: Ancillaries III**](https://immunefi.com/audit-competition/audit-comp-shardeum-ancillaries-iii)
 
 * **Report ID:** #39910
 * **Report Type:** Websites and Applications
 * **Report severity:** Medium
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/itn4
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/itn4>
 * **Impacts:**
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:
 * Changing registration information
@@ -31,7 +31,7 @@ Some of the API endpoints are protected with the `debugMiddleware`, for instance
 This protection allows them to be used only either if the JSON-RPC server is in debug mode, or if the request is signed with the developer key.
 
 Below is the corresponding check code:\
-https://github.com/shardeum/json-rpc-server/blob/616fe1007568db801b0433ece9ef822a0e39d5f6/src/middlewares/debugMiddleware.ts#L47-L81
+<https://github.com/shardeum/json-rpc-server/blob/616fe1007568db801b0433ece9ef822a0e39d5f6/src/middlewares/debugMiddleware.ts#L47-L81>
 
 ```js
 for (const ownerPk in devPublicKeys) {

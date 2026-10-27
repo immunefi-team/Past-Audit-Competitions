@@ -1,11 +1,11 @@
-# #36554 \[SC-Critical] Time Based Collateral Pool Users can release more than their due share of the pool, drawing from the due share of other users
+# #36554 \[SC-Critical] Time Based Collateral Pool Users can release more than their due share of the p
 
 **Submitted on Nov 5th 2024 at 20:54:50 UTC by @niroh for** [**Audit Comp | Anvil**](https://immunefi.com/audit-competition/audit-comp-anvil)
 
 * **Report ID:** #36554
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
@@ -24,7 +24,7 @@ If, however, the pool was resetted before that epoc unstake was processed by the
 A bug in the TBCP reset logic enables users who unstake based on a low/dilluted unit value just before a pool reset, to release their share based on the post-reset new unit value (which is likely to be much higher). This enables them to release more than their due share, on the expense of users who entered the pool after the reset. The result is that those users who entered the pool after the reset will not be able to withdraw their due share because of the balance shortfall caused by this exploit. The following scenario details how this can happen:
 
 1. At the start of epoc X, a large claim is made that significantly dilutes the pool unit value.
-2. Bob has 1000 units in the pool and he unstakes all his units, expecting a pool reset. (which is likely to happen based on this comment: https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L1115). The user's firstPendingUnstakeEpoch is set to X+1 with and firstPendingUnstakeUnits set to 1000.
+2. Bob has 1000 units in the pool and he unstakes all his units, expecting a pool reset. (which is likely to happen based on this comment: <https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/TimeBasedCollateralPool.sol#L1115>). The user's firstPendingUnstakeEpoch is set to X+1 with and firstPendingUnstakeUnits set to 1000.
 3. The pool is reset, after which new accounts start depositing into the pool. Since the pool was reset, the unit value restarts at 1:1 with the pool token.
 4. While still in epoc X, some of the new (post-reset) stakers unstake part of their stakes. their pending-unstake units are recorded under epoc X+1 (both on the users and the contract accounting). Since this happens after the reset, the contract level firstPendingUnstakeEpoch and firstPendingUnstakeUnits have already been reset and start from scratch. However, Bob still has his firstPendingUnstakeEpoch and firstPendingUnstakeUnits set as before (epoc X+1, 1000 units), because they haven't performed any action since the reset.
 5. Bob waits until epoc X+2 (when pending unstakes recorded on epoc X+1 can be released), and only at the start of epoc X+2 he calls releaseEligibleTokens to release his 1000 units.

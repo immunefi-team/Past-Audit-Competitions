@@ -1,11 +1,11 @@
-# #37202 \[SC-Insight] some checks can be removed since its not required(best practice report, not an issue)
+# #37202 \[SC-Insight] some checks can be removed since its not required(best practice report, not an i
 
 **Submitted on Nov 28th 2024 at 18:19:54 UTC by @zeroK for** [**IOP | Fluid Protocol**](https://immunefi.com/audit-competition/iop-fluid-protocol)
 
 * **Report ID:** #37202
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

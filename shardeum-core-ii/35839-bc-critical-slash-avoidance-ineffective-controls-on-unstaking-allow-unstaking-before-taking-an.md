@@ -1,11 +1,11 @@
-# #35839 \[BC-Critical] Slash avoidance: Ineffective controls on unstaking allow unstaking before taking an action that should be slashed
+# #35839 \[BC-Critical] Slash avoidance: Ineffective controls on unstaking allow unstaking before takin
 
 **Submitted on Oct 10th 2024 at 12:42:48 UTC by @throwing5tone7 for** [**Audit Comp | Shardeum: Core II**](https://immunefi.com/audit-competition/shardeum-core-ii-boost)
 
 * **Report ID:** #35839
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/shardeum/tree/dev
+* **Target:** <https://github.com/shardeum/shardeum/tree/dev>
 * **Impacts:**
   * Bypassing Slashing
 
@@ -17,11 +17,11 @@ The slashing behaviour of the network relies on the validator's stake being avai
 
 ## Vulnerability Details
 
-As described, the vulnerability occurs because the network only checks whether a validator is in the \`active\` state when checking whether it is possible to unstake the validator's stake. If the node is active, it is assumed that there is still a possibility the validator might take actions that should be penalised, and so the unstake is not allowed. You can see this check in https://github.com/shardeum/shardeum/blob/dfdce8fb9a7a9e07a4a4f54d4bfc7ea920289cff/src/tx/staking/verifyStake.ts#L159 - which looks like:
+As described, the vulnerability occurs because the network only checks whether a validator is in the \`active\` state when checking whether it is possible to unstake the validator's stake. If the node is active, it is assumed that there is still a possibility the validator might take actions that should be penalised, and so the unstake is not allowed. You can see this check in <https://github.com/shardeum/shardeum/blob/dfdce8fb9a7a9e07a4a4f54d4bfc7ea920289cff/src/tx/staking/verifyStake.ts#L159> - which looks like:
 
 \`\`\` } else if (shardus.isNodeActiveByPubKey(nomineeAccount.id) === true) { success = false reason = \`This node is still active in the network. You can unstake only after the node leaves the network!\` } \`\`\`
 
-(Identical code also appears in https://github.com/shardeum/shardeum/blob/dfdce8fb9a7a9e07a4a4f54d4bfc7ea920289cff/src/setup/validateTxnFields.ts#L456 - this latter one is used when the transaction is first received by a node, the code shown is used when the node attempts to apply the transaction to Shardeum's state)
+(Identical code also appears in <https://github.com/shardeum/shardeum/blob/dfdce8fb9a7a9e07a4a4f54d4bfc7ea920289cff/src/setup/validateTxnFields.ts#L456> - this latter one is used when the transaction is first received by a node, the code shown is used when the node attempts to apply the transaction to Shardeum's state)
 
 However, the check shown is ineffective because it does not account for the fact that the node might have recently been active, and the fact that the node can take actions that are penalisable (like leaving the network) from non-active states. If an attacker can get their node to move to a non-active state, and then leave the network, then they can unstake their stake while in the non-active state, and avoid the penalty for leaving the network.
 
@@ -54,21 +54,21 @@ In order to exploit the bug, the attacker would need to be a validator in the ne
 
 ## References
 
-Demo video of PoC: https://youtu.be/rkp3IG9YPPQ
+Demo video of PoC: <https://youtu.be/rkp3IG9YPPQ>
 
-GIST with PoC code: [https://youtu.be/rkp3IG9YPPQ](https://youtu.be/rkp3IG9YPPQ)
+GIST with PoC code: <https://youtu.be/rkp3IG9YPPQ>
 
 ## Link to Proof of Concept
 
-[https://youtu.be/rkp3IG9YPPQ](https://youtu.be/rkp3IG9YPPQ)
+<https://youtu.be/rkp3IG9YPPQ>
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-See the demo video at https://youtu.be/rkp3IG9YPPQ for a direct demonstration.
+See the demo video at <https://youtu.be/rkp3IG9YPPQ> for a direct demonstration.
 
-The PoC is a script that can _impersonate_ the attacker's validator node - it does this by using the \`bugbounty\` endpoint recommended in Shardeum's PoC GIST to fetch the keypair and other details from an arbitrary node. In this PoC I focus on avoiding the slashing that should occur when a node leaves the network early.
+The PoC is a script that can *impersonate* the attacker's validator node - it does this by using the \`bugbounty\` endpoint recommended in Shardeum's PoC GIST to fetch the keypair and other details from an arbitrary node. In this PoC I focus on avoiding the slashing that should occur when a node leaves the network early.
 
 The PoC script replicates a fair amount of low-level Shardus networking mechanics, which means that I do not require the validator node itself to be modified, except for switching on slashing and having the \`bugbounty\` endpoint.
 
@@ -86,13 +86,13 @@ To follow the steps I use in the demo video:
 
 * Use Node 18.16.1 everywhere
 * Patch a version of shardus-core to allow the endpoint:
-  * Download a fresh copy of shardus-core repo (https://github.com/shardeum/shardus-core) to a folder where you modify it, e.g. \`LEGIT-shardus-core\`
+  * Download a fresh copy of shardus-core repo (<https://github.com/shardeum/shardus-core>) to a folder where you modify it, e.g. \`LEGIT-shardus-core\`
     * NOTE: my patches were applied starting from commit \`23e06ded6744d8521cff9d749c1f1dd482c5fcb6\`
     * Apply the patch to this \`LEGIT\_shardus-core\` folder \`git apply shardus-core-bugbounty-endpoint.patch\`
       * This just creates the \`bugbounty\` endpoint, and should be equivalent to the project's patch in the Shardeum PoC GIST
     * Run \`npm install\` to ensure it's all up-to-date with the patches and to fetch all dependencies
 * Patch a Shardeum version that will point to this version of shardus-core:
-  * Download a fresh copy of shardeum repo (https://github.com/shardeum/shardeum) to a folder where you modify it, e.g. \`LEGIT-shardeum\`
+  * Download a fresh copy of shardeum repo (<https://github.com/shardeum/shardeum>) to a folder where you modify it, e.g. \`LEGIT-shardeum\`
     * Run \`npm ci\` to get the initial dependencies installed
     * NOTE: my patches were applied starting from commit \`dfdce8fb9a7a9e07a4a4f54d4bfc7ea920289cff\`
     * Apply the config to use a smaller net for testing, and to allow localhost network addresses for nodes & archivers \`git apply config-small-net-local-nodes.patch\`

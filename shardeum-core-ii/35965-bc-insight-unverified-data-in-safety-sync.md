@@ -7,7 +7,7 @@
 * **Report ID:** #35965
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Increasing network processing node resource consumption by at least 30% without brute force actions, compared to the preceding 24 hours
   * Shutdown of greater than or equal to 30% of network processing nodes without brute force actions, but does not shut down the network
@@ -23,7 +23,7 @@ The Safety Sync process in the Shardus Core codebase currently lacks verificatio
 
 The specific section of the code that raises this concern can be found in the Safety Sync process, where data offers are handled without adequate validation:
 
-Vulnerable Code Line : https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/snapshot/index.ts#L455
+Vulnerable Code Line : <https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/snapshot/index.ts#L455>
 
 \`\`\` const offer = createOffer()
 
@@ -37,7 +37,7 @@ In the above code snippet, the offer object is sent to multiple nodes without an
 
 An attacker can exploit this vulnerability by crafting a malicious data offer and sending it to a node. The following is a conceptual example demonstrating how this might be executed: Crafting a Malicious Offer:
 
-\`\`\` const ManipulatedOffer = { networkStateHash: "maliciousHash", partitions: \["manipulatedPartition"], downloadUrl: "http://malicious-host-node/download-snapshot-data", }; ( Note that this only uses http in the original code which will let easly be intercapted with clear text )
+\`\`\` const ManipulatedOffer = { networkStateHash: "maliciousHash", partitions: \["manipulatedPartition"], downloadUrl: "<http://malicious-host-node/download-snapshot-data>", }; ( Note that this only uses http in the original code which will let easly be intercapted with clear text )
 
 const BadNode = { externalIp: "target-host-node-ip", externalPort: "target-node-port", };
 
@@ -57,13 +57,13 @@ Best, @Ouabala
 
 ### Link to Proof of Concept
 
-https://gist.githubusercontent.com/ShellInjector/4b4158beb24646e0133d88f0e7abdd04/raw/56c6032c6986ad07596706890f3b566018667d69/gistfile1.txt
+<https://gist.githubusercontent.com/ShellInjector/4b4158beb24646e0133d88f0e7abdd04/raw/56c6032c6986ad07596706890f3b566018667d69/gistfile1.txt>
 
 ### Proof of Concept
 
 ### Proof of Concept
 
-\`\`\` const ManipulatedOffer = { networkStateHash: "manipulatedHash", partitions: \["manipulatedPartition"], downloadUrl: "http://malicious-host-node/download-snapshot-data", }; ( Note that this only uses http in the original code which will let easly be intercapted with clear text )
+\`\`\` const ManipulatedOffer = { networkStateHash: "manipulatedHash", partitions: \["manipulatedPartition"], downloadUrl: "<http://malicious-host-node/download-snapshot-data>", }; ( Note that this only uses http in the original code which will let easly be intercapted with clear text )
 
 const BadNode = { externalIp: "target-host-node-ip", externalPort: "target-node-port", };
 

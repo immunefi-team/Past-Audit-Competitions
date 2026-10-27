@@ -5,7 +5,7 @@
 * **Report ID:** #36787
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Smart contract unable to operate due to lack of token funds
 

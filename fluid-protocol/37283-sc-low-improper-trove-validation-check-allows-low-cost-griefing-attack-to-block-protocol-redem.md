@@ -1,11 +1,11 @@
-# #37283 \[SC-Low] Improper Trove Validation Check Allows Low-Cost Griefing Attack to Block Protocol Redemptions
+# #37283 \[SC-Low] Improper Trove Validation Check Allows Low-Cost Griefing Attack to Block Protocol Re
 
 **Submitted on Dec 1st 2024 at 16:23:50 UTC by @InquisitorScythe for** [**IOP | Fluid Protocol**](https://immunefi.com/audit-competition/iop-fluid-protocol)
 
 * **Report ID:** #37283
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 

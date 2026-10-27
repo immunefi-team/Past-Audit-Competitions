@@ -1,4 +1,4 @@
-# 38286 \[SC-Low] bitcoinutils getdustlimitforoutput calculate wrongly the dust limit for a given bitcoin script public key
+# 38286 \[SC-Low] bitcoinutils getdustlimitforoutput calculate wrongly the dust limit for a given bitco
 
 ## #38286 \[SC-Low] BitcoinUtils.getDustLimitForOutput calculate wrongly the dust limit for a given Bitcoin script public key
 
@@ -7,7 +7,7 @@
 * **Report ID:** #38286
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -19,7 +19,7 @@
 
 During the redeem transaction, LBTC contract calculate if the amount after fee is above DustLimit. If so, then user can redeem successfully. Otherwise, the transaction will revert.
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol#L476-L482
+<https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol#L476-L482>
 
 ```solidity
 function redeem(bytes calldata scriptPubkey, uint256 amount) external {
@@ -46,7 +46,7 @@ function redeem(bytes calldata scriptPubkey, uint256 amount) external {
 
 The internal \_calcFeeAndDustLimit will call BitcoinUtils.getDustLimitForOutput to calculate the Dust Limit
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/BitcoinUtils.sol#L65-L88
+<https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/BitcoinUtils.sol#L65-L88>
 
 ```solidity
 function getDustLimitForOutput(
@@ -115,9 +115,9 @@ dustLimit = 97 * 3 = 291
 
 ```
 
-But according to the comment in reference https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/BitcoinUtils.sol#L64 in Bitcoin implementation:
+But according to the comment in reference <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/libs/BitcoinUtils.sol#L64> in Bitcoin implementation:
 
-https://github.com/bitcoin/bitcoin/blob/43740f4971f45cd5499470b6a085b3ecd8b96d28/src/policy/policy.cpp#L37-L41
+<https://github.com/bitcoin/bitcoin/blob/43740f4971f45cd5499470b6a085b3ecd8b96d28/src/policy/policy.cpp#L37-L41>
 
 ```solidity
     // A typical spendable segwit P2WPKH txout is 31 bytes big, and will
@@ -135,7 +135,7 @@ I double checked the documentation for Bitcoin and I see that the comment in Bit
 
 The Output structure of a transaction would contains 3 fields as below:
 
-https://learnmeabitcoin.com/technical/transaction/#structure-outputs
+<https://learnmeabitcoin.com/technical/transaction/#structure-outputs>
 
 ```
 Field	
@@ -160,7 +160,7 @@ Total size: 41
 
 Witness size: 107 bytes but with 75% discount, it is considered as 26 bytes.
 
-Reference: https://github.com/bitcoin/bitcoin/blob/43740f4971f45cd5499470b6a085b3ecd8b96d28/src/policy/policy.cpp#L55-L57
+Reference: <https://github.com/bitcoin/bitcoin/blob/43740f4971f45cd5499470b6a085b3ecd8b96d28/src/policy/policy.cpp#L55-L57>
 
 ```
         // sum the sizes of the parts of a transaction input

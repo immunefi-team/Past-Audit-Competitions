@@ -5,7 +5,7 @@
 * **Report ID:** #35534
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/dev
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/dev>
 * **Impacts:**
   * Taking down the application/website
 
@@ -41,7 +41,7 @@ By sending a lot of eth\_newFilter requests attacker could trigger remote denial
 
 ## Link to Proof of Concept
 
-https://gist.github.com/gln7/197964764e3bb57078544a59a12b528e
+<https://gist.github.com/gln7/197964764e3bb57078544a59a12b528e>
 
 ## Proof of Concept
 

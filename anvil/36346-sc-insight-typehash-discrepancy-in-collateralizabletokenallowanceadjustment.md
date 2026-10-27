@@ -5,7 +5,7 @@
 * **Report ID:** #36346
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f
+* **Target:** <https://etherscan.io/address/0x5d2725fdE4d7Aa3388DA4519ac0449Cc031d675f>
 * **Impacts:**
   * Temporary freezing of funds within the CollateralVault for at least 48 hours
 
@@ -35,9 +35,9 @@ Discrepancy will lead to the inconsistencies between the interface and implement
 
 ## References
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L43
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L43>
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/interfaces/ICollateral.sol#L252
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/interfaces/ICollateral.sol#L252>
 
 ## Recommendation
 

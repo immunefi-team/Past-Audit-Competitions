@@ -5,7 +5,7 @@
 * **Report ID:** #35708
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield
@@ -58,7 +58,7 @@ Alternative solution would be to create a \`Vec\` holding a list of supplied col
 
 ## References
 
-The problematic loop: https://github.com/Swaylend/swaylend-monorepo/blob/4f1491b86b10121b0ffa7ca68149cf4e3c641684/contracts/market/src/main.sw#L1333
+The problematic loop: <https://github.com/Swaylend/swaylend-monorepo/blob/4f1491b86b10121b0ffa7ca68149cf4e3c641684/contracts/market/src/main.sw#L1333>
 
 ## Proof of Concept
 

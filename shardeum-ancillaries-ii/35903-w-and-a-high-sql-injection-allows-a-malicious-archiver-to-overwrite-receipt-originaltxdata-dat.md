@@ -1,11 +1,11 @@
-# #35903 \[W\&A-High] SQL Injection Allows a Malicious Archiver to Overwrite Receipt/originalTxData Database on Any Active Archiver in the Network
+# #35903 \[W\&A-High] SQL Injection Allows a Malicious Archiver to Overwrite Receipt/originalTxData Data
 
 **Submitted on Oct 12th 2024 at 14:00:02 UTC by @hulkvision for** [**Audit Comp | Shardeum: Ancillaries II**](https://immunefi.com/audit-competition/shardeum-ancillaries-ii-boost)
 
 * **Report ID:** #35903
 * **Report Type:** Websites and Applications
 * **Report severity:** High
-* **Target:** https://github.com/shardeum/archive-server/tree/dev
+* **Target:** <https://github.com/shardeum/archive-server/tree/dev>
 * **Impacts:**
   * Taking state-modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as: Changing registration information, Commenting, Voting, Making trades, Withdrawals, etc.
 
@@ -31,7 +31,7 @@ The received receipt response from archiver2 looks like this \`\`\` \[ { afterSt
 
 The vulnerability here is a malicious Archiver controls the receipts object and can send arbitrary keys with receipt object thus it can control the sql query constructed by the victim Archiver and execute arbitrary sql payloads allowing malicious Archiver to control all the data stored in received database of victim Archiver.
 
-The same vulnerability exists for \`collectMissingOriginalTxsData\` > \`storeOriginalTxData\` > \`bulkInsertOriginalTxsData\`. It is also constructing data received SQL query from malicious archiver server. https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/dbstore/originalTxsData.ts#L49-L65
+The same vulnerability exists for \`collectMissingOriginalTxsData\` > \`storeOriginalTxData\` > \`bulkInsertOriginalTxsData\`. It is also constructing data received SQL query from malicious archiver server. <https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/dbstore/originalTxsData.ts#L49-L65>
 
 ## Impact Details
 
@@ -72,7 +72,7 @@ export type AppliedVote = {
 
 \`\`\` 3. Start the malicious archiver and provide ARCHIVER\_INFO=ip:port:public\_key, so the malicious archiver can connect to the main archiver. 4. Run the exploit command \`node exploit.mjs\` \`\`\` import axios from 'axios'; import \* as core from '@shardus/crypto-utils' import { Utils as StringUtils } from '@shardus/types'
 
-const TARGET\_URL='http://127.0.0.1:4000' const PRIVATE\_KEY='5a95cd34671e7ecfb5e440e18be5131820ef3dc807e5cbccabccf19b09a8f0c2d75125187149cfb7b4b381cf891aceb27f661e084246a9415a29134ea5ea5f2d' const PUBLIC\_KEY='d75125187149cfb7b4b381cf891aceb27f661e084246a9415a29134ea5ea5f2d'
+const TARGET\_URL='<http://127.0.0.1:4000>' const PRIVATE\_KEY='5a95cd34671e7ecfb5e440e18be5131820ef3dc807e5cbccabccf19b09a8f0c2d75125187149cfb7b4b381cf891aceb27f661e084246a9415a29134ea5ea5f2d' const PUBLIC\_KEY='d75125187149cfb7b4b381cf891aceb27f661e084246a9415a29134ea5ea5f2d'
 
 export function sign(obj) { const objCopy = StringUtils.safeJsonParse(core.stringify(obj)) core.signObj(objCopy, PRIVATE\_KEY, PUBLIC\_KEY) return objCopy }
 

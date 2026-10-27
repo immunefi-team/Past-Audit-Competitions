@@ -5,7 +5,7 @@
 * **Report ID:** #38344
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/consortium/Consortium.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/consortium/Consortium.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * Protocol insolvency

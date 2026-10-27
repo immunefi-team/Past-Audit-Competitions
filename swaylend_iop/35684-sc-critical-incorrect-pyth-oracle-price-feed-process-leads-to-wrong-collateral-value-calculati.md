@@ -1,11 +1,11 @@
-# #35684 \[SC-Critical] Incorrect Pyth Oracle Price Feed Process Leads to Wrong Collateral Value Calculation
+# #35684 \[SC-Critical] Incorrect Pyth Oracle Price Feed Process Leads to Wrong Collateral Value Calcul
 
 **Submitted on Oct 3rd 2024 at 09:29:18 UTC by @ret2happy for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #35684
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 
@@ -64,7 +64,7 @@ Miscalculation of the collateral token value would make the protocol insolvent.
 
 ## References
 
-\[1] https://github.com/Swaylend/swaylend-monorepo/blob/fba606f6fbf2fd3a6e99758d55c2059ce3f3064c/contracts/market/src/main.sw#L985-L1019 \[2] https://github.com/Swaylend/swaylend-monorepo/blob/fba606f6fbf2fd3a6e99758d55c2059ce3f3064c/contracts/market/src/main.sw#L1294 \[3] https://docs.pyth.network/price-feeds/best-practices
+\[1] <https://github.com/Swaylend/swaylend-monorepo/blob/fba606f6fbf2fd3a6e99758d55c2059ce3f3064c/contracts/market/src/main.sw#L985-L1019> \[2] <https://github.com/Swaylend/swaylend-monorepo/blob/fba606f6fbf2fd3a6e99758d55c2059ce3f3064c/contracts/market/src/main.sw#L1294> \[3] <https://docs.pyth.network/price-feeds/best-practices>
 
 ## Proof of Concept
 

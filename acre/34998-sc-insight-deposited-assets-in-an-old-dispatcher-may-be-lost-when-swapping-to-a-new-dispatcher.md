@@ -1,11 +1,11 @@
-# #34998 \[SC-Insight] Deposited assets in an old dispatcher may be lost when swapping to a new dispatcher
+# #34998 \[SC-Insight] Deposited assets in an old dispatcher may be lost when swapping to a new dispatc
 
 **Submitted on Sep 2nd 2024 at 13:43:32 UTC by @dash for** [**Audit Comp | Acre**](https://immunefi.com/audit-competition/boost-acre)
 
 * **Report ID:** #34998
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
   * Smart contract unable to operate due to lack of token funds
@@ -18,19 +18,19 @@ In \`StBTC\`, the \`owner\` can change the \`dispatcher\`. When this happens, th
 
 ## Vulnerability Details
 
-\`Maintainers\` can periodically allocate \`tBTC\` from \`StBTC\` to the \`Mezo Portal\`, meaning that most of the funds will be deposited there. \`\`\` function allocate() external onlyMaintainer {     uint256 addedAmount = tbtc.balanceOf(address(stbtc));     tbtc.safeTransferFrom(address(stbtc), address(this), addedAmount);
+\`Maintainers\` can periodically allocate \`tBTC\` from \`StBTC\` to the \`Mezo Portal\`, meaning that most of the funds will be deposited there. \`\`\` function allocate() external onlyMaintainer { uint256 addedAmount = tbtc.balanceOf(address(stbtc)); tbtc.safeTransferFrom(address(stbtc), address(this), addedAmount);
 
-&#x20;   depositBalance = uint96(tbtc.balanceOf(address(this)));     tbtc.forceApprove(address(mezoPortal), depositBalance);     mezoPortal.deposit(address(tbtc), depositBalance, 0); // @audit, here } \`\`\` \`StBTC\` can \`withdraw\` \`tBTC\` from the \`Portal\` when there isn’t enough \`tBTC\` available to process \`withdrawals\`. \`\`\` function withdraw(     uint256 assets,     address receiver,     address owner ) public override returns (uint256) {     uint256 currentAssetsBalance = IERC20(asset()).balanceOf(address(this));     uint256 assetsWithFees = assets + \_feeOnRaw(assets, exitFeeBasisPoints);
+depositBalance = uint96(tbtc.balanceOf(address(this))); tbtc.forceApprove(address(mezoPortal), depositBalance); mezoPortal.deposit(address(tbtc), depositBalance, 0); // @audit, here } \`\`\` \`StBTC\` can \`withdraw\` \`tBTC\` from the \`Portal\` when there isn’t enough \`tBTC\` available to process \`withdrawals\`. \`\`\` function withdraw( uint256 assets, address receiver, address owner ) public override returns (uint256) { uint256 currentAssetsBalance = IERC20(asset()).balanceOf(address(this)); uint256 assetsWithFees = assets + \_feeOnRaw(assets, exitFeeBasisPoints);
 
-&#x20;   if (assetsWithFees > currentAssetsBalance) {         dispatcher.withdraw(assetsWithFees - currentAssetsBalance); // @audit, here     }     return super.withdraw(assets, receiver, owner); } \`\`\`
+if (assetsWithFees > currentAssetsBalance) { dispatcher.withdraw(assetsWithFees - currentAssetsBalance); // @audit, here } return super.withdraw(assets, receiver, owner); } \`\`\`
 
-Additionally, the \`owner\` of \`MezoAllocator\` has the ability to \`withdraw\` all \`tBTC\` from the \`Portal\` back to \`StBTC\`. \`\`\` function releaseDeposit() external onlyOwner {     uint96 amount = mezoPortal         .getDeposit(address(this), address(tbtc), depositId)         .balance;
+Additionally, the \`owner\` of \`MezoAllocator\` has the ability to \`withdraw\` all \`tBTC\` from the \`Portal\` back to \`StBTC\`. \`\`\` function releaseDeposit() external onlyOwner { uint96 amount = mezoPortal .getDeposit(address(this), address(tbtc), depositId) .balance;
 
-&#x20;   depositBalance = 0;     mezoPortal.withdraw(address(tbtc), depositId);     tbtc.safeTransfer(address(stbtc), tbtc.balanceOf(address(this))); // @audit, here } \`\`\` When swapping \`dispatchers\`, we simply reduce the \`allowance\` of the old \`dispatcher\` to zero, but we don’t \`withdraw\` the funds from it. \`\`\` function updateDispatcher(IDispatcher newDispatcher) external onlyOwner { address oldDispatcher = address(dispatcher);     dispatcher = newDispatcher;
+depositBalance = 0; mezoPortal.withdraw(address(tbtc), depositId); tbtc.safeTransfer(address(stbtc), tbtc.balanceOf(address(this))); // @audit, here } \`\`\` When swapping \`dispatchers\`, we simply reduce the \`allowance\` of the old \`dispatcher\` to zero, but we don’t \`withdraw\` the funds from it. \`\`\` function updateDispatcher(IDispatcher newDispatcher) external onlyOwner { address oldDispatcher = address(dispatcher); dispatcher = newDispatcher;
 
-&#x20;   if (oldDispatcher != address(0)) {         IERC20(asset()).forceApprove(oldDispatcher, 0); // @audit, here     }
+if (oldDispatcher != address(0)) { IERC20(asset()).forceApprove(oldDispatcher, 0); // @audit, here }
 
-&#x20;   IERC20(asset()).forceApprove(address(dispatcher), type(uint256).max); } \`\`\` There’s no \`100%\` guarantee that all funds will be \`withdrawn\` from the old \`dispatcher\` to \`StBTC\`, even if the \`owner\` of the old \`dispatcher\` acts honestly before the \`swap\`. This is because \`maintainers\` can allocate funds from \`StBTC\` to a \`dispatcher\`. And the implementation logic of the \`dispatcher\` may vary.
+IERC20(asset()).forceApprove(address(dispatcher), type(uint256).max); } \`\`\` There’s no \`100%\` guarantee that all funds will be \`withdrawn\` from the old \`dispatcher\` to \`StBTC\`, even if the \`owner\` of the old \`dispatcher\` acts honestly before the \`swap\`. This is because \`maintainers\` can allocate funds from \`StBTC\` to a \`dispatcher\`. And the implementation logic of the \`dispatcher\` may vary.
 
 ## Impact Details
 
@@ -38,15 +38,15 @@ I believe the impact could be significant if this occurs, but I’ve marked it a
 
 ## References
 
-https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L206 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L442 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L256 https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L215
+<https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L206> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L442> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/MezoAllocator.sol#L256> <https://github.com/thesis/acre/blob/c3790ef2d4a5a11ae1cadcdaf72ce538b8d67dd3/solidity/contracts/stBTC.sol#L215>
 
 ## Recommendation
 
-Withdraw \`tBTC\` from the old \`dispatcher\` if any remains. \`\`\` function updateDispatcher(IDispatcher newDispatcher) external onlyOwner { address oldDispatcher = address(dispatcher);     dispatcher = newDispatcher;
+Withdraw \`tBTC\` from the old \`dispatcher\` if any remains. \`\`\` function updateDispatcher(IDispatcher newDispatcher) external onlyOwner { address oldDispatcher = address(dispatcher); dispatcher = newDispatcher;
 
-&#x20;   if (oldDispatcher != address(0)) {         IERC20(asset()).forceApprove(oldDispatcher, 0);         +        uint256 remainingAssets = dispatcher.totalAssets(); +        if (remainingAssets) { +            dispatcher.withdraw(remainingAssets); +        }     }
+if (oldDispatcher != address(0)) { IERC20(asset()).forceApprove(oldDispatcher, 0); + uint256 remainingAssets = dispatcher.totalAssets(); + if (remainingAssets) { + dispatcher.withdraw(remainingAssets); + } }
 
-&#x20;   IERC20(asset()).forceApprove(address(dispatcher), type(uint256).max); } \`\`\`
+IERC20(asset()).forceApprove(address(dispatcher), type(uint256).max); } \`\`\`
 
 ## Proof of Concept
 

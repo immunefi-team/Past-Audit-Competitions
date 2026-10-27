@@ -5,7 +5,7 @@
 * **Report ID:** #35710
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
   * Causing network processing nodes to process transactions from the transaction queue beyond set parameters

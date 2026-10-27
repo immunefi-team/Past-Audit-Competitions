@@ -1,11 +1,11 @@
-# #38028 \[BC-Low] There is a Partial Network Degradation Due to DynamoDB GSI Throttling Under High Traffic
+# #38028 \[BC-Low] There is a Partial Network Degradation Due to DynamoDB GSI Throttling Under High Tra
 
 **Submitted on Dec 22nd 2024 at 16:24:54 UTC by @XDZIBECX for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38028
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Low
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/emily
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/emily>
 * **Impacts:**
   * Shutdown of greater than 10% or equal to but less than 30% of network processing nodes without brute force actions, but does not shut down the network
 
@@ -20,7 +20,7 @@ The EmilyStack is relies on DynamoDB tables with Global Secondary Indexes and th
 There is a vulnerability that is arises from how DynamoDB GSIs are used in the DepositTable and WithdrawalTable, Specifically:
 
 * GSIs as DepositStatus and WithdrawalStatus this are rely on the OpStatus as the partition key, and which becomes a problem under high traffic cause when traffic is exceeds the provisioned capacity or scaling limits, the DynamoDB throttling occurs, and this as result is leading to failed to read and write requests here is the vulnerable part on the code :
-* here -> https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L127C1-L138C15 :
+* here -> <https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L127C1-L138C15> :
 
 ```rust
 table.addGlobalSecondaryIndex({
@@ -32,7 +32,7 @@ table.addGlobalSecondaryIndex({
 
 it's show that The partition key the (OpStatus) is uses a fixed values as PENDING, and this is meaning that all PENDING transactions are stored in a single DynamoDB partition. so this Under a high traffic, is can causes throttling.
 
-* and here -> https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L181C1-L192C15 :
+* and here -> <https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L181C1-L192C15> :
 
 ```rust
 table.addGlobalSecondaryIndex({
@@ -44,7 +44,7 @@ table.addGlobalSecondaryIndex({
 
 also here all withdrawal operations with the same status (PENDING) they end up in a single partition, and this is creating the same problem.
 
-* and here -> https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L89C1-L92C60 this is the Lambda Dependency on DynamoDB GSIs:
+* and here -> <https://github.com/stacks-network/sbtc/blob/f07f68b73db13e80c16fa058ba806fb146090862/emily/cdk/lib/emily-stack.ts#L89C1-L92C60> this is the Lambda Dependency on DynamoDB GSIs:
 
 ```rust
 depositTable.grantReadWriteData(operationLambda);

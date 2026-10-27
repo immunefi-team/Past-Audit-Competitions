@@ -1,11 +1,11 @@
-# #38477 \[BC-High] A single signer can abort every attempted signing round by providing an invalid packet once the coordinator requests signature shares
+# #38477 \[BC-High] A single signer can abort every attempted signing round by providing an invalid pac
 
 **Submitted on Jan 4th 2025 at 12:33:00 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38477
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

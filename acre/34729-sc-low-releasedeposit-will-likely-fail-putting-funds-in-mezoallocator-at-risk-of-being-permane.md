@@ -1,11 +1,11 @@
-# #34729 \[SC-Low] \`releaseDeposit\` will likely fail, putting funds in MezoAllocator at risk of being permanently stuck
+# #34729 \[SC-Low] \`releaseDeposit\` will likely fail, putting funds in MezoAllocator at risk of being p
 
 **Submitted on Aug 22nd 2024 at 16:58:37 UTC by @trachev for** [**Audit Comp | Acre**](https://immunefi.com/audit-competition/boost-acre)
 
 * **Report ID:** #34729
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0
+* **Target:** <https://sepolia.etherscan.io/address/0xd5EbDD6fF384a465D56562D3a489c8CCE1B92dd0>
 * **Impacts:**
   * Permanent freezing of unclaimed yield
 
@@ -27,7 +27,7 @@ As the developer comments state: \`releaseDeposit\` is a special function that c
 
 \`\`\`
 
-As a result, \`releaseDeposit\` is going to revert, preventing the protocol from migrating any tBTC left in the protocol. It is expected that there will be other tBTC tokens, except the ones that are deposited from stBTC to \`MezoPortal\`, from either donations or rewards sent to \`MezoAllocator\`. This has been stated in ISSUE#3 in the following audit report provided by Thesis: https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240517\_Thesis\_Defense-Acre\_Smart\_Contracts\_Security\_Audit\_Report.pdf?utm\_source=immunefi
+As a result, \`releaseDeposit\` is going to revert, preventing the protocol from migrating any tBTC left in the protocol. It is expected that there will be other tBTC tokens, except the ones that are deposited from stBTC to \`MezoPortal\`, from either donations or rewards sent to \`MezoAllocator\`. This has been stated in ISSUE#3 in the following audit report provided by Thesis: <https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240517\\_Thesis\\_Defense-Acre\\_Smart\\_Contracts\\_Security\\_Audit\\_Report.pdf?utm\\_source=immunefi>
 
 The issue can be easily prevented by not calling \`mezoPortal.withdraw\` in \`releaseDeposit\` if the \`amount\` is equal to 0. If that is the case omit the call to \`mezoPortal.withdraw\` but still transfer the contract's tBTC balance to stBTC.
 

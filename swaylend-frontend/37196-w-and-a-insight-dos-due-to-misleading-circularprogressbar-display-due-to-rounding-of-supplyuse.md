@@ -1,11 +1,11 @@
-# #37196 \[W\&A-Insight] DOS due to Misleading 'CircularProgressBar' Display Due to Rounding of 'supplyUsed"
+# #37196 \[W\&A-Insight] DOS due to Misleading 'CircularProgressBar' Display Due to Rounding of 'supplyU
 
 **Submitted on Nov 28th 2024 at 12:37:25 UTC by @Brainiac5 for** [**IOP | SwayLend Frontend**](https://immunefi.com/audit-competition/swaylend-frontend-iop)
 
 * **Report ID:** #37196
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/tree/develop/apps/frontend
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/tree/develop/apps/frontend>
 * **Impacts:**
   * Temporarily disabling user to access target site, such as:
 * Locking up the victim from login

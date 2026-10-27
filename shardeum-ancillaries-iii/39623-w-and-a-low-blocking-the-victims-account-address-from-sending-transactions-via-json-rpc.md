@@ -5,7 +5,7 @@
 * **Report ID:** #39623
 * **Report Type:** Websites and Applications
 * **Report severity:** Low
-* **Target:** https://github.com/shardeum/json-rpc-server/tree/itn4
+* **Target:** <https://github.com/shardeum/json-rpc-server/tree/itn4>
 * **Impacts:**
   * Temporarily disabling user to access target site, such as:
 * Locking up the victim from login
@@ -22,7 +22,7 @@ It's possible to block the victim's account address so he won't be able to send 
 When the JSON-RPC request comes in, it passes through the `rateLimit.ts` middleware first and then every method call is checked via `checkRequest(ip, request)` function. Finally, the rate limits are checked within the `utils.ts:isRequestOkay` function.
 
 In case of executing the `eth_sendRawTransaction` method, one of the checks performed is how often the tx sender (account address) calls this method. If it's too often (> 10 calls per a minute in default config), the request will be cancelled and the sender is marked as abused\
-https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L1097-L1109
+<https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L1097-L1109>
 
 ```js
 if (config.rateLimit && config.rateLimitOption.limitFromAddress) {
@@ -44,7 +44,7 @@ if (config.rateLimit && config.rateLimitOption.limitFromAddress) {
 ```
 
 Moreover, every 2 minutes (by default) the top 10 most abusing senders are getting blacklisted so they are permanently blocked from sending transactions (in `checkAndBanSpammers` function):\
-https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L823-L836
+<https://github.com/shardeum/json-rpc-server/blob/aba70af9ae65b59034c87ced1253a7478a2a0293/src/utils.ts#L823-L836>
 
 ```js
 const mostAbusedSendersSorted: { address: string; count: number }[] = Object.values(

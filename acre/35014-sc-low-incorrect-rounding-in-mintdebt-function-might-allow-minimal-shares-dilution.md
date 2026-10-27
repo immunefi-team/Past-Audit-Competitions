@@ -7,7 +7,7 @@
 * **Report ID:** #35014
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -18,7 +18,7 @@
 The \`mintDebt\` function in the stBTC contract contains a vulnerability due to incorrect rounding when converting shares to assets. In certain situations, such as when the vault experiences a loss, this rounding error allows users to mint 1 wei of shares without any corresponding increase in assets.
 
 The vulnerable code is in the \`mintDebt\` function:\
-See: https://github.com/thesis/acre/blob/main/solidity/contracts/stBTC.sol#L304-L331\
+See: <https://github.com/thesis/acre/blob/main/solidity/contracts/stBTC.sol#L304-L331\\>
 \`\`\`solidity function mintDebt( uint256 shares, address receiver ) public whenNotPaused returns (uint256 assets) { assets = convertToAssets(shares);
 
 ```

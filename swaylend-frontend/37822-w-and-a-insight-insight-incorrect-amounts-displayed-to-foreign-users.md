@@ -7,7 +7,7 @@
 * **Report ID:** #37822
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/tree/develop/apps/frontend
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/tree/develop/apps/frontend>
 * **Impacts:**
   * Temporarily disabling user to access target site, such as:
 * Locking up the victim from login
@@ -46,7 +46,7 @@ To resolve this issue, include the `notranslate` class (as recommended in the [G
 
 To replicate the issue, follow these steps:
 
-1. Navigate to [https://app.swaylend.com/](https://app.swaylend.com/).
+1. Navigate to <https://app.swaylend.com/>.
 2. Enable Google Translate and select a language (e.g., Dutch).
 3. Observe that all `$` symbols are replaced with `€` symbols while the numeric values remain unchanged.
 

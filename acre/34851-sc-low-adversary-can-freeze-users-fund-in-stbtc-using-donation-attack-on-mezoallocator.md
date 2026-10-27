@@ -5,7 +5,7 @@
 * **Report ID:** #34851
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3
+* **Target:** <https://sepolia.etherscan.io/address/0x7e184179b1F95A9ca398E6a16127f06b81Cb37a3>
 * **Impacts:**
   * Temporary freezing of funds
 
@@ -14,7 +14,7 @@
 ## Description
 
 **tBTC** inside **stBTC** contract is allocated to Mezo portal via **dispatcher** contract from time to time by appointed maintainer calling \`allocate()\` function.\
-See: https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L190-L219 \`\`\`solidity function allocate() external onlyMaintainer { if (depositBalance > 0) { // Free all Acre's tBTC from MezoPortal before creating a new deposit. // slither-disable-next-line reentrancy-no-eth mezoPortal.withdraw(address(tbtc), depositId); }
+See: <https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L190-L219> \`\`\`solidity function allocate() external onlyMaintainer { if (depositBalance > 0) { // Free all Acre's tBTC from MezoPortal before creating a new deposit. // slither-disable-next-line reentrancy-no-eth mezoPortal.withdraw(address(tbtc), depositId); }
 
 ```
 // Fetch unallocated tBTC from stBTC contract.
@@ -51,8 +51,8 @@ This has the implication that after each allocation, all **tBTC** will be deposi
 
 In the opposite side, when users want to redeem their **stBTC** shares for **tBTC**, if the amount of **tBTC** waiting for allocation is insufficient for the redemption, **stBTC** contract calls \`withdraw\` function on dispatcher in order to withdraw **tBTC** from Mezo portal to meet with redemption requirement.
 
-See: https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L190-L219 and\
-https://github.com/thesis/acre/blob/main/solidity/contracts/stBTC.sol#L432C5-L446C6 \`\`\`solidity File: MezoAllocator.sol function withdraw(uint256 amount) external { if (msg.sender != address(stbtc)) revert CallerNotStbtc();
+See: <https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L190-L219> and\
+<https://github.com/thesis/acre/blob/main/solidity/contracts/stBTC.sol#L432C5-L446C6> \`\`\`solidity File: MezoAllocator.sol function withdraw(uint256 amount) external { if (msg.sender != address(stbtc)) revert CallerNotStbtc();
 
 ```
 emit DepositWithdrawn(depositId, amount);
@@ -137,7 +137,7 @@ However, the redemption or withdrawal flow doesn't utilize that balance to retur
 Therefore, when users try to redeem his/her shares, it will always revert.
 
 Although **dispatcher** contract also implements emergency function, \`releaseDeposit\`\
-See: https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L248-L257 \`\`\`solidity function releaseDeposit() external onlyOwner { uint96 amount = mezoPortal .getDeposit(address(this), address(tbtc), depositId) .balance;
+See: <https://github.com/thesis/acre/blob/main/solidity/contracts/MezoAllocator.sol#L248-L257> \`\`\`solidity function releaseDeposit() external onlyOwner { uint96 amount = mezoPortal .getDeposit(address(this), address(tbtc), depositId) .balance;
 
 ```
 emit DepositReleased(depositId, amount);
@@ -182,7 +182,7 @@ Users fund will get stuck. Whether it's permanent or temporary is depending on t
 ### Cost analysis
 
 To determine the severity level of this bug, one has to calculate to cost for a successful attack as attacker doesn't gain profit from this exploitation.\
-According to Immunefi's guideline, an attack that costs $1 to deal $10 or less in damage is Griefing. (See: https://immunefisupport.zendesk.com/hc/en-us/articles/17455102268305-When-Is-An-Impactful-Attack-Downgraded-To-Griefing)
+According to Immunefi's guideline, an attack that costs $1 to deal $10 or less in damage is Griefing. (See: <https://immunefisupport.zendesk.com/hc/en-us/articles/17455102268305-When-Is-An-Impactful-Attack-Downgraded-To-Griefing>)
 
 The cost for an attack in the example attack scenario is about 1.1% of TVL (11/1000). However, in real world scenario, Acre has deposit and withdrawal fee which would also incur to attack cost.
 

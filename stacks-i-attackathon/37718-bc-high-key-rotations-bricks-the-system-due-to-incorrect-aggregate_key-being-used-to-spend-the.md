@@ -1,11 +1,11 @@
-# #37718 \[BC-High] Key rotations bricks the system due to incorrect \`aggregate\_key\` being used to spend the \`peg UTXO\` when signing a sweep transaction
+# #37718 \[BC-High] Key rotations bricks the system due to incorrect \`aggregate\_key\` being used to spen
 
 **Submitted on Dec 13th 2024 at 08:31:21 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37718
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

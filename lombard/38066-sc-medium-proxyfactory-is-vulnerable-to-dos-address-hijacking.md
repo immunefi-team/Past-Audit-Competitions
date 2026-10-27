@@ -5,7 +5,7 @@
 * **Report ID:** #38066
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/factory/ProxyFactory.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/factory/ProxyFactory.sol>
 * **Impacts:**
   * Block stuffing
   * Unbounded gas consumption

@@ -5,7 +5,7 @@
 * **Report ID:** #37323
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
   * Permanent freezing of unclaimed yield
@@ -63,7 +63,7 @@ This vulnerability can cause a deadlock in the contract permanently
 
 ## References
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/trove-manager-contract/src/main.sw#L819
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/trove-manager-contract/src/main.sw#L819>
 
 ## Proof of Concept
 

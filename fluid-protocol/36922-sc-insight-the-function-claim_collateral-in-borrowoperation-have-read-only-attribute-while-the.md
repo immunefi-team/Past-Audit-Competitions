@@ -1,11 +1,11 @@
-# #36922 \[SC-Insight] the function claim\_collateral in borrowOperation have read only attribute while the invoked claim\_collateral function have write attribute, this lead to compiler-time error
+# #36922 \[SC-Insight] the function claim\_collateral in borrowOperation have read only attribute while
 
 **Submitted on Nov 19th 2024 at 18:44:45 UTC by @zeroK for** [**IOP | Fluid Protocol**](https://immunefi.com/audit-competition/iop-fluid-protocol)
 
 * **Report ID:** #36922
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -17,7 +17,7 @@ the function `borrowOperation#claim_collateral` is set to read only attribute, t
 
 `Impure functions which call other impure functions must have at least the same storage privileges or a superset of those for the function called. For example, to call a function with write access a caller must also have write access, or both read and write access. To call a function with read and write access the caller must also have both privileges`
 
-https://docs.fuel.network/docs/sway/blockchain-development/purity/#purity
+<https://docs.fuel.network/docs/sway/blockchain-development/purity/#purity>
 
 ## Vulnerability Details
 

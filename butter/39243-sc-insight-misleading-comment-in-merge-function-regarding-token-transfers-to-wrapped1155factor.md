@@ -1,11 +1,11 @@
-# #39243 \[SC-Insight] Misleading Comment in merge Function Regarding Token Transfers to wrapped1155Factory
+# #39243 \[SC-Insight] Misleading Comment in merge Function Regarding Token Transfers to wrapped1155Fac
 
 **Submitted on Jan 25th 2025 at 17:32:48 UTC by @huntercheto for** [**Audit Comp | Butter**](https://immunefi.com/audit-competition/audit-comp-butter)
 
 * **Report ID:** #39243
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

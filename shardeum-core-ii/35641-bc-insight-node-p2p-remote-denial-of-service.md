@@ -5,7 +5,7 @@
 * **Report ID:** #35641
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://immunefi.com
+* **Target:** <https://immunefi.com>
 * **Impacts:**
   * Causing network processing nodes to process transactions from the transaction queue beyond set parameters
   * Direct loss of funds
@@ -20,7 +20,7 @@ Shardeum node will read unsigned integer from a network and allocated memory wit
 
 There are a lot of places in lib-net, where uint32 is read from an incoming packet and buffer of requested size is allocated.
 
-Consider this example https://github.com/shardeum/lib-net/blob/dev/shardus\_net/src/message.rs#L96
+Consider this example <https://github.com/shardeum/lib-net/blob/dev/shardus\\_net/src/message.rs#L96>
 
 \`\`\` pub fn deserialize(cursor: \&mut Cursor\<Vec\<u8>>) -> Option\<Message> { let mut header\_version\_bytes = \[0u8; 1]; cursor.read\_exact(\&mut header\_version\_bytes).ok()?; let header\_version = u8::from\_le\_bytes(header\_version\_bytes);
 
@@ -57,18 +57,18 @@ An attacker will be able to trigger out of memory error and crash shardeum node 
 
 How to reproduce:
 
-1. get test1.js by using provided gist link https://gist.github.com/gln7/ad3815f298bb898d3161bba8cb8999bc
+1. get test1.js by using provided gist link <https://gist.github.com/gln7/ad3815f298bb898d3161bba8cb8999bc>
 
 (basically, this is the same as test.js from report #34093, thanks to author!)
 
 2. get and build lib-net:
 
-\`\`\` $ git clone https://github.com/shardeum/lib-net --depth 1 $ cd lib-net $ npm run build
+\`\`\` $ git clone <https://github.com/shardeum/lib-net> --depth 1 $ cd lib-net $ npm run build
 
 \`\`\`
 
 3. run test server: \`\`\` $ ulimit -Sv 4000000 $ node test1.js \`\`\`
-4. get t1.py (gist link - https://gist.github.com/gln7/99e0f927db93e70c690c5893007e63e3)
+4. get t1.py (gist link - <https://gist.github.com/gln7/99e0f927db93e70c690c5893007e63e3>)
 5. run t1.py:
 
 \`\`\` ./t1.py localhost 10001 \`\`\`

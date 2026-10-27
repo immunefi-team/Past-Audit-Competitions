@@ -5,7 +5,7 @@
 * **Report ID:** #37864
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -17,23 +17,23 @@ The protocol over-charges users for the necessary storage fees when using the de
 
 ## Vulnerability Details
 
-When a user calls `delayed_mint` method (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L695), it stores the user's mint information in box storage. The user has to pay the protocol ALGO deposit (i.e. increase in the minimum balance requirement of the application's account) for the creation of this box. The deposit is charged according to the number of bytes stored in the box and its name. The box gets deleted upon claiming the minted xALGO with `claim_delayed_mint` (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L732), freeing the storage ALGO deposit. The storage ALGO deposit gets returned to the caller of the `claim_delayed_mint` method, which can be anyone - not necessarily the user who paid for the creation of the box. This is meant to reward anyone who automates the claiming process for the users. However, the protocol is over-charing the users for this feature. The box namely includes unnecessary redundancy, which is costing users more ALGO than necessary. The box stores the address of the minter both as part of the box name (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L733) and its contents (https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L736). This results in the minter unnecessarily paying for 32 bytes (i.e. length of Algorand address) of storage.
+When a user calls `delayed_mint` method (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L695>), it stores the user's mint information in box storage. The user has to pay the protocol ALGO deposit (i.e. increase in the minimum balance requirement of the application's account) for the creation of this box. The deposit is charged according to the number of bytes stored in the box and its name. The box gets deleted upon claiming the minted xALGO with `claim_delayed_mint` (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L732>), freeing the storage ALGO deposit. The storage ALGO deposit gets returned to the caller of the `claim_delayed_mint` method, which can be anyone - not necessarily the user who paid for the creation of the box. This is meant to reward anyone who automates the claiming process for the users. However, the protocol is over-charing the users for this feature. The box namely includes unnecessary redundancy, which is costing users more ALGO than necessary. The box stores the address of the minter both as part of the box name (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L733>) and its contents (<https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L736>). This results in the minter unnecessarily paying for 32 bytes (i.e. length of Algorand address) of storage.
 
 ## Impact Details
 
-The costs of of overcharging amount to 0.0128 ALGO on each mint. Assuming Folks Finance reaches the same levels of popularity as Lido - the most prominent liquid staking provider on Ethereum, which processes about 5M withdrawals per year (as per Lido analytics https://dune.com/queries/2475364/4072036) and assuming the number of mints is in the same range as the number of withdrawals, this amounts to 64,000 ALGO over-charged to xALGO users per year, effectively (covertly) reducing their return.
+The costs of of overcharging amount to 0.0128 ALGO on each mint. Assuming Folks Finance reaches the same levels of popularity as Lido - the most prominent liquid staking provider on Ethereum, which processes about 5M withdrawals per year (as per Lido analytics <https://dune.com/queries/2475364/4072036>) and assuming the number of mints is in the same range as the number of withdrawals, this amounts to 64,000 ALGO over-charged to xALGO users per year, effectively (covertly) reducing their return.
 
 The issue could be easily solved by removing the redundancy in the box content information.
 
 ## References
 
-This is one of two low-level security bugs found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
+This is one of two low-level security bugs found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84>. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-The test demonstrating that not all xALGO can be burned is implemented in `claim_delayed_test.py`, found in https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84 (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
+The test demonstrating that not all xALGO can be burned is implemented in `claim_delayed_test.py`, found in <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84> (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
 
 from algokit\_utils import ( CreateTransactionParameters, TransactionParameters, ) from algokit\_utils.beta.account\_manager import AddressAndSigner from algokit\_utils.beta.algorand\_client import AlgorandClient from algokit\_utils.beta.composer import AssetTransferParams, PayParams from algosdk.abi import AddressType from algosdk.atomic\_transaction\_composer import ( AtomicTransactionComposer, TransactionWithSigner, ) from algosdk.transaction import ApplicationUpdateTxn
 

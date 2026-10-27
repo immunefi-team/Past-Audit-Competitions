@@ -1,11 +1,11 @@
-# #37814 \[BC-High] Signers can crash other signers by sending an invalid \`DkgPrivateShares\` due to missing check before passing the payload to \`SignerStateMachine::process\`
+# #37814 \[BC-High] Signers can crash other signers by sending an invalid \`DkgPrivateShares\` due to mis
 
 **Submitted on Dec 16th 2024 at 16:26:55 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37814
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

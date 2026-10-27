@@ -5,7 +5,7 @@
 * **Report ID:** #38363
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol>
 * **Impacts:**
   * Temporary freezing of funds for at least 30 days
 
@@ -112,14 +112,14 @@ Please consider the following case:
 1. Alice send a cross-chain tx to transfer 10e8 LBTC from ETH to BNB
 2. Bob wants to block Alice's tx on BNB chain, so he send a cross-chain tx to transfer 1 unit LBTC.(Please note this step isn't necessary, Bob can use other's tx as well).
 3. Both Alice and Bob's tx will be signed by Consortium's validators.
-4.  If everything goes well, [EVM2EVMOffRamp.manuallyExecute](https://github.com/smartcontractkit/ccip/blob/c279cbb4ab57436b9c59c9321492e25f0aa30e80/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L234-L278) will be called with:
+4. If everything goes well, [EVM2EVMOffRamp.manuallyExecute](https://github.com/smartcontractkit/ccip/blob/c279cbb4ab57436b9c59c9321492e25f0aa30e80/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L234-L278) will be called with:
 
-    ```
-    1) EVM2EVMMessage for Alice(it'll be called `message_alice`) and Alice's payload(it'll be called `payload_alice`)
-    2) EVM2EVMMessage for Bob(it'll be called `message_bob`)  and Bob's payloab(it'll be called `payload_bob`)
-    ```
+   ```
+   1) EVM2EVMMessage for Alice(it'll be called `message_alice`) and Alice's payload(it'll be called `payload_alice`)
+   2) EVM2EVMMessage for Bob(it'll be called `message_bob`)  and Bob's payloab(it'll be called `payload_bob`)
+   ```
 
-    And after the EVM2EVMMessage been executed, the message will be marked as `Internal.MessageExecutionState.SUCCESS` in [EVM2EVMOffRamp.sol#L411](https://github.com/smartcontractkit/ccip/blob/c279cbb4ab57436b9c59c9321492e25f0aa30e80/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L411)
+   And after the EVM2EVMMessage been executed, the message will be marked as `Internal.MessageExecutionState.SUCCESS` in [EVM2EVMOffRamp.sol#L411](https://github.com/smartcontractkit/ccip/blob/c279cbb4ab57436b9c59c9321492e25f0aa30e80/contracts/src/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol#L411)
 5. Because Bob wants to block Alice's tx on BNB chain, he will front-run the `EVM2EVMOffRamp.manuallyExecute` with **message\_alice plus payload\_bob** as parameters. In such case, because [TokenPool.releaseOrMint](https://github.com/lombard-finance/evm-smart-contracts/blob/e46c8c9f1e94e422e6082d01bc97d331b98c9d07/contracts/bridge/adapters/TokenPool.sol#L57-L70) handles LBTC transfer based on `releaseOrMintIn.offchainTokenData`, which means Bob's payload will be executed. **But because CCIP marks the executed message based on `message.sequenceNumber`, `message_alice` will be marked as executed**
 6. When Alice executes her tx, because her `message.sequenceNumber` is marked as executed, her LBTC can't be transferred.
 

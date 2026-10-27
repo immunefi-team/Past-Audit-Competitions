@@ -5,7 +5,7 @@
 * **Report ID:** #37867
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -21,7 +21,7 @@ The code can be upgraded by admin via a two-step process, i.e. by calling `sched
 
 The purpose of this two-step process is to give users the option to review the new contract changes and act by burning their xALGO before the new update goes live e.g. if they do not agree with the changes or find them malicious. The downside of the current implementation is that it still requires the admin to publish somewhere the code, which corresponds to the commitments made, for the users to review.
 
-Moreover, the implementation includes an error. The maximum size of programs on Algorand is 8192 bytes. However, the maximum byte width of the Algorand Virtual Machine is 4096 bytes. This means that when verifying whether the correct programs are to be deployed after they have been scheduled, the calculation of hashes of programs larger than 4096 bytes will fail, i.e. at https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py#L353. Because a pending upgrade can be overwritten by the admin calling again `schedule_update_sc` method, the error will not result in a blocked contract.
+Moreover, the implementation includes an error. The maximum size of programs on Algorand is 8192 bytes. However, the maximum byte width of the Algorand Virtual Machine is 4096 bytes. This means that when verifying whether the correct programs are to be deployed after they have been scheduled, the calculation of hashes of programs larger than 4096 bytes will fail, i.e. at <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py#L353>. Because a pending upgrade can be overwritten by the admin calling again `schedule_update_sc` method, the error will not result in a blocked contract.
 
 ## Impact Details
 
@@ -31,13 +31,13 @@ To resolve both of these limitations simultaneously, the contract could take adv
 
 ## References
 
-This is one of the insights found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
+This is one of the insights found during the Audit Competition. The full report on all bugs and insights found is accessible until 2025/01/16 at <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84>. The download is password-protected. The password is NT4SCGJ7NTJENGSDWKKLZLZ2J (the first 25 letters of authors' Algorand address: NT4SCGJ7NTJENGSDWKKLZLZ2JNXFXM5Y6HLU224TPUJXNA2IU3DBBHDTMQ). The shared folder includes the full report (PDF file) and a .zip of the full test suite project (using AlgoKit), demonstrating all found issues.
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-The test showing issues with upgrades is implemented in `schedule_and_update_sc_test.py`, found in https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84 (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
+The test showing issues with upgrades is implemented in `schedule_and_update_sc_test.py`, found in <https://www.swisstransfer.com/d/4c5dff62-e56b-4c13-bc07-0bbba1e00e84> (password is NT4SCGJ7NTJENGSDWKKLZLZ2J):
 
 from hashlib import sha256
 

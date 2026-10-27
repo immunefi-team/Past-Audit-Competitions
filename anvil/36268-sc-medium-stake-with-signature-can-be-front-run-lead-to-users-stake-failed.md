@@ -5,7 +5,7 @@
 * **Report ID:** #36268
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -51,7 +51,7 @@ User have to make another transaction , if this ERC20 token's approve state chan
 
 ## Link to Proof of Concept
 
-https://gist.github.com/coffiasd/815078ec565993e6e74874f944629706
+<https://gist.github.com/coffiasd/815078ec565993e6e74874f944629706>
 
 ## Proof of Concept
 

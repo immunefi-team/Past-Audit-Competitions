@@ -1,11 +1,11 @@
-# #38516 \[BC-High] Signer can censor transactions and halt the network by providing an invalid nonce or too many nonces
+# #38516 \[BC-High] Signer can censor transactions and halt the network by providing an invalid nonce o
 
 **Submitted on Jan 5th 2025 at 15:55:56 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38516
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 

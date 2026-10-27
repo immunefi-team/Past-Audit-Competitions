@@ -1,11 +1,11 @@
-# #38231 \[SC-Low] Due to incorrect design in \`Consortium::setNextValidatorSet\` the validator set could not be set in certain valid scenarios
+# #38231 \[SC-Low] Due to incorrect design in \`Consortium::setNextValidatorSet\` the validator set could
 
 **Submitted on Dec 28th 2024 at 14:51:40 UTC by @MrMorningstar for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38231
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/consortium/Consortium.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/consortium/Consortium.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * Protocol insolvency

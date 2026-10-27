@@ -1,11 +1,11 @@
-# #39528 \[SC-Insight] Lack of Validation for Min and Max Values in FlatCFMFactory leads to wrong payouts
+# #39528 \[SC-Insight] Lack of Validation for Min and Max Values in FlatCFMFactory leads to wrong payou
 
 **Submitted on Jan 31st 2025 at 22:06:32 UTC by @NHristov for** [**Audit Comp | Butter**](https://immunefi.com/audit-competition/audit-comp-butter)
 
 * **Report ID:** #39528
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
@@ -96,9 +96,9 @@ Funds can be diverted solely to the short outcome, causing mispricing and potent
 
 ## References
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/FlatCFMFactory.sol#L103C5-L144C6
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/FlatCFMFactory.sol#L103C5-L144C6>
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/ConditionalScalarMarket.sol#L72C5-L91C6
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/045ab0ec86fd9a3f7cd0b0cd4068d75c46d2e316/src/ConditionalScalarMarket.sol#L72C5-L91C6>
 
 ## Proof of Concept
 

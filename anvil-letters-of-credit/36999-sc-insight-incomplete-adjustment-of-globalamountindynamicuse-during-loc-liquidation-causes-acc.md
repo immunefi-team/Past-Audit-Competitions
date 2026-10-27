@@ -1,11 +1,11 @@
-# #36999 \[SC-Insight] Incomplete Adjustment of \`globalAmountInDynamicUse\` During LOC Liquidation Causes Accumulated Dust and DoS Risk
+# #36999 \[SC-Insight] Incomplete Adjustment of \`globalAmountInDynamicUse\` During LOC Liquidation Cause
 
 **Submitted on Nov 21st 2024 at 21:15:09 UTC by @jovi for** [**Audit Comp | Anvil: Letters of Credit**](https://immunefi.com/audit-competition/audit-comp-anvil-letters-of-credit)
 
 * **Report ID:** #36999
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol
+* **Target:** <https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol>
 * **Impacts:**
   * Temporary freezing of funds set to 48 hrs within the LetterOfCredit contract
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)

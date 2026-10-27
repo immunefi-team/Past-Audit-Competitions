@@ -5,7 +5,7 @@
 * **Report ID:** #35750
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
@@ -34,7 +34,7 @@ Users will overpay for pyth oracle fees not getting these funds back, incurring 
 
 ## References
 
-\[1] https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\_source=immunefi#L1067 \[2] https://github.com/FuelLabs/Pyth-integration/blob/master/pyth-contract/src/main.sw#L273
+\[1] <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw?utm\\_source=immunefi#L1067> \[2] <https://github.com/FuelLabs/Pyth-integration/blob/master/pyth-contract/src/main.sw#L273>
 
 ## Proof of Concept
 

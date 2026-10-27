@@ -1,11 +1,11 @@
-# #37671 \[SC-Critical] CRITICAL-02 / The contract could be permanently locked due to not reseting the boolen lock
+# #37671 \[SC-Critical] CRITICAL-02 / The contract could be permanently locked due to not reseting the
 
 **Submitted on Dec 12th 2024 at 09:40:40 UTC by @Minato7namikazi for** [**IOP | Fluid Protocol**](https://immunefi.com/audit-competition/iop-fluid-protocol)
 
 * **Report ID:** #37671
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/trove-manager-contract/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 

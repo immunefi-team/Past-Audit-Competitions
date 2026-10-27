@@ -5,7 +5,7 @@
 * **Report ID:** #38342
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/adapters/TokenPool.sol>
 * **Impacts:**
   * Protocol insolvency
   * Temporary freezing of funds for at least 30 days
@@ -19,9 +19,9 @@ A vulnerability exists in the bridge message processing flow where `offchainToke
 
 ## Vulnerability Details
 
-During the bridging, the hash of required payload is attached to the transferred data. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L44
+During the bridging, the hash of required payload is attached to the transferred data. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L44>
 
-On the destination chain, the `OffRamp` contract in Chainlink handles message delivery by invoking either the `manuallyExecute` or `execute` function. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L274 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L331
+On the destination chain, the `OffRamp` contract in Chainlink handles message delivery by invoking either the `manuallyExecute` or `execute` function. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L274> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L331>
 
 This triggers a series of internal calls to validate and process the message. The full flow of message delivery on the destination is as follows:
 
@@ -29,11 +29,11 @@ This triggers a series of internal calls to validate and process the message. Th
 OffRamp::manuallyExecute/execute ==> OffRamp::_batchExecute ==> OffRamp::_executeSingleReport ==> OffRamp::_trialExecute ==> OffRamp::executeSingleMessage ==> OffRamp::_releaseOrMintTokens ==> OffRamp::_releaseOrMintSingleToken ==> TokenPool::releaseOrMint ==> CLAdapter::initiateWithdrawal ==> Bridge::receivePayload/authNotary/withdraw
 ```
 
-https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L274 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L331 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L345 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L367 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L540 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L562 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L744 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L637 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L200 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L178 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L220 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L263
+<https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L274> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L331> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L345> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L367> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L540> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L562> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L744> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L637> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L200> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L178> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L220> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L263>
 
-Both of these functions `manuallyExecute` or `execute` will end in verification phase to be sure that the bridged message is valid: https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L389-L424
+Both of these functions `manuallyExecute` or `execute` will end in verification phase to be sure that the bridged message is valid: <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L389-L424>
 
-The important thing is that the verification is done on `report.messages`, while the `report` has also another important piece of data `offchainTokenData`. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L389-L424
+The important thing is that the verification is done on `report.messages`, while the `report` has also another important piece of data `offchainTokenData`. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L389-L424>
 
 ```solidity
   struct ExecutionReport {
@@ -46,9 +46,9 @@ The important thing is that the verification is done on `report.messages`, while
   }
 ```
 
-https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/libraries/Internal.sol#L68 https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L368
+<https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/libraries/Internal.sol#L68> <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L368>
 
-This data `offchainTokenData` carries off-chain data to process the release or mint in the `TokenPool`. As you see, when `releaseOrMint` is called in the `TokenPool`, the `offchainTokenData` is forwarded as a field in the struct `ReleaseOrMintInV1`. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L664-L683
+This data `offchainTokenData` carries off-chain data to process the release or mint in the `TokenPool`. As you see, when `releaseOrMint` is called in the `TokenPool`, the `offchainTokenData` is forwarded as a field in the struct `ReleaseOrMintInV1`. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L664-L683>
 
 ```solidity
     function releaseOrMint(
@@ -67,7 +67,7 @@ This data `offchainTokenData` carries off-chain data to process the release or m
     }
 ```
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57>
 
 ```solidity
   struct ReleaseOrMintInV1 {
@@ -85,11 +85,11 @@ https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847f
   }
 ```
 
-https://github.com/smartcontractkit/chainlink/blob/498b0b8579ad52a8c394fe3cbf55d3a86a8e29a0/contracts/src/v0.8/ccip/libraries/Pool.sol#L48
+<https://github.com/smartcontractkit/chainlink/blob/498b0b8579ad52a8c394fe3cbf55d3a86a8e29a0/contracts/src/v0.8/ccip/libraries/Pool.sol#L48>
 
 Please note the comment: "offchainTokenData is untrusted data", showing that this data is not verified through Chainlink verification. So, it is the responsibility of the receiver protocol to validate it.
 
-Its validation is done in the adapter through help of authority notarization by calling `authNotary`. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L62
+Its validation is done in the adapter through help of authority notarization by calling `authNotary`. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L62>
 
 ```solidity
     function initiateWithdrawal(
@@ -107,7 +107,7 @@ Its validation is done in the adapter through help of authority notarization by 
     }
 ```
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L200-L212
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L200-L212>
 
 ### Issue
 
@@ -134,7 +134,7 @@ So that, the first message would be validated on Chainlink with provided proof. 
       _setExecutionState(sourceChainSelector, message.header.sequenceNumber, newState);
 ```
 
-https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L499
+<https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L499>
 
 But, since `offchainTokenData` associated the second message is forwarded to `TokenPool`, the intended amount of LBTC will be minted to the receiver address set in the `offchainTokenData` associated with the second message.
 
@@ -184,13 +184,13 @@ On chainX, Alice calls the function `OffRamp::manuallyExecute` with the followin
 * `reports: [ ExecutionReport{ sourceChainSelector: // source chain messages: // the message related to Bob offchainTokenData: // the valid off-chain data related to Alice's message proofs: // the valid proof for Bob's message so that Chainlink can verify that Bob's message is delivered and processed securely proofFlagBits: // related to the provided proof for the Bob's message } ]`
 * `gasLimitOverrides`: // enough gas for executing the message delivery
 
-Then, in the function `OffRamp::_executeSingleReport`, the Bob's message will be verified with the provided proof, so that Chainlink ensures that the bridging is done securely. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L424
+Then, in the function `OffRamp::_executeSingleReport`, the Bob's message will be verified with the provided proof, so that Chainlink ensures that the bridging is done securely. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L424>
 
-Then, the function `TokenPool::releaseOrMint` is called with the forwarded `offchainTokenData` related to Alice's message. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L676 https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L64
+Then, the function `TokenPool::releaseOrMint` is called with the forwarded `offchainTokenData` related to Alice's message. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L676> <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L64>
 
-Since the provided `offchainTokenData` is valid, it will pass all the checks during the calls to functions `Bridge::receivePayload`, `Bridge::authNotary`, and `Bridge::withdraw`. Finally, 1 LBTC would be minted to Alice on chainX, and Alice's message would be flagged as `withdrawn`, so that it can not be retired on chainX. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L312-L314
+Since the provided `offchainTokenData` is valid, it will pass all the checks during the calls to functions `Bridge::receivePayload`, `Bridge::authNotary`, and `Bridge::withdraw`. Finally, 1 LBTC would be minted to Alice on chainX, and Alice's message would be flagged as `withdrawn`, so that it can not be retired on chainX. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L312-L314>
 
-On `OffRamp`, since the execution was successful, it sets the status of Bob's message as successful, so that it can not be later retried. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L499
+On `OffRamp`, since the execution was successful, it sets the status of Bob's message as successful, so that it can not be later retried. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L499>
 
 The final status would be:
 
@@ -201,7 +201,7 @@ The final status would be:
 * Bob's message is consumed on `OffRamp`.
 * Bob has not received his 100 LBTC.
 
-Bob does not lose his 100 LBTC, but if `OffRamp::manuallyExecute` or `OffRamp::execute` are invoked with Bob's message and `offchainTokenData` associated with Bob's message as parameters, its execution would be skipped with the event `SkippedAlreadyExecutedMessage` as Bob's proof and message is already consumed in Chainlink by Alice. https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L437-L448
+Bob does not lose his 100 LBTC, but if `OffRamp::manuallyExecute` or `OffRamp::execute` are invoked with Bob's message and `offchainTokenData` associated with Bob's message as parameters, its execution would be skipped with the event `SkippedAlreadyExecutedMessage` as Bob's proof and message is already consumed in Chainlink by Alice. <https://github.com/smartcontractkit/chainlink/blob/develop/contracts/src/v0.8/ccip/offRamp/OffRamp.sol#L437-L448>
 
 The root cause of this issue is that the `offchainTokenData` is not enforced to be associated with the bridged message. The following check is missing:
 
@@ -223,7 +223,7 @@ The root cause of this issue is that the `offchainTokenData` is not enforced to 
     }
 ```
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57>
 
 ```diff
     function initiateWithdrawal(
@@ -244,7 +244,7 @@ https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847f
     }
 ```
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/TokenPool.sol#L57>
 
 ## Impact Details
 

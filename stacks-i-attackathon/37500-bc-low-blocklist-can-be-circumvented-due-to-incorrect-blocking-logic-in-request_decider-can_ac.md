@@ -1,11 +1,11 @@
-# #37500 \[BC-Low] Blocklist can be circumvented due to incorrect blocking logic in \`request\_decider::can\_accept\_deposit\_request\`
+# #37500 \[BC-Low] Blocklist can be circumvented due to incorrect blocking logic in \`request\_decider::c
 
 **Submitted on Dec 6th 2024 at 12:31:58 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37500
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Low
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * A bug in the respective layer 0/1/2 network code that results in unintended smart contract behavior with no concrete funds at direct risk
 

@@ -1,11 +1,11 @@
-# #36910 \[SC-Critical] LoC: The creator can withdraw the entire collateral of a Dynamic LoC making it insolvent
+# #36910 \[SC-Critical] LoC: The creator can withdraw the entire collateral of a Dynamic LoC making it
 
 **Submitted on Nov 19th 2024 at 14:18:21 UTC by @max10afternoon for** [**Audit Comp | Anvil: Letters of Credit**](https://immunefi.com/audit-competition/audit-comp-anvil-letters-of-credit)
 
 * **Report ID:** #36910
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol
+* **Target:** <https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol>
 * **Impacts:**
   * Protocol insolvency
 
@@ -33,7 +33,7 @@ The modifyLOCCollateral function checks that there is still enough collateral to
 
 The collateralFactorInBasisPoints function performs the following check: \`\`\` uint256 collateralInCredited = collateralAmountInCreditedToken(\_collateralTokenAmount, \_price); // Don't divide by 0 if (collateralInCredited == 0) { return 0; } \`\`\`
 
-with collateralAmountInCreditedToken containing a division it self (With Pyht as an oracle the exponent will almost always negative, or at least it is, for the two currently listed token in the collateral contract: USDC and WETH): \`\`\` if (\_price.exponent < 0) { return (\_collateralTokenAmount \* \_price.price) / (10 \*\* uint256(int256(-1 \* \_price.exponent))); } else { \`\`\` This means that if the collateral left in the reservation after it gets modified is extremely small (aka if they withdraw almost the entire amount leaving just 1 decimal worth of weis to bypass a sanity check inside of the collateral vault), the collateralAmountInCreditedToken function will return 0, and therefor collateralFactorInBasisPoints will also return 0, meaning that the check inside of modifyLOCCollateral _"cfBasisPoints > requiredCollateralFactorBasisPoints"_ will always pass. Allowing the creator to withdraw the full collateral (minus 1 wei of approximation to bypass the sanity check inside of the collateral contract), making the LoC completely insolvent. Since the modifyLOCCollateral function doesn't check if the cfBasisPoints is 0, this check is completely unsafe.
+with collateralAmountInCreditedToken containing a division it self (With Pyht as an oracle the exponent will almost always negative, or at least it is, for the two currently listed token in the collateral contract: USDC and WETH): \`\`\` if (\_price.exponent < 0) { return (\_collateralTokenAmount \* \_price.price) / (10 \*\* uint256(int256(-1 \* \_price.exponent))); } else { \`\`\` This means that if the collateral left in the reservation after it gets modified is extremely small (aka if they withdraw almost the entire amount leaving just 1 decimal worth of weis to bypass a sanity check inside of the collateral vault), the collateralAmountInCreditedToken function will return 0, and therefor collateralFactorInBasisPoints will also return 0, meaning that the check inside of modifyLOCCollateral *"cfBasisPoints > requiredCollateralFactorBasisPoints"* will always pass. Allowing the creator to withdraw the full collateral (minus 1 wei of approximation to bypass the sanity check inside of the collateral contract), making the LoC completely insolvent. Since the modifyLOCCollateral function doesn't check if the cfBasisPoints is 0, this check is completely unsafe.
 
 This will mean that the LoC is no longer redeemable as a similar check with a similar logic inside of \_calculateLiquidationContext will revert if the returned value is 0. And even if it were to be redeemable it would still provide almost 0 value instead of the accredited amount, making the LoC completely insolvent and breaking the main invariant of the contract.
 
@@ -45,11 +45,11 @@ Also this will break the main invariant of the contract: LOCs always being redee
 
 ## Proof of Concept
 
-_Note on the PoC: Since the LetterOfCredit in scope is not deployed yet, this PoC cannot use a fully forked environment, as it will be necessary to first deploy the contract, initialize and configure it to interact with the already deployed on chain components (vault, oracle, tokens etc). This will be done with "arbitrary" values, that should not make any difference in the results of the PoC (since the only relevant parameters, namely the prices, will be taken from the on chain Pyth oracle)._
+*Note on the PoC: Since the LetterOfCredit in scope is not deployed yet, this PoC cannot use a fully forked environment, as it will be necessary to first deploy the contract, initialize and configure it to interact with the already deployed on chain components (vault, oracle, tokens etc). This will be done with "arbitrary" values, that should not make any difference in the results of the PoC (since the only relevant parameters, namely the prices, will be taken from the on chain Pyth oracle).*
 
 #### PoC
 
-To reproduce the PoC, clone the github repository "https://github.com/AcronymFoundation/anvil-contracts/tree/main" which contains the in-scope asset "https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol?utm\_source=immunefi". Than initiate a foundry project in the main directory and install the standard Open Zeppelin libraries.
+To reproduce the PoC, clone the github repository "<https://github.com/AcronymFoundation/anvil-contracts/tree/main>" which contains the in-scope asset "<https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol?utm\\_source=immunefi>". Than initiate a foundry project in the main directory and install the standard Open Zeppelin libraries.
 
 Than copy the following foundry script in the 'test' folder and copy your Alchemy API key in the URL on line '155': \`\`\` // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.0;
 

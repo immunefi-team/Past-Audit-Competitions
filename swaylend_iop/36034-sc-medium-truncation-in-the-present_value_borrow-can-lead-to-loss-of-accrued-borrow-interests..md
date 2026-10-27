@@ -1,11 +1,11 @@
-# #36034 \[SC-Medium] truncation in the \`present\_value\_borrow()\` can lead to loss of accrued borrow interests.
+# #36034 \[SC-Medium] truncation in the \`present\_value\_borrow()\` can lead to loss of accrued borrow int
 
 **Submitted on Oct 16th 2024 at 12:33:35 UTC by @SeveritySquad for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #36034
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw?utm\_source=immunefi
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw?utm\\_source=immunefi>
 * **Impacts:**
 
 ## Description

@@ -1,11 +1,11 @@
-# #35415 \[BC-Insight] \[Informational] debugMiddleware query parameters can be partially modified by request submitter or via MITM
+# #35415 \[BC-Insight] \[Informational] debugMiddleware query parameters can be partially modified by re
 
 **Submitted on Sep 21st 2024 at 16:14:27 UTC by @Merkle\_Bonsai for** [**Audit Comp | Shardeum: Core II**](https://immunefi.com/audit-competition/shardeum-core-ii-boost)
 
 * **Report ID:** #35415
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Informational
 
@@ -79,6 +79,6 @@ Since it's general issue, better to demonstrate on synthetic example.
 
 Let's say we have this simple server: \`\`\` require('express')() .get('/', (req, res) => { res.json({ route: stripQueryParams(req.originalUrl, \['sig', 'sig\_counter', 'nodePubkeys']), query: req.query, originalUrl: req.originalUrl }) }) .listen(3030) \`\`\`
 
-For this request: \`http://localhost:3030/?key=stakeTargetAddress\&value=0x4200000000000000000000000000000000010000?\[]=\&value=attacker.eth\` answer will be \`\`\` { "route": "/?key=stakeTargetAddress\&value=0x4200000000000000000000000000000000010000", "query": { "key": "stakeTargetAddress", "value=0x4200000000000000000000000000000000010000?": \[ "" ], "value": "attacker.eth" }, "originalUrl": "/?key=stakeTargetAddress\&value=0x4200000000000000000000000000000000010000?\[]=\&value=attacker.eth" } \`\`\`
+For this request: \`<http://localhost:3030/?key=stakeTargetAddress\\&value=0x4200000000000000000000000000000000010000?\\[]=\\&value=attacker.eth\\`> answer will be \`\`\` { "route": "/?key=stakeTargetAddress\&value=0x4200000000000000000000000000000000010000", "query": { "key": "stakeTargetAddress", "value=0x4200000000000000000000000000000000010000?": \[ "" ], "value": "attacker.eth" }, "originalUrl": "/?key=stakeTargetAddress\&value=0x4200000000000000000000000000000000010000?\[]=\&value=attacker.eth" } \`\`\`
 
 that clearly demonstrates that \`stripQueryParams\` (and object to hash in general) will differ to actual \`req.query\` values used in handler execution

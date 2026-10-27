@@ -1,11 +1,11 @@
-# #38671 \[BC-Insight] Signer key rotation is not possible due to deadlock between submitting key rotation to Stacks and retrieving it
+# #38671 \[BC-Insight] Signer key rotation is not possible due to deadlock between submitting key rotat
 
 **Submitted on Jan 9th 2025 at 09:32:27 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38671
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * A bug in the respective layer 0/1/2 network code that results in unintended smart contract behavior with no concrete funds at direct risk
 

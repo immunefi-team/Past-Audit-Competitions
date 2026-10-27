@@ -1,11 +1,11 @@
-# #38102 \[SC-Insight] Due to incorrect design in \`BasculeV2::validateWithdrawal\` valid transactions will be reverted, which will make protocol unable to mint tokens
+# #38102 \[SC-Insight] Due to incorrect design in \`BasculeV2::validateWithdrawal\` valid transactions wi
 
 **Submitted on Dec 24th 2024 at 11:41:51 UTC by @MrMorningstar for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38102
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bascule/BasculeV2.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bascule/BasculeV2.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -15,10 +15,10 @@
 
 When users or white listed addresses want to mint `LBTC` by providing proof of stake action happened they can do via following functions:
 
-* `mint` (https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L368)
-* `batchMint`(https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L394)
-* `mintWithFee`(https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L415)
-* `batchMintWithFee`(https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L431)
+* `mint` (<https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L368>)
+* `batchMint`(<https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L394>)
+* `mintWithFee`(<https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L415>)
+* `batchMintWithFee`(<https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/LBTC/LBTC.sol#L431>)
 
 After certain checks passed they all call `_validateAndMint` function at some point, which furthermore calls `_confirmDeposit` that looks like this:
 
@@ -35,7 +35,7 @@ After certain checks passed they all call `_validateAndMint` function at some po
     }
 ```
 
-As we can see the `_confirmDeposit` functions calls the `validateWithdrawal`(https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/bascule/BasculeV2.sol#L272) which looks like this:
+As we can see the `_confirmDeposit` functions calls the `validateWithdrawal`(<https://github.com/lombard-finance/evm-smart-contracts/blob/13bfc98f72c116c014633488de35aae774e5417b/contracts/bascule/BasculeV2.sol#L272>) which looks like this:
 
 ```js
     function validateWithdrawal(
@@ -131,7 +131,7 @@ Make the following change in `validateWithdrawal`:
 
 ## Proof of Concept
 
-Paste the following test in `Bascule.ts`(https://github.com/lombard-finance/evm-smart-contracts/blob/main/test/Bascule.ts):
+Paste the following test in `Bascule.ts`(<https://github.com/lombard-finance/evm-smart-contracts/blob/main/test/Bascule.ts>):
 
 ```js
         it('Does not allow withdrawals equal to threshold', async () => {

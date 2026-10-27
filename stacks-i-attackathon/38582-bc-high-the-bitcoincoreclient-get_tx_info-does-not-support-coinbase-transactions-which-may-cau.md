@@ -1,11 +1,11 @@
-# #38582 \[BC-High] The \`BitcoinCoreClient::get\_tx\_info\` does not support coinbase transactions, which may cause sBTC to be attacked by btc miners or sBTC donations to be lost
+# #38582 \[BC-High] The \`BitcoinCoreClient::get\_tx\_info\` does not support coinbase transactions, which
 
 **Submitted on Jan 7th 2025 at 09:31:52 UTC by @f4lc0n for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38582
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Direct loss of funds
   * API crash preventing correct processing of deposits
@@ -82,30 +82,30 @@ None
 
 ## Proof of Concept
 
-1. Base on: https://github.com/stacks-network/sbtc/releases/tag/0.0.9-rc4
-2.  Run docker
+1. Base on: <https://github.com/stacks-network/sbtc/releases/tag/0.0.9-rc4>
+2. Run docker
 
-    ```sh
-    make devenv-up
-    make devenv-down
-    ```
-3.  Get signers bitcoin address
+   ```sh
+   make devenv-up
+   make devenv-down
+   ```
+3. Get signers bitcoin address
 
-    ```sh
-    ./signers.sh info
-    ```
-4.  Enter the `docker-bitcoin-miner-1` docker
+   ```sh
+   ./signers.sh info
+   ```
+4. Enter the `docker-bitcoin-miner-1` docker
 
-    ```sh
-    docker exec -it docker-bitcoin-miner-1 bash
-    ```
-5.  Run the following command inside the `docker-bitcoin-miner-1` docker to mine a block to signers bitcoin address
+   ```sh
+   docker exec -it docker-bitcoin-miner-1 bash
+   ```
+5. Run the following command inside the `docker-bitcoin-miner-1` docker to mine a block to signers bitcoin address
 
-    ```sh
-    bitcoin-cli -rpcwallet=main -rpcconnect=bitcoin generatetoaddress 1 "<signers bitcoin address>"
-    ```
-6.  Check the log of _sbtc-signer-1_ and you will find that sBTC signer has a parsing error
+   ```sh
+   bitcoin-cli -rpcwallet=main -rpcconnect=bitcoin generatetoaddress 1 "<signers bitcoin address>"
+   ```
+6. Check the log of *sbtc-signer-1* and you will find that sBTC signer has a parsing error
 
-    ```
-    2025-01-07T08:59:09.420166379Z  WARN block-observer:process_bitcoin_block{block_hash=309c10993443ff41a3becb8ba6f3bc8575ef42387754261bb545d95e305964e0}: signer::util: failover client call failed error=failed to retrieve the raw transaction for txid ef66dba196015cd9f4df07da8d45bc2654e8fb116c4e91e18dbb82ed3de56535 from bitcoin-core. JSON-RPC error: JSON decode error: missing field `prevout` at line 1 column 368 retry_num=0 max_retries=1
-    ```
+   ```
+   2025-01-07T08:59:09.420166379Z  WARN block-observer:process_bitcoin_block{block_hash=309c10993443ff41a3becb8ba6f3bc8575ef42387754261bb545d95e305964e0}: signer::util: failover client call failed error=failed to retrieve the raw transaction for txid ef66dba196015cd9f4df07da8d45bc2654e8fb116c4e91e18dbb82ed3de56535 from bitcoin-core. JSON-RPC error: JSON decode error: missing field `prevout` at line 1 column 368 retry_num=0 max_retries=1
+   ```

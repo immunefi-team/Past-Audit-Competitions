@@ -7,7 +7,7 @@
 * **Report ID:** #36807
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol
+* **Target:** <https://github.com/AcronymFoundation/anvil-contracts/blob/main/contracts/LetterOfCredit.sol>
 * **Impacts:**
   * Protocol insolvency
 
@@ -120,7 +120,7 @@ It is easy to automate the attack
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testletterofcredit-sol
+<https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testletterofcredit-sol>
 
 ### Proof of Concept
 
@@ -177,11 +177,11 @@ But attacker can create the dynamic LOC of \_creditedTokenAmount that is maximum
 
 Full POC:
 
-https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testletterofcredit-sol
+<https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testletterofcredit-sol>
 
 Just download the zip file:
 
-https://drive.google.com/file/d/19ThCjMDQzRVaecJdksE50Xo\_K6bhGENE/view?usp=sharing
+<https://drive.google.com/file/d/19ThCjMDQzRVaecJdksE50Xo\\_K6bhGENE/view?usp=sharing>
 
 The test code uses Foundry. Just Unzip and run the test case:
 
@@ -189,4 +189,4 @@ The test code uses Foundry. Just Unzip and run the test case:
 
 \`\`\`
 
-Log file: https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testcreatedynamiclochacked\_241115\_1750-log
+Log file: <https://gist.github.com/Perseverancesuccess2021/378159d301fbb5249afdce7292d0692b#file-testcreatedynamiclochacked\\_241115\\_1750-log>

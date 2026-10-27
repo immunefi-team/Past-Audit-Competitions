@@ -1,4 +1,4 @@
-# 39495 \[SC-Low] flatcfm cannot be resolved in case answer of questionid are in greater or equal to 2 outcome count and answer 2 outcome count is 0&#x20;
+# 39495 \[SC-Low] flatcfm cannot be resolved in case answer of questionid are in greater or equal to 2
 
 ## #39495 \[SC-Low] FlatCFM cannot be resolved in case answer of questionId are in greater or equal to 2^OUTCOME\_COUNT and answer % 2^OUTCOME\_COUNT is 0
 
@@ -7,7 +7,7 @@
 * **Report ID:** #39495
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
   * Temporary freezing of funds for at least 1 hour
@@ -20,7 +20,7 @@
 
 The FlatCFM can be resolved by getting the answer from RealityETH Oracle for the questionId. When the answer from RealityETH is finalized, anyone can call resolve() to resolve the FlatCFM. It is important that FlatCFM should be resolved so that users can redeem to get the collateral (money) back.
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFM.sol#L58
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFM.sol#L58>
 
 ```solidity
 
@@ -77,7 +77,7 @@ function resolve() external {
 
 **In this case, the call to conditionalTokens.reportPayouts will be reverted because of errors "payout is all zeroes"**
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/integration/vendor/gnosis/conditional-tokens-contracts/ConditionalTokens.sol#L101
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/integration/vendor/gnosis/conditional-tokens-contracts/ConditionalTokens.sol#L101>
 
 ```solidity
 
@@ -136,7 +136,7 @@ But I believe that the severity can be at least Medium, but I let the project an
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0
+<https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0>
 
 ### Proof of Concept
 
@@ -176,11 +176,11 @@ Expect the call to resolve to revert with error: "payout is all zeroes"
 
 Copy the test code into the Unit test:
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/FlatCFM.t.sol
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/FlatCFM.t.sol>
 
 Also modify a bit the DummyConditionalTokens to behave like the real conditionalTokens
 
-https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/dummy/ConditionalTokens.sol#L86-L88
+<https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/dummy/ConditionalTokens.sol#L86-L88>
 
 ```solidity
 function reportPayouts(bytes32 questionId, uint256[] calldata payouts) external override {
@@ -229,17 +229,17 @@ Test Log:
 
 ### Full POC:
 
-1. Replace https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/dummy/ConditionalTokens.sol
+1. Replace <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/dummy/ConditionalTokens.sol>
 
 with
 
-https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-conditionaltokens-sol
+<https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-conditionaltokens-sol>
 
-2. Replace https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/FlatCFM.t.sol
+2. Replace <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/test/unit/FlatCFM.t.sol>
 
 With
 
-https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-flatcfm-t-sol
+<https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-flatcfm-t-sol>
 
 After that, run the test
 
@@ -249,4 +249,4 @@ forge test --match-test testResolveWrongAnswerCallsReportPayoutsWithOutofRange -
 
 Full Log:
 
-https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-test\_testresolvewronganswercallsreportpayoutswithoutofrange\_250131\_1120-log
+<https://gist.github.com/Perseverancesuccess2021/89d26594d88080b62121184be87ba7a0#file-test\\_testresolvewronganswercallsreportpayoutswithoutofrange\\_250131\\_1120-log>

@@ -1,11 +1,11 @@
-# #38116 \[SC-Insight] Partner vaults don't account for FireBridge fees, forcing LBTC burn to never work
+# #38116 \[SC-Insight] Partner vaults don't account for FireBridge fees, forcing LBTC burn to never wor
 
 **Submitted on Dec 24th 2024 at 21:30:49 UTC by @OxAlix2 for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38116
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol>
 * **Impacts:**
   * Permanent freezing of funds
   * Protocol insolvency
@@ -26,7 +26,7 @@ bytes32 key = keccak256(
 );
 ```
 
-At a later stage in the function, `lockedFbtc.redeemFbtcRequest` is called which initiates a redeem operation, https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L239-L243. LockedFBTC later calls `IFireBridge(fbtcBridge).addMintRequest` which constructs the redemption request, the issue here is that this doesn't return the exact amount but `amount - fees`:
+At a later stage in the function, `lockedFbtc.redeemFbtcRequest` is called which initiates a redeem operation, <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L239-L243>. LockedFBTC later calls `IFireBridge(fbtcBridge).addMintRequest` which constructs the redemption request, the issue here is that this doesn't return the exact amount but `amount - fees`:
 
 ```solidity
 function _splitFeeAndUpdate(Request memory r) internal view {
@@ -95,10 +95,10 @@ This blocks users from swapping their LBTC back to FBTC, which ultimately forces
 
 ## References
 
-* LockedFBTC: https://etherscan.io/address/0x8dc0d5e06995d119a9ccdb3472cc9e920389f39c#code
-* FireBridge: https://etherscan.io/address/0xc5e2f85cb57350d3ae918d8b038f891f8ed6f6e5#code
-* https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L231-L233
-* https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L269-L270
+* LockedFBTC: <https://etherscan.io/address/0x8dc0d5e06995d119a9ccdb3472cc9e920389f39c#code>
+* FireBridge: <https://etherscan.io/address/0xc5e2f85cb57350d3ae918d8b038f891f8ed6f6e5#code>
+* <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L231-L233>
+* <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/fbtc/PartnerVault.sol#L269-L270>
 
 ## Mitigation
 

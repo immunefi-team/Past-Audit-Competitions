@@ -1,4 +1,4 @@
-# Attackathon Stacks
+# Stacks I Attackathon
 
 ## Reports by Severity
 

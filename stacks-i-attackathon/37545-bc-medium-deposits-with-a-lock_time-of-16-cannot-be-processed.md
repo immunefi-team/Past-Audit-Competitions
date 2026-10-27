@@ -5,7 +5,7 @@
 * **Report ID:** #37545
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Medium
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/sbtc
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/sbtc>
 * **Impacts:**
   * Direct loss of funds
 
@@ -129,7 +129,7 @@ The impact is High because users will lose the fees of the Bitcoin deposit, and 
 
 ## References
 
-https://github.com/stacks-network/sbtc/blob/immunefi\_attackaton\_0.9/sbtc/src/deposits.rs#L446-L485 https://github.com/stacks-network/sbtc/blob/immunefi\_attackaton\_0.9/sbtc/src/deposits.rs#L126-L172
+<https://github.com/stacks-network/sbtc/blob/immunefi\\_attackaton\\_0.9/sbtc/src/deposits.rs#L446-L485> <https://github.com/stacks-network/sbtc/blob/immunefi\\_attackaton\\_0.9/sbtc/src/deposits.rs#L126-L172>
 
 ## Proof of Concept
 

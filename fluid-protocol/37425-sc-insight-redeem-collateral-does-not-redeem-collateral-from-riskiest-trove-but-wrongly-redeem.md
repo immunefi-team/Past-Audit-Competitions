@@ -1,4 +1,4 @@
-# #37425 \[SC-Insight] redeem collateral does not redeem collateral from riskiest trove but wrongly redeem
+# #37425 \[SC-Insight] redeem collateral does not redeem collateral from riskiest trove but wrongly red
 
 ## #37425 \[SC-Insight] redeem\_collateral does not redeem collateral from riskiest trove but wrongly redeem lowest healthy troves with lowest collateral Ratio
 
@@ -7,7 +7,7 @@
 * **Report ID:** #37425
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw
+* **Target:** <https://github.com/Hydrogen-Labs/fluid-protocol/tree/main/contracts/protocol-manager-contract/src/main.sw>
 * **Impacts:**
   * Direct theft of any user funds, whether at-rest or in-motion, other than unclaimed yield
 
@@ -19,7 +19,7 @@
 
 The redeem\_collateral() in protocol\_manager can redeem collateral at any time to receive collateral.
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L134-L139
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L134-L139>
 
 ```rust
 #[storage(read, write), payable]
@@ -61,7 +61,7 @@ Line 326-328: Loop until it finds the current\_borrower that is not zero and hav
 
 **So notice that in the case, there are troves with Collateral Ratio < 135% that is unhealthy, the system still look for the healhthy troves to redeem.**
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L313-L333
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L313-L333>
 
 ```rust
     fn get_all_assets_info() -> AssetInfo {
@@ -91,7 +91,7 @@ Line 330:            current_borrowers.push(current_borrower);
 
 After that, at line 161, the contract find the borrower with the lowest CR in the current\_borrowers vector to redeem the collateral. At line 177, the contract call trove\_manager\_contract.redeem\_collateral\_from\_trove to redeem the collateral.
 
-https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L159-L184
+<https://github.com/Hydrogen-Labs/fluid-protocol/blob/main/contracts/protocol-manager-contract/src/main.sw#L159-L184>
 
 ```rust
         let mut assets_info = get_all_assets_info();
@@ -196,7 +196,7 @@ Impact category:
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-success\_redemptions\_many-rs
+<https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-success\\_redemptions\\_many-rs>
 
 ### Proof of Concept
 
@@ -210,7 +210,7 @@ Steps to execute the attack:
 
 ## Test Code
 
-Test code to demonstrate this bug: https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-success\_redemptions\_many-rs
+Test code to demonstrate this bug: <https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-success\\_redemptions\\_many-rs>
 
 Replace the test code function proper\_multi\_collateral\_redemption\_from\_partially\_closed below with the Protocol proper\_multi\_collateral\_redemption\_from\_partially\_closed in fluid-protocol\contracts\protocol-manager-contract\tests\success\_redemptions\_many.rs
 
@@ -412,7 +412,7 @@ Ok("RedemptionEvent { borrower: Address(5d99ee966b42cd8fc7bdd1364b389153a9e78b42
 
 **The trove of wallet\_2 with asset\_1 is unhealthy and is riskiest in the system, but stay untouched.**
 
-Test log: https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-proper\_multi\_collateral\_redemption\_from\_partially\_closed\_241204\_1730-log
+Test log: <https://gist.github.com/Perseverancesuccess2021/a0a584cc51049b585872b1b87028b1a5#file-proper\\_multi\\_collateral\\_redemption\\_from\\_partially\\_closed\\_241204\\_1730-log>
 
 ```log
 running 1 test
@@ -438,7 +438,7 @@ ok
 
 ### Full POC:
 
-Download Patch files: https://drive.google.com/file/d/1kYg8\_INyCcEZPCxM4FhK8vU6ZlfZpM5c/view?usp=sharing
+Download Patch files: <https://drive.google.com/file/d/1kYg8\\_INyCcEZPCxM4FhK8vU6ZlfZpM5c/view?usp=sharing>
 
 In folder fluid-protocol , apply all patches file based on commit: 78ab7bdd243b414b424fca6e1eb144218f36a18a
 

@@ -1,11 +1,11 @@
-# #38225 \[SC-Insight] user funds will get stuck if \`removeDestination\` executes before notarization and withdraw.
+# #38225 \[SC-Insight] user funds will get stuck if \`removeDestination\` executes before notarization an
 
 **Submitted on Dec 28th 2024 at 08:15:12 UTC by @OxAnmol for** [**Audit Comp | Lombard**](https://immunefi.com/audit-competition/audit-comp-lombard)
 
 * **Report ID:** #38225
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol>
 * **Impacts:**
   * Temporary freezing of funds for at least 30 days
   * Permanent freezing of funds
@@ -60,7 +60,7 @@ According to the immunefi severity guide this should be high because it is Tempo
 
 ## References
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/bridge/Bridge.sol#L237
+<https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/bridge/Bridge.sol#L237>
 
 ## Proof of Concept
 

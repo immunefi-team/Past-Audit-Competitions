@@ -1,11 +1,11 @@
-# #38003 \[BC-Medium] A malicious coordinator calling \`Emily::update\_deposits\` can make the entire Signers network inoperable
+# #38003 \[BC-Medium] A malicious coordinator calling \`Emily::update\_deposits\` can make the entire Sign
 
 **Submitted on Dec 21st 2024 at 12:44:37 UTC by @f4lc0n for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38003
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Medium
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/emily
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/emily>
 * **Impacts:**
   * API crash preventing correct processing of deposits
 
@@ -15,7 +15,7 @@
 
 The Signers network uses a multi-signature mechanism to execute sBTC deposits. For example, in a 3-5 multi-signature, as long as 3 coordinators are honest, the Signers network can operate normally.
 
-However, in the current implementation, as long as a malicious coordinator calls the `Emily::update_deposits` api to update the status of deposits from _Pending_ to _Confirmed_, all Signers will no longer be able to process these deposits.
+However, in the current implementation, as long as a malicious coordinator calls the `Emily::update_deposits` api to update the status of deposits from *Pending* to *Confirmed*, all Signers will no longer be able to process these deposits.
 
 ## Vulnerability Details
 
@@ -81,7 +81,7 @@ pub async fn update_deposits(
 
 It does not check the identity of the caller. According to the sBTC architecture, all coordinators have the authority to call the API. Therefore, any coordinator can maliciously call the API to destroy the status of deposits in Emily.
 
-A malicious coordinator can update all deposits to _Confirmed_, and then all other coordinators will not process them anymore.
+A malicious coordinator can update all deposits to *Confirmed*, and then all other coordinators will not process them anymore.
 
 ## Impact Details
 
@@ -97,46 +97,46 @@ None
 
 ## Proof of Concept
 
-1.  Patch `docker/sbtc/Dockerfile`, fix database bug
+1. Patch `docker/sbtc/Dockerfile`, fix database bug
 
-    ```diff
-    RUN git clone https://github.com/stacks-network/sbtc.git
-    WORKDIR /code/sbtc
+   ```diff
+   RUN git clone https://github.com/stacks-network/sbtc.git
+   WORKDIR /code/sbtc
 
-    -ARG GIT_BRANCH=main
-    +ARG GIT_BRANCH=immunefi_attackaton_0.9
-    RUN git checkout $GIT_BRANCH
+   -ARG GIT_BRANCH=main
+   +ARG GIT_BRANCH=immunefi_attackaton_0.9
+   RUN git checkout $GIT_BRANCH
 
-    # Run an install that we'll cache the result of and then build the code
-    ```
-2.  Patch `signer/Cargo.toml`, add _poc4_ bin
+   # Run an install that we'll cache the result of and then build the code
+   ```
+2. Patch `signer/Cargo.toml`, add *poc4* bin
 
-    ```diff
-    [[bin]]
-    name = "demo-cli"
-    path = "src/bin/demo_cli.rs"
-    +
-    +[[bin]]
-    +name = "poc5"
-    +path = "src/bin/poc5.rs"
-    ```
+   ```diff
+   [[bin]]
+   name = "demo-cli"
+   path = "src/bin/demo_cli.rs"
+   +
+   +[[bin]]
+   +name = "poc5"
+   +path = "src/bin/poc5.rs"
+   ```
 3. Add [this code](https://gist.github.com/al-f4lc0n/8c34298ddc97dc185f339217a1bd3947) to `signer/src/bin/poc5.rs`
-4.  Build docker
+4. Build docker
 
-    ```sh
-    make devenv-up
-    make devenv-down
-    docker compose -f docker/docker-compose.yml --profile default --profile bitcoin-mempool --profile sbtc-signer build
-    make devenv-up
-    ```
-5.  Wait for a while, run the demo
+   ```sh
+   make devenv-up
+   make devenv-down
+   docker compose -f docker/docker-compose.yml --profile default --profile bitcoin-mempool --profile sbtc-signer build
+   make devenv-up
+   ```
+5. Wait for a while, run the demo
 
-    ```sh
-    ./signers.sh demo
-    ```
-6.  Wait for a while, run the PoC. This PoC simulates user behavior to create 10 deposits, and then simulates a malicious coordinator calling `Emily::update_deposits` to update the status of these deposits to _Confirmed_
+   ```sh
+   ./signers.sh demo
+   ```
+6. Wait for a while, run the PoC. This PoC simulates user behavior to create 10 deposits, and then simulates a malicious coordinator calling `Emily::update_deposits` to update the status of these deposits to *Confirmed*
 
-    ```sh
-    cargo run -p signer --bin poc5
-    ```
+   ```sh
+   cargo run -p signer --bin poc5
+   ```
 7. You will find that these deposits are not executed.

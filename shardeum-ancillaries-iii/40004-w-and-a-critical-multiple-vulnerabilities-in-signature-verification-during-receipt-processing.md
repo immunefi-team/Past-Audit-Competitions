@@ -1,11 +1,11 @@
-# #40004 \[W\&A-Critical] Multiple vulnerabilities in signature verification during receipt processing on the archiver server
+# #40004 \[W\&A-Critical] Multiple vulnerabilities in signature verification during receipt processing o
 
 **Submitted on Feb 12th 2025 at 15:21:19 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Ancillaries III**](https://immunefi.com/audit-competition/audit-comp-shardeum-ancillaries-iii)
 
 * **Report ID:** #40004
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Direct theft of user funds
 
@@ -95,12 +95,12 @@ This effectively allows an attacker with an active node connected to the archive
 
 ## References
 
-https://github.com/shardeum/archiver/blob/a55860da3416ca0433579f0e180629d18c9e4c09/src/Data/Collector.ts#L823\
-https://github.com/shardeum/archiver/blob/a55860da3416ca0433579f0e180629d18c9e4c09/src/Data/Collector.ts#L574
+<https://github.com/shardeum/archiver/blob/a55860da3416ca0433579f0e180629d18c9e4c09/src/Data/Collector.ts#L823\\>
+<https://github.com/shardeum/archiver/blob/a55860da3416ca0433579f0e180629d18c9e4c09/src/Data/Collector.ts#L574>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/15e3e6a880072e7947696fa69c9fd587
+<https://gist.github.com/periniondon630/15e3e6a880072e7947696fa69c9fd587>
 
 ## Proof of Concept
 

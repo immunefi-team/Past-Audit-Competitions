@@ -5,7 +5,7 @@
 * **Report ID:** #37315
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/jito-foundation/restaking/tree/master/vault\_program
+* **Target:** <https://github.com/jito-foundation/restaking/tree/master/vault\\_program>
 * **Impacts:**
   * Theft of unclaimed yield
 
@@ -37,7 +37,7 @@ For example:
 
 ## References
 
-https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/mint\_to.rs https://github.com/jito-foundation/restaking/blob/master/vault\_program/src/update\_vault\_balance.rs
+<https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/mint\\_to.rs> <https://github.com/jito-foundation/restaking/blob/master/vault\\_program/src/update\\_vault\\_balance.rs>
 
 ## Proof of Concept
 

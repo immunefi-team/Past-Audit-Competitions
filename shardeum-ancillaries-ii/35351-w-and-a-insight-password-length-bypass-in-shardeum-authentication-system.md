@@ -5,7 +5,7 @@
 * **Report ID:** #35351
 * **Report Type:** Websites and Applications
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/validator-gui/tree/dev
+* **Target:** <https://github.com/shardeum/validator-gui/tree/dev>
 * **Impacts:**
   * Temporarily disabling user to access target site, such as: Locking up the victim from login, Cookie bombing, etc.
   * Changing non-sensitive details of other users (including modifying browser local storage) without already-connected wallet interaction and with up to one click of user interaction: Changing the first/last name of user, Enabling/disabling notifications
@@ -26,7 +26,7 @@ Despite sending a password shorter than the required length, the system allowed 
 
 Here is an example of the request that was sent:
 
-\`\`\` POST /auth/login HTTP/1.1 Host: localhost:8080 Cookie: csrfToken=640e6c11bec4d106e3c0226873477e039fd908f381d97e7190229771fc1fc112%7C7d4617692f564fa00024ecc0cd985ce2febb749a8543e4e2a6b9a31327ca0e5e User-Agent: Mozilla/5.0 (X11; Linux x86\_64; rv:128.0) Gecko/20100101 Firefox/128.0 Accept: _/_ Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate, br Referer: https://localhost:8080/ Content-Type: application/json X-Csrf-Token: 640e6c11bec4d106e3c0226873477e039fd908f381d97e7190229771fc1fc112 Content-Length: 79 Origin: https://localhost:8080 Sec-Fetch-Dest: empty Sec-Fetch-Mode: cors Sec-Fetch-Site: same-origin Priority: u=4 Te: trailers Connection: close
+\`\`\` POST /auth/login HTTP/1.1 Host: localhost:8080 Cookie: csrfToken=640e6c11bec4d106e3c0226873477e039fd908f381d97e7190229771fc1fc112%7C7d4617692f564fa00024ecc0cd985ce2febb749a8543e4e2a6b9a31327ca0e5e User-Agent: Mozilla/5.0 (X11; Linux x86\_64; rv:128.0) Gecko/20100101 Firefox/128.0 Accept: */* Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate, br Referer: <https://localhost:8080/> Content-Type: application/json X-Csrf-Token: 640e6c11bec4d106e3c0226873477e039fd908f381d97e7190229771fc1fc112 Content-Length: 79 Origin: <https://localhost:8080> Sec-Fetch-Dest: empty Sec-Fetch-Mode: cors Sec-Fetch-Site: same-origin Priority: u=4 Te: trailers Connection: close
 
 {"password":"ce5ca673d13b36118d54a7cf13aeb0ca012383bf771e713421b4d1fd841f539a"}
 

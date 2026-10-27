@@ -5,7 +5,7 @@
 * **Report ID:** #39980
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Taking and/modifying authenticated actions (with or without blockchain state interaction) on behalf of other users without any interaction by that user, such as:
 * Changing registration information
@@ -120,11 +120,11 @@ This vulnerability allows an attacker to escalate from **manipulating a single a
 
 ## References
 
-https://github.com/shardeum/archiver/blob/a131a752c5ab8ab5771142ad0f83ce06c610cd9b/src/Data/Data.ts#L354
+<https://github.com/shardeum/archiver/blob/a131a752c5ab8ab5771142ad0f83ce06c610cd9b/src/Data/Data.ts#L354>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/ca41b300c74ebd64e3d9c2cab8cdc911
+<https://gist.github.com/periniondon630/ca41b300c74ebd64e3d9c2cab8cdc911>
 
 ## Proof of Concept
 
@@ -134,20 +134,20 @@ https://gist.github.com/periniondon630/ca41b300c74ebd64e3d9c2cab8cdc911
 2. Build and start a standard local network with **10 nodes**.
 3. In a network of this size, the **archiver** will use **2 validators** as `dataSenders`.
 4. Check the **archiver's** `out.log` to determine which validator is sending the cycle first. Look for log messages such as `"new cycle from"` followed by an IP address.
-5.  Activate **attack mode** on the first sender (validator) by executing:
+5. Activate **attack mode** on the first sender (validator) by executing:
 
-    ```sh
-    curl -X POST <ip>:<port>/hackCycle
-    ```
+   ```sh
+   curl -X POST <ip>:<port>/hackCycle
+   ```
 
-    This will modify the cycle record by adding the property `hacked: true`.
-6.  To ensure the archiver is the last one in the sequence, introduce a delay by running:
+   This will modify the cycle record by adding the property `hacked: true`.
+6. To ensure the archiver is the last one in the sequence, introduce a delay by running:
 
-    ```sh
-    curl "<ip>:<port>/cycleDelay?cycleDelay=<delay>"
-    ```
+   ```sh
+   curl "<ip>:<port>/cycleDelay?cycleDelay=<delay>"
+   ```
 
-    Replace `<delay>` with a number in milliseconds.
+   Replace `<delay>` with a number in milliseconds.
 7. Experiment with different delay values until the **first sender (attacker’s node) becomes the last one** in the cycle. At this point, it will propagate its own cycle record containing the `hacked: true` property.
 
 In real network there is only one way - by brute forcing different delay intervals and checking archiver /nodelist endpoint for malicious data.

@@ -1,11 +1,11 @@
-# #37010 \[SC-High] Rollback of the incorrect state interferes with the progress of the epoch process, prevents the user from receiving rewards, blocks the launch of the associated contract function, etc
+# #37010 \[SC-High] Rollback of the incorrect state interferes with the progress of the epoch process,
 
 **Submitted on Nov 22nd 2024 at 05:10:33 UTC by @innertia for** [**Audit Comp | Celo**](https://immunefi.com/audit-competition/audit-comp-celo)
 
 * **Report ID:** #37010
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts-0.8/common/EpochManager.sol
+* **Target:** <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/contracts-0.8/common/EpochManager.sol>
 * **Impacts:**
   * Temporary freezing of funds
   * Smart contract unable to operate due to lack of token funds
@@ -28,7 +28,7 @@ In `startNextEpochProcess`, the status is changed to `Started`, assuming that th
     epochProcessing.status = EpochProcessStatus.Started;
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L194-L196
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L194-L196>
 
 Then, in the next `setToProcessGroups`, the status is changed to `IndivudualGroupsProcessing`, assuming the epoch has started.
 
@@ -38,7 +38,7 @@ Then, in the next `setToProcessGroups`, the status is changed to `IndivudualGrou
     _epochProcessing.status = EpochProcessStatus.IndivudualGroupsProcessing;
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L224-L227
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L224-L227>
 
 Let's check the `isOnEpochProcess` here.
 
@@ -48,7 +48,7 @@ function isOnEpochProcess() public view returns (bool) {
   }
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L612-L614
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L612-L614>
 
 It only checks whether the status is `Started`. In other words, it is possible to start `startNextEpochProcess` at this point, and this can be looped as many times as you like. This will have various effects. These are shown below.
 
@@ -62,28 +62,28 @@ It only checks whether the status is `Started`. In other words, it is possible t
   }
 ```
 
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L454-L456
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L454-L456>
 
-*   Unplanned minting and movement of tokens. The `startNextEpochProcess` internally starts the `allocateValidatorsRewards`. This has a function to mint the cUSD required for rewards, and by repeating the cycle described above, cUSD that is not scheduled will be minted one after another. This will destroy the protocol's issuance plan. In some cases, it may be impossible to issue cUSD due to reaching the upper limit. There is also a function that sends CeloTokens from the `CeloUnreleasedTreasury` to the `RESERVE_REGISTRY`. If this is looped, an illegal amount of tokens will be sent to the `RESERVE`. There is also a possibility that the tokens in the `CeloUnreleasedTreasury` will run out and this function will no longer be able to be activated.
+* Unplanned minting and movement of tokens. The `startNextEpochProcess` internally starts the `allocateValidatorsRewards`. This has a function to mint the cUSD required for rewards, and by repeating the cycle described above, cUSD that is not scheduled will be minted one after another. This will destroy the protocol's issuance plan. In some cases, it may be impossible to issue cUSD due to reaching the upper limit. There is also a function that sends CeloTokens from the `CeloUnreleasedTreasury` to the `RESERVE_REGISTRY`. If this is looped, an illegal amount of tokens will be sent to the `RESERVE`. There is also a possibility that the tokens in the `CeloUnreleasedTreasury` will run out and this function will no longer be able to be activated.
 
-    // Mint all cUSD required for payment and the corresponding CELO validators.mintStableToEpochManager(totalRewards); https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L662C17-L663
+  // Mint all cUSD required for payment and the corresponding CELO validators.mintStableToEpochManager(totalRewards); <https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L662C17-L663>
 
-    getCeloUnreleasedTreasury().release( registry.getAddressForOrDie(RESERVE\_REGISTRY\_ID), CELOequivalent ); https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L670-L673
+  getCeloUnreleasedTreasury().release( registry.getAddressForOrDie(RESERVE\_REGISTRY\_ID), CELOequivalent ); <https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L670-L673>
 
 ## References
 
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L194-L196.\
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L224-L227.\
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L612-L614.\
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L454-L456.\
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L662C17-L663.\
-https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L670-L673.
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L194-L196.\\>
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L224-L227.\\>
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L612-L614.\\>
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L454-L456.\\>
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L662C17-L663.\\>
+<https://github.com/celo-org/celo-monorepo/blob/7b68b9816632e7458a975cfc2d6f36ce057b02a9/packages/protocol/contracts-0.8/common/EpochManager.sol#L670-L673>.
 
 ## Proof of Concept
 
 ## Proof of Concept
 
-Add a test to `EpochManagerTest_setToProcessGroup` contract in the following file. https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/common/EpochManager.t.sol
+Add a test to `EpochManagerTest_setToProcessGroup` contract in the following file. <https://github.com/celo-org/celo-monorepo/blob/release/core-contracts/12/packages/protocol/test-sol/unit/common/EpochManager.t.sol>
 
 ```
 function test_IncorrectRollbackOfState() public {

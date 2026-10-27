@@ -5,7 +5,7 @@
 * **Report ID:** #40990
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/zano-iop/tree/main/src/p2p/net\_node.inl
+* **Target:** <https://github.com/immunefi-team/zano-iop/tree/main/src/p2p/net\\_node.inl>
 * **Impacts:**
   * Security best practices
   * QA Report
@@ -32,39 +32,39 @@ If exploited, these bugs can result in a peerlist that is improperly populated o
 
 1. **peerlist\_manager::trim\_white\_peerlist & trim\_gray\_peerlist**
    * Located in `net_peerlist`.
-   *   Code snippet reference (showing incorrect trimming):
+   * Code snippet reference (showing incorrect trimming):
 
-       ```cpp
-       // @audit -> trims the wrong list on both methods
-       inline void peerlist_manager::trim_white_peerlist()
+     ```cpp
+     // @audit -> trims the wrong list on both methods
+     inline void peerlist_manager::trim_white_peerlist()
+     {
+       CRITICAL_REGION_LOCAL(m_peerlist_lock);
+       while(m_peers_gray.size() > P2P_LOCAL_GRAY_PEERLIST_LIMIT)
        {
-         CRITICAL_REGION_LOCAL(m_peerlist_lock);
-         while(m_peers_gray.size() > P2P_LOCAL_GRAY_PEERLIST_LIMIT)
-         {
-           peers_indexed::index<by_time>::type& sorted_index = m_peers_gray.get<by_time>();
-           sorted_index.erase(sorted_index.begin());
-         }
+         peers_indexed::index<by_time>::type& sorted_index = m_peers_gray.get<by_time>();
+         sorted_index.erase(sorted_index.begin());
        }
+     }
 
-       inline void peerlist_manager::trim_gray_peerlist()
+     inline void peerlist_manager::trim_gray_peerlist()
+     {
+       CRITICAL_REGION_LOCAL(m_peerlist_lock);
+       while(m_peers_white.size() > P2P_LOCAL_WHITE_PEERLIST_LIMIT)
        {
-         CRITICAL_REGION_LOCAL(m_peerlist_lock);
-         while(m_peers_white.size() > P2P_LOCAL_WHITE_PEERLIST_LIMIT)
-         {
-           peers_indexed::index<by_time>::type& sorted_index = m_peers_white.get<by_time>();
-           sorted_index.erase(sorted_index.begin());
-         }
+         peers_indexed::index<by_time>::type& sorted_index = m_peers_white.get<by_time>();
+         sorted_index.erase(sorted_index.begin());
        }
-       ```
+     }
+     ```
 
-       Both methods call erase on the _opposite_ list, which inverts the trimming logic.
+     Both methods call erase on the *opposite* list, which inverts the trimming logic.
 2. **node\_server::set\_peer\_just\_seen / handle\_remote\_peerlist**
    * Located in `net_node` code (`net_node.inl` ).
-   *   Code snippet reference (showing insufficient verification of incoming addresses):
+   * Code snippet reference (showing insufficient verification of incoming addresses):
 
-       ```cpp
-       bool node_server<t_payload_net_handler>::do_handshake_with_peer(peerid_type& pi, p2p_connection_context& context_, bool just_take_peerlist)
-       ```
+     ```cpp
+     bool node_server<t_payload_net_handler>::do_handshake_with_peer(peerid_type& pi, p2p_connection_context& context_, bool just_take_peerlist)
+     ```
 
 {\
 ...\
@@ -82,7 +82,7 @@ if(!handle\_remote\_peerlist(rsp.local\_peerlist, rsp.node\_data.local\_time, co
 ### Description
 
 1. **Incorrect List Trimming**\
-   The `trim_white_peerlist()` function _actually_ trims the gray list, and `trim_gray_peerlist()` function _actually_ trims the white list. This inverted logic can cause a scenario where:
+   The `trim_white_peerlist()` function *actually* trims the gray list, and `trim_gray_peerlist()` function *actually* trims the white list. This inverted logic can cause a scenario where:
    * The white list grows without correct pruning, potentially filled with malicious or stale entries.
    * The gray list is pruned too aggressively (or not at all), impacting how new or less-trusted peers are recognized.
 2. **IP Spoofing / Insufficient Verification**\
@@ -190,7 +190,7 @@ The code tracks a total count of outgoing connections (`conn_count`) and applies
 
 1. **Wrong Peerlist Trimming**
    * Run a local node that restarts repeatedly when the white list is at or near capacity.
-   * Notice that the white list does _not_ get trimmed, but the gray list entries do—showing the mismatch in code and actual effect.
+   * Notice that the white list does *not* get trimmed, but the gray list entries do—showing the mismatch in code and actual effect.
 2. **IP Spoofing**
    * Create a malicious peer that, during handshake, sends a fake peer list with random or malicious IP addresses.
    * Observe that the node merges these without verifying if the addresses correspond to the IP of the handshake creator.

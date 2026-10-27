@@ -1,11 +1,11 @@
-# #35732 \[SC-Low] Withdrawals can not be paused which could lead to protocol insolvency in case of issues
+# #35732 \[SC-Low] Withdrawals can not be paused which could lead to protocol insolvency in case of iss
 
 **Submitted on Oct 5th 2024 at 15:48:17 UTC by @SimaoAmaro for** [**IOP | Swaylend**](https://immunefi.com/audit-competition/iop-swaylend)
 
 * **Report ID:** #35732
 * **Report Type:** Smart Contract
 * **Report severity:** Low
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 
@@ -13,7 +13,7 @@
 
 ## Brief/Intro
 
-The \`PauseConfiguration\` has the \`withdraw\_paused\` flag, allowing the protocol to pause withdrawals. However, the market's \`withdraw\_collateral()\` \[function}(https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L305) does not check if it is paused, leading to users always being able to withdraw funds and the protocol's insolvency depending on the reason the withdrawal is paused.
+The \`PauseConfiguration\` has the \`withdraw\_paused\` flag, allowing the protocol to pause withdrawals. However, the market's \`withdraw\_collateral()\` \[function}(<https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L305>) does not check if it is paused, leading to users always being able to withdraw funds and the protocol's insolvency depending on the reason the withdrawal is paused.
 
 ## Vulnerability Details
 
@@ -25,7 +25,7 @@ Protocol funds are at risk due to the inability of the protocol to pause withdra
 
 ## References
 
-https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L305 https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L456 https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L1087
+<https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L305> <https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L456> <https://github.com/compound-finance/comet/blob/main/contracts/Comet.sol#L1087>
 
 ## Proof of Concept
 

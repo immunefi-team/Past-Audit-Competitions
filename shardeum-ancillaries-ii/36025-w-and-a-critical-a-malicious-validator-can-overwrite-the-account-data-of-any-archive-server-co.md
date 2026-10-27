@@ -1,11 +1,11 @@
-# #36025 \[W\&A-Critical] A malicious validator can overwrite the account data of any archive server connected to it.
+# #36025 \[W\&A-Critical] A malicious validator can overwrite the account data of any archive server con
 
 **Submitted on Oct 16th 2024 at 05:55:23 UTC by @periniondon630 for** [**Audit Comp | Shardeum: Ancillaries II**](https://immunefi.com/audit-competition/shardeum-ancillaries-ii-boost)
 
 * **Report ID:** #36025
 * **Report Type:** Websites and Applications
 * **Report severity:** Critical
-* **Target:** https://github.com/shardeum/archive-server/tree/dev
+* **Target:** <https://github.com/shardeum/archive-server/tree/dev>
 * **Impacts:**
   * Direct theft of user funds
 
@@ -42,11 +42,11 @@ Any account data on the archive server can be changed if it is connected to a ma
 
 ## References
 
-https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/Data/Data.ts#L211 https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/Data/Collector.ts#L765
+<https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/Data/Data.ts#L211> <https://github.com/shardeum/archive-server/blob/0337daa477b3a30f8fb65b87c23b021a261441bd/src/Data/Collector.ts#L765>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/periniondon630/c9f1b1c10eed42e07d3e4980f1199205
+<https://gist.github.com/periniondon630/c9f1b1c10eed42e07d3e4980f1199205>
 
 ## Proof of Concept
 
@@ -56,5 +56,5 @@ https://gist.github.com/periniondon630/c9f1b1c10eed42e07d3e4980f1199205
 4. **Apply \`attacker.patch\`** to the malicious code repository (\`shardus-core\`).
 5. **Start the malicious node** and wait until it becomes active.
 6. **Check \`main.log\`** of the archive-server. When it connects to the malicious validator, there will be a message like: \`\`\` RECEIPT \<publicKey> \<ip> \<port> 0 \`\`\`
-7. **Run the attack** by executing the following command: \`\`\`shell curl 'http://ATTACKER\_IP:ATTACKER\_PORT/attack?id=1234' \`\`\` The value of the \`id\` parameter can be any random string.
+7. **Run the attack** by executing the following command: \`\`\`shell curl '<http://ATTACKER\\_IP:ATTACKER\\_PORT/attack?id=1234>' \`\`\` The value of the \`id\` parameter can be any random string.
 8. **Verify that the account was updated** using the SQLite client for \`accountId\` \`1000000000000000000000000000000000000000000000000000000000000001\`.

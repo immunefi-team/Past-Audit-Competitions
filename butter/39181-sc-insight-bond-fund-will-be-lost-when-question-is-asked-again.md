@@ -5,7 +5,7 @@
 * **Report ID:** #39181
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/immunefi-team/audit-comp-butter-cfm-v1
+* **Target:** <https://github.com/immunefi-team/audit-comp-butter-cfm-v1>
 * **Impacts:**
   * Permanent freezing of funds
 
@@ -28,7 +28,7 @@ Asking a MetricQuestion on the FlatCFMRealityAdapter contract has a flaw when Me
     }
 ```
 
-The function above from the FlatCFMRealityAdapter contract shows how metric question is asked typically during creation of conditional scalar market in the FlatCFMFactory contract. askMetricQuestion(...) function is a payable function and the msg.value is used to call the askQuestionWithMinBond function, It can be noted from the pointer above that a call is made to the \_askQuestion(...) function in the same contract. https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFMRealityAdapter.sol#L121-L123
+The function above from the FlatCFMRealityAdapter contract shows how metric question is asked typically during creation of conditional scalar market in the FlatCFMFactory contract. askMetricQuestion(...) function is a payable function and the msg.value is used to call the askQuestionWithMinBond function, It can be noted from the pointer above that a call is made to the \_askQuestion(...) function in the same contract. <https://github.com/immunefi-team/audit-comp-butter-cfm-v1/blob/main/src/FlatCFMRealityAdapter.sol#L121-L123>
 
 ```solidity
     function _askQuestion(uint256 templateId, string memory formattedQuestionParams, uint32 openingTime)

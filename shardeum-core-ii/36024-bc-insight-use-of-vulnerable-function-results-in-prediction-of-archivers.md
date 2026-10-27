@@ -5,7 +5,7 @@
 * **Report ID:** #36024
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * Shutdown of greater than 10% or equal to but less than 30% of network processing nodes without brute force actions, but does not shut down the network
 
@@ -63,14 +63,14 @@ As mentioned in the documentation use Crypto: getRandomValues() method instead.
 
 ## References
 
-https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/p2p/Archivers.ts#L88 https://github.com/shardeum/shardus-core/blob/cf9dbaf32327fd2a985c941132738d76660d1ff2/src/p2p/Self.ts#L855
+<https://github.com/shardeum/shardus-core/blob/23e06ded6744d8521cff9d749c1f1dd482c5fcb6/src/p2p/Archivers.ts#L88> <https://github.com/shardeum/shardus-core/blob/cf9dbaf32327fd2a985c941132738d76660d1ff2/src/p2p/Self.ts#L855>
 
 ## Proof of Concept
 
 ## Proof of Concept
 
 Since the vulnerability is an insight and the bug is fairly simple and well known, I am pasting some links of how the vulnerability (Math.random()) can be exploited.\
-https://github.com/PwnFunction/v8-randomness-predictor\
+<https://github.com/PwnFunction/v8-randomness-predictor\\>
 This is an excellent repository exploiting Math.random with full guide.
 
-Youtube video - https://www.youtube.com/watch?v=-h\_rj2-HP2E
+Youtube video - <https://www.youtube.com/watch?v=-h\\_rj2-HP2E>

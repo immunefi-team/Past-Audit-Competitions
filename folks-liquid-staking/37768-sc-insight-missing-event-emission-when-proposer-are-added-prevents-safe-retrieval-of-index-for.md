@@ -1,11 +1,11 @@
-# #37768 \[SC-Insight] Missing Event Emission when proposer are added prevents safe retrieval of index for subsequent operations
+# #37768 \[SC-Insight] Missing Event Emission when proposer are added prevents safe retrieval of index
 
 **Submitted on Dec 15th 2024 at 11:28:16 UTC by @danvinci\_20 for** [**Audit Comp | Folks: Liquid Staking**](https://immunefi.com/audit-competition/folks-finance-liquid-staking-audit-competition)
 
 * **Report ID:** #37768
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Design Flaw

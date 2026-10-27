@@ -5,7 +5,7 @@
 * **Report ID:** #39814
 * **Report Type:** Websites and Applications
 * **Report severity:** Low
-* **Target:** https://github.com/shardeum/archive-server/tree/itn4
+* **Target:** <https://github.com/shardeum/archive-server/tree/itn4>
 * **Impacts:**
   * Taking down the application/website
   * Temporarily disabling user to access target site, such as:

@@ -1,4 +1,4 @@
-# #37791 \[SC - Insight] consensus contract distributes algo for proposers that are offline that cause losing of reward
+# #37791 \[SC - Insight] consensus contract distributes algo for proposers that are offline that cause
 
 ## #37791 \[SC-Insight] Consensus contract distributes Algo for proposers that are offline that cause losing of reward
 
@@ -7,7 +7,7 @@
 * **Report ID:** #37791
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\_v2.py
+* **Target:** <https://github.com/Folks-Finance/algo-liquid-staking-contracts/blob/8bd890fde7981335e9b042a99db432e327681e1a/contracts/xalgo/consensus\\_v2.py>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 

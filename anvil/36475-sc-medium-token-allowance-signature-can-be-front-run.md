@@ -5,7 +5,7 @@
 * **Report ID:** #36475
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a
+* **Target:** <https://etherscan.io/address/0xd042C267758eDDf34B481E1F539d637e41db3e5a>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
 
@@ -34,11 +34,11 @@ User's token allowance signature is useless if anyone front-runs the signature m
 
 ## References
 
-https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L294-L311
+<https://github.com/AcronymFoundation/anvil-contracts/blob/1bbe04bb6f1aa1beea0ebf55e1bad67da3aa0f87/contracts/CollateralVault.sol#L294-L311>
 
 ## Link to Proof of Concept
 
-https://gist.github.com/psych2go/b596434b80f6ae5a9ad444a09bdab9b1
+<https://gist.github.com/psych2go/b596434b80f6ae5a9ad444a09bdab9b1>
 
 ## Proof of Concept
 

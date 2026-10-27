@@ -5,7 +5,7 @@
 * **Report ID:** #35767
 * **Report Type:** Smart Contract
 * **Report severity:** Critical
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Protocol insolvency
 
@@ -13,7 +13,7 @@
 
 ## Brief/Intro
 
-In \[Market.get\_price\_internal] (https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L1017-L1050), while validating the Pyth's price, the function checks the \`price.confidence\` in [main.sw#L1045-L1048](https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L1045-L1048).
+In \[Market.get\_price\_internal] (<https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L1017-L1050>), while validating the Pyth's price, the function checks the \`price.confidence\` in [main.sw#L1045-L1048](https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L1045-L1048).
 
 The issue is that \`get\_price\_internal\` will be used to get price for **different \`price\_fee\_id\`**, but the returned price will be checked against the same **constant value**
 
@@ -48,7 +48,7 @@ At the moment: >BTC/USD: price $63620, confidence: +- $16
 
 To prove the point, we'll use the following code to simulate the check in [main.sw#L1045-L1048](https://github.com/Swaylend/swaylend-monorepo/blob/34ada63c18efd163ef80694c404d0573d49d46b4/contracts/market/src/main.sw#L1045-L1048)
 
-Please put the following code into a new file named \`check.rs\` and run: \`\`\`bash root@4d98affa1474:/in/temp# rustc check.rs ; ./check BTC check: true CBBTC check: false \`\`\`
+Please put the following code into a new file named \`check.rs\` and run: \`\`\`bash root\@4d98affa1474:/in/temp# rustc check.rs ; ./check BTC check: true CBBTC check: false \`\`\`
 
 As we can see, BTC/USD can pass the check, and CBBTC/USD can't pass the check
 

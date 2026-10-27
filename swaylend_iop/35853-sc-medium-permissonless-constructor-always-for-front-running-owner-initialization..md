@@ -5,7 +5,7 @@
 * **Report ID:** #35853
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/src-20/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/src-20/src/main.sw>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Theft of gas
@@ -26,7 +26,7 @@ It is best to set the owner as configurable since there is no way to transfer ow
 
 ## References
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L41C1-L50C6
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L41C1-L50C6>
 
 ## Proof of Concept
 

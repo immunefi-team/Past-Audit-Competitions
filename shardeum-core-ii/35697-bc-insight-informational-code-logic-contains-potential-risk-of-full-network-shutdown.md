@@ -5,13 +5,13 @@
 * **Report ID:** #35697
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/shardeum/shardus-core/tree/dev
+* **Target:** <https://github.com/shardeum/shardus-core/tree/dev>
 * **Impacts:**
   * informational: potential risk
 
 ## Description
 
-Immunefi guys, please, just pass it to the project. I'm OK if it will be lowered to informational with no reward. We already discussed it in #35415, and Mehdi personally told to report such things anyway for that project. https://discord.com/channels/787092485969150012/1256211020482084987/1286726883530117230
+Immunefi guys, please, just pass it to the project. I'm OK if it will be lowered to informational with no reward. We already discussed it in #35415, and Mehdi personally told to report such things anyway for that project. <https://discord.com/channels/787092485969150012/1256211020482084987/1286726883530117230>
 
 ## Vulnerability Details
 

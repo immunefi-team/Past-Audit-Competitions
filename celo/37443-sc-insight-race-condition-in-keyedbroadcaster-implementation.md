@@ -5,7 +5,7 @@
 * **Report ID:** #37443
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/celo-org/optimism/blob/celo10/op-chain-ops/deployer/broadcaster/keyed.go
+* **Target:** <https://github.com/celo-org/optimism/blob/celo10/op-chain-ops/deployer/broadcaster/keyed.go>
 * **Impacts:**
   * L2 re-org
   * Node clients may operate in non-deterministic manners

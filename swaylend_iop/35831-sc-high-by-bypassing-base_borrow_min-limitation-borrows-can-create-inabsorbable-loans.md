@@ -5,7 +5,7 @@
 * **Report ID:** #35831
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Griefing (e.g. no profit motive for an attacker, but damage to the users or the protocol)
   * Contract fails to deliver promised returns, but doesn't lose value
@@ -26,7 +26,7 @@ The impact of this issue is that if those position are small enough they may not
 
 ## References
 
-condition in the \`withdraw\_base()\`: https://github.com/Swaylend/swaylend-monorepo/blob/bbfa0b0840311d0eb0519d2b4fed8bf9d06868cd/contracts/market/src/main.sw#L625
+condition in the \`withdraw\_base()\`: <https://github.com/Swaylend/swaylend-monorepo/blob/bbfa0b0840311d0eb0519d2b4fed8bf9d06868cd/contracts/market/src/main.sw#L625>
 
 ## Proof of Concept
 

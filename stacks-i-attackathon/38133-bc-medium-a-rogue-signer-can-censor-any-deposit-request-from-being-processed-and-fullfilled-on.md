@@ -1,11 +1,11 @@
-# #38133 \[BC-Medium] A rogue Signer can censor any deposit request from being processed and fullfilled on the Stacks blockchain
+# #38133 \[BC-Medium] A rogue Signer can censor any deposit request from being processed and fullfilled
 
 **Submitted on Dec 25th 2024 at 16:36:22 UTC by @niroh for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38133
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Medium
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/emily
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/emily>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 
@@ -32,7 +32,7 @@ Permanent censoring of any deposit request. The rogue signer can censor any depo
 
 ## References
 
-https://github.com/stacks-network/sbtc/blob/891677e7602f97b2e088e9940b2b4536ae9aad1b/emily/handler/src/api/handlers/deposit.rs#L319
+<https://github.com/stacks-network/sbtc/blob/891677e7602f97b2e088e9940b2b4536ae9aad1b/emily/handler/src/api/handlers/deposit.rs#L319>
 
 ## Proof of Concept
 
@@ -444,4 +444,4 @@ fn create_bitcoin_deposit_transaction(
 6. to see that the deposit request is in the emily db with status Accepted
 7. run `psql postgresql://postgres:postgres@localhost:5432/signer -c "SELECT * FROM sbtc_signer.deposit_signers AS dr" > output_file`.
 8. See that there are no actual decisions on the deposit by any signer
-9. Check the Stacks explorer (http://localhost:3020/address/SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS?chain=testnet\&api=http://localhost:3999) to see that no Deposit Completed transaction exists.
+9. Check the Stacks explorer (<http://localhost:3020/address/SN3R84XZYA63QS28932XQF3G1J8R9PC3W76P9CSQS?chain=testnet\\&api=http://localhost:3999>) to see that no Deposit Completed transaction exists.

@@ -5,7 +5,7 @@
 * **Report ID:** #35876
 * **Report Type:** Smart Contract
 * **Report severity:** High
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/develop/contracts/market/src/main.sw>
 * **Impacts:**
   * Permanent freezing of funds
 
@@ -35,22 +35,22 @@ Using \`withdraw\_collateral()\` as an example, on the call to it, \`\`\`rust #\
 
 // code for logging } \`\`\` internally the function calls \`update\_price\_feeds\_if\_necessary\_internal()\` which further makes a call to Pyth's \`update\_price\_feeds\_if\_necessary()\` function, before the call to Pyth's oracle it ensures that the user sent the amount of fee for the price feeds to be updated and forwards that fee on the call to Pyth's oracle \`update\_price\_feeds\_if\_necessary()\`.
 
-*   https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441C1-L1469C2 \`\`\`rust #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary\_internal(price\_data\_update: PriceDataUpdate) { // some code // check if the payment is sufficient require( msg\_amount() >= price\_data\_update .update\_fee && msg\_asset\_id() == AssetId::base(), Error::InvalidPayment, );
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/market/src/main.sw#L1441C1-L1469C2> \`\`\`rust #\[payable, storage(read)] fn update\_price\_feeds\_if\_necessary\_internal(price\_data\_update: PriceDataUpdate) { // some code // check if the payment is sufficient require( msg\_amount() >= price\_data\_update .update\_fee && msg\_asset\_id() == AssetId::base(), Error::InvalidPayment, );
 
-    let oracle = abi(PythCore, contract\_id.bits()); oracle .update\_price\_feeds\_if\_necessary { asset\_id: AssetId::base().bits(), coins: price\_data\_update.update\_fee, }( price\_data\_update .price\_feed\_ids, price\_data\_update .publish\_times, price\_data\_update .update\_data, ); }
+  let oracle = abi(PythCore, contract\_id.bits()); oracle .update\_price\_feeds\_if\_necessary { asset\_id: AssetId::base().bits(), coins: price\_data\_update.update\_fee, }( price\_data\_update .price\_feed\_ids, price\_data\_update .publish\_times, price\_data\_update .update\_data, ); }
 
 \`\`\` The issue here lies in the fact that Pyth's oracle \`update\_price\_feeds\_if\_necessary()\` which only calls \`update\_price\_feeds()\` if the latest publish time is less than the input published time, and fees are only required in \`update\_price\_feeds()\` whenever a price feed is updated.
 
-*   https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\_chains/fuel/contracts/pyth-contract/src/main.sw#L292C1-L300C10 \`\`\`rust while i < price\_feed\_ids.len() { if latest\_publish\_time(price\_feed\_ids.get(i).unwrap()) < publish\_times.get(i).unwrap() { update\_price\_feeds(update\_data); return; }
+* <https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\\_chains/fuel/contracts/pyth-contract/src/main.sw#L292C1-L300C10> \`\`\`rust while i < price\_feed\_ids.len() { if latest\_publish\_time(price\_feed\_ids.get(i).unwrap()) < publish\_times.get(i).unwrap() { update\_price\_feeds(update\_data); return; }
 
-    ```
-          i +&#x3D; 1;
-      }
-    ```
+  ```
+        i +&#x3D; 1;
+    }
+  ```
 
 \`\`\`
 
-* https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\_chains/fuel/contracts/pyth-contract/src/main.sw#L420C2-L421C71
+* <https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\\_chains/fuel/contracts/pyth-contract/src/main.sw#L420C2-L421C71>
 
 \`\`\`rust #\[storage(read, write), payable] fn update\_price\_feeds(update\_data: Vec\<Bytes>) { // code for price feed updates. let required\_fee = total\_fee(total\_number\_of\_updates, storage.single\_update\_fee); require(msg\_amount() >= required\_fee, PythError::InsufficientFee); \`\`\`
 
@@ -58,11 +58,11 @@ Using \`withdraw\_collateral()\` as an example, on the call to it, \`\`\`rust #\
 
 In scenarios when the price feeds are not updated in Pyth's oracle, the fees for updating those feeds will be left stuck in Pyth with no way to retrieve it, and given the number of transactions and collaterals that would be used the amount the users will lose for price feeds that were never updated will increase exponentially. Also, Pyth fee can increase in the future causing the costs to rise, and concerning this
 
-* https://github.com/Swaylend/swaylend-monorepo/issues/158
+* <https://github.com/Swaylend/swaylend-monorepo/issues/158>
 
 ## Mitigation
 
-Use the Pyth's \`PythInfo::latest\_publish\_time()\` -> https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\_chains/fuel/contracts/pyth-contract/src/main.sw#L563C8-L563C27 to get the latest publish times, possibly looping through to check the price feeds that need not be updated and only forwarding to the Pyth oracle the amount of fees required for the feeds that will be updated.
+Use the Pyth's \`PythInfo::latest\_publish\_time()\` -> <https://github.com/pyth-network/pyth-crosschain/blob/9c761626440da0c731d5e41e9b6d31aa5e909bf3/target\\_chains/fuel/contracts/pyth-contract/src/main.sw#L563C8-L563C27> to get the latest publish times, possibly looping through to check the price feeds that need not be updated and only forwarding to the Pyth oracle the amount of fees required for the feeds that will be updated.
 
 ## Proof of Concept
 

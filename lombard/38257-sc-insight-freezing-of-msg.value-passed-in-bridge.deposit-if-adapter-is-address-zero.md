@@ -5,7 +5,7 @@
 * **Report ID:** #38257
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/bridge/Bridge.sol>
 * **Impacts:**
   * Temporary freezing of funds for at least 30 days
 
@@ -29,7 +29,7 @@ Freezing of msg.value passed in Bridge.deposit() if adapter is address zero
 
 ## References
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/bridge/Bridge.sol#L147
+<https://github.com/lombard-finance/evm-smart-contracts/blob/a818ea0489178ccd00019edab24637c38501af7b/contracts/bridge/Bridge.sol#L147>
 
 ## Proof of Concept
 

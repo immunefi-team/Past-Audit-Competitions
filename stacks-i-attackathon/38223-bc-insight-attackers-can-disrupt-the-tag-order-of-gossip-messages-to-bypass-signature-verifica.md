@@ -1,11 +1,11 @@
-# #38223 \[BC-Insight] Attackers can disrupt the tag order of gossip messages to bypass signature verification
+# #38223 \[BC-Insight] Attackers can disrupt the tag order of gossip messages to bypass signature verif
 
 **Submitted on Dec 28th 2024 at 07:32:03 UTC by @f4lc0n for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #38223
 * **Report Type:** Blockchain/DLT
 * **Report severity:** Insight
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Permanent freezing of funds (fix requires hardfork)
   * API crash preventing correct processing of deposits
@@ -16,7 +16,7 @@
 
 When the signer processes a gossip message, it verifies the signature of the source of the message. This prevents attackers from forwarding tampered messages.
 
-The signer determines where the digest starts based on _tag 1_ of the message. However, an attacker can customize the position of _tag 1_ to customize the position where the digest starts.
+The signer determines where the digest starts based on *tag 1* of the message. However, an attacker can customize the position of *tag 1* to customize the position where the digest starts.
 
 ## Vulnerability Details
 
@@ -91,7 +91,7 @@ However, the attacker can manipulate the digest content by disrupting the order 
                                       >>>>> digest end
 ```
 
-The attacker can put _tag 1_ at the end of the message. Then when `decode_with_digest` finds _tag 1_, it will assign `pre_hash_data` to the current `buf`, which is the end of the message, and the digest content will be empty.
+The attacker can put *tag 1* at the end of the message. Then when `decode_with_digest` finds *tag 1*, it will assign `pre_hash_data` to the current `buf`, which is the end of the message, and the digest content will be empty.
 
 Fortunately, the signer will add a prefix to all digests. So, for an attacker, he needs to induce other signers to sign a signature with only a prefix like `"SBTC_SIGNER_WITHDRAWAL_DECISION"`. Then the attacker can use this signature to forge any `SignerWithdrawalDecision` message.
 

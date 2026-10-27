@@ -5,7 +5,7 @@
 * **Report ID:** #38644
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol>
 * **Impacts:**
   * Contract fails to deliver promised returns, but doesn't lose value
 
@@ -13,7 +13,7 @@
 
 ## \[N-1] Unused `payload`field inside CLAdapter:\_buildCCIPMessage
 
-The `_buildCCIPMessage` method is used to construct a CCIP message for bridging LBTC tokens. When constructing token bridging without an additional call, the data field is not required and will be set to empty. Therefore, the `_payload` parameter in the function is unused and can be removed. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L225
+The `_buildCCIPMessage` method is used to construct a CCIP message for bridging LBTC tokens. When constructing token bridging without an additional call, the data field is not required and will be set to empty. Therefore, the `_payload` parameter in the function is unused and can be removed. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L225>
 
 ```solidity
  function _buildCCIPMessage(
@@ -37,7 +37,7 @@ return
             });
 ```
 
-Additionally, the `CLAdapter:getFee` method can be modified to remove the `_payload` parameter, as it is not required in the context of token bridging without an additional call. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L92
+Additionally, the `CLAdapter:getFee` method can be modified to remove the `_payload` parameter, as it is not required in the context of token bridging without an additional call. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L92>
 
 ```solidity
 function getFee(
@@ -59,7 +59,7 @@ function getFee(
     }
 ```
 
-Furthermore, inside the `Bridge:getAdapterFee` method, the length of the payload data is not relevant, and passing `new bytes(228)` is unnecessary. This parameter can be safely removed to simplify the implementation. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L133
+Furthermore, inside the `Bridge:getAdapterFee` method, the length of the payload data is not relevant, and passing `new bytes(228)` is unnecessary. This parameter can be safely removed to simplify the implementation. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L133>
 
 ```solidity
 function getAdapterFee(
@@ -85,11 +85,11 @@ function getAdapterFee(
 
 ## \[N-2] `CLAdapter:initWithdrawalNoSignatures` is not used.
 
-The `CLAdapter:initWithdrawalNoSignatures` method is not used in the current implementation and can be safely removed. Consider adding this method back only if unnotarized payloads are ever permitted in the future. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L192
+The `CLAdapter:initWithdrawalNoSignatures` method is not used in the current implementation and can be safely removed. Consider adding this method back only if unnotarized payloads are ever permitted in the future. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/adapters/CLAdapter.sol#L192>
 
 ## \[N-3] Unnecessary storage read inside `LBTC:batchMintWithFee`
 
-Inside the `batchMintWithFee` method, before calling `_mintWithFee`, there is an unnecessary call to `_getLBTCStorage` that is not used. Consider removing it to save gas costs and improve code clarity. https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/LBTC/LBTC.sol#L446
+Inside the `batchMintWithFee` method, before calling `_mintWithFee`, there is an unnecessary call to `_getLBTCStorage` that is not used. Consider removing it to save gas costs and improve code clarity. <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/LBTC/LBTC.sol#L446>
 
 ```solidity
 function batchMintWithFee(
@@ -113,7 +113,7 @@ function batchMintWithFee(
 
 ## \[N-4] No constraints on `absCommission` when adding a destination chain.
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L332
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/bridge/Bridge.sol#L332>
 
 When adding a new destination chain, the admin will set required parameters like `relCommission` and `absCommission`, which will be used for fee deduction during bridging events. While `relCommission` has a sanity check using `FeeUtils.validateCommission`, `absCommission` is unbounded and can be set to any value.
 
@@ -176,7 +176,7 @@ struct ValSetAction {
 
 After validation, the right field will be populated; however, the height field will not be used.
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/consortium/Consortium.sol#L91
+<https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/consortium/Consortium.sol#L91>
 
 ```solidity
 function setInitialValidatorSet(
@@ -210,9 +210,9 @@ If the field is only used for off-chain purposes, it is advised to add a comment
 
 ## \[N-6] The invalid `BTCBPMM` documentation does not align with the code and can lead to confusion.
 
-The `BTCBPMM` contract allows users to swap `BTCB` for `LBTC` at a `1:1` rate with a relative fee. To control risk exposure, limits for staking are set and represented by the stakeLimit variable. Documentation present here, along with examples: https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/docs/btcb.md describes that the staking limit is in `BTCB` tokens. `The BTCBPMM (BTCB Private Market Maker) contract allows users to swap BTCB for LBTC and manages the amount of BTCB that can be staked.`
+The `BTCBPMM` contract allows users to swap `BTCB` for `LBTC` at a `1:1` rate with a relative fee. To control risk exposure, limits for staking are set and represented by the stakeLimit variable. Documentation present here, along with examples: <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/docs/btcb.md> describes that the staking limit is in `BTCB` tokens. `The BTCBPMM (BTCB Private Market Maker) contract allows users to swap BTCB for LBTC and manages the amount of BTCB that can be staked.`
 
-However, looking at the code, the stake is actually tracked in LBTC minted, rather than BTCB tokens swapped: https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/pmm/BTCB/BTCB.sol#L69
+However, looking at the code, the stake is actually tracked in LBTC minted, rather than BTCB tokens swapped: <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/contracts/pmm/BTCB/BTCB.sol#L69>
 
 ```solidity
 function swapBTCBToLBTC(uint256 amount) external whenNotPaused {
@@ -240,7 +240,7 @@ function swapBTCBToLBTC(uint256 amount) external whenNotPaused {
     }
 ```
 
-This works fine, as those two are represented in a 1:1 ratio. It’s important to note that LBTC has `8` decimals, while BTCB has `18`, which means that during deployment, `stakeLimit` must be set in LBTC, otherwise, this would allow a significantly larger stake amount than intended. Looking at the deployment script file: https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/scripts/deployments/pmm.ts#L21
+This works fine, as those two are represented in a 1:1 ratio. It’s important to note that LBTC has `8` decimals, while BTCB has `18`, which means that during deployment, `stakeLimit` must be set in LBTC, otherwise, this would allow a significantly larger stake amount than intended. Looking at the deployment script file: <https://github.com/lombard-finance/evm-smart-contracts/blob/edd557006050ee5b847fa1cc67c1c4e19079437e/scripts/deployments/pmm.ts#L21>
 
 ```js
 task('deploy-pmm', 'Deploys pmm contract via create3')

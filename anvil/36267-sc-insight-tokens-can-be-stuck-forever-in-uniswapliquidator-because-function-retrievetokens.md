@@ -7,7 +7,7 @@
 * **Report ID:** #36267
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://immunefi.com/
+* **Target:** <https://immunefi.com/>
 * **Impacts:**
   * Permanent freezing of funds
 
@@ -21,7 +21,7 @@ This bug is reported for contract UniswapLiquidator that is **Primacy of Impact*
 
 The contract UniswapLiquidator is used for liquidation process and the address is listed as deployement address:
 
-\`\`\` UniswapLiquidator 0xe358594373B4C7D268204f3D1E5226ce4dB2A712 \`\`\` Reference: https://github.com/AcronymFoundation/anvil-contracts?utm\_source=immunefi
+\`\`\` UniswapLiquidator 0xe358594373B4C7D268204f3D1E5226ce4dB2A712 \`\`\` Reference: <https://github.com/AcronymFoundation/anvil-contracts?utm\\_source=immunefi>
 
 This contract usually can receive tokens that are supported by the protocol for the liquidation process. As informed by the protocol team, some tokens supported by the protocol are: WETH, USDC, USDT . In the case, there are some tokens received because someone sent errorneously to this contract, then the owner can use function retrieveTokens to tranfer tokens. This is seen in the comments of the retrieveTokens function. This situation is likely to happen because this contract usually receive tokens and that is the reason the Anvil team have designed this retrieveTokens function.
 
@@ -39,7 +39,7 @@ But the transfer interface of IERC20 do require the token to return a boolean va
 
 \`\`\`solidity import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; \`\`\`
 
-https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol#L41
+<https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol#L41>
 
 \`\`\`solidity /\*\* \* @dev Moves a \`value\` amount of tokens from the caller's account to \`to\`. \* \* Returns a boolean value indicating whether the operation succeeded. \* \* Emits a {Transfer} event. \*/ function transfer(address to, uint256 value) external returns (bool);
 
@@ -49,9 +49,9 @@ It is important to note that the transfer functions of some tokens (e.g., USDT, 
 
 **So if USDT is stuck in the contract, the USDT will be frozen forever. There is no way to retrieve the tokens out.**
 
-USDT contract: https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7#code
+USDT contract: <https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7#code>
 
-https://vscode.blockscan.com/ethereum/0xdac17f958d2ee523a2206206994597c13d831ec7
+<https://vscode.blockscan.com/ethereum/0xdac17f958d2ee523a2206206994597c13d831ec7>
 
 \`\`\`solidity function transfer(address \_to, uint \_value) public onlyPayloadSize(2 \* 32) { uint fee = (\_value.mul(basisPointsRate)).div(10000); if (fee > maximumFee) { fee = maximumFee; } uint sendAmount = \_value.sub(fee); balances\[msg.sender] = balances\[msg.sender].sub(\_value); balances\[\_to] = balances\[\_to].add(sendAmount); if (fee > 0) { balances\[owner] = balances\[owner].add(fee); Transfer(msg.sender, owner, fee); } Transfer(msg.sender, \_to, sendAmount); } \`\`\`
 
@@ -69,7 +69,7 @@ The scenarity is likely to happen.
 
 ### Link to Proof of Concept
 
-https://gist.github.com/Perseverancesuccess2021/bd288749bb72d7b438b6e206c0a961e5#file-testuniswapliquidator-sol
+<https://gist.github.com/Perseverancesuccess2021/bd288749bb72d7b438b6e206c0a961e5#file-testuniswapliquidator-sol>
 
 ### Proof of Concept
 
@@ -105,7 +105,7 @@ Test log:
 
 \`\`\`Log \[FAIL. Reason: EvmError: Revert] testRetrieveTokens() (gas: 97962) Logs: Simulate the situation that someone erroneously send USDT to the contract UniswapLiquidator Balance of USDT of UniswapLiquidator before now: 0 Balance of USDT of UniswapLiquidator after someone erroneously sent USDT to the contract UniswapLiquidator: 1000000000 Owner will try to retrieve the USDT tokens from the contract UniswapLiquidator by calling retrieveTokens
 
-Traces: \[353376] testUniswapLiquidator::setUp() ├─ \[0] VM::createSelectFork("https://rpc.ankr.com/eth", 21053617 \[2.105e7]) │ └─ ← \[Return] 0
+Traces: \[353376] testUniswapLiquidator::setUp() ├─ \[0] VM::createSelectFork("<https://rpc.ankr.com/eth>", 21053617 \[2.105e7]) │ └─ ← \[Return] 0
 
 ├─ \[31722] 0xe358594373B4C7D268204f3D1E5226ce4dB2A712::retrieveTokens(0xdAC17F958D2ee523a2206206994597C13D831ec7, 0xAf000d2594DfEA1d04693243311d2D71e8879A06, 1000000000 \[1e9]) │ ├─ \[28801] 0xdAC17F958D2ee523a2206206994597C13D831ec7::transfer(0xAf000d2594DfEA1d04693243311d2D71e8879A06, 1000000000 \[1e9]) │ │ ├─ emit Transfer(from: 0xe358594373B4C7D268204f3D1E5226ce4dB2A712, to: 0xAf000d2594DfEA1d04693243311d2D71e8879A06, value: 1000000000 \[1e9]) │ │ └─ ← \[Stop] │ └─ ← \[Revert] EvmError: Revert └─ ← \[Revert] EvmError: Revert
 
@@ -137,7 +137,7 @@ Test log: \`\`\` \[PASS] testRetrieveTokens\_success() (gas: 77524) Logs: Simula
 
 Test code full:
 
-https://gist.github.com/Perseverancesuccess2021/bd288749bb72d7b438b6e206c0a961e5#file-testuniswapliquidator-sol
+<https://gist.github.com/Perseverancesuccess2021/bd288749bb72d7b438b6e206c0a961e5#file-testuniswapliquidator-sol>
 
 \`\`\`solidity // SPDX-License-Identifier: UNLICENSED pragma solidity ^0.8.0;
 
@@ -204,7 +204,7 @@ function testRetrieveTokens_success() public {
 
 Just download the zip file:
 
-https://drive.google.com/file/d/1ga9D-KIgOkuBhIBpeUBatoWI\_0mUgGIS/view?usp=sharing
+<https://drive.google.com/file/d/1ga9D-KIgOkuBhIBpeUBatoWI\\_0mUgGIS/view?usp=sharing>
 
 The Test use Foundry.
 

@@ -5,14 +5,14 @@
 * **Report ID:** #36108
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw
+* **Target:** <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw>
 * **Impacts:**
 
 ## Description
 
 ## Bug Description
 
-https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L119-L147 \`\`\`sway #\[storage(read, write)] fn mint(recipient: Identity, sub\_id: Option\<SubId>, amount: u64) { require( sub\_id .is\_some() && sub\_id .unwrap() == DEFAULT\_SUB\_ID, "incorrect-sub-id", ); require( storage .owner .read() == State::Initialized(msg\_sender().unwrap()), AccessError::NotOwner, ); require( storage .total\_supply .read() + amount <= MAX\_SUPPLY, "max-supply-reached", );
+<https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L119-L147> \`\`\`sway #\[storage(read, write)] fn mint(recipient: Identity, sub\_id: Option\<SubId>, amount: u64) { require( sub\_id .is\_some() && sub\_id .unwrap() == DEFAULT\_SUB\_ID, "incorrect-sub-id", ); require( storage .owner .read() == State::Initialized(msg\_sender().unwrap()), AccessError::NotOwner, ); require( storage .total\_supply .read() + amount <= MAX\_SUPPLY, "max-supply-reached", );
 
 ```
 let new_supply &#x3D; storage.total_supply.read() + amount;
@@ -28,9 +28,9 @@ TotalSupplyEvent::new(AssetId::default(), new_supply, msg_sender().unwrap())
 
 \`mint\` function is used to mint SRC20 token to the provided \`recipient\` identity. This \`recipient\` identity could be an \`Address\` or \`ContractId\`. However there is no validation performed on \`recipient\` to make sure its not a NULL address. Due to this, token minted to NULL address will get lost permanently as mentioned in the comment in \`std\` sway library of \`mint\_to\` function.
 
-https://github.com/FuelLabs/sway/blob/029c593b5f33a5c18ed2ddf91b1db12869139c91/sway-lib-std/src/asset.sw#L18
+<https://github.com/FuelLabs/sway/blob/029c593b5f33a5c18ed2ddf91b1db12869139c91/sway-lib-std/src/asset.sw#L18>
 
-\> If the \`to\` Identity is a contract, this will transfer coins to the contract even with no way to retrieve them (i.e: no withdrawal functionality on the receiving contract), possibly leading to the _**PERMANENT LOSS OF COINS**_ if not used with care.
+\> If the \`to\` Identity is a contract, this will transfer coins to the contract even with no way to retrieve them (i.e: no withdrawal functionality on the receiving contract), possibly leading to the ***PERMANENT LOSS OF COINS*** if not used with care.
 
 So it should have an check to avoid the possibility of minting tokens to NULL address.
 
@@ -42,11 +42,11 @@ So it should have an check to avoid the possibility of minting tokens to NULL ad
 
 We recommend to have an check at the start of the function to make sure \`recipient\` is not NULL address, just like how \`ThunderNFT\` did,
 
-https://github.com/ThunderFuel/smart-contracts/blob/260c9859e2cd28c188e8f6283469bcf57c9347de/contracts-v1/pool/src/main.sw#L237C1-L242C7 \`\`\`sway fn \_transfer(from: Identity, to: Identity, asset: AssetId, amount: u64) { require( to != ZERO\_IDENTITY\_ADDRESS && to != ZERO\_IDENTITY\_CONTRACT, PoolErrors::IdentityMustBeNonZero ); \`\`\` https://github.com/ThunderFuel/smart-contracts/blob/260c9859e2cd28c188e8f6283469bcf57c9347de/contracts-v1/libraries/src/constants.sw#L9-L14 \`\`\`sway pub const ZERO\_B256 = 0x0000000000000000000000000000000000000000000000000000000000000000; pub const ZERO\_ADDRESS = Address::from(ZERO\_B256); pub const ZERO\_ASSET\_ID = AssetId::from(ZERO\_B256); pub const ZERO\_CONTRACT\_ID = ContractId::from(ZERO\_B256); pub const ZERO\_IDENTITY\_ADDRESS = Identity::Address(ZERO\_ADDRESS); pub const ZERO\_IDENTITY\_CONTRACT = Identity::ContractId(ZERO\_CONTRACT\_ID); \`\`\`
+<https://github.com/ThunderFuel/smart-contracts/blob/260c9859e2cd28c188e8f6283469bcf57c9347de/contracts-v1/pool/src/main.sw#L237C1-L242C7> \`\`\`sway fn \_transfer(from: Identity, to: Identity, asset: AssetId, amount: u64) { require( to != ZERO\_IDENTITY\_ADDRESS && to != ZERO\_IDENTITY\_CONTRACT, PoolErrors::IdentityMustBeNonZero ); \`\`\` <https://github.com/ThunderFuel/smart-contracts/blob/260c9859e2cd28c188e8f6283469bcf57c9347de/contracts-v1/libraries/src/constants.sw#L9-L14> \`\`\`sway pub const ZERO\_B256 = 0x0000000000000000000000000000000000000000000000000000000000000000; pub const ZERO\_ADDRESS = Address::from(ZERO\_B256); pub const ZERO\_ASSET\_ID = AssetId::from(ZERO\_B256); pub const ZERO\_CONTRACT\_ID = ContractId::from(ZERO\_B256); pub const ZERO\_IDENTITY\_ADDRESS = Identity::Address(ZERO\_ADDRESS); pub const ZERO\_IDENTITY\_CONTRACT = Identity::ContractId(ZERO\_CONTRACT\_ID); \`\`\`
 
 ## References
 
-* https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L119-L147
+* <https://github.com/Swaylend/swaylend-monorepo/blob/9132747331188b86dd8cbf9a1ca37b811d08dddb/contracts/src-20/src/main.sw#L119-L147>
 
 ## Proof Of Concept
 

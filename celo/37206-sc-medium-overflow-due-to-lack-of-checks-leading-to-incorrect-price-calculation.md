@@ -5,7 +5,7 @@
 * **Report ID:** #37206
 * **Report Type:** Smart Contract
 * **Report severity:** Medium
-* **Target:** https://github.com/celo-org/optimism/blob/celo10/op-chain-ops/cmd/check-derivation/main.go
+* **Target:** <https://github.com/celo-org/optimism/blob/celo10/op-chain-ops/cmd/check-derivation/main.go>
 * **Impacts:**
   * Smart contract unable to operate due to lack of token funds
 

@@ -1,11 +1,11 @@
-# #37811 \[BC-High] Missing length check when parsing \`SignatureShareRequest\` in the signers allows the coordinator to halt other signers, shutting down the network
+# #37811 \[BC-High] Missing length check when parsing \`SignatureShareRequest\` in the signers allows the
 
 **Submitted on Dec 16th 2024 at 14:55:45 UTC by @n4nika for** [**Attackathon | Stacks**](https://immunefi.com/audit-competition/stacks-attackathon-1)
 
 * **Report ID:** #37811
 * **Report Type:** Blockchain/DLT
 * **Report severity:** High
-* **Target:** https://github.com/stacks-network/sbtc/tree/immunefi\_attackaton\_0.9/signer
+* **Target:** <https://github.com/stacks-network/sbtc/tree/immunefi\\_attackaton\\_0.9/signer>
 * **Impacts:**
   * Network not being able to confirm new transactions (total network shutdown)
 
@@ -61,7 +61,7 @@ Note: the `wsts` library is out of scope for this contest, however here I am not
 
 This allows an attacker (the coordinator) to send malformed `SignatureShareRequest` to signers (one for each signer since the `signer_id` needs to match the receiving signer's), halting them due to the high required computing power. This, in turn, will shut down the system once we DoSed `>4` signers.
 
-This becomes worse when we look at the specified minimum requirements for signers stated here: https://docs.stacks.co/guides-and-tutorials/running-a-signer#minimum-system-requirements
+This becomes worse when we look at the specified minimum requirements for signers stated here: <https://docs.stacks.co/guides-and-tutorials/running-a-signer#minimum-system-requirements>
 
 ```
 1 cpu

@@ -5,7 +5,7 @@
 * **Report ID:** #38148
 * **Report Type:** Smart Contract
 * **Report severity:** Insight
-* **Target:** https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol
+* **Target:** <https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol>
 * **Impacts:**
   * Theft of gas
 
@@ -13,7 +13,7 @@
 
 The function declares a storage pointer LBTCStorage storage $ = \_getLBTCStorage(); before the loop, but this pointer is never used within the loop or elsewhere in the function. The \_mintWithFee function internally calls \_getLBTCStorage() to access storage when needed.
 
-https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol?utm\_source=immunefi#L446
+<https://github.com/lombard-finance/evm-smart-contracts/blob/main/contracts/LBTC/LBTC.sol?utm\\_source=immunefi#L446>
 
 ```
 // Current implementation
