@@ -24,7 +24,6 @@
 * \#38530 \[SC-Low] Incorrectly Eliminated Code With Side Effect In Concat Args
 * \#38554 \[BC-Low] Incorrect Transaction Fee Check in \`SendRawTransaction()\`
 * \#37199 \[BC-Low] Potential Chain Fork Due to Shallow Copy of Byte Slice
-* \#37245 \[BC-Low] lodestar snappy decompression issue
 * \#38686 \[BC-Low] Nodes with trusted peers vulnerable to pending peer flooding and DoS
 * \#37985 \[SC-Low] Incorrectly Eliminate Code With Side Effect In Slice Args
 * \#38807 \[BC-Low] DoS any reth node via ban logic exploit
@@ -127,7 +126,6 @@
 * \#37120 \[BC-Insight] Remote handshake-based TCP/30303 flooding leads to an out-of-memory crash
 * \#37191 \[BC-Insight] Unvalidated Field Names in Tuple ABI Parsing Causes Runtime Panic via reflect.StructOf
 * \#37199 \[BC-Low] Potential Chain Fork Due to Shallow Copy of Byte Slice
-* \#37245 \[BC-Low] lodestar snappy decompression issue
 * \#38686 \[BC-Low] Nodes with trusted peers vulnerable to pending peer flooding and DoS
 * \#37593 \[BC-Insight] Inconsistent Address Collision Check Against Precompile Contracts During Contract Deployment
 * \#38598 \[BC-Insight] GetReceiptsMsg abuse leads to the DoS and/or crash of every EL client in the Ethereum network

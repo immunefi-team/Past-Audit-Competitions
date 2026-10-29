@@ -15,20 +15,16 @@
 * \#90320 \[W\&A-Critical] Removed resolver user can still redirect ENS names
 * \#89548 \[W\&A-Critical] Registration and renewal use un-normalized labels: the name the Manager shows is not the name it writes on chain
 * \#92880 \[W\&A-Critical] Explorer transfers a user's ENSv2 name to a separate address the seller selected before the sale
-* \#92881 \[W\&A-Critical] ENSv1 registrant/manager conflation redirects ENSv2 name transfers to a non-owner manager
 * \#92887 \[W\&A-Critical] Incomplete mixed resolver-role removal leaves a former delegate able to change an ENS address record
-* \#92889 \[W\&A-Critical] Manager migration grants a seller-selected address resolver authority over the buyer's ENSv2 name
 * \#92892 \[W\&A-Critical] Remove user revokes only UI-recognized role bits and can leave official authority active
 * \#92890 \[W\&A-Critical] \[HIGH] Manager authorizes record edits via the resolver's stale internal roles instead of registry ownership — a name's previous owner keeps full write access (incl. the coins\[...
 * \#91768 \[W\&A-Critical] "Remove user from all roles" preserves global resolver authority
 * \#91717 \[W\&A-Critical] Explorer transfer flow moves a different ENS name than the UI and wallet prompt display, because on-chain identity is derived from the normalized label
 * \#89253 \[W\&A-Critical] Wrong-resource revocation in Resolver Roles lets a removed account retain \`ROLE\_SET\_ADDR\` and redirect another ENS name
-* \#91837 \[W\&A-Critical] Manager claims a primary name the user does not own: the reverse registrar receives the normalized name while every displayed surface and the forward addr(60) record use the ra...
 * \#92278 \[W\&A-Critical] Both renewal routes prove one ENS name is renewable and then bill the user to renew a different one
 * \#91224 \[W\&A-Critical] Explorer renew/transfer encode the on-chain write from a normalizing helper while the ownership gate and displayed transaction use the raw name — a victim renews or transfers a...
 * \#90639 \[W\&A-Critical] Transfer authorises the raw label, moves the normalized label's token
 * \#89314 \[W\&A-Critical] Manager V1 to V2 migration silently keeps an attacker's resolver and grants the attacker \`ROLE\_SET\_RESOLVER\` on the V2 registry for gifted/secondary-market names
-* \#92645 \[W\&A-Critical] Reused resolver-role row state makes a Content Hash edit grant another delegate resolver-wide address control
 * \#92914 \[W\&A-Critical] Missing ENSIP-15 normalization check on the primary-name render path lets an attacker's address be displayed as another party's name
 * \#92658 \[W\&A-Critical] Manager migration grants a former V1 controller resolver authority over the buyer’s V2 name
 * \#91855 \[W\&A-Critical] Portal treats an unresolved resolver-role scope as ROOT, enabling cross-name resolution hijacking
@@ -44,8 +40,6 @@
 * \#91396 \[W\&A-Critical] An IOST-only delegate can replace Manager's copied Solana recipient without modifying the SOL record
 * \#92955 \[W\&A-Critical] Scope substitution in the resolver role editor converts an unresolvable name-scoped role into a resolver-root grant, giving unintended global authority over every name on the r...
 * \#93129 \[W\&A-Critical] Stale role state tied to the row position in the resolver Roles sheet quietly adds root ROLE\_SET\_ADDR to a grant, so ENS names resolve to an attacker-controlled address
-* \#89465 \[W\&A-Critical] Lookalike-label renewal trap: /renew displays the normalized ENS name but renews the raw label — victim pays to renew an attacker's name, then loses their own
-* \#92962 \[W\&A-Critical] Resolver role editor revokes the wrong scope
 * \#92967 \[W\&A-Critical] The Manager checks name ownership on one node and writes to another
 * \#92971 \[W\&A-Critical] Manager falsely confirms a canonical ENS renewal while extending an attacker-owned raw Unicode name
 * \#92990 \[W\&A-Critical] Cross-account receipt reuse skips resolver-role revocation and makes Portal render an attacker-controlled ENS address
@@ -70,7 +64,6 @@
 * \#89761 \[W\&A-Critical] Removing a resolver user revokes only one displayed ENS name, allowing redirected incoming payments
 * \#89990 \[W\&A-Critical] Resolver roles page revokes a single name while claiming removal of all roles — removed users keep live record-write authority on other names and ROOT
 * \#90784 \[W\&A-Critical] Critical: Portal account-only role grouping collapses resolver scopes, leaving an offboarded collaborator able to redirect ENS resolution
-* \#92860 \[W\&A-Critical] Missing grantee validation in the v1→v2 migration's "manager restoration" grants an attacker ROLE\_SET\_RESOLVER over a victim's migrated ENS name, hijacking where the name resolves
 * \#89336 \[W\&A-Critical] V1-to-V2 migration grants stale owners resolver control
 * \#90498 \[W\&A-Critical] Resolver role table merges different names into one row but signs calldata for only one name
 * \#90725 \[W\&A-Critical] Encoded-labelhash confusion in Portal deletion unregisters a different victim-owned subname and enables registrar takeover
@@ -88,13 +81,11 @@
 * \#91333 \[W\&A-Critical] Portal's “Remove user from all roles” submits a one-resource revocation and leaves the removed delegate's root resolver authority active
 * \#91449 \[W\&A-Critical] Broken Access Control: Multi-Resource Role Aggregation in Resolver Roles Management Causes Incomplete Revocation and Persistent Root-Level Access
 * \#91848 \[W\&A-Critical] Editing a record-scoped resolver delegate silently submits \`grantRootRoles\` — authority over every name on the resolver
-* \#91921 \[W\&A-Critical] Granular Resolver Role Escalation to Root
 * \#92128 \[W\&A-Critical] Inconsistent ENS name normalization in the Manager profile page renders a trusted name's owner beside an attacker-controlled receiving address, leading to theft of user funds
 * \#92429 \[W\&A-Critical] The Explorer's "Remove user" filters the root scope out of the resource it revokes, so an account the operator removed keeps write authority over the address record of every na...
 * \#92239 \[W\&A-Critical] One ticked permission on a record-scoped row makes the Explorer's Roles page sign grantRootRoles — authority over every name the resolver serves — with no scope shown on any sc...
 * \#92257 \[W\&A-Critical] Resolver role editor upgrades a name-scoped grant to resolver root, submitting a broader transaction than the operator selected
 * \#93010 \[W\&A-Critical] Profile page reads ownership and records from two different names, so a look-alike name displays an attacker-controlled receiving address
-* \#93012 \[W\&A-Critical] Explorer transfer flow checks ownership of one name and signs transactions for a different one
 * \#93018 \[W\&A-Critical] Raw-cased profile URL renders the real owner over an attacker resolver's address
 * \#89293 \[W\&A-Critical] Explorer resolver "Remove user" confirms a full revocation and signs a single-resource one, leaving the target holding root \`ROLE\_SET\_ADDR\`
 * \#89398 \[W\&A-Critical] Missing address-record validation in resolveAddressOrName causes irreversible ENS name transfers to the wrong recipient
@@ -127,7 +118,6 @@
 * \#92978 \[W\&A-Critical] Portal transfer flow authorises ownership of one ENS node and then executes irreversible writes against a different one
 * \#93044 \[W\&A-Critical] The v1→v2 migration automatically grants \`ROLE\_SET\_RESOLVER\` on the newly migrated v2 name to the legacy v1 registry controller — an address that is, by construction, never the...
 * \#93049 \[W\&A-Critical] Missing resolver contract-type validation turns record-role delegation into registry-wide name theft
-* \#93071 \[W\&A-Critical] Portal reuses a completed resolver step after recipient correction, leaving the transferred name resolving to the prior recipient
 * \#89431 \[W\&A-Critical] Stale transaction success falsely completes later role revocations, leaving resolver authority active
 * \#89433 \[W\&A-Critical] Transfer flow never resets the transaction manager, so a stale step actor from an abandoned attempt is matched by id to the next attempt and the steps before it are skipped whi...
 * \#93073 \[W\&A-Critical] Explorer "Remove user" on a resolver role holder with root plus named roles only revokes one named scope, leaving the root role active
@@ -135,7 +125,6 @@
 * \#89420 \[W\&A-Critical] Resolver roles sidebar collapses an account's multiple role resources into one write scope, so "Remove user" displays one scope and writes another, leaving removed accounts wit...
 * \#92565 \[W\&A-Critical] The Explorer's Extend flow renders the raw indexer name on every surface but signs the ENSIP-15-normalized label, so a renewal reached from the address names table pays to exte...
 * \#92564 \[W\&A-Critical] apps/portal: Remove user revokes only the root grant it promised to clear entirely
-* \#92567 \[W\&A-Critical] Bulk renew displays the raw name from the indexer but signs the normalized label, so a victim's stablecoins extend a registration they do not own
 * \#92568 \[W\&A-Critical] Profile editing authorizes the normalized name but encodes the raw route param, so a crafted URL makes the victim sign a record write to an attacker's node on an attacker's res...
 * \#92570 \[W\&A-Critical] Set primary name writes its forward legs against the raw name and signs the reverse leg against the normalized name, so one click points the victim's reverse record at a name t...
 * \#92572 \[W\&A-Critical] ENSv2 registration applies no ENSIP-15 normalization at any step, so a crafted URL prices, displays and registers a label the user cannot see and that ENS does not consider par...
@@ -181,7 +170,6 @@
 * \#93119 \[W\&A-Critical] Transfer flow authorizes one ENS name and signs transactions for a different one
 * \#90337 \[W\&A-Critical] Explorer removes only one grouped role scope, allowing removed users to redirect ENS transfers
 * \#92522 \[W\&A-Critical] Unconditional owner fallback in Explorer name resolution leads to the app resolving a record-less ENS name to its owner, an attacker-controlled address, pre-filled into the nam...
-* \#92225 \[W\&A-Critical] Resolver “Remove user” leaves root write authority active, allowing a removed delegate to redirect ENS resolution
 * \#89360 \[W\&A-Critical] The \`/$name\` profile route resolves one URL parameter as two ENS names, rendering an attacker's receiving address under the victim's genuine owner and expiry
 * \#93121 \[W\&A-Critical] Renewal flow signs a paid transaction against a different ENS name than the one it resolves, gates and displays
 * \#89535 \[W\&A-Critical] Manager profile page renders an attacker-chosen ETH address next to a name's genuine owner
@@ -195,7 +183,6 @@
 * \#92738 \[W\&A-Critical] Resolver “Remove user from all roles” revokes only one scope, leaving global address-hijack authority active
 * \#92764 \[W\&A-Critical] Encoded-label recipient names select an attacker-owned literal label but query the honest hash-only node, redirecting Portal name transfers
 * \#92616 \[W\&A-Critical] Explorer resolves a typed ENS name to a previous owner and builds the wrong recipient transaction
-* \#92671 \[W\&A-Critical] ENS Manager registers one name and then points the buyer's primary name at a registration owned by someone else
 * \#92622 \[W\&A-Critical] An unmappable name-scoped resolver role becomes a resolver-wide root grant signed by the victim
 * \#92771 \[W\&A-Critical] Portal treats a factory-verified UserRegistry as a PermissionedResolver, so “Set Pubkey” grants registry-wide UNREGISTER
 * \#92773 \[W\&A-Critical] Unresolved resolver scopes turn scoped Set Address edits into resolver-wide grants
@@ -208,14 +195,12 @@
 * \#92699 \[W\&A-Critical] A role scope the app cannot resolve is granted on every name instead
 * \#92475 \[W\&A-Critical] A profile URL carrying one invisible codepoint renders the victim's verified owner beside an address published by a name the attacker registered
 * \#92925 \[W\&A-Critical] The Manager profile page normalizes the name for the owner query but not for the records query, resolving an ENS name to an attacker-controlled address
-* \#92310 \[W\&A-Critical] A recipient name with no address record resolves to the name's manager, and the transfer goes there
 * \#91909 \[W\&A-Critical] Grouped resolver-role removal signs a single-resource revoke, leaving a removed delegate able to replace the ENS address
 * \#92794 \[W\&A-Critical] Manager's bulk-renew dialog substitutes a normalized lookalike for the victim's real registered label, letting a victim's own connected wallet pay to renew an attacker's name
 * \#92716 \[W\&A-Critical] Index-based row identity in Portal's resolver-roles table lets an admin's stale draft silently grant a global resolver role to an uninvolved account
 * \#92713 \[W\&A-Critical] A phishing link renews the attacker's own junk registration with the victim's money while Manager displays the victim's real name
 * \#92552 \[W\&A-Critical] Portal “Remove user from all roles” revokes only one resolver scope; the surviving scope permits a profile-description write that remains after role cleanup
 * \#92714 \[W\&A-Critical] Resolver "Remove User" Silently No-Ops Root-Scoped Roles — Enables Persistent ENS Name-Resolution Hijack
-* \#92624 \[W\&A-Critical] Two same-named withEthSuffix helpers in one post-registration sequence, one raw and one ENSIP-15, make the registration flow set the victim's primary name to a registration the...
 * \#92626 \[W\&A-Critical] Manager bulk renewal renders the raw indexer name on every row and signs the normalized label, so the victim's stablecoins extend a registration that appears nowhere in the dialog
 * \#92806 \[W\&A-Critical] Resolver role removal silently leaves ROLE\_SET\_DATA authority on-chain
 * \#91838 \[W\&A-Critical] Migration grants a stale v1 controller a permanent ROLE\_SET\_RESOLVER on the migrated v2 name, letting a third party repoint what the victim's name resolves to
@@ -236,7 +221,6 @@
 * \#91580 \[W\&A-Critical] Resolver roles editor writes a scope the admin was never shown, defaulting to root
 * \#89864 \[W\&A-Critical] ENS Explorer silently resolves a name with no \`addr(60)\` record to its token owner (owner-fallback) and consumes it on irreversible/authority-granting action paths, misdirectin...
 * \#92581 \[W\&A-Critical] The Explorer names the ENSv1 registry controller as a name's Owner, so a seller who has already handed over the NFT is still shown as the owner on the official ENS Explorer
-* \#92582 \[W\&A-Critical] Set as Primary writes its forward legs to the name the user picked and its reverse leg to a different name, so one click points the victim's wallet at a name an attacker owns
 * \#92584 \[W\&A-Critical] Explorer’s resolver role table omits ROLE\_SET\_DATA, so Remove user throws for every account the registration flow provisions and otherwise leaves write access the roles table r...
 * \#92591 \[W\&A-Critical] Manager reads the profile with ENSIP-15 and writes the renewal with toLowerCase(), so a crafted link makes the victim's own profile suppress the third-party-renewal warning and...
 * \#92593 \[W\&A-Critical] Explorer's Extend flow charges the user to renew a stranger's ENS name instead of the one shown
@@ -263,12 +247,9 @@
 * \#93016 \[W\&A-Critical] Manager and Explorer transact the normalized twin of the displayed ENS name, so a renewal pays to extend an attacker's registration and a transfer moves the wrong name — and th...
 * \#89418 \[W\&A-Critical] Broken access control in the resolver Remove-user flow leaves a revoked delegate able to redirect the address records of every name on the resolver
 * \#90163 \[W\&A-Critical] Manager renewal route proves renewability from the normalized name but renews the raw label, so a user pays to extend an attacker's registration
-* \#93061 \[W\&A-Critical] Resolver Role Aggregation Causes “Remove User from All Roles” to Revoke Only One Resource, Leaving the Delegate Able to Redirect ENS Addresses
-* \#92667 \[W\&A-Critical] Improper role revocation in Explorer leaves global ROLE\_SET\_ADDR active, enabling ENS payment redirection
 * \#92752 \[W\&A-Critical] Removing a resolver user revokes only one resource and leaves root or other-name authority active
 * \#92740 \[W\&A-Critical] Missing ENSIP-15 normalization on the Manager's \`/{name}\` route splits one profile page across two ENS nodes, rendering an attacker-controlled address beside the real owner and...
 * \#92753 \[W\&A-Critical] Incomplete revocation in the resolver user-removal flow retains resolver-root authority, leading to theft of user funds via payment-address redirection
-* \#92755 \[W\&A-Critical] Missing scope validation in ENS Explorer role edits grants resolver-wide address access
 * \#93026 \[W\&A-Critical] A name sent with the portal's default plan bricks every third-party subname beneath it, and the name's new holder can re-mint those labels to an address of their choosing
 * \#91295 \[W\&A-Critical] IOST-only resolver delegate can make Manager show and copy its value as the SOL receiving address
 * \#91982 \[W\&A-Critical] Manager keep-v1 migration of a locked custom-resolver name freezes record control
@@ -280,9 +261,7 @@
 * \#89585 \[W\&A-Critical] \[Critical] Name transfer resolves its recipient to the v1 registry controller, not the ERC-721 holder -- the Explorer also labels that controller as Owner
 * \#91640 \[W\&A-Critical] Bulk renewal signs a different label than the name displayed, so the fee renews an unintended name (displayed-vs-signed mismatch)
 * \#91044 \[W\&A-Critical] Explorer authorises a raw ENS name but transfers the normalised name, so a user disposing of a decoy burns their genuine name
-* \#91887 \[W\&A-Critical] Resolver-role resource conflation makes “Remove user from all roles” leave global address-write authority
 * \#89888 \[W\&A-Critical] Missing ENSIP-15 normalization in Manager registration lets an attacker own the canonical name while a victim buys a hidden lookalike
-* \#92640 \[W\&A-Critical] Explorer authorizes record editing by resolver role instead of name ownership — a former owner can edit the new owner's records in-app, and the real owner is locked out (name h...
 * \#89507 \[W\&A-Critical] "Remove user" on the resolver roles panel revokes only one resource scope, leaving listed authority in place
 * \#90688 \[W\&A-Critical] Incomplete role revocation: Resolver "Remove user" leaves a co-manager's global (root) role in place, so a removed user can still set any name's address record and redirect funds
 * \#92949 \[W\&A-Critical] Explorer \`Remove User\` revokes only one resolver scope and leaves global address write authority active
@@ -299,11 +278,8 @@
 
 <summary>High</summary>
 
-* \#92196 \[W\&A-High] Portal keys address-record identity by display symbol: selecting an oversized same-symbol alias deletes the owner's Base Sepolia record and resolves the name to a prior owner's add...
 * \#91834 \[W\&A-High] Missing resolver-ownership validation in the name-history query leads to persistent forged content injection on any ENS name's history page
-* \#92947 \[W\&A-High] Registration checkout presents the rent as the exact total while the wallet signs a permit for \~2.5× that amount
 * \#93128 \[W\&A-High] manager HCA quote failure can authorize more USDC than the exact wallet Total shown at checkout
-* \#92833 \[W\&A-High] A third party can brick a wrapped V1 ENS name for 99 years through Manager renewal
 * \#92413 \[W\&A-High] Unpinned Warp settlementLayers and dest-only 0x03 session policy lead to direct theft of Hybrid Custody Account funds
 * \#93021 \[W\&A-High] Swallowed budget-quote failure makes the registration checkout show the rent as an exact total while the machine sizes the funding permit from the full budget, so the user approves...
 * \#93029 \[W\&A-High] Manager writes L2 address records to mainnet-derived coin types while the Explorer reads Sepolia-derived ones, so all five L2 rows render the owner's coin-60 address and a sender's...
@@ -341,10 +317,8 @@
 * \#89366 \[W\&A-Medium] Missing execution-time owner re-verification in v1→v2 migration leads to ROLE\_SET\_RESOLVER granted to a former manager
 * \#91689 \[W\&A-Medium] Portal direct child route and spoofable resolver authentication substitute an attacker contract as the victim's transaction target
 * \#91913 \[W\&A-Medium] Incomplete \`KNOWN\_PUBLIC\_RESOLVERS\` skip of locked-record safety wipes ETH/text records on Manager v1→v2 Upgrade
-* \#92867 \[W\&A-Medium] Failed HCA reveal is accepted from attacker-created registration state, leaving hidden resolver authority and an incorrect receiving address
 * \#92870 \[W\&A-Medium] Case-folded role-name lookup in the Manager profile leads to persistent injection of third-party ENS names on any address's public page
 * \#90446 \[W\&A-Medium] No per-user push-channel cap and faulty retry after a partial commit permanently suppress other users' external expiry reminders
-* \#92822 \[W\&A-Medium] Explorer copies a preserved ENSv1 resolver into a new ENSv2 subname, letting an ENSv1 party choose the address a user's transfer lands on
 * \#92885 \[W\&A-Medium] Stale V1 Manager is encoded as the nested V2 grantRoles recipient after a same-ID refresh
 * \#92908 \[W\&A-Medium] Historical resolver provenance check reattaches attacker-upgraded code during profile editing
 * \#91765 \[W\&A-Medium] Stale V1 migration state resurrects a revoked manager on V2
@@ -396,15 +370,12 @@
 * \#89374 \[W\&A-Medium] Stale V1 Registry state reinstalls a revoked attacker resolver during V1-to-V2 migration, enabling ENS name hijacking
 * \#93056 \[W\&A-Medium] Migration replays attacker controlled records from a removed cached V1 resolver into the authoritative V2 resolver
 * \#92988 \[W\&A-Medium] Missing live V1 owner check re-grants resolver control to a revoked manager during migration
-* \#92994 \[W\&A-Medium] Stale V1 migration data restores an ex-manager's resolver and permanent V2 authority after a split handoff
 * \#92997 \[W\&A-Medium] Missing factory check in the Permissioned Resolver lookup lets any contract get ENS's "audited and considered secure" badge on its page and OG card
 * \#93053 \[W\&A-Medium] Failed per-token price read renders a selectable $0.00 quote, skips the approval leg, and the amount-less renew silently charges the live price against the standing 2x allowance
-* \#93007 \[W\&A-Medium] Explorer address page has a visitor's wallet sign setName and take the attacker's name as primary
 * \#89445 \[W\&A-Medium] One user's bounce or unsubscribe rewrites every other user's channel with the same target
 * \#92578 \[W\&A-Medium] Notification channel state is read and written by target address alone, with no user\_id predicate, over a schema that deliberately allows the same target on multiple accounts
 * \#93079 \[W\&A-Medium] A stale Manager migration plan can restore a former owner's attacker-controlled resolver
 * \#92177 \[W\&A-Medium] Stale V1 manager snapshot re-grants a former manager V2 resolver authority during migration
-* \#92178 \[W\&A-Medium] ENS migration can restore resolver authority to a revoked manager from stale subgraph data
 * \#92205 \[W\&A-Medium] Stale V1 authority cache restores attacker resolver control during ENSv2 migration
 * \#90807 \[W\&A-Medium] Stale authorization in V1-to-V2 manager restoration re-grants revoked resolver control, enabling ENS name hijack
 * \#92156 \[W\&A-Medium] useMigrationGasEstimate preserves an authority-bearing plan after manager revocation, restoring a revoked address during V1-to-V2 migration
@@ -443,7 +414,6 @@
 * \#90613 \[W\&A-Medium] Stale V1 manager state during v1→v2 migration resurrects a revoked manager with ROLE\_SET\_RESOLVER, enabling resolver hijacking
 * \#92585 \[W\&A-Medium] Explorer certifies any contract as the official, audited ENS Permissioned Resolver from a single storage word the contract writes itself
 * \#92596 \[W\&A-Medium] Manager v1 -> v2 migration restores a removed V1 manager as persistent V2 resolver authority, hijacking the name's resolver
-* \#93072 \[W\&A-Medium] Portal silently transfers a name with non-detachable third-party resolver authority
 * \#92648 \[W\&A-Medium] The Explorer certifies a resolver as “official, audited and considered secure” from a storage word any contract can forge, and the same forged bit replaces the record-edit owners...
 * \#92909 \[W\&A-Medium] Migration reuses uncleared resolver state and activates a revoked delegate's attacker address
 * \#92934 \[W\&A-Medium] Unauthenticated server-side egress from the ENS Portal Worker via EIP-3668 CCIP-Read leads to ressource exhaustion
@@ -472,7 +442,6 @@
 * \#92165 \[W\&A-Low] Unauthenticated /verify endpoint binds a victim's email to the attacker's ENS account
 * \#92868 \[W\&A-Low] Unauthenticated /notifications/channels/email/verify grants authority by bare token possession — cross-user email-channel hijack and permanent victim lockout
 * \#93124 \[W\&A-Low] An unauthenticated attacker can recover a victim's SIWE nonce verbatim and burn it before any verification, locking the victim out of login
-* \#92950 \[W\&A-Low] Portal create-subname reuses stale ENS inputs, minting to the wrong owner or an attacker-controlled resolver
 * \#93125 \[W\&A-Low] Missing authorization in the notifications channel-delete handler's broadcast-cleanup lets any authenticated user delete another user's SendGrid marketing contact (config-gated).
 * \#90264 \[W\&A-Low] Unauthenticated \`POST /wallet/fund\` spends a server-held private key behind a non-atomic KV "lock", allowing concurrent funds to collide on the funder's nonce and to be issued witho...
 * \#92966 \[W\&A-Low] Deleting an unverified email channel can remove another user's SendGrid contact
@@ -485,14 +454,11 @@
 * \#93031 \[W\&A-Low] Missing cross-user authorization on the email-channel verify endpoint lets an attacker bind any third party's email to their own ENS account, disabling that user's own notifications...
 * \#93060 \[W\&A-Low] Attacker initiated verification binds a victim email to the attacker
 * \#89444 \[W\&A-Low] Any anonymous caller can drain the faucet hot wallet and hang worker invocations
-* \#92575 \[W\&A-Low] Any authenticated user can claim a third party's email address as a notification channel, and the victim's own click on the ENS-sent verification link locks them out of using their ...
 * \#93089 \[W\&A-Low] SendGrid webhook matches events to the first channel row with that email, so a pre-registered pending duplicate absorbs another user's unsubscribe or bounce
-* \#93094 \[W\&A-Low] Notification delivery targets are treated as global identities: provider events and push registrations rewrite other users' notification settings with zero victim interaction
 * \#91822 \[W\&A-Low] Editing the recipient during Portal transfer preparation sends the ENS name to the replaced address
 * \#93104 \[W\&A-Low] Any authenticated user can bind a stranger's mailbox to their own ENS account with one click, and lock the real owner out of email notifications
 * \#91487 \[W\&A-Low] api-worker: user\_channels never enforces one verified owner per email target
 * \#93109 \[W\&A-Low] Missing per-user scoping in the email verification rate limit lets any signed-in account lock another user out of adding their email to notifications
-* \#92250 \[W\&A-Low] Email verification can be claimed by two accounts because uniqueness is not re-checked during verification
 * \#92481 \[W\&A-Low] Email-channel takeover: an unauthenticated verify endpoint finalises a pre-bound victim address
 * \#92494 \[W\&A-Low] apps/portal: transfer encodes a cached ENS resolution as the recipient
 * \#92544 \[W\&A-Low] Explorer's name page asserts "You are the owner of \<name>" and a "Paid" figure taken verbatim from the URL query string, on any name for any visitor, beside an ownership-free button...
@@ -503,7 +469,6 @@
 * \#90651 \[W\&A-Low] Unverified email channel lets any authenticated user delete another user's SendGrid contact, silently unsubscribing them from ENS broadcast email
 * \#92792 \[W\&A-Low] Any account can exhaust the email-verification rate limit for an address it does not own, blocking that address's verification for an hour
 * \#91631 \[W\&A-Low] Missing token-to-account binding in the unauthenticated email-verification endpoint leads to cross-account mailbox binding, victim lock-out, and an email-membership oracle
-* \#92813 \[W\&A-Low] Missing re-validation in the email channel verify handler lets two accounts hold a verified channel for one address, leading to unstoppable notification delivery and destruction of ...
 * \#91997 \[W\&A-Low] Manager re-authors a prior owner's social records into the recipient's replacement resolver despite a clear-old-details promise
 * \#92893 \[W\&A-Low] Live ENS recipient refetch changes the undisclosed owner of a new subname
 * \#92583 \[W\&A-Low] POST /notifications/channels/email/verify ships with no requireAuth and re-checks nothing, so one click on a genuine ENS email transfers a victim's address to an attacker's account ...
@@ -524,13 +489,10 @@
 * \#92307 \[W\&A-Insight] DoS on API Worker from insufficient transaction payload validation
 * \#90584 \[W\&A-Insight] Unescaped ENS label injected into Markdown-parsed Telegram notifications allows an attacker to place arbitrary hyperlinks in first-party ENS bot messages
 * \#90636 \[W\&A-Insight] Unverified default reverse name is displayed as a verified primary name
-* \#93004 \[W\&A-Insight] Explorer fabricates a "Forward match: True / Primary name" badge for an unverified, attacker-controlled reverse name
 * \#92361 \[W\&A-Insight] Missing transaction-history storage limits allow one authenticated user to exhaust shared database capacity
 * \#89599 \[W\&A-Insight] ENS Portal prints the namehash of a different, third-party-owned name as the viewed name's identity
 * \#90662 \[W\&A-Insight] Token Info page derives the displayed Namehash from the IDNA/Punycode form of the name, showing the node of a different — and separately registrable — ENS name
 * \#93024 \[W\&A-Insight] Stale Worker JWT lets a removed Safe owner modify successor notifications and read their email
-* \#89371 \[W\&A-Insight] The Explorer presents an unverified \`default.reverse\` name as a forward-verified "Primary name", letting any address impersonate any name
-* \#93059 \[W\&A-Insight] Missing EIP-1271 session revocation lets removed signers retain account access for seven days
 * \#91702 \[W\&A-Insight] Telegram expiry notifications render an attacker-chosen link inside the official ENS bot's message
 * \#89583 \[W\&A-Insight] \[Critical] Explorer renders an unverified default.reverse name as a confirmed Primary name -- the Forward match column prints True on a branch that never reads forwardMatch
 * \#89441 \[W\&A-Insight] Explorer certifies an unverified reverse record as a forward-verified primary name
@@ -557,7 +519,6 @@
 * \#89551 \[W\&A-Insight] ENS Explorer renders a forged “Forward match: True / Primary name” verification badge for an attacker’s unverified default.reverse name
 * \#91962 \[W\&A-Insight] Hardcoded \`True\` in the Explorer's "Forward match" column certifies any address as the verified primary-name holder of any ENS name
 * \#92105 \[W\&A-Insight] Explorer prints "Forward match: True" and "Primary name" for a \`default.reverse\` record ENS resolution reports as a mismatch
-* \#92202 \[W\&A-Insight] Inheriting an L1 default.reverse name is treated as equivalent to passing forward verification, so any address is shown as the verified holder of a name it does not own, while t...
 * \#92283 \[W\&A-Insight] Notification templates interpolate an ENS label with no escaping: a third party can plant persistent text in another user's Manager inbox with no interaction by that user, and a...
 * \#92986 \[W\&A-Insight] ENS Worker allows Telegram Markdown injection
 * \#92961 \[W\&A-Insight] Portal falsely marks an unverified inherited reverse name as a verified primary name
@@ -585,7 +546,6 @@
 * \#91637 \[W\&A-Critical] Manager profile page renders an attacker-controlled receiving address under a genuine name's verified owner identity
 * \#91641 \[W\&A-Critical] Explorer resolver-role editor writes grants and revokes to a wrongly-derived EAC resource, so revoking a delegate's permissions silently leaves them in place
 * \#92818 \[W\&A-Critical] Missing label validation in the Portal's Configure Registry flow leads to subregistry detachment of a different, real ENS name
-* \#92196 \[W\&A-High] Portal keys address-record identity by display symbol: selecting an oversized same-symbol alias deletes the owner's Base Sepolia record and resolves the name to a prior owner's add...
 * \#92719 \[W\&A-Insight] A gifted ENS name with a crafted label injects persistent attacker-controlled Markdown into a victim's real Telegram expiry-alert notifications
 * \#92112 \[W\&A-Critical] A direct Registry URL applies Registry bit 0 to a resolver and grants address control
 * \#92825 \[W\&A-Medium] Missing registry scoping in the role History query lets anyone write permanent forged role-change entries into any ENS name's audit trail
@@ -598,9 +558,7 @@
 * \#91689 \[W\&A-Medium] Portal direct child route and spoofable resolver authentication substitute an attacker contract as the victim's transaction target
 * \#89548 \[W\&A-Critical] Registration and renewal use un-normalized labels: the name the Manager shows is not the name it writes on chain
 * \#92880 \[W\&A-Critical] Explorer transfers a user's ENSv2 name to a separate address the seller selected before the sale
-* \#92881 \[W\&A-Critical] ENSv1 registrant/manager conflation redirects ENSv2 name transfers to a non-owner manager
 * \#92887 \[W\&A-Critical] Incomplete mixed resolver-role removal leaves a former delegate able to change an ENS address record
-* \#92889 \[W\&A-Critical] Manager migration grants a seller-selected address resolver authority over the buyer's ENSv2 name
 * \#92892 \[W\&A-Critical] Remove user revokes only UI-recognized role bits and can leave official authority active
 * \#92890 \[W\&A-Critical] \[HIGH] Manager authorizes record edits via the resolver's stale internal roles instead of registry ownership — a name's previous owner keeps full write access (incl. the coins\[...
 * \#91768 \[W\&A-Critical] "Remove user from all roles" preserves global resolver authority
@@ -610,7 +568,6 @@
 * \#91717 \[W\&A-Critical] Explorer transfer flow moves a different ENS name than the UI and wallet prompt display, because on-chain identity is derived from the normalized label
 * \#89253 \[W\&A-Critical] Wrong-resource revocation in Resolver Roles lets a removed account retain \`ROLE\_SET\_ADDR\` and redirect another ENS name
 * \#90307 \[W\&A-Low] Explorer renders an unbounded on-chain uint64 expiry through Temporal without a range check, so one unsolicited subname permanently breaks a victim's names page
-* \#91837 \[W\&A-Critical] Manager claims a primary name the user does not own: the reverse registrar receives the normalized name while every displayed surface and the forward addr(60) record use the ra...
 * \#92278 \[W\&A-Critical] Both renewal routes prove one ENS name is renewable and then bill the user to renew a different one
 * \#91224 \[W\&A-Critical] Explorer renew/transfer encode the on-chain write from a normalizing helper while the ownership gate and displayed transaction use the raw name — a victim renews or transfers a...
 * \#90639 \[W\&A-Critical] Transfer authorises the raw label, moves the normalized label's token
@@ -618,15 +575,12 @@
 * \#92307 \[W\&A-Insight] DoS on API Worker from insufficient transaction payload validation
 * \#89314 \[W\&A-Critical] Manager V1 to V2 migration silently keeps an attacker's resolver and grants the attacker \`ROLE\_SET\_RESOLVER\` on the V2 registry for gifted/secondary-market names
 * \#92165 \[W\&A-Low] Unauthenticated /verify endpoint binds a victim's email to the attacker's ENS account
-* \#92867 \[W\&A-Medium] Failed HCA reveal is accepted from attacker-created registration state, leaving hidden resolver authority and an incorrect receiving address
 * \#92870 \[W\&A-Medium] Case-folded role-name lookup in the Manager profile leads to persistent injection of third-party ENS names on any address's public page
 * \#91834 \[W\&A-High] Missing resolver-ownership validation in the name-history query leads to persistent forged content injection on any ENS name's history page
-* \#92645 \[W\&A-Critical] Reused resolver-role row state makes a Content Hash edit grant another delegate resolver-wide address control
 * \#90446 \[W\&A-Medium] No per-user push-channel cap and faulty retry after a partial commit permanently suppress other users' external expiry reminders
 * \#92914 \[W\&A-Critical] Missing ENSIP-15 normalization check on the primary-name render path lets an attacker's address be displayed as another party's name
 * \#92658 \[W\&A-Critical] Manager migration grants a former V1 controller resolver authority over the buyer’s V2 name
 * \#91855 \[W\&A-Critical] Portal treats an unresolved resolver-role scope as ROOT, enabling cross-name resolution hijacking
-* \#92822 \[W\&A-Medium] Explorer copies a preserved ENSv1 resolver into a new ENSv2 subname, letting an ENSv1 party choose the address a user's transfer lands on
 * \#92885 \[W\&A-Medium] Stale V1 Manager is encoded as the nested V2 grantRoles recipient after a same-ID refresh
 * \#92908 \[W\&A-Medium] Historical resolver provenance check reattaches attacker-upgraded code during profile editing
 * \#92868 \[W\&A-Low] Unauthenticated /notifications/channels/email/verify grants authority by bare token possession — cross-user email-channel hijack and permanent victim lockout
@@ -642,13 +596,10 @@
 * \#90636 \[W\&A-Insight] Unverified default reverse name is displayed as a verified primary name
 * \#93130 \[W\&A-Medium] A stale Manager migration plan can restore a former owner's attacker-controlled resolver
 * \#91095 \[W\&A-Critical] Portal “Remove user from all roles” sends a one-name revoke and leaves root resolver authority usable
-* \#93004 \[W\&A-Insight] Explorer fabricates a "Forward match: True / Primary name" badge for an unverified, attacker-controlled reverse name
-* \#92947 \[W\&A-High] Registration checkout presents the rent as the exact total while the wallet signs a permit for \~2.5× that amount
 * \#93128 \[W\&A-High] manager HCA quote failure can authorize more USDC than the exact wallet Total shown at checkout
 * \#92944 \[W\&A-Critical] Recipient resolution returns a different address than every conformant ENS client, sending an irreversible name transfer to whoever registered a look-alike name
 * \#92945 \[W\&A-Critical] # \`/renew/$name\` displays the victim's expiry but signs \`renew()\` for the attacker's label the victim pays to extend someone else's name
 * \#89967 \[W\&A-Medium] Manager executes cached V1 migration state, restoring revoked resolver authority and redirecting ENS payments
-* \#92950 \[W\&A-Low] Portal create-subname reuses stale ENS inputs, minting to the wrong owner or an attacker-controlled resolver
 * \#92951 \[W\&A-Medium] Missing on-chain validation in ENS migration lets a third party hijack the resolver of a user's name
 * \#93135 \[W\&A-Critical] Unresolved record-part role rows silently grant global resolver authority
 * \#93125 \[W\&A-Low] Missing authorization in the notifications channel-delete handler's broadcast-cleanup lets any authenticated user delete another user's SendGrid marketing contact (config-gated).
@@ -657,18 +608,15 @@
 * \#91396 \[W\&A-Critical] An IOST-only delegate can replace Manager's copied Solana recipient without modifying the SOL record
 * \#92955 \[W\&A-Critical] Scope substitution in the resolver role editor converts an unresolvable name-scoped role into a resolver-root grant, giving unintended global authority over every name on the r...
 * \#93129 \[W\&A-Critical] Stale role state tied to the row position in the resolver Roles sheet quietly adds root ROLE\_SET\_ADDR to a grant, so ENS names resolve to an attacker-controlled address
-* \#89465 \[W\&A-Critical] Lookalike-label renewal trap: /renew displays the normalized ENS name but renews the raw label — victim pays to renew an attacker's name, then loses their own
 * \#92836 \[W\&A-Medium] Payment-Token Picker Silently Treats a Failed Price Read as $0, Hiding Insufficient-Balance and Skipping the Real Approval Amount
 * \#90264 \[W\&A-Low] Unauthenticated \`POST /wallet/fund\` spends a server-held private key behind a non-atomic KV "lock", allowing concurrent funds to collide on the funder's nonce and to be issued witho...
 * \#92964 \[W\&A-Medium] Manager migration can restore a revoked V1 manager’s permission to change the resolver
 * \#92966 \[W\&A-Low] Deleting an unverified email channel can remove another user's SendGrid contact
-* \#92962 \[W\&A-Critical] Resolver role editor revokes the wrong scope
 * \#92967 \[W\&A-Critical] The Manager checks name ownership on one node and writes to another
 * \#92971 \[W\&A-Critical] Manager falsely confirms a canonical ENS renewal while extending an attacker-owned raw Unicode name
 * \#92977 \[W\&A-Medium] Missing registry filter in useRoleHistory lets any user plant fake role grants in another name's Explorer History panel
 * \#92976 \[W\&A-Medium] Stale V1 manager state during ENSv2 migration resurrects former-manager resolver authority and enables name hijacking
 * \#91233 \[W\&A-Low] Manager suppresses a cross-name avatar/header record update and preserves former-owner media control
-* \#92833 \[W\&A-High] A third party can brick a wrapped V1 ENS name for 99 years through Manager renewal
 * \#93132 \[W\&A-Medium] Explorer stamps a verified "Forward match: True / Primary name" badge on an unverified default.reverse name, so any address displays a name it does not own as its confirmed prima...
 * \#92361 \[W\&A-Insight] Missing transaction-history storage limits allow one authenticated user to exhaust shared database capacity
 * \#92990 \[W\&A-Critical] Cross-account receipt reuse skips resolver-role revocation and makes Portal render an attacker-controlled ENS address
@@ -709,7 +657,6 @@
 * \#89761 \[W\&A-Critical] Removing a resolver user revokes only one displayed ENS name, allowing redirected incoming payments
 * \#89990 \[W\&A-Critical] Resolver roles page revokes a single name while claiming removal of all roles — removed users keep live record-write authority on other names and ROOT
 * \#90784 \[W\&A-Critical] Critical: Portal account-only role grouping collapses resolver scopes, leaving an offboarded collaborator able to redirect ENS resolution
-* \#92860 \[W\&A-Critical] Missing grantee validation in the v1→v2 migration's "manager restoration" grants an attacker ROLE\_SET\_RESOLVER over a victim's migrated ENS name, hijacking where the name resolves
 * \#89336 \[W\&A-Critical] V1-to-V2 migration grants stale owners resolver control
 * \#90498 \[W\&A-Critical] Resolver role table merges different names into one row but signs calldata for only one name
 * \#90725 \[W\&A-Critical] Encoded-labelhash confusion in Portal deletion unregisters a different victim-owned subname and enables registrar takeover
@@ -732,7 +679,6 @@
 * \#91333 \[W\&A-Critical] Portal's “Remove user from all roles” submits a one-resource revocation and leaves the removed delegate's root resolver authority active
 * \#91449 \[W\&A-Critical] Broken Access Control: Multi-Resource Role Aggregation in Resolver Roles Management Causes Incomplete Revocation and Persistent Root-Level Access
 * \#91848 \[W\&A-Critical] Editing a record-scoped resolver delegate silently submits \`grantRootRoles\` — authority over every name on the resolver
-* \#91921 \[W\&A-Critical] Granular Resolver Role Escalation to Root
 * \#93006 \[W\&A-Medium] \[MEDIUM] Portal registration checkout fails open on a single transient price-read failure — the UI freezes at $0.00 and drops every approval step while the machine charges the li...
 * \#92128 \[W\&A-Critical] Inconsistent ENS name normalization in the Manager profile page renders a trusted name's owner beside an attacker-controlled receiving address, leading to theft of user funds
 * \#92429 \[W\&A-Critical] The Explorer's "Remove user" filters the root scope out of the resource it revokes, so an account the operator removed keeps write authority over the address record of every na...
@@ -740,7 +686,6 @@
 * \#92239 \[W\&A-Critical] One ticked permission on a record-scoped row makes the Explorer's Roles page sign grantRootRoles — authority over every name the resolver serves — with no scope shown on any sc...
 * \#92257 \[W\&A-Critical] Resolver role editor upgrades a name-scoped grant to resolver root, submitting a broader transaction than the operator selected
 * \#93010 \[W\&A-Critical] Profile page reads ownership and records from two different names, so a look-alike name displays an attacker-controlled receiving address
-* \#93012 \[W\&A-Critical] Explorer transfer flow checks ownership of one name and signs transactions for a different one
 * \#90250 \[W\&A-Medium] Missing V1 Registry owner revalidation re-authorizes a revoked manager during V2 migration, enabling resolver hijacking
 * \#91813 \[W\&A-Low] Email verification never identifies the requesting wallet, so an attacker binds a victim's mailbox to their own account
 * \#89285 \[W\&A-Medium] Fresh V1 owner updates do not invalidate a migration plan, re-authorizing a revoked manager
@@ -788,14 +733,12 @@
 * \#89593 \[W\&A-Critical] Incorrect scope inference in the resolver roles editor leaves a removed user's resolver-wide grant live, up to ROLE\_UPGRADE
 * \#90190 \[W\&A-Critical] Manager bulk renewal displays the raw label but renews the normalized one, so a user's rent payment extends a name they do not own
 * \#91342 \[W\&A-Medium] Manager resurrects a relinquished V1 manager as a V2 resolver delegate after the pre-wallet state check
-* \#89371 \[W\&A-Insight] The Explorer presents an unverified \`default.reverse\` name as a forward-verified "Primary name", letting any address impersonate any name
 * \#89374 \[W\&A-Medium] Stale V1 Registry state reinstalls a revoked attacker resolver during V1-to-V2 migration, enabling ENS name hijacking
 * \#91014 \[W\&A-Critical] Scoped HCA sessions are downgraded to owner mode, bypassing refund authorization and transferring HCA tokens
 * \#92042 \[W\&A-Critical] ENSv2 migration grants ROLE\_SET\_RESOLVER on migrated names to a subgraph-sourced "manager" address it never verifies on-chain or shows the user (resolver hijack)
 * \#92043 \[W\&A-Critical] Explorer renewal sends \`renew()\` the ENSIP-15-normalized label while every rendered string is the raw on-chain label: the user pays full rent, their own name gains zero seconds...
 * \#91648 \[W\&A-High] HCA funding permit is sized from an unbounded orchestrator quote with no ceiling or cross-check
 * \#92121 \[W\&A-Critical] Manager renewal signs a different ENS registration from the one the page describes: the route parameter is ENSIP-15 normalized for the expiry it displays and only lower-cased f...
-* \#93059 \[W\&A-Insight] Missing EIP-1271 session revocation lets removed signers retain account access for seven days
 * \#91698 \[W\&A-Critical] Crafted /renew URL renews an attacker's look-alike name while the page displays the victim's own name and on-chain expiry
 * \#92775 \[W\&A-Critical] Manager renders a lookalike ENS name with the victim's identity above the attacker's receiving address
 * \#92820 \[W\&A-Critical] Explorer: "Remove user" / "Save" on a resolver operator revokes a single scope while the row aggregates root and name scopes, so root-level roles survive a "remove this user fr...
@@ -805,17 +748,14 @@
 * \#93060 \[W\&A-Low] Attacker initiated verification binds a victim email to the attacker
 * \#92978 \[W\&A-Critical] Portal transfer flow authorises ownership of one ENS node and then executes irreversible writes against a different one
 * \#92988 \[W\&A-Medium] Missing live V1 owner check re-grants resolver control to a revoked manager during migration
-* \#92994 \[W\&A-Medium] Stale V1 migration data restores an ex-manager's resolver and permanent V2 authority after a split handoff
 * \#93044 \[W\&A-Critical] The v1→v2 migration automatically grants \`ROLE\_SET\_RESOLVER\` on the newly migrated v2 name to the legacy v1 registry controller — an address that is, by construction, never the...
 * \#93049 \[W\&A-Critical] Missing resolver contract-type validation turns record-role delegation into registry-wide name theft
 * \#93001 \[W\&A-High] Any contract can write persistent fabricated rows - including a forged "Set address to 0xAttacker" - into any ENS name's History page: the v1 history query has no resolver-provenan...
 * \#92997 \[W\&A-Medium] Missing factory check in the Permissioned Resolver lookup lets any contract get ENS's "audited and considered secure" badge on its page and OG card
-* \#93071 \[W\&A-Critical] Portal reuses a completed resolver step after recipient correction, leaving the transferred name resolving to the prior recipient
 * \#89583 \[W\&A-Insight] \[Critical] Explorer renders an unverified default.reverse name as a confirmed Primary name -- the Forward match column prints True on a branch that never reads forwardMatch
 * \#93053 \[W\&A-Medium] Failed per-token price read renders a selectable $0.00 quote, skips the approval leg, and the amount-less renew silently charges the live price against the standing 2x allowance
 * \#89431 \[W\&A-Critical] Stale transaction success falsely completes later role revocations, leaving resolver authority active
 * \#89433 \[W\&A-Critical] Transfer flow never resets the transaction manager, so a stale step actor from an abandoned attempt is matched by id to the next attempt and the steps before it are skipped whi...
-* \#93007 \[W\&A-Medium] Explorer address page has a visitor's wallet sign setName and take the attacker's name as primary
 * \#93073 \[W\&A-Critical] Explorer "Remove user" on a resolver role holder with root plus named roles only revokes one named scope, leaving the root role active
 * \#91485 \[W\&A-Critical] Missing ENS normalization in the Manager renewal flow leads to a victim extending the attacker's name with their own funds
 * \#89420 \[W\&A-Critical] Resolver roles sidebar collapses an account's multiple role resources into one write scope, so "Remove user" displays one scope and writes another, leaving removed accounts wit...
@@ -824,16 +764,13 @@
 * \#89445 \[W\&A-Medium] One user's bounce or unsubscribe rewrites every other user's channel with the same target
 * \#92565 \[W\&A-Critical] The Explorer's Extend flow renders the raw indexer name on every surface but signs the ENSIP-15-normalized label, so a renewal reached from the address names table pays to exte...
 * \#92564 \[W\&A-Critical] apps/portal: Remove user revokes only the root grant it promised to clear entirely
-* \#92567 \[W\&A-Critical] Bulk renew displays the raw name from the indexer but signs the normalized label, so a victim's stablecoins extend a registration they do not own
 * \#92568 \[W\&A-Critical] Profile editing authorizes the normalized name but encodes the raw route param, so a crafted URL makes the victim sign a record write to an attacker's node on an attacker's res...
 * \#89389 \[W\&A-Insight] Any wallet can enumerate ENS users by email address, bypass the per-address send limit, and get a victim's own expiry alerts switched off
 * \#92570 \[W\&A-Critical] Set primary name writes its forward legs against the raw name and signs the reverse leg against the normalized name, so one click points the victim's reverse record at a name t...
 * \#92572 \[W\&A-Critical] ENSv2 registration applies no ENSIP-15 normalization at any step, so a crafted URL prices, displays and registers a label the user cannot see and that ENS does not consider par...
-* \#92575 \[W\&A-Low] Any authenticated user can claim a third party's email address as a notification channel, and the victim's own click on the ENS-sent verification link locks them out of using their ...
 * \#92578 \[W\&A-Medium] Notification channel state is read and written by target address alone, with no user\_id predicate, over a schema that deliberately allows the same target on multiple accounts
 * \#93079 \[W\&A-Medium] A stale Manager migration plan can restore a former owner's attacker-controlled resolver
 * \#92177 \[W\&A-Medium] Stale V1 manager snapshot re-grants a former manager V2 resolver authority during migration
-* \#92178 \[W\&A-Medium] ENS migration can restore resolver authority to a revoked manager from stale subgraph data
 * \#90794 \[W\&A-Critical] Explorer confirms an uppercase ENSv2 transfer but signs the distinct lowercase token ID, causing direct NFT theft
 * \#93081 \[W\&A-Critical] Resolver-roles sidebar coerces an un-invertible resource hash to the empty string, which the save path reads as ROOT, so an operator scoping a grant to one name silently grants...
 * \#93080 \[W\&A-Critical] Improper resolver-role grouping causes incomplete revocation and attacker-controlled ENS resolution
@@ -865,7 +802,6 @@
 * \#93089 \[W\&A-Low] SendGrid webhook matches events to the first channel row with that email, so a pre-registered pending duplicate absorbs another user's unsubscribe or bounce
 * \#90852 \[W\&A-Critical] The Explorer's irreversible name transfer resolves a recipient name with no address record to its registry controller, silently delivering the name to the previous owner while ...
 * \#93093 \[W\&A-Critical] A pending role grant can be relabelled with a trusted recipient while retaining attacker calldata
-* \#93094 \[W\&A-Low] Notification delivery targets are treated as global identities: provider events and push registrations rewrite other users' notification settings with zero victim interaction
 * \#89255 \[W\&A-Insight] Attacker-Controlled ENS Name Injected Into Telegram Expiry Notifications Without Escaping
 * \#93096 \[W\&A-Medium] Missing Manager revalidation during V1→V2 migration grants resolver control to a revoked Manager
 * \#91688 \[W\&A-Critical] Manager authorizes a canonical-name victim to write to an attacker-owned raw-name resolver
@@ -882,7 +818,6 @@
 * \#91062 \[W\&A-Critical] Scope collapse in the resolver-roles editor causes role writes to target the resolver ROOT resource, granting authority over every name it serves and making "Remove user" repor...
 * \#91487 \[W\&A-Low] api-worker: user\_channels never enforces one verified owner per email target
 * \#93109 \[W\&A-Low] Missing per-user scoping in the email verification rate limit lets any signed-in account lock another user out of adding their email to notifications
-* \#92250 \[W\&A-Low] Email verification can be claimed by two accounts because uniqueness is not re-checked during verification
 * \#92474 \[W\&A-Critical] Improper resource binding in Portal “Remove user” leaves root resolver authority untouched
 * \#91318 \[W\&A-Critical] Portal's “remove all roles” action revokes only one name, leaving a delegate's global resolver authority active
 * \#89952 \[W\&A-Critical] An omitted non-root role mapping makes Edit user roles encode a root-scoped grant
@@ -904,7 +839,6 @@
 * \#93119 \[W\&A-Critical] Transfer flow authorizes one ENS name and signs transactions for a different one
 * \#90337 \[W\&A-Critical] Explorer removes only one grouped role scope, allowing removed users to redirect ENS transfers
 * \#92522 \[W\&A-Critical] Unconditional owner fallback in Explorer name resolution leads to the app resolving a record-less ENS name to its owner, an attacker-controlled address, pre-filled into the nam...
-* \#92225 \[W\&A-Critical] Resolver “Remove user” leaves root write authority active, allowing a removed delegate to redirect ENS resolution
 * \#89360 \[W\&A-Critical] The \`/$name\` profile route resolves one URL parameter as two ENS names, rendering an attacker's receiving address under the victim's genuine owner and expiry
 * \#93121 \[W\&A-Critical] Renewal flow signs a paid transaction against a different ENS name than the one it resolves, gates and displays
 * \#89535 \[W\&A-Critical] Manager profile page renders an attacker-chosen ETH address next to a name's genuine owner
@@ -930,7 +864,6 @@
 * \#92738 \[W\&A-Critical] Resolver “Remove user from all roles” revokes only one scope, leaving global address-hijack authority active
 * \#92764 \[W\&A-Critical] Encoded-label recipient names select an attacker-owned literal label but query the honest hash-only node, redirecting Portal name transfers
 * \#92616 \[W\&A-Critical] Explorer resolves a typed ENS name to a previous owner and builds the wrong recipient transaction
-* \#92671 \[W\&A-Critical] ENS Manager registers one name and then points the buyer's primary name at a registration owned by someone else
 * \#92618 \[W\&A-Medium] Revoked V1 manager receives persistent ENSv2 resolver control from an already-prepared migration
 * \#90069 \[W\&A-Low] Missing ownership re-check in email channel verification lets any authenticated user bind another user's email address to their own account as a verified notification channel
 * \#92622 \[W\&A-Critical] An unmappable name-scoped resolver role becomes a resolver-wide root grant signed by the victim
@@ -959,7 +892,6 @@
 * \#91063 \[W\&A-Critical] Owner fallback in Portal's ENS name resolution pre-fills an unpublished address, sending role grants and name transfers to an unintended recipient
 * \#92263 \[W\&A-Medium] A seller who keeps the resolver on a name transfer keeps root authority over the sold name, and can repoint it at their own address after the sale
 * \#92527 \[W\&A-Critical] The Explorer's resolver-roles editor writes a scope the administrator never chose: narrow grants are signed as resolver-wide (ROOT), and "remove from all roles" leaves ROOT sta...
-* \#92813 \[W\&A-Low] Missing re-validation in the email channel verify handler lets two accounts hold a verified channel for one address, leading to unstoppable notification delivery and destruction of ...
 * \#92503 \[W\&A-Medium] Stale V1 manager cache re-grants a revoked manager during V2 migration
 * \#92108 \[W\&A-Insight] Unescaped ENS name in api-worker Telegram/Push notification templates allows Markdown injection and a clickable phishing link inside official ENS expiry alerts
 * \#90874 \[W\&A-Critical] Portal authorizes a literal bracket-label decoy but changes the resolver of the embedded-hash ENS name
@@ -969,7 +901,6 @@
 * \#89627 \[W\&A-Medium] apps/portal: the name-transfer cleanup checklist omits third-party role grants, so a stranger keeps \`setResolver\` on the sold name and repoints its ETH address
 * \#92925 \[W\&A-Critical] The Manager profile page normalizes the name for the owner query but not for the records query, resolving an ENS name to an attacker-controlled address
 * \#90593 \[W\&A-Insight] The Token-Info page publishes the namehash of a name's punycode A-label, so every non-ASCII ENS name shows the node of a different, separately registerable name
-* \#92310 \[W\&A-Critical] A recipient name with no address record resolves to the name's manager, and the transfer goes there
 * \#91571 \[W\&A-Insight] Set primary name in the ENS Explorer signs setAddr() with the address from the URL, not the connected wallet, so an attacker can redirect where any ENS name resolves
 * \#91909 \[W\&A-Critical] Grouped resolver-role removal signs a single-resource revoke, leaving a removed delegate able to replace the ENS address
 * \#92794 \[W\&A-Critical] Manager's bulk-renew dialog substitutes a normalized lookalike for the victim's real registered label, letting a victim's own connected wallet pay to renew an attacker's name
@@ -980,7 +911,6 @@
 * \#92796 \[W\&A-Insight] Unverified \`default.reverse\` is falsely labelled “Forward match: True” and “Primary name” on inherited L2 rows
 * \#92714 \[W\&A-Critical] Resolver "Remove User" Silently No-Ops Root-Scoped Roles — Enables Persistent ENS Name-Resolution Hijack
 * \#92718 \[W\&A-Medium] Portal's v1 bulk-renewal table treats "resolves to me" as "owned by me", letting a victim's own connected wallet pay to renew an attacker's name
-* \#92624 \[W\&A-Critical] Two same-named withEthSuffix helpers in one post-registration sequence, one raw and one ENSIP-15, make the registration flow set the victim's primary name to a registration the...
 * \#92626 \[W\&A-Critical] Manager bulk renewal renders the raw indexer name on every row and signs the normalized label, so the victim's stablecoins extend a registration that appears nowhere in the dialog
 * \#92806 \[W\&A-Critical] Resolver role removal silently leaves ROLE\_SET\_DATA authority on-chain
 * \#91838 \[W\&A-Critical] Migration grants a stale v1 controller a permanent ROLE\_SET\_RESOLVER on the migrated v2 name, letting a third party repoint what the victim's name resolves to
@@ -1010,7 +940,6 @@
 * \#91869 \[W\&A-Critical] Normalization mismatch between the owner and records queries in the Manager profile route displays an attacker's name and address under the victim's ownership, causing stealthy...
 * \#91962 \[W\&A-Insight] Hardcoded \`True\` in the Explorer's "Forward match" column certifies any address as the verified primary-name holder of any ENS name
 * \#92105 \[W\&A-Insight] Explorer prints "Forward match: True" and "Primary name" for a \`default.reverse\` record ENS resolution reports as a mismatch
-* \#92202 \[W\&A-Insight] Inheriting an L1 default.reverse name is treated as equivalent to passing forward verification, so any address is shown as the verified holder of a name it does not own, while t...
 * \#92283 \[W\&A-Insight] Notification templates interpolate an ENS label with no escaping: a third party can plant persistent text in another user's Manager inbox with no interaction by that user, and a...
 * \#92341 \[W\&A-Medium] Manager restores V2 resolver authority to a V1 manager removed before confirmation
 * \#92893 \[W\&A-Low] Live ENS recipient refetch changes the undisclosed owner of a new subname
@@ -1021,7 +950,6 @@
 * \#90613 \[W\&A-Medium] Stale V1 manager state during v1→v2 migration resurrects a revoked manager with ROLE\_SET\_RESOLVER, enabling resolver hijacking
 * \#92581 \[W\&A-Critical] The Explorer names the ENSv1 registry controller as a name's Owner, so a seller who has already handed over the NFT is still shown as the owner on the official ENS Explorer
 * \#92583 \[W\&A-Low] POST /notifications/channels/email/verify ships with no requireAuth and re-checks nothing, so one click on a genuine ENS email transfers a victim's address to an attacker's account ...
-* \#92582 \[W\&A-Critical] Set as Primary writes its forward legs to the name the user picked and its reverse leg to a different name, so one click points the victim's wallet at a name an attacker owns
 * \#92584 \[W\&A-Critical] Explorer’s resolver role table omits ROLE\_SET\_DATA, so Remove user throws for every account the registration flow provisions and otherwise leaves write access the roles table r...
 * \#92591 \[W\&A-Critical] Manager reads the profile with ENSIP-15 and writes the renewal with toLowerCase(), so a crafted link makes the victim's own profile suppress the third-party-renewal warning and...
 * \#92585 \[W\&A-Medium] Explorer certifies any contract as the official, audited ENS Permissioned Resolver from a single storage word the contract writes itself
@@ -1033,7 +961,6 @@
 * \#91724 \[W\&A-Critical] Extending a name from the address page renews the ENSIP-15-normalized twin while every screen shows the raw indexer name, so the fee extends someone else's registration
 * \#91830 \[W\&A-Critical] Explorer renews a different ENS name than it displays: the victim pays to extend an attacker's name while their own expires
 * \#92203 \[W\&A-Critical] Primary-name dialog derives the displayed name and the written name from two different expressions, so the confirmed operation writes a reverse record for a different ENS node,...
-* \#93072 \[W\&A-Medium] Portal silently transfers a name with non-detachable third-party resolver authority
 * \#92648 \[W\&A-Medium] The Explorer certifies a resolver as “official, audited and considered secure” from a storage word any contract can forge, and the same forged bit replaces the record-edit owners...
 * \#89744 \[W\&A-Critical] v1→v2 migration unconditionally grants ROLE\_SET\_RESOLVER on the v2 ETHRegistry to the name's stale v1 registry controller — an attacker-settable address the Manager never displ...
 * \#90702 \[W\&A-Critical] v1→v2 migration silently grants a stale V1 controller ROLE\_SET\_RESOLVER on the migrated name, enabling resolution hijack of an acquired name
@@ -1068,15 +995,12 @@
 * \#90095 \[W\&A-Insight] One signature on a legitimate app.ens.domains screen redirects a victim's ENS name to the attacker — the app builds the redirect from an attacker-chosen unverified record and ne...
 * \#89418 \[W\&A-Critical] Broken access control in the resolver Remove-user flow leaves a revoked delegate able to redirect the address records of every name on the resolver
 * \#90163 \[W\&A-Critical] Manager renewal route proves renewability from the normalized name but renews the raw label, so a user pays to extend an attacker's registration
-* \#93061 \[W\&A-Critical] Resolver Role Aggregation Causes “Remove User from All Roles” to Revoke Only One Resource, Leaving the Delegate Able to Redirect ENS Addresses
 * \#89300 \[W\&A-Insight] Patched \`@rhinestone/sdk\` identity is undocumented in source — two provenance comments assert two different, superseded SHA-256 values
-* \#92667 \[W\&A-Critical] Improper role revocation in Explorer leaves global ROLE\_SET\_ADDR active, enabling ENS payment redirection
 * \#92752 \[W\&A-Critical] Removing a resolver user revokes only one resource and leaves root or other-name authority active
 * \#92740 \[W\&A-Critical] Missing ENSIP-15 normalization on the Manager's \`/{name}\` route splits one profile page across two ENS nodes, rendering an attacker-controlled address beside the real owner and...
 * \#92706 \[W\&A-Insight] Telegram Markdown Injection in Notification Delivery — Unescaped ENS Name Enables Phishing via the Official Notifications Bot
 * \#92753 \[W\&A-Critical] Incomplete revocation in the resolver user-removal flow retains resolver-root authority, leading to theft of user funds via payment-address redirection
 * \#92739 \[W\&A-Low] Portal transfer step ID reuse redirects an ENS-name recipient transfer to the former address
-* \#92755 \[W\&A-Critical] Missing scope validation in ENS Explorer role edits grants resolver-wide address access
 * \#93008 \[W\&A-Medium] recipient-controlled transfer failure leaves ENS resolution attacker-controlled and diverts payments
 * \#93026 \[W\&A-Critical] A name sent with the portal's default plan bricks every third-party subname beneath it, and the name's new holder can re-mint those labels to an address of their choosing
 * \#91295 \[W\&A-Critical] IOST-only resolver delegate can make Manager show and copy its value as the SOL receiving address
@@ -1098,9 +1022,7 @@
 * \#92996 \[W\&A-High] Portal's symbol collision preserves a prior owner's Base address when a canonical row is deleted
 * \#92110 \[W\&A-High] Portal reparses a two-dot raw label and authorizes a different four-label ENS name
 * \#91044 \[W\&A-Critical] Explorer authorises a raw ENS name but transfers the normalised name, so a user disposing of a decoy burns their genuine name
-* \#91887 \[W\&A-Critical] Resolver-role resource conflation makes “Remove user from all roles” leave global address-write authority
 * \#89888 \[W\&A-Critical] Missing ENSIP-15 normalization in Manager registration lets an attacker own the canonical name while a victim buys a hidden lookalike
-* \#92640 \[W\&A-Critical] Explorer authorizes record editing by resolver role instead of name ownership — a former owner can edit the new owner's records in-app, and the real owner is locked out (name h...
 * \#89507 \[W\&A-Critical] "Remove user" on the resolver roles panel revokes only one resource scope, leaving listed authority in place
 * \#90583 \[W\&A-Medium] Manager trusts stale V1 owner and resolver during .eth migration
 * \#90646 \[W\&A-Insight] Explorer renders an unverified \`default.reverse\` claim as a verified Primary Name, letting any address assert any ENS name (e.g. \`vitalik.eth\`) with a green "Forward match: True...
