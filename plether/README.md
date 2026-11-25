@@ -1,0 +1,1893 @@
+# Plether | Audit Competition
+
+## Reports by Severity
+
+<details>
+
+<summary>Critical</summary>
+
+- 97591 [SC-Critical] HousePool prices Junior entry and exit with open positions' refundable VPI in NAV, so a trading LP takes incumbent Junior principal each cycle
+- 97595 [SC-Critical] An LP who also trades can take other junior LPs' principal by moving junior NAV around its own epoch deposit or redemption
+- 97608 [SC-Critical] Plether Perps: returnable positive VPI booked as distributable LP equity lets a redeeming LP cohort export the close-side rebate onto the remaining junior tranche
+- 97620 [SC-Critical] Booked VPI charge is not reserved against its later rebate: a junior LP can exit at a higher share price and re-enter
+- 97621 [SC-Critical] Refundable VPI sits in Junior NAV, so an LP exit settled before the close leaves the remaining LPs funding the rebate
+- 97625 [SC-Critical] Refundable positive VPI is counted in LP NAV when collected, so LPs who exit at high skew take value that the remaining Junior LPs later rebate to traders
+- 97636 [SC-Critical] Refundable open-VPI is booked into Junior NAV, so an LP who also trades can round-trip around its own redemption and take other Junior LPs’ principal
+- 97657 [SC-Critical] Positive VPI is booked into Junior LP NAV but refunded on close, so a Junior LP redeems the lift and takes other LPs' deposited funds
+- 97663 [SC-Critical] VPI float lets an exiting junior LP take principal from remaining LPs
+- 97667 [SC-Critical] Junior LP redemption settled between a VPI charge and its rebate is priced on a temporary NAV lift, letting a redeeming LP take funds from remaining LPs
+- 97670 [SC-Critical] Collected VPI charges counted as LP equity while still refundable let a redeeming LP take other LPs' funds
+- 97677 [SC-Critical] Uncollected flat-short receivable is paid from the other junior's cash
+- 97682 [SC-Critical] LP NAV leaves out the VPI rebate that every skew-reducing position must return to the pool, so Junior deposits activated while such a position is open take value from existing Junior LPs
+- 97690 [SC-Critical] VPI excluded from LP NAV but always reversed by the lifetime clamp lets an LP time its own position around epoch boundaries to take incumbent Junior funds
+- 97695 [SC-Critical] Junior LP exits are priced on a VPI charge that is refunded at close, letting a trader-LP take other Junior LPs' principal
+- 97698 [SC-Critical] Junior LP can steal other Junior LPs' funds by redeeming at a NAV inflated with its own refundable VPI
+- 97711 [SC-Critical] Refundable VPI open charge is booked as realised LP revenue in HousePool, so any LP can inflate tranche NAV at epoch settlement and redeem other LPs' principal
+- 97714 [SC-Critical] Junior LP NAV counts refundable VPI charges as revenue, letting an attacker redeem at an inflated price and steal other LPs' principal
+- 97717 [SC-Critical] Incorrect LP NAV accounting for reversible VPI enables repeatable theft of incumbent LP principal
+- 97722 [SC-Critical] Refundable opening VPI enters Junior NAV and lets an LP/trader take other LPs' USDG
+- 97724 [SC-Critical] Redeeming Junior shares before closing one's own position makes the remaining Junior LPs pay back its VPI
+- 97729 [SC-Critical] Open-time VPI is booked as LP revenue while the matching close rebate is never reserved, so a Junior LP who also trades redeems in between and takes the rebate out of the remaining LPs' principal
+- 97734 [SC-Critical] Cross-tranche LP rotation captures a VPI clawback and shifts the later rebate loss to existing Junior LPs
+- 97770 [SC-Critical] Positive VPI from an open position is counted as distributable Junior NAV, letting an LP-trader redeem above fair value and take principal from other Junior LPs
+- 97784 [SC-Critical] Attacker extracts refundable VPI from a pending Junior LP depositor through epoch-timed redemption
+- 97803 [SC-Critical] Refundable VPI charge is booked as Junior NAV at open, so a Junior LP can redeem at an inflated price and leave the refund to the remaining Junior LPs
+- 97810 [SC-Critical] Exit pricing ignores pending VPI rebates in HousePool LP epoch settlement, leading to theft of LP funds
+- 97812 [SC-Critical] Skew-reducing open rebates are paid from pool cash but excluded from LP NAV, letting a depositor activate Junior shares at a discount and dilute incumbent LPs
+- 97816 [SC-Critical] LP who is also a trader books its own VPI into Junior NAV, redeems it, and makes the remaining LPs pay the rebate
+- 97823 [SC-Critical] Unreserved refundable positive VPI in Junior NAV lets an LP-trader redeem at an inflated price, taking unclaimed yield from honest Junior LPs
+- 97834 [SC-Critical] VPI cash is priced into LP NAV but its refund is not, so a large Junior LP can redeem at an inflated price
+- 97841 [SC-Critical] Junior LP share price marks refundable positive VPI as equity, letting an LP-trader redeem it while remaining LPs fund the rebate (theft of LP value)
+- 97858 [SC-Critical] Owner-controlled solvency check in OrderRouter.executeOrder lets a trader void and revive its own pending open, leading to direct theft of user funds from LPs
+- 97861 [SC-Critical] LP deposit NAV ignores the certain clawback of a VPI rebate, so an attacker mints junior shares cheaply and dilutes existing junior LPs
+- 97862 [SC-Critical] Attacker takes Junior LP principal by depositing into the NAV dip that its own VPI rebate creates
+- 97863 [SC-Critical] An LP who is also a trader can mint Junior shares at a self-depressed NAV by round-tripping a VPI rebate around an LP epoch settlement, stealing principal from existing Junior LPs; the documented anti-sandwich clamp does not cover this path
+- 97887 [SC-Critical] Refundable VPI priced as Junior NAV at LP epoch settlement allows a Junior LP to take the principal of remaining Junior LPs by redeeming between its own open and close
+- 97888 [SC-Critical] A Junior LP redeems at a NAV raised by its own refundable VPI charge, and the remaining Junior LPs pay for the refund
+- 97905 [SC-Critical] Refundable VPI inflates NAV, letting a Junior LP steal from other Junior LPs
+- 97906 [SC-Critical] Delayed orders fill at a stale Pyth tick at macro releases: repeatable, net-profitable LP extraction
+- 97933 [SC-Critical] A skew charge booked as Junior equity at open is refunded at close, so a large Junior LP can exit at an inflated share price
+- 97943 [SC-Critical] Omitted positive-VPI refund liability from LP NAV lets ownership rotation steal later LP principal
+- 97950 [SC-Critical] Refundable VPI is booked into LP NAV but not as a liability, so a Junior LP can redeem at an inflated share price and reclaim the charge from the remaining LPs (direct theft of LP principal)
+- 97969 [SC-Critical] Lifetime VPI clamp is bypassed across roles: a trader who also makes the Junior deposit profits from the minority VPI depth attack
+- 97983 [SC-Critical] A skew-reducing open pays its VPI rebate out of pool cash while NAV ignores the guaranteed clawback, so a depositor can activate Junior shares inside a self-created NAV dip and take incumbent Junior LPs' funds
+- 98014 [SC-Critical] Oracle rotation resets accepted per-feed watermarks
+- 98024 [SC-Critical] Refundable VPI inflates Junior redemption NAV before the trader reclaims it, letting a Junior LP/trader extract USDG from other Junior LPs
+- 98028 [SC-Critical] Refundable positive VPI is counted in Junior NAV at open, so a large Junior LP can redeem at an inflated price and take the remaining LPs' principal when the position closes
+- 98030 [SC-Critical] A skew-reducing open's VPI rebate is paid from pool cash but its guaranteed clawback is left out of LP NAV, so a Junior deposit activated in that window takes value from existing Junior LPs
+- 98031 [SC-Critical] Open-side price-impact revenue is priced into the payer's own same-epoch LP redemption and then reclaimed as a close rebate, letting a dual-role LP and trader skim incumbent LP yield
+- 98035 [SC-Critical] Unclamped open rebate after a depth collapse takes the remaining junior's USDC
+- 98045 [SC-Critical] Repeated Junior entry around a VPI rebate round trip makes incumbent Junior LPs redeem below deposit
+- 98056 [SC-Critical] Refundable VPI open charge booked as realized LP revenue in CfdEngineSettlementSidecar lets a dual-role LP+trader steal remaining LPs' principal by redeeming around the charge
+- 98057 [SC-Critical] Skew-reducing-open VPI rebate paid from pool cash with no receivable in `CfdEngineSettlementSidecar` lets an LP entering between the rebate and its clawback take incumbent LPs' principal
+- 98069 [SC-Critical] Refundable VPI open charge inflates Junior NAV at redemption, letting an LP-trader take remaining Junior LPs' principal
+- 98076 [SC-Critical]  LP NAV counts refundable VPI charges as revenue, so a Junior LP who also trades can redeem above fair value and steal other Junior LPs' principal
+- 98102 [SC-Critical] VPI charge captured by exiting Trader/LP is later refunded at a passive Junior LP's expense
+- 98114 [SC-Critical] LP ownership rotation lets a trader redeem positive VPI revenue and make a queued depositor fund the matching rebate
+- 98117 [SC-Critical] Omission of Backed VPI Rebate Reserves from HousePool NAV Enables Risk Free Yield Extraction and Dilution of Incumbent LPs
+- 98123 [SC-Critical] Close-path VPI refund is funded from the liability reserve because the refund obligation is never reserved, breaching the settlement buffer and latching degraded mode
+- 98132 [SC-Critical] Immediate recognition of reversible VPI revenue lets a trader-LP extract new Junior LP funds
+- 98133 [SC-Critical] Junior LP redemption priced between an opening VPI charge and its same-position close rebate transfers principal from the remaining LPs to the redeemer
+- 98153 [SC-Critical] Enforce the Junior raw-plus-pending-fee supply bound across ordinary lifecycle paths
+- 98162 [SC-Critical] LP/trader can withdraw positive VPI as Junior NAV and reclaim it as a close rebate
+- 98172 [SC-Critical] Unbounded Junior share amplification reaches terminal supply and permanently freezes LP funds
+- 98177 [SC-Critical] Junior tranche NAV counts refundable virtual price impact as pool revenue, enabling direct theft of principal from the Junior holders who remain
+- 98209 [SC-Critical] assignUnassignedAssets mints Junior shares at zero NAV while the old shares are still outstanding, so one receiver takes the existing Junior holders' recovery
+- 98212 [SC-Critical] Refundable VPI open charge inflates LP NAV and is stolen via redeem-before-close
+- 98216 [SC-Critical] Refundable VPI counts as redeemable LP value, so an exiting LP takes a remaining LP's principal
+- 98217 [SC-Critical] Trader-LP exits Junior between VPI charge and rebate, taking principal from other Junior LPs
+- 98238 [SC-Critical] Positive VPI is marked into LP NAV at open although the close returns it: any Junior LP redeeming in between withdraws its share, and the LPs present at the close fund the refund
+- 98258 [SC-Critical] Bootstrap mint is quoted before the principal credit: `assignUnassignedAssets` on a wiped Junior tranche mints `amount × (totalSupply + 1000)` shares and permanently transfers the surviving LPs' entire forward revenue claim to the bootstrap receiver
+- 98277 [SC-Critical] Attacker steals Junior principal by redeeming shares priced with VPI the pool later rebates to them
+- 98282 [SC-Critical] A Junior LP who also trades can inflate their own exit price with refundable VPI, and the remaining LPs pay the refund
+- 98287 [SC-Critical] Junior exit is priced on refundable VPI so an LP who also trades takes value from the Junior LPs who stay
+- 98290 [SC-Critical] HousePool.assignUnassignedAssets inverted bootstrap mint confiscates surviving juniors' later trading revenue
+- 98299 [SC-Critical] Junior deposits are priced without the reserve-backed negative-VPI clawback: an LP-trader buys Junior at a depressed NAV and takes incumbent principal (not fixed by the #97591 remediation)
+- 98332 [SC-Critical] Trader exits Junior at VPI-inflated NAV, then receives the same VPI rebate
+- 98354 [SC-Critical] Junior LP entry omits a funded VPI clawback and diverts incumbent principal
+- 98355 [SC-Critical] Temporary Junior LP redeems its share of opening VPI before the trader receives the same charge back on close
+- 98361 [SC-Critical] LP share prices count VPI that the position's close will refund, so an LP exiting at an hourly round takes value from the LPs who stay
+- 98371 [SC-Critical] Early Junior LP redemption captures refundable VPI charges and shifts rebate losses to incoming LPs
+- 98375 [SC-Critical] Assigning unassigned assets at zero junior NAV pays the receiver the existing junior principal
+- 98377 [SC-Critical] Refundable positive VPI is priced into Junior NAV during LP epoch settlement, leading to direct theft of Junior LP funds
+- 98407 [SC-Critical] # [HIGH] VPI reserve NAV exclusion lets a trader-LP steal incumbent LP revenue
+- 98417 [SC-Critical] Junior Share Supply Overflow
+- 98510 [SC-Critical] Exact-headroom Junior mint permanently poisons virtual-share pricing and freezes LP funds
+- 98513 [SC-Critical] Junior redeemer takes collected open VPI from HousePool before the close pays it back
+- 98514 [SC-Critical] LP share pricing ignores outstanding VPI, so a timed Junior LP entry or exit steals honest Junior principal
+- 98527 [SC-Critical] Positive VPI counts as junior LP equity before it is refunded, so LPs who exit while a skew is open take value from the remaining junior LPs
+- 98542 [SC-Critical] assignUnassignedAssets bypasses the zero-NAV Junior entry check, letting the receiver withdraw existing Junior LPs' funds after recovery
+- 98549 [SC-Critical] Junior LP who also trades captures its own VPI charge as LP NAV on exit and gets it refunded on close, paid by the remaining junior LPs
+- 98563 [SC-Critical] Unreserved VPI rebate lets an attacker-LP drain honest LP capital
+- 98596 [SC-Critical] Refundable positive VPI can fund an LP redemption and then be repaid from remaining LP backing
+- 98608 [SC-Critical] Positive VPI paid by an open position is priced into Junior NAV although the lifetime clamp returns it on that position's skew-restoring close, so a Junior LP can redeem at a self-inflated NAV and take incumbent Junior LPs' funds
+- 98640 [SC-Critical] The refundable positive-VPI float is unreserved and unmarked: an LP-trader can exit between the two legs of their own VPI round trip and steal incumbent LP NAV (and the same unbacked float drains the solvency base to latch degraded mode)
+- 98647 [SC-Critical] HousePool counts refundable VPI in LP NAV, letting a Junior redeemer steal from remaining Junior LPs
+- 98689 [SC-Critical] A trader who is also a Junior LP can exit at an inflated share price and take the VPI back from the remaining Junior LPs
+- 98711 [SC-Critical] Junior LP redeeming between its own open and close captures the refundable VPI from the Junior LPs who stay (remaining LP redeems below its deposit at an unchanged price)
+- 98785 [SC-Critical] Premature recognition of refundable positive VPI as Junior LP revenue and omission from withdrawal reserves leads to direct theft of remaining Junior LPs' principal*
+- 98794 [SC-Critical] `assignUnassignedAssets` revives a wiped Junior tranche at a near-zero NAV, so any depositor buys the wiped holders' recovery and the receiver takes the rest
+- 98818 [SC-Critical] Refundable VPI charge is recognised as distributable Junior LP NAV, letting an LP-trader extract from the remaining LPs
+- 98834 [SC-Critical] An LP can mint Junior shares at a discount it creates itself by parking pool cash in its own VPI reserve
+- 98835 [SC-Critical] Junior deposit pricing in HousePool LP epoch settlement ignores the outstanding VPI rebate reserve, which leads to direct theft of incumbent Junior LP funds
+- 98840 [SC-Critical] Open-time VPI is counted in Junior NAV while it is still refundable at close: an LP who exits between a position's open and its close is overpaid, and the LPs who stay fund the rebate
+- 98847 [SC-Critical] Junior LP can take other LPs' principal by redeeming at a share price inflated by its own VPI charge due to refundable VPI being booked as immediate LP revenue
+- 98854 [SC-Critical] Missing pending-order check in CfdEngine.addMargin lets a trader rescue an increase that fails its initial-margin check at its pinned price, leading to direct theft of user funds from LPs
+- 98858 [SC-Critical] A skew-reducing open is paid its VPI rebate from LP cash while the reserve-backed clawback stays outside terminal NAV, so a timed Junior deposit enters below NAV and takes value from incumbent and same-epoch exiting Junior LPs
+- 98865 [SC-Critical] Junior Share Underpricing During VPI Rebate Reserve Window Leads to Theft of Incumbent LP Principal
+- 98870 [SC-Critical] Missing ordering state on oracle rotation in `OrderLiquidationBatchLogic.applyOracleConfig` allows any keeper to liquidate a healthy trader on a signed price older than the one the protocol already accepted
+- 98895 [SC-Critical] A Junior LP withdraws a position's VPI charge as pool revenue before the close refunds it, and the remaining Junior LPs pay the refund
+- 98901 [SC-Critical] Redeemable VPI charges let an LP/trader shift a later rebate onto remaining Junior LPs
+- 98902 [SC-Critical] Junior LP mints cheap shares by parking a refundable VPI rebate in vpiRebateReserve (excluded from the NAV snapshot), stealing incumbent Junior principal — deposit-side, independently-fixable mirror of the reported close/redeem VPI-NAV finding (H01)
+- 98911 [SC-Critical] Incomplete fix of Cecuro LOW-72: three sibling quotes still price a wiped tranche, and assignUnassignedAssets mints at that quote
+- 98919 [SC-Critical] LP NAV omits VPI liabilities of both signs: #97682 covered the reserved negative-VPI clawback; this report covers the trader-refundable positive VPI, which overpays junior redeemers at the expense of the LPs who stay
+- 98921 [SC-Critical]  Junior LP redeems at a share price inflated by its own refundable VPI charge, stealing principal from other LPs
+- 98941 [SC-Critical] Liquidation cleanup refunds a pending open in OrderRouter, so an owner cancels its own pinned open for free and takes LP funds
+- 99003 [SC-Critical] LP NAV omits the guaranteed VPI rebate receivable, letting a timed deposit mint excess tranche shares and withdraw other LPs' deposited principal
+- 99004 [SC-Critical] HousePool counts a refundable VPI charge as LP equity, so an exiting Junior LP is paid the closing trader's rebate by the remaining LPs
+- 99029 [SC-Critical] Oracle rotation resets accepted feed timestamps, enabling false protection closes and keeper USDG theft
+- 99044 [SC-Critical] LP NAV drops the open VPI rebate but ignores its fully collateralised clawback, so a trader deposits Junior at the depressed price and takes the clawback from incumbent LPs (not fixed by the #97729 fix)
+- 99049 [SC-Critical] LP share price books a refundable VPI charge as junior equity, so an LP who is also the trader redeems at an inflated NAV and takes deposited principal from the LPs who stay
+- 99075 [SC-Critical] Junior maintenance fee overflows `accruedTotalSupply()` once Junior supply is near 2^256, so every `settleLpEpoch` reverts forever and the owner cannot turn the fee off
+- 99076 [SC-Critical] LP entry pricing omits the funded negative-VPI clawback reserve, letting a new Junior LP take the incumbent LP's principal
+- 99101 [SC-Critical] Junior LP redeems at a price including its own refundable VPI charge and takes principal from the other Junior LPs
+- 99103 [SC-Critical] Refundable open VPI is priced into LP exits, letting an exiting Junior LP take value from the Junior LPs who stay
+- 99132 [SC-Critical] Refundable VPI in HousePool LP Share Pricing Lets a Trader-LP Coalition Withdraw Other LPs' Principal
+- 99136 [SC-Critical] Missing minimum execution window in the OrderRouter commit check turns every pinned order into a free option and leads to direct theft of LP funds
+- 99145 [SC-Critical] Refundable VPI Inflates Junior NAV, Enabling Profitable Extraction of Passive LP Principal
+- 99153 [SC-Critical] Refundable opening VPI is counted as withdrawable LP cash, so an LP withdrawal followed by the VPI close rebate makes the protocol insolvent and freezes redemptions
+- 99161 [SC-Critical] Junior share supply pumped to within 1000 of `2^256-1` makes `supply + VIRTUAL_SHARES` overflow in every `settleLpEpoch`, permanently freezing all LP settlement (untrusted actor only, weekends included)
+- 99163 [SC-Critical] Refundable VPI charge in Junior redemption NAV lets a trader-LP withdraw incumbent principal
+- 99166 [SC-Critical] Funded negative-VPI rebate reserve omitted from Junior entry NAV enables yield theft
+- 99170 [SC-Critical] A Junior LP can pay VPI just before its redemption is priced and take it back right after, draining passive Junior principal
+- 99189 [SC-Critical] Missing VPI rebate reserve in LP NAV in `HousePoolAccountingLib.buildReconcileSnapshot()` lets a trader-LP take Junior LPs' principal
+- 99200 [SC-Critical] Unchecked `supply + virtualShares` in Junior redemption pricing lets anyone plant an uncancellable redeem head that reverts every `settleLpEpoch` forever
+- 99207 [SC-Critical] Refundable open-time VPI is credited to junior NAV before the close returns it, so a timed LP exit takes value from the remaining LPs
+- 99219 [SC-Critical] A missing guard on the Junior assignment path mints shares at a near-zero price and dilutes existing Junior LPs out of their recovery
+- 99264 [SC-Critical] Junior redemptions are priced while a skew-reducing VPI rebate is outstanding but not counted in NAV, even though its clawback is certain, so a junior LP who stays takes q·r from the junior LPs who redeem
+- 99266 [SC-Critical] VPI LP sandwich: refundable VPI is counted in Junior NAV, so an attacker redeems it and the LPs who stay pay the refund
+- 99268 [SC-Critical] Refundable VPI charge inflates Junior NAV and lets an LP-trader drain other LPs
+- 99271 [SC-Critical] A refundable VPI charge restores an impaired Senior / wiped Junior for one settlement, so a deferred junior deposit is activated and then pays that charge back to the trader
+- 99276 [SC-Critical] VPI rebate cross-cohort funding lets an exiting LP capture principal from remaining LPs
+- 99277 [SC-Critical] New Junior LPs capture the VPI rebate clawback owed to incumbents
+- 99280 [SC-Critical] Close admission in OrderLiquidationBatchLogic counts the account's pending increases, so an owner can cancel its own committed close after the pinned price prints, leading to direct theft of user funds from LPs
+- 99289 [SC-Critical] Junior entry pricing excludes outstanding VPI rebate reserves, allowing unprivileged depositors to extract existing Junior LP capital
+- 99298 [SC-Critical] Junior LP withdraws own VPI charge before close and takes another LP's principal
+- 99331 [SC-Critical] Missing zero-NAV gate in `HousePool.assignUnassignedAssets()` lets the bootstrap receiver take a wiped Junior cohort's recovery
+- 99334 [SC-Critical] Opening a position before a redemption and closing it after extracts a self-refunding VPI charge from co-LPs
+- 99335 [SC-Critical] Junior share price counts a refundable VPI charge as revenue, letting an LP redeem against its own trade
+- 99337 [SC-Critical] Refundable positive VPI is counted as Junior equity at LP epoch settlement, letting a Junior LP who also trades redeem above fair value
+- 99352 [SC-Critical] Negative-VPI reserve timing allows a new Junior LP to capture value from existing LPs
+- 99366 [SC-Critical] Trader-chosen execution window as short as 1 second lets traders keep a free option on queued orders at LPs' expense
+- 99386 [SC-Critical] Positive VPI is recognized into Junior LP NAV before its rebate obligation settles, letting a Junior-LP trader redeem the charge from the remaining LPs (theft of unclaimed yield)
+- 99410 [SC-Critical] Unchecked virtual-share headroom lets an attacker poison Junior supply and block Senior LP withdrawals
+- 99420 [SC-Critical] Negative-VPI rebates let new Junior deposits capture value from existing LPs
+- 99424 [SC-Critical] Negative-VPI Clawback Excluded from HousePool LP Share Pricing Lets a Trader-LP Coalition Withdraw Other LPs' Principal
+- 99428 [SC-Critical] Refundable VPI is counted as Junior NAV: an exiting LP is paid a share, remaining LPs refund it
+- 99499 [SC-Critical] Successful Junior mints overflow virtual-share headroom and permanently freeze funds
+- 99509 [SC-Critical] Liquidation cancels a losing queued open after its opposite fills at the bound price
+- 99526 [SC-Critical] VPI rebate reserve is left out of Junior NAV although its clawback is guaranteed, so an LP entry timed before the close takes the incumbents' principal
+- 99536 [SC-Critical] Missing pending-order check in CfdEngine.settleTraderClaim lets an owner cancel its own pinned open after the fill price is public, leading to direct theft of LP funds
+- 99569 [SC-Critical] Refundable positive VPI is counted in Junior redemption NAV, letting an exiting LP take value that remaining LPs must fund when the trader closes
+- 99573 [SC-Critical] Reserve-backed opening VPI rebate is booked as a final Junior NAV loss, so an LP depositing while it is outstanding takes the clawback from existing LPs
+- 99577 [SC-Critical] Reserve-backed negative VPI is excluded from Junior deposit pricing, letting a new LP capture existing LP principal
+- 99588 [SC-Critical] Plether: a positive VPI charge is booked as LP revenue but never reserved against its own refund, so a majority Junior LP can redeem at the inflated NAV and skim it from the LPs who stay
+- 99589 [SC-Critical] Pending historical open lets a Junior LP exit before its already-fixed trader liability
+- 99594 [SC-Critical] Refundable VPI charge is booked into LP NAV before its close-time rebate settles, letting a large junior LP/trader redeem at the inflated price and drain the remaining juniors
+- 99600 [SC-Critical] Junior share price counts refundable opening VPI as revenue, so a holder who redeems between its own position's open and close takes value from the other Junior holders
+- 99606 [SC-Critical] Junior LP redemption funded before close-VPI rebate transfers value from remaining LPs to the exiting trader
+- 99607 [SC-Critical] Refundable VPI charges are counted as LP equity as soon as they are collected, so exiting LPs are overpaid and the LPs who stay fund the rebate
+- 99611 [SC-Critical] Plether: the unreserved positive-VPI NAV term also mis-prices DEPOSITS — a passive new Junior LP that deposits while a trader's positive VPI is outstanding is minted too few shares and loses to the LPs already in the pool
+- 99620 [SC-Critical] Refundable VPI is booked into Junior NAV before the trader can reclaim it
+- 99687 [SC-Critical] Oracle rotation resets accepted feed timestamps and permits a forced liquidation
+- 99690 [SC-Critical] Open-path VPI rebate is booked as an immediate junior LP loss, so a trader can enter the junior tranche at a depressed price and capture the clawback
+- 99695 [SC-Critical] Trader can cancel its own binding open after the price moves by settling its deferred trader claim
+- 99709 [SC-Critical] # Security Best Practices Insight: Inconsistent pricing when assigning `unassignedAssets` dilutes existing LPs' recovery entitlement
+- 99719 [SC-Critical] Incorrect NAV accounting (refundable VPI counted as LP equity) lets a trader-LP steal incumbent Junior LP principal
+- 99745 [SC-Critical] Refundable open VPI is priced into LP exits as final revenue, letting a Junior LP who trades steal other LPs' funds
+- 99747 [SC-Critical] Junior share price omits the VPI rebate owed back to the pool, so deposits during an open rebate mint cheap shares at existing LPs' expense
+- 99755 [SC-Critical] Finding 9: Trader-controlled LP exit shifts a VPI rebate onto another Junior L
+- 99756 [SC-Critical] A zero-value Senior head defers a Junior exit while admitting a new Junior LP
+- 99788 [SC-Critical] TrancheVault.quoteBootstrapDeposit lacks the zero-principal guard that estimateDepositShares enforces, minting massively diluted shares on a wiped tranche
+- 99829 [SC-Critical] LP share price counts refundable VPI of open positions as earned, so a Junior LP can redeem above fair value with its own trade
+- 99830 [SC-Critical] A trader holding Junior shares opens a rebated trade before an LP epoch, and the LPs who redeem in that epoch are paid as if the rebate never comes back
+- 99834 [SC-Critical] An LP with a matured request settles the epoch before a priced queued order fills, and the LPs who stay pay that order's result
+- 99835 [SC-Critical] Secured negative VPI is omitted from Junior entry NAV, letting a new LP take incumbent principal
+- 99836 [SC-Critical] assignUnassignedAssets mints Junior shares at zero principal, so the receiver takes the whole future recovery of a wiped Junior tranche
+- 99850 [SC-Critical] Refundable lifetime VPI omitted from LP NAV lets trader-LPs extract other Junior LPs' principal around epoch settlement
+- 99855 [SC-Critical] Gross pending trading revenue is never netted against trader payouts, letting Junior LPs withdraw quarantined `unassignedAssets`
+- 99857 [SC-Critical] Unbounded Junior share inflation overflows virtual-offset redemption math and blocks LP settlement
+- 99859 [SC-Critical] Junior LP deposit is priced below value while a VPI rebate is outstanding, stealing principal from other junior LPs
+- 99894 [SC-Critical] LP epoch settlement omits pending orders whose fill prices are already fixed, so the order of permissionless calls moves their PnL between the epoch's depositors and redeemers
+- 99902 [SC-Critical] Queue mode records trading revenue gross while the rebates that reverse it are paid from the owner's unassigned quarantine: an account with no LP shares drains the owner's recapitalization at its own cost
+- 99904 [SC-Critical] Junior LP entry and exit prices ignore the VPI an open position will take back, so an LP who trades around its own redemption or deposit moves value from the other Junior LPs
+- 99911 [SC-Critical] Junior share-supply overflow makes a matured redemption head permanently freeze Junior LP funds
+- 99913 [SC-Critical] LOW-72 fix incomplete: for a wiped tranche estimateDepositShares returns 0, but estimateMintAssets still quotes a price
+- 99934 [SC-Critical] A trader-chosen execution deadline turns committed orders into a free option paid by LPs: the fix for pre-audit SC-M4 is incomplete
+- 99940 [SC-Critical] Refundable VPI inflates a Junior LP redemption
+- 99955 [SC-Critical] Incomplete LOW-72 fix: `convertToShares` and `estimateMintAssets` still quote a terminally wiped tranche
+- 99964 [SC-Critical] Junior LP exit is priced on a refundable VPI charge and takes remaining LPs' principal
+- 99977 [SC-Critical] Refundable VPI in Junior redemption NAV lets a trader-LP extract funds from other LPs
+- 99991 [SC-Critical] A skew-increasing open books its refundable VPI charge as un-reserved, immediately-distributable LP Revenue, letting a dominant junior LP redeem at the inflated NAV and then close to drain the rebate from the LPs who stayed
+- 100025 [SC-Critical] A Junior LP can redeem against its own refundable VPI charge and take the refund from the LPs that stay
+- 100032 [SC-Critical] Missing Junior fee-share supply headroom lets a public deposit permanently freeze LP settlement
+- 100062 [SC-Critical] Attacker steals Junior LP principal by activating its deposit while its own open-time VPI rebate is outstanding
+- 100064 [SC-Critical] assignUnassignedAssets into a wiped tranche mints ~the whole share supply to the receiver, permanently confiscating surviving wiped-tranche LPs' recovery entitlement
+- 100069 [SC-Critical]  Reversible positive VPI is distributed to LP principal at once, so an exiting trader-LP takes it and the remaining LPs pay the rebate
+- 100072 [SC-Critical] Junior NAV counts refundable open VPI as earned revenue, so an LP who also trades can sandwich `settleLpEpoch` with a skew round trip and steal the remaining Junior LPs' principal
+- 100083 [SC-Critical] Reversible positive VPI is distributed to LP principal at once, so an exiting trader-LP takes it and the remaining LPs pay the rebate
+- 100087 [SC-Critical] A partial close of a claim-backed position releases pledge down to "maintenance + 1 atom", so any keeper can liquidate the residual in the next block
+- 100099 [SC-Critical] `buildReconcileSnapshot` excludes refundable VPI from LP NAV, enabling value extraction
+- 100107 [SC-Critical] Refundable open VPI is redeemable LP equity, so an LP-trader can withdraw it and then take it back as a close rebate
+
+</details>
+
+<details>
+
+<summary>High</summary>
+
+- 97590 [SC-High] Fully margined hedged pair lets any trader latch degraded mode and freeze LP deposits and trader margin
+- 97592 [SC-High] Permissionless atomic protection retries prevent owners from repairing close limits and freeze position margin for over 24 hours
+- 97596 [SC-High] A hedged trader can latch degraded mode on demand, freezing every LP settlement and every trader's margin withdrawal, and can re-latch immediately after the owner recapitalizes and clears it
+- 97598 [SC-High] Permissionless terminalize-plus-retry consumes the protection owner's amendment state
+- 97599 [SC-High] Permissionless retryPositionProtectionClose lets anyone deny a trader the only remedy for a latched stop-loss, locking the account out of every exit until liquidation
+- 97615 [SC-High] Unprivileged attacker can permanently pre-empt the owner-only amendLatchedPositionProtectionCloseLimits remedy, locking a trader out of their triggered TP/SL position
+- 97626 [SC-High] Permissionless retry locks a latched protection's owner out of every exit for over 24 hours
+- 97628 [SC-High] Near-zero junior principal lets any depositor overflow the junior deposit quote and freeze all LP epoch settlement, including senior redemptions
+- 97673 [SC-High] Permissionless protection retry can pin a latched stop-loss and block owner recovery and full-position exit
+- 97674 [SC-High] Anyone can keep a `Latched` TP/SL permanently in flight via `retryPositionProtectionClose`, locking the trader out of amend, cancel and every close path while their margin stays pledged and liquidation remains live
+- 97675 [SC-High] Permissionless protection retries deny owners their stale-limit recovery window
+- 97680 [SC-High] Any unprivileged account can force degradedMode with a balanced long/short book, freezing LP capital and trader collateral until the owner injects capital
+- 97701 [SC-High] permissionless `retryPositionProtectionClose()` re-queues a rejected stop-loss close before its owner can amend it, freezing the position and its margin for more than 24 hours
+- 97728 [SC-High] `payOut` spends recapitalization cash without reducing `pendingRecapitalizationAssets`, so that memo stays pending after its cash has left custody
+- 97737 [SC-High] Anyone can keep re-queuing a failing protection close, so its owner cannot amend the limits or exi
+- 97760 [SC-High] A leftover `pendingRecapitalizationAssets` residual reserves LP free cash and makes `settleLpEpoch` revert every time, so LP exits stay frozen after an honest recapitalization
+- 97763 [SC-High] An untrusted zero-net-exposure hedged pair latches `degradedMode` on a ~1% move; LP settlement, deposits and new opens then stay blocked until the owner clears it, even after the book is flat and solvent
+- 97783 [SC-High] Permissionless retries of a failed protection close can indefinitely block the owner's limit amendment, forcing a worse exit
+- 97789 [SC-High] MED-9 fix incomplete: permissionless retryPositionProtectionClose keeps the owner-only amend gate closed, so a failing stop-loss is pinned until the trader is liquidated (griefing)
+- 97802 [SC-High] Permissionless atomic retries consume the Latched amendment window and lock protected position margin
+- 97814 [SC-High] Permissionless protection retry blocks the owner's latched close-limit amendment and locks the trader in the position
+- 97826 [SC-High] Third party can latch owner-only degraded mode, freezing LP settlement
+- 97827 [SC-High] Latched position-protection can be held un-closeable indefinitely by a permissionless, zero-cost retry race
+- 97832 [SC-High] Permissionless hedged book can latch sticky degradedMode and freeze LP settlement on a solvent pool
+- 97844 [SC-High] Repeated capped recapitalization erases Senior's recovery watermark
+- 97849 [SC-High] Permissionless one-way `degradedMode` latch: a hedged pair freezes LP redemptions and deposits until the owner intervenes
+- 97860 [SC-High] Residual recapitalization re-runs the empty bootstrap on every LP settlement, lowering the Senior high-water mark with no loss and shifting Senior recovery to Junior
+- 97864 [SC-High] Atomic order cleanup and permissionless retryPositionProtectionClose bypasses the MED-9 fix and locks triggered positions
+- 97873 [SC-High] Per-pass re-credit of the pending recapitalization bucket in HousePool settlement (`HousePool.sol:1833` cap plus reserve-ahead) lets any `settleLpEpoch` caller drain the owner recapitalization and Senior LP principal into Junior LPs
+- 97876 [SC-High] Permissionless retry keeps a gapped stop-loss in `Triggered`, owner's MED-9 amend never lands and traders cannot exit
+- 97881 [SC-High] Unredeemable Senior seed counted by the Junior withdrawal covenant in HousePool leads to temporary freezing of funds for at least 24 hours
+- 97891 [SC-High] A second partial recapitalization reconcile resets the Senior high-water mark and moves restored Senior principal to Junior
+- 97903 [SC-High] Close VPI is unbounded at small nonzero net pool depth: a healthy close or keeper-triggered stop-loss loses the whole account balance in degraded mode
+- 97912 [SC-High] Any caller can keep a Latched TP/SL protection permanently "Triggered" with stale close limits, locking the owner out of amending limits and closing the position
+- 97918 [SC-High] Unprivileged attacker can freeze all LP withdrawals on demand by arming CfdEngine's sticky degradedMode latch, leading to temporary freezing of funds for at least 24 hours
+- 97946 [SC-High] Permissionless retries can repeatedly preempt owner amendments to failed protection close limits
+- 97954 [SC-High] Per-item solvency check inside a keeper-ordered liquidation batch latches degraded mode on a solvent book at the FAD window, freezing all LP deposits, redemptions and settlement until the owner intervenes
+- 97957 [SC-High] Close-time VPI charge is bounded only at exactly zero pool depth, so at attacker-tuned tiny non-zero depth a skew-increasing close is assessed many times the position's notional and seizes the trader's entire account into LP revenue
+- 97958 [SC-High] Residual pending recapitalization is reserved against cash that has already left the pool, so LP epoch settlement reverts with no-progress indefinitely and no permissionless action can clear it
+- 97967 [SC-High] Third party can force a stop-loss latch and pre-empt the owner's standalone amendment via permissionless retry, blocking the exit
+- 97968 [SC-High] Incomplete MED-12 fix: after partial Senior impairment, later LP revenue displaces the owner's recapitalization into unassignedAssets
+- 97992 [SC-High] Permissionless atomic protection retries censor the owner's MED-9 limit amendment and freeze the position for over one hour
+- 98001 [SC-High] Permissionless protection retries can preempt limit repair and freeze trader collateral
+- 98002 [SC-High] Permissionless protection-close retry loop locks a trader out of amending limits, cancelling, or closing their position for over 1 hour
+- 98008 [SC-High] Permissionless protection retry can prevent the owner from amending close limits, freezing a position's margin
+- 98010 [SC-High] Permissionless retry can stop a trader from amending the close limits of a latched protection
+- 98012 [SC-High] Permissionless retry of a failed stop-loss blocks the owner from amending, locking the position
+- 98017 [SC-High] Permissionless protection retries can consume the owner-only repair state and freeze exits for at least 24 hours
+- 98018 [SC-High] Permissionless expiry/retry race temporarily freezes part of trader margin for over one hour
+- 98019 [SC-High] Permissionless protection retry preempts the owner's amendment window and causes exit griefing
+- 98025 [SC-High] Recapitalizing after a trader-claim deficit leaves the injection pending after the claim is paid, so matured Senior redemptions cannot settle
+- 98033 [SC-High] Atomic expire-and-retry keeps a triggered protection out of the Latched state, so the owner cannot amend close limits and the position stays locked for over an hour
+- 98038 [SC-High] Permissionless retry chained with attempt termination denies the owner of a latched position protection its only amend window and locks the protected position for as long as a third party pays gas
+- 98040 [SC-High] Permissionless atomic protection retries can starve the owner's limit amendment and keep the position trade-locked
+- 98044 [SC-High] Coupon-reset Junior pricing exponentially amplifies share supply and freezes matured deposits
+- 98066 [SC-High] Pending recapitalization is not reduced when its cash pays trader claims, so every later reconcile re-applies it and cuts Senior's recovery target
+- 98079 [SC-High] Queued recapitalization is applied after later revenue, so the recap overflows into unassignedAssets and surviving Junior owners lose revenue the vendor's reference model gives them
+- 98081 [SC-High] # Repeated settlement of residual recapitalization erases Senior recovery priority and diverts trading revenue to Junior LPs
+- 98125 [SC-High] Atomic protection retry preempts direct-EOA recovery, enabling griefing and avoidable liquidation
+- 98140 [SC-High] Junior Deposit Quote Overflow at Near-Zero Junior Principal in TrancheVault Lets an LP Freeze HousePool Redemption Funding
+- 98145 [SC-High] # Permissionless `retryPositionProtectionClose()` lets anyone block a non-batched `amendLatchedPositionProtectionCloseLimits()` and hold a failing stop open
+- 98154 [SC-High] Permissionless `retryPositionProtectionClose` lets anyone keep a protected trader from amending limits, cancelling, or closing (griefing)
+- 98158 [SC-High] Incomplete SC-L1 fix: repeated reconciliation steals Senior principal via zero-value Junior shares
+- 98166 [SC-High] Permissionless retry lets anyone freeze a latched TP/SL position's collateral for 24+ hours, pre-empting the owner-only amendment added by the MED-9 fix
+- 98174 [SC-High] Replaying unchanged recovery buckets erases Senior restoration priority and pays Junior
+- 98178 [SC-High] Paying a trader claim leaves a phantom recapitalization reserve that freezes matured Senior redemptions
+- 98184 [SC-High] Permissionless Close Ordering Latches `degradedMode` With The Pool Solvent, Temporarily Freezing LP Redemptions
+- 98190 [SC-High] Protection Retry Amendment Starvation
+- 98202 [SC-High] Close VPI is uncapped when economic depth is tiny but non-zero, so a closing trader (or its keeper-triggered stop-loss) forfeits its whole settlement, which an attacker holding Senior shares then redeems
+- 98206 [SC-High] PositionProtectionBook: anyone can keep a failed stop-loss re-queued, so a sequential trader cannot amend its limits and margin stays locked (25 h)
+- 98214 [SC-High] Owner rescue plus cash-paid trader claims leaves leftover credit that freezes Senior withdrawals
+- 98222 [SC-High] Permissionless protection retry preempts owner limit amendment and griefs protected closes
+- 98236 [SC-High] Anyone can block the owner's only repair path for a Latched protection (incomplete MED-9 fix), keeping the trader locked in a losing position
+- 98255 [SC-High] Anyone can re-queue a Latched TP/SL protection before the owner changes the limits, and keep the position open until liquidation
+- 98257 [SC-High] Phantom loss from recounting recapitalization residual lowers the senior high water mark that losses must never reduce
+- 98267 [SC-High] Residual recapitalization bucket in HousePool settlement (`settleLpEpoch`) lets any matured Senior redemption revert all LP settlement (`HousePool__NoLpEpochProgress`), freezing LP deposits and withdrawals until the owner recapitalizes the full residual
+- 98269 [SC-High] Permissionless degraded-mode latch in CfdEngine (`_enterDegradedModeIfInsolvent`) lets any user freeze open-position bystanders' free settlement and all LP settlement for 24h+ by closing the winning leg of a hedged pair
+- 98274 [SC-High] Residual Recapitalization Enables Direct Theft of Senior LP Funds
+- 98279 [SC-High] Owner forced to repeatedly recapitalize, traders' free margin frozen: by a hedged pair latching degraded mode
+- 98283 [SC-High] # Permissionless protection retry keeps a position Triggered, locking the owner out of amend/cancel/close
+- 98284 [SC-High] One atom of claim-net depth turns a triggered take-profit into a charge of 21.6 times its own notional and takes the owner's entire settlement balance
+- 98294 [SC-High] the owner's amend of a latched protection's close ceilings only works in a state any caller can keep from existing, so the documented remedy for a failing triggered close is blocked and the triggered position stays open for as long as the griefer continues
+- 98300 [SC-High] post-recapitalization revenue is misrouted into `unassignedAssets`
+- 98311 [SC-High] Permissionless retry lets anyone block the owner from amending a latched protection's close limits
+- 98316 [SC-High] A hedged book's profitable close latches degraded mode while LP NAV rises, and LP settlement stays frozen after the positions are gone
+- 98328 [SC-High] in a pool at admission capacity, one unprivileged smaller-side trader's profitable close latches `degradedMode` and freezes other users' pending LP deposits long after it has exited
+- 98346 [SC-High] Any trader can latch degraded mode with a hedged book and freeze all LP epoch settlement and pending deposits until the owner pays the shortfall
+- 98365 [SC-High] Permissionless protection-close retry blocks owner limit amendment, freezing a trader's exit
+- 98385 [SC-High] An unprivileged hedged position latches degraded mode while the pool is solvent, freezing LP settlement, pending-deposit cancellation and position-holders' withdrawals until the owner recapitalizes
+- 98391 [SC-High] Attacker-Induced DegradedMode Latch Blocks Innocent LP Redemptions via Sequential Hedge Settlement
+- 98394 [SC-High] An untrusted hedged pair latches degradedMode and freezes LP settlement, withdrawals, deposit/redeem cancels and new trading until owner intervention
+- 98398 [SC-High] Anyone can keep a Latched position protection re-queued with free retries, locking the owner out of amending, cancelling, or closing the position until it is liquidated
+- 98399 [SC-High] anyone can stop an owner from amending the close limits of a failed protection
+- 98402 [SC-High] Repeated reconciliation of partially settled recapitalization reduces Senior’s recovery priority
+- 98416 [SC-High] Calendar override days adjacent to the weekend exceed fadMaxStaleness: frozen closes, liquidations, LP epoch settlement and withdrawals revert for 3–24 h (temporary freezing of funds)
+- 98431 [SC-High] Repeated settlement double-counts pending rescue and lowers the Senior recovery target, sending later Senior income to Junior
+- 98438 [SC-High] Permissionless retryPositionProtectionClose pre-empts the owner-only latched-limit amendment, trapping a failed TP/SL close and griefing the trader
+- 98453 [SC-High] Owner-only `CfdEngine.clearDegradedMode()` lets an unprivileged trader freeze all LP exits for ≥ 24 h on a solvent pool
+- 98496 [SC-High] Permissionless `retryPositionProtectionClose` lets any third party keep a Latched protection owner from amending, cancelling or closing, because `amendLatchedPositionProtectionCloseLimits` needs `pendingOrderCounts(owner) == 0`
+- 98543 [SC-High] Permissionless protection retry can be bundled with attempt terminalization to deny a Latched trader the documented amend remedy and hold the position open
+- 98547 [SC-High]  Recapitalizing during a terminal deficit leaves the trader-paid part pending as phantom LP value, freezing recovered LP capital and stalling LP settlement
+- 98552 [SC-High] Permissionless retry of a Latched stop-loss blocks the owner's amend
+- 98553 [SC-High] Hedged-pair degraded latch freezes LP deposit escrow for over 24h
+- 98559 [SC-High] Permissionless protection retries prevent owners from amending failed close limits, freezing position funds for over 24 hours
+- 98565 [SC-High] Permissionless retryPositionProtectionClose keeps a latched protection re-queued with stale limits, so the owner can never amend them or exit the position
+- 98583 [SC-High] Two holiday override days before a weekend push the frozen mark past `fadMaxStaleness`, blocking closes, liquidations, margin withdrawals and LP settlement for 22 hours
+- 98594 [SC-High] Repeated LP settlements reuse recapitalization backing and redirect Senior recovery to Junior
+- 98602 [SC-High] Residual recapitalization reserve makes LP reconciliation depend on redemption progress
+- 98623 [SC-High] Owner-configured override days are UTC-day aligned, so a closure spanning a weekend keeps the oracle frozen for over 3 days: the stored mark passes fadMaxStaleness and closes, liquidations, LP settlement and refresh all revert StalePrice until it ends
+- 98655 [SC-High] Permissionless protection retry lets anyone block the owner's limit amendment and keep a triggered stop-loss open
+- 98667 [SC-High] Booked senior principal is paid to junior when the recap mark is replaced
+- 98687 [SC-High] Extra LP settlements after a recapitalization erase the Senior recovery target, so later LP revenue goes to Junior holders
+- 98712 [SC-High] Anyone can hold a triggered protection out of Latched and block the owner amendment and exit for over a day
+- 98713 [SC-High] Repeated partial recapitalization resets Senior's recovery target and pays later revenue to Junior
+- 98728 [SC-High] Close VPI is exempt only at exactly zero depth, so at small positive depth a minority-side full close can take the trader's whole account
+- 98734 [SC-High] Close VPI has no cap as net depth approaches zero, so a light-side full close can take the trader's whole clearinghouse balance
+- 98743 [SC-High] Trading revenue that lands before a queued recapitalization is reconciled is taken from surviving Junior LPs
+- 98750 [SC-High] Atomic public protection retries block EOA owner amendments and freeze margin for over an hour
+- 98751 [SC-High] Ordinary LP settlements erase Senior's principal-recovery target after a terminal-deficit recapitalization, so a Junior holder redeems the USDG that restores Senior principal
+- 98752 [SC-High] Public protection retries can interrupt EOA owner repair and increase closing losses
+- 98754 [SC-High] Near-zero Junior share inflation makes every `settleLpEpoch` overflow and freezes Senior redemptions for days
+- 98770 [SC-High] Plether: anyone can keep a triggered stop-loss or take-profit from being repaired by its owner, holding the position locked until liquidation
+- 98812 [SC-High] A frozen-epoch Senior wind-down credits the 25 bps frozen fee to the permanently locked Senior seed, so the Junior withdrawal covenant traps the last Junior LP's matured redemption with no user-side exit
+- 98823 [SC-High] Permissionless protection retry pins obsolete close limits and repeatedly denies the owner's amendment and exit window
+- 98825 [SC-High] Permissionless liquidation order leaves an owner-cleared degraded latch and freezes a mature third-party deposit
+- 98828 [SC-High] LP can erase Senior restoration entitlement after a deficit recapitalization due to the residual recapitalization bucket being re-settled against restored Senior principal
+- 98837 [SC-High] Atomic expiry-and-retry rotation denies protected-position recovery and keeps margin locked beyond 24 hours
+- 98842 [SC-High] A trader can latch degraded mode with a hedged pair and hold it, halting LP epoch settlement and freezing matured Junior deposit escrow until the owner recapitalizes
+- 98845 [SC-High] An extra reconcile during recovery cuts the Senior high-water mark, permanently handing Senior LP principal to Junior
+- 98849 [SC-High] Atomic expire-and-retry lets any outsider consume the owner-only Latched repair window
+- 98860 [SC-High] Replaying a partial recovery converts restored Senior principal into withdrawable Junior assets
+- 98869 [SC-High] Close VPI counts the closer's own carry as pool depth (CfdEnginePlanLib.sol:638): a keeper close at zero economic depth takes the trader's whole balance for Junior LPs
+- 98873 [SC-High] Incomplete recapitalization fix erases Senior recovery priority and transfers redeemable USDG to a Junior LP
+- 98891 [SC-High]   Permissionless retryPositionProtectionClose lets a third party re-queue a failed protection close in the same transaction, blocking the owner's documented amend and every exit from the position
+- 98906 [SC-High] Trader-triggered degradedMode latch freezes matured Junior deposits and LP epoch settlement until the owner acts
+- 98914 [SC-High] A trader can latch degradedMode through public order flow and freeze the whole pool's LP epoch settlement (deposits, activations, redemptions, maintenance) until the owner manually recapitalizes
+- 98924 [SC-High] Permissionless protection retries keep a triggered position locked and deny the owner's recovery action
+- 98965 [SC-High] Permissionless retry of unchanged failing `closeLimits` eliminates the sole `amendLatchedPositionProtectionCloseLimits` window, keeping margin unclosable
+- 98985 [SC-High] Junior share-supply overflow rolls back Senior redemption funding
+- 98998 [SC-High] PositionProtectionBook permits an unbounded close retry chain that blocks an EOA owner's manual exit
+- 99000 [SC-High] HousePool keeps the whole owner recapitalization queued as a reservation after a tranche wipe although only part of it becomes LP equity: the stale remainder blocks senior exits and each later settlement lowers the senior high-water mark
+- 99008 [SC-High] Pending recapitalization is counted twice in HousePool, letting Junior holders take revenue owed to Senior LPs
+- 99015 [SC-High] Holiday override days are never checked against fadMaxStaleness: overrides next to a weekend can stretch the oracle-frozen span past 72 hours, so frozen closes, liquidations and LP exits revert for up to 24 hours before reopening
+- 99023 [SC-High] Permissionless `retryPositionProtectionClose` blocks the owner's only repair path for a failing stop-loss, so a gapped position runs to liquidation (MED-9 fix incomplete)
+- 99025 [SC-High] Permissionless Junior LP settlements ratchet down Senior recovery and reduce an unrelated LP's final payout
+- 99060 [SC-High] Unbacked recapitalization residual is consumed on repeated LP settlements, diverting the Senior tranche's restoration to Junior LPs
+- 99063 [SC-High] Overly conservative degraded-mode solvency check enables attacker-controlled LP fund freeze exceeding 24 hours
+- 99069 [SC-High] Unbounded Junior share supply overflows deposit activation, so LP epoch settlement reverts and queued LP deposits and redemptions are frozen
+- 99070 [SC-High] At dust Junior NAV, an attacker pumps Junior share supply to ~2^256 for 268 USDG, after which any Junior deposit overflows activation and reverts every weekday `settleLpEpoch`
+- 99073 [SC-High] Repeated partial recapitalization resets Senior recovery mark and diverts funded assets to Junior
+- 99080 [SC-High] Permissionless protection retries keep a Latched protection's close pending: the owner's amend and its other single-call exits revert, and an under-margined position whose owner tries only those is held until liquidation
+- 99085 [SC-High] Recapitalization after an LP wipe resets Senior's high-water mark, and repeated settlements consume the residual against already credited assets
+- 99086 [SC-High] # Violation of Idempotence in `HousePool._reconcile` Double-Counts `pendingRecapitalizationAssets`, Prematurely Clears Recapitalization Accounting, Slashes `seniorHighWaterMark` and Diverts Senior Recovery Capital to Junior LP
+- 99088 [SC-High] Repeated partial recapitalization settlement erases the Senior high-water mark and redirects realized recovery revenue   to Junior LPs
+- 99089 [SC-High] Partially settled owner recapitalization is settled again on every later reconcile, lowering the senior high-water mark
+- 99090 [SC-High] Permissionless protection retries pre-empt the owner's amendment window, temporarily freezing margin for over one hour
+- 99099 [SC-High] Unbacked recapitalization is re-settled every LP epoch and the empty-pool bootstrap drops the old mark, moving Senior's protected recovery to Junior
+- 99111 [SC-High] Senior exit fee retained by the permanent seed during frozen settlement leads to temporary freezing of Junior LP funds
+- 99114 [SC-High] # An 8+ Order-of-Magnitude Discontinuity in `CloseAccountingLib.buildCloseState` When `0 < netDepthAssets << skew` Blocks All Protective Exits and Confiscates 100% of Remaining Balance
+- 99115 [SC-High] Re-reserved recapitalization residual in HousePool lowers the Senior high-water mark and lets Junior take Senior's recovery
+- 99123 [SC-High] CfdEngine: a hedged pair's winning close latches degraded mode, and a zero-carry losing leg keeps all LP settlement frozen until the owner pays
+- 99130 [SC-High] Partial Recapitalization Overwrites The Senior Recovery Target
+- 99149 [SC-High] A second settlement pass after a partial owner recapitalization re-bootstraps Senior from the shrinking residual, so Senior LP funds are moved to Junior LPs at constant pool value
+- 99150 [SC-High] Public Junior epoch diverts Senior recovery yield and delays recapitalization
+- 99167 [SC-High] A hedged pair at the admission limit latches degraded mode and keeps LP settlement frozen after solvency returns until the owner acts
+- 99194 [SC-High] Any caller can retry a protection close, stealing the owner's only repair window.
+- 99197 [SC-High] Recapitalization that pays a trader-claim deficit stays queued as LP claimant value
+- 99206 [SC-High] Any account can keep a triggered stop-loss owner trapped in their position by consuming the only exit state, `amendLatchedPositionProtectionCloseLimits`
+- 99208 [SC-High] Close VPI is waived only at exactly zero net depth, so just above zero an ordinary close takes the trader's whole collateral, and the order of closes decides who loses it
+- 99212 [SC-High] Late trading revenue bypasses a pending recapitalization bucket and strands value that blocks LP deposits.
+- 99217 [SC-High] Permissionless protection retry blocks the owner's only Latched remedy (incomplete MED-9 fix), freezing the position until liquidation
+- 99220 [SC-High] Residual Pending Recapitalization Is Re-Settled Against Already Allocated Equity in _reconcile, Diverting Senior Recapitalization to Junior Holders
+- 99228 [SC-High] Atomic Protection Retry in PositionProtectionBook Lets Callers Grief Owner Recovery
+- 99237 [SC-High] A later Junior deposit overflows a shared epoch quote and freezes an earlier depositor
+- 99272 [SC-High] Minority close drains idle collateral at near-zero pool depth
+- 99282 [SC-High] Lack of access control in retryPositionProtectionClose leads to griefing: any caller locks a latched stop-loss owner out of amending its limits or closing
+- 99284 [SC-High] A trader keeping the losing leg of a two-sided position open holds degraded mode latched: LP settlement, deposit activation and positioned traders' withdrawals stay frozen, and the owner's clear reverts unless the owner recapitalizes
+- 99285 [SC-High] Double reservation of a queued recapitalization in `HousePool._settleablePendingClaimantBuckets()` lets any LP-epoch settler erode the Senior recovery target and hand Senior-owed revenue to Junior
+- 99290 [SC-High] Unbounded Junior Share Minting at Dust Principal Overflows `settleLpEpoch` Freezing Senior LP Redemptions
+- 99304 [SC-High] Permissionless protection retry loop can block EOA position exits for over 24 hours
+- 99309 [SC-High] Permissionless atomic expiry-and-retry starves the owner-only close-limit amendment, denying a trader the protocol's recovery path for a failed protection close
+- 99321 [SC-High] Public protection retries deny owner limit repair
+- 99323 [SC-High] Permissionless expire+retry keeps a failing protection from ever being Latched, so the owner can never amend its close limits
+- 99324 [SC-High] A net-zero hedged pair latches degraded mode and holds every LP exit frozen until the owner recapitalizes the pool
+- 99326 [SC-High] Permissionless protection retry lets anyone repeatedly revoke a trader's amendment window and keep a failed stop-loss position open
+- 99330 [SC-High] Any account can keep a triggered stop-loss owner trapped in their position by consuming the only exit state, `amendLatchedPositionProtectionCloseLimits`
+- 99344 [SC-High] Frozen-window exit fee of the last senior LP is stranded in the permanently locked senior seed, which keeps drawing the junior-funded coupon
+- 99353 [SC-High] Double-counting of the pending recapitalization residual in `HousePool` reconciliation collapses the senior high-water mark, permanently diverting senior LPs' protected recovery revenue to junior LPs
+- 99356 [SC-High] Interim trading revenue bypasses surviving Junior owners while recapitalization is queued
+- 99371 [SC-High]  Residual recapitalization erases Senior recovery priority and diverts revenue to Junior
+- 99374 [SC-High] Near-Zero Claim-Net Depth in Close VPI Pricing Lets a Losing Close Freeze Other Traders' Margin in Degraded Mode
+- 99385 [SC-High] Cash-less pending recapitalization bucket in HousePool deadlocks settleLpEpoch and temporarily freezes senior LP redemptions
+- 99393 [SC-High] Close VPI at a dust pool depth takes a minority-side trader's whole clearinghouse account, including idle collateral
+- 99399 [SC-High] Any account's retry blocks the owner's amend of a failed stop-loss (incomplete MED-9 fix): the position stays open past its stop
+- 99404 [SC-High] Permissionless LP Settlement Resets Senior High-Water Mark and Diverts Recovery Revenue to Junior
+- 99408 [SC-High] An unprivileged hedged portfolio can latch degraded mode and block uncancellable LP escrow for over 24 hours
+- 99411 [SC-High] Permissionless protection retry race enables griefing by preempting owner recovery
+- 99445 [SC-High] Permissionless protection retries let anyone deny the owner's latched close-limit amendment, defeating the MED-9 remediation
+- 99451 [SC-High] Any reconcile between a recapitalization and new revenue hands Senior's recovery to Junior
+- 99466 [SC-High] Junior deposit quote overflow at near-zero Junior NAV reverts LP epoch settlement and freezes matured Senior exits
+- 99468 [SC-High] Anyone can repeatedly re-seize a `Latched` protection's order slot, denying the owner the amend window the MED-9 remediation depends on
+- 99474 [SC-High] A permissionless protection retry can repeatedly take away the Latched window the owner needs to amend a failing stop-loss / take-profit close, keeping the position open while the price moves against it
+- 99485 [SC-High] Anyone can lock a triggered TP/SL position: a permissionless retry keeps the protection out of Latched, the only state in which the owner can amend its limits
+- 99490 [SC-High] Positive Junior NAV permits share-supply overflow that blocks LP epoch settlement
+- 99504 [SC-High] SC-L1 fix incomplete: every later settlement re-applies the unbacked residual recapitalization, moving Senior LP principal to Junior LPs
+- 99510 [SC-High] LP epoch settlement reserves pending claimant amounts the pool does not hold against all its cash, so free cash is 0 and redemptions freeze
+- 99512 [SC-High] Frozen-mode staleness limit shorter than a Sunday + Monday holiday override in PletherOracle leads to temporary freezing of funds for at least 1 hour
+- 99529 [SC-High] Any account can lock a trader's triggered stop loss open for more than 24 hours by denying the owner's only limit-amend lane, leaving the position impossible to close or cancel
+- 99553 [SC-High] Settlement-order-dependent degraded-mode latch blocks LP funding after reserve recovery
+- 99562 [SC-High] Permissionless `retryPositionProtectionClose` lets any third party keep a latched protection's only exit (`amendLatchedPositionProtectionCloseLimits`) indefinitely unreachable, locking the trader in a position they cannot close 
+- 99567 [SC-High] An exit authorized before pool depth falls near zero can transfer the trader's whole account to the pool because close-time VPI has no upper bound
+- 99570 [SC-High] Frozen-window senior exit fee accrues to the floored senior seed and pins the last junior LP's redemption
+- 99574 [SC-High] A leftover recapitalization intent is settled against later trading revenue and paid to Senior above its high-water mark
+- 99605 [SC-High] Permissionless protection retries repeatedly block the owner's close-limit amendment
+- 99626 [SC-High] Close VPI is unbounded as depth shrinks, and the charge reaches the closer's entire account
+- 99631 [SC-High] Self-offsetting book at the admission boundary lets any trader latch degraded mode on an ordinary ~1% move and hold all LP redemptions, deposits and trading frozen
+- 99638 [SC-High] Repeated reconciles after a recapitalization decay Senior's high-water mark
+- 99641 [SC-High] Permissionless protection retry pre-empts the owner's amend of a Latched stop-loss, freezing the position and its margin through the weekend
+- 99653 [SC-High] A partly settled recapitalization is settled again on the next reconcile, moving Senior principal to Junior
+- 99656 [SC-High] Permissionless protection retries can starve the owner's amendment window and force a protected position to remain open until liquidation
+- 99660 [SC-High] Permissionless protection retries keep a gapped stop-loss out of `Latched`, so its owner cannot amend the close limits or exit in a single call, and the position can be liquidated
+- 99671 [SC-High] Public protection retries lock owners out of fixing a latched stop-loss
+- 99693 [SC-High] The unsettled part of a recapitalization is counted in both Senior's high-water mark and the pending queue, so later LP revenue ends up as unassigned assets
+- 99726 [SC-High] unassignedAssets>0 blocks activation while the senior-whole lock blocks cancellation, freezing a committed Senior deposit
+- 99735 [SC-High] An extra permissionless settlement pass lets Senior exit with HousePool Junior principal
+- 99738 [SC-High] Frozen-oracle windows longer than fadMaxStaleness freeze LP redemptions, margin withdrawals, closes and liquidations with no in-freeze recovery path
+- 99741 [SC-High] Holiday override outlasts the frozen mark's 72-hour freshness limit, blocking position exits and liquidations for two hours
+- 99752 [SC-High] Close VPI divides by economic depth with no cap, so a minority-side close in a thin pool is charged several times its notional and the trader's whole account is swept into the pool
+- 99753 [SC-High] Unbounded Junior share issuance freezes matured LP deposits for over 24 hours
+- 99759 [SC-High] Repeated claimant reservation lowers the Senior high-water mark and diverts later return
+- 99762 [SC-High] An unbacked recapitalization residual ratchets down the Senior high-water mark and redirects recovery revenue to Junior
+- 99779 [SC-High] Permissionless protection retry lets anyone block the owner's only exit from a failing triggered stop-loss
+- 99783 [SC-High] Leftover of a partly settled recapitalization is re-settled against Senior's own principal, letting Junior LPs withdraw Senior funds
+- 99794 [SC-High] Repeated partial-recapitalization reconciliation diverts Senior recovery to Junior
+- 99800 [SC-High] Missing owner check in retryPositionProtectionClose lets anyone block the owner's amend and freeze a position's margin
+- 99808 [SC-High] Any trader can force engine degraded mode with a hedged pair and one profitable close, freezing LP epoch settlement and matured LP escrow; the owner's recap-and-clear cure does not hold
+- 99824 [SC-High] Reconcile ordering lets same-pass revenue fill the Senior gap before the recap, sending Junior's revenue to unassigned assets
+- 99828 [SC-High] Permissionless retry in the same transaction as the relatch removes the owner's only amend window, locking a failing protected position open
+- 99837 [SC-High] The owner's recapitalization after a Senior loss sends Junior's unreconciled revenue to an ownerless balance
+- 99838 [SC-High] A reconcile with nothing changed re-applies a partly used recapitalization and cuts Senior's high-water mark
+- 99839 [SC-High] Junior share supply can be inflated until an ordinary Junior deposit overflows settleLpEpoch, freezing that deposit and all LP redemption funding
+- 99841 [SC-High] Anyone can re-queue a failed protection close before the owner can amend its limits, so the trader cannot exit the position
+- 99866 [SC-High] A trader can latch degraded mode at will and freeze every LP deposit and redemption until the owner intervenes
+- 99867 [SC-High] HousePool: pending recapitalization outlives its paid-out cash, freezing Senior LP funds
+- 99888 [SC-High] LP settlement reserves the whole pending recapitalization and rolls back its own reconcile when no epoch is processed: after an owner recapitalization below about twice the deficit, a Senior exit partly funded before the loss freezes LP exits and deposits
+- 99895 [SC-High] Repeated reconciliation of a partially settled recapitalization resets Senior's recovery high-water mark and lets Junior LPs redeem value that should restore Senior first
+- 99897 [SC-High] After an owner recapitalization, a trader win that leaves pool equity at or below half the recap intent blocks every LP epoch settlement until new income arrives
+- 99924 [SC-High] Permissionless protection retries obstruct the owner's amendment after a failed close
+- 99937 [SC-High] Cash-less `pendingRecapitalizationAssets` bucket makes every `settleLpEpoch` revert, freezing Senior LP redemptions for 7–30+ days (`HousePool.sol`)
+- 99944 [SC-High] Tiny positive pool depth can prevent a trader's exit
+- 99945 [SC-High] Missing owner priority in retryPositionProtectionClose allows any caller to keep amendLatchedPositionProtectionCloseLimits reverting and hold a triggered stop-loss position open
+- 99947 [SC-High] Permissionless atomic protection retries can censor owner recovery for more than 24 hours
+- 99956 [SC-High] Each committed LP settlement re-applies an unbacked recapitalization residual to equity Senior already owns, overwriting the Senior high-water mark downward, so later trader-loss revenue that should restore Senior is paid to wiped Junior holders
+- 99959 [SC-High] Close price impact has no depth floor: a close at depleted pool depth confiscates the trader's whole margin account or freezes it for days
+- 99971 [SC-High] Unbacked Recapitalization Reserve Makes `settleLpEpoch` Revert After the Terminal Deficit Runbook, Freezing Matured Senior Redemptions
+- 99979 [SC-High] Holiday closures longer than `fadMaxStaleness` make every price read revert for the rest of the freeze, blocking withdrawals, closes and liquidations with no way for governance to intervene in time
+- 99984 [SC-High] Bootstrap Branch Overwrites The Senior High-Water Mark With an Unbacked Recapitalization Residual Leading to Theft Of Senior Restoration Yield by Junior Holders
+- 99986 [SC-High] An unprivileged hedged two-account close latches a false `degradedMode` insolvency on a solvent pool, freezing all LP epoch settlement and every escrowed deposit, made permanent by the owner's routine `renounceOwnership`
+- 99998 [SC-High] Attacker-forced, renewable global freeze: the degradedMode containment latch outlives its own trigger, gates the innocent-user claim/escrow/settlement exits, and can be re-armed across owner rescues
+- 100004 [SC-High] Permissionless protection retry preempts owner amendment and can freeze a position for 24 hours
+- 100005 [SC-High] MED-12 survives its fix: with Senior impaired, a recapitalization settled in the same reconcile as revenue is booked to unassignedAssets and Junior holders do not receive the revenue
+- 100008 [SC-High] A Junior share-quote overflow freezes matured deposit principal for more than 24 hours
+- 100012 [SC-High] Close-side VPI charge is uncapped (one-sided lifetime clamp): a clean inverse-depth law up to total collateral confiscation
+- 100014 [SC-High] Junior share-supply overflow permanently freezes LP deposits and redemptions
+- 100015 [SC-High] Missing staleness validation in applyCalendarConfig lets holiday overrides outlast fadMaxStaleness, leading to temporary freezing of trader collateral and LP redemptions
+- 100016 [SC-High] Anyone can bundle failed protection attempt + retry to keep the owner's MED-9 amend window shut, locking a position 24h+
+- 100018 [SC-High] Repeated LP settlement erases Senior recovery priority and diverts later yield to Junior
+- 100020 [SC-High] Unbounded share-quote overflow in TrancheVault.quoteDepositFromState reverts LP epoch settlement and freezes Junior deposits for 24+ hours
+- 100034 [SC-High] Unpaid mark refresh plus a frozen regime longer than fadMaxStaleness hard-reverts every close, liquidation, LP settlement and the mark refresh itself for 33 h on a normal weekend, with no governance action
+- 100036 [SC-High] Recapitalization and later settlements lower Senior's recovery mark
+- 100038 [SC-High] Permissionless retries preempt a protection owner's amendment
+- 100048 [SC-High] Deliberate degraded-mode latch via a direction-neutral pair freezes ~2.0M USDG LP capital and all open-trader margin with owner-only recovery (`CfdEngine.sol`)
+- 100050 [SC-High] Permissionless `retryPositionProtectionClose` keeps a triggered stop-loss out of `Latched`, so owner `amendLatchedPositionProtectionCloseLimits` always reverts (incomplete MED-9 fix), locking margin or forcing liquidation (`PositionProtectionBook.sol`)
+- 100053 [SC-High] Repeated settlement lowers Senior's recovery target and reassigns funded recapitalization
+- 100070 [SC-High] Repeated settlement lowers the senior recovery target from residual recap intent
+- 100074 [SC-High] Junior maintenance-fee supply overflow permanently blocks unfunded LP redemptions
+- 100079 [SC-High] A trader hedged across two accounts can latch degraded mode on demand in a pool whose collateral covers its worst-case liability, freezing other users' idle balances and LP settlement until the owner pays to clear it
+- 100080 [SC-High] One-sided lifetime VPI clamp: third parties inflate a trader's close charge without bound via skew or pool depth, up to total collateral confiscation
+- 100086 [SC-High] Permissionless `retryPositionProtectionClose` lets anyone re-queue a failing TP/SL close in the same transaction, blocking the owner's documented amend-limits recovery and keeping the position locked
+- 100092 [SC-High] Share quote overflow in `TrancheVault.quoteDepositFromState()` lets any depositor freeze LP epoch settlement for more than 24 hours
+- 100094 [SC-High] repeated reconciliation replays pending claims and reallocates tranche value
+
+</details>
+
+<details>
+
+<summary>Medium</summary>
+
+- 97601 [SC-Medium] CfdEngine's whole-UTC-day calendar cannot follow Pyth's December 24 and 31 FX early close, freezing open positions' funds and matured LP redemptions for about 7 hours
+- 97603 [SC-Medium] executeOrderBatch reverts as a whole whenever Pyth component publish times differ, because batch cache reuse checks every stored feed against the newest component time
+- 97605 [SC-Medium] Open admission spends cash already owed to open winners, so one same-price close latches degraded mode and blocks all new trading
+- 97606 [SC-Medium] Incorrect stored-feed coverage check in batch cache reuse causes executeOrderBatch to revert and roll back executed orders on any unequal-time Pyth basket
+- 97632 [SC-Medium] Stale storage-coverage check in PletherOracle batch cache reuse makes executeOrderBatch revert (StoredFeedBehind) on any natural Pyth component skew, breaking keeper batch execution
+- 97635 [SC-Medium] Inconsistent storage-coverage check on batch price reuse makes executeOrderBatch revert on the Router's own valid cache whenever basket component times differ
+- 97640 [SC-Medium] Whole-UTC-day holiday overrides cannot match Pyth's New York-time FX closures, freezing the market while Pyth is live and letting losing traders close at a stale mark against LPs
+- 97643 [SC-Medium] Batch cache reuse skips the Oracle's stored-feed coverage check, so a staggered basket reverts the whole `executeOrderBatch` instead of falling back to a fresh parse
+- 97649 [SC-Medium] Missing keeper != account check plus under-priced liquidation lets a trader liquidate their own position as a fee-free exit, bypassing the 50 bps frozen-close spread, the 4 bps execution fee and close VPI every weekend
+- 97655 [SC-Medium] Missing keeper-identity check in MarginClearinghouse lets a trader liquidate themselves and keep the keeper’s share of their own liquidation penalty
+- 97693 [SC-Medium] Batch cache reuse reverts on spread baskets (StoredFeedBehind); the router's documented fallback never runs
+- 97744 [SC-Medium] During the oracle freeze, being liquidated costs less than closing, and the owner can liquidate itself on purpose
+- 97748 [SC-Medium] VPI rebate is netted against the protocol execution fee on skew-reducing closes, so the treasury loses up to the entire close fee (griefing / damage to the protocol)
+- 97755 [SC-Medium] Carry-timed self-liquidation during the frozen weekend exits at the stale Friday mark for ~7.5 bps, bypassing the 50 bps LP-owned frozen-close spread
+- 97772 [SC-Medium] Self-liquidation during oracle-frozen windows bypasses the LP-owned frozen-close spread
+- 97795 [SC-Medium] Batch cache reuse checks every Pyth feed against the newest component time, so executeOrderBatch reverts for valid orders when basket components have different publish times
+- 97801 [SC-Medium] Make terminal close and liquidation accounting coalition-neutral when the trader controls the keeper
+- 97825 [SC-Medium] Open-entry solvency accounting treats realizable winner PnL as free liquidity, allowing a same-price close to halt new trading
+- 97831 [SC-Medium] Open and close handle the treasury's 4 bp fee differently under a VPI rebate: open credits the full fee, close nets the rebate against it, so the two paths disagree
+- 97835 [SC-Medium] Router `executeOrderBatch` deterministically reverts on honest mixed-time Unique baskets and rolls back earlier fills
+- 97839 [SC-Medium] `executeOrderBatch` reverts the whole batch when a reused price basket's components carry different publish times and Pyth storage has not been refreshed
+- 97848 [SC-Medium] Temporary deficits transfer unassigned assets to LPs
+- 97877 [SC-Medium] PletherOracle.updateBatchOrderExecutionPrice Checks _requireStoredFeedCoverage Against cache.publishTime Instead of cache.oldestPublishTime, Reverting executeOrderBatch With PletherOracle__StoredFeedBehind on Valid Multi-Feed Skew
+- 97883 [SC-Medium] Keeper batches revert and roll back valid fills whenever a basket's component ticks differ (regression from the newest-component-time change)
+- 97904 [SC-Medium] Batch historical-price cache reuse checks every feed against the basket's maximum component publish time instead of that feed's own time, spuriously reverting valid batch order executions at a measured, uncompensated cost
+- 97910 [SC-Medium] Oracle-frozen exits bypass the LP-owned frozen close spread through a steered self-liquidation
+- 97939 [SC-Medium] PR #120 (MED-23 fix) makes the Router's own mixed-time batch cache fail its stored-feed coverage check, reverting the whole `executeOrderBatch` instead of falling back to a fresh historical resolution
+- 97979 [SC-Medium] Recovered execution fee on a net-rebate close is credited to nobody: the treasury receives no fee, the pool silently keeps it, and the receipts report it as never assessed
+- 98034 [SC-Medium] Open admission spends cash already owed to open winners, so one same-price close latches degraded mode and blocks all new trading
+- 98142 [SC-Medium] Skew-reducing closes net the VPI rebate against the execution fee, diverting the treasury's unclaimed fee yield to LPs
+- 98197 [SC-Medium] executeOrderBatch reverts as a whole when it reuses a valid historical basket with unequal component publish times (coverage checked against the basket's newest component instead of each feed's own time)
+- 98232 [SC-Medium] Close-side VPI rebate is netted against the protocol execution fee: the trader is charged the fee, the treasury receives 0 (the open path tops it up), and CfdEngineLens.previewClose reports executionFeeAssets 0 against the receipt's full fee
+- 98239 [SC-Medium] holiday overrides keep stale-mark pricing through up to 22 hours of live Pyth trading, letting traders exit losing positions at the pre-holiday price and steal LP yield
+- 98281 [SC-Medium] A close whose VPI refund exceeds its execution fee charges the trader the 4 bp fee but never credits it to the treasury; the pool keeps it
+- 98285 [SC-Medium] Weekend self-liquidation skips the LP frozen-close spread
+- 98319 [SC-Medium] Stale batch cache check on mixed-timestamp price baskets breaks batch execution and forces per-order keeper retries"
+- 98340 [SC-Medium] Trader-timed frozen liquidation lets a hedged trader exit at a stale mark, shifting value from LPs
+- 98347 [SC-Medium] Frozen-window liquidation settles at the stale Friday mark with no spread, so a hedged trader can drop the losing leg of a weekend position at Friday's price and keep the winner for the gap
+- 98356 [SC-Medium] Valid skewed Pyth basket is rejected on batch cache reuse, reverting earlier order execution
+- 98359 [SC-Medium] Closes that earn a VPI rebate credit the treasury none of the execution fee; the fee stays in LP assets
+- 98372 [SC-Medium] LPs lose the 50 bps frozen-close spread because a trader can make their own account liquidatable during the freeze and exit at the stale mark
+- 98437 [SC-Medium] Cache reuse can demand stronger feed coverage than its populating parse proved
+- 98492 [SC-Medium] In a frozen (weekend) market a trader can exit through self-liquidation and skip the 50 bp frozen-close spread, paying about 1/5 of the price the spread was meant to charge
+- 98508 [SC-Medium] executeOrderBatch reverts when a later order reuses a basket whose feeds have different publish times
+- 98556 [SC-Medium] MED-23 fix introduces a new bug: batch cache reuse checks Pyth storage against the newest component time, so `executeOrderBatch` reverts on honest baskets with unequal component times
+- 98615 [SC-Medium] Ownerless HousePool reserve is permanently consumed by an unrealized mark and its recovery is paid to Junior
+- 98620 [SC-Medium] Incorrect fee accounting in the close planner nets the treasury's execution fee into the VPI rebate, so the protocol permanently loses all or part of the fee on skew-reducing closes
+- 98645 [SC-Medium] executeOrderBatch's historical-basket reuse rejects every legitimately skewed basket: multi-order batches revert whole, rolling back already-finalized orders and re-burning their gas on every attempt
+- 98649 [SC-Medium] Batch basket reuse skips the Pyth storage coverage check, so two same-second orders with an ordinary split-second basket revert every `executeOrderBatch` and roll back the orders already filled in it
+- 98695 [SC-Medium] Valid Staggered Pyth Basket Causes Atomic Multi-Order Batch Revert and Keeper Gas Loss
+- 98703 [SC-Medium] the MED-23 fix made the cached basket time the newest component time but left the batch-reuse coverage check unchanged, so honest misaligned Pyth ticks revert the whole `executeOrderBatch` instead of falling back to a fresh resolution
+- 98709 [SC-Medium] Trader-controllable liquidation eligibility during oracle freeze lets traders self-liquidate at the stale Friday mark, bypassing the LP-owned frozen-close spread and leading to griefing of LPs
+- 98759 [SC-Medium] Batch execution reverts in full when it reuses a historical basket with staggered component times
+- 98767 [SC-Medium] Plether: close-leg execution fees are kept by the LP pool instead of the protocol treasury whenever the close earns a VPI rebate
+- 98790 [SC-Medium] Asymmetric mark to market write down of `unassignedAssets` in `HousePoolReconcilePlanLib.planReconcile()` lets Junior LPs withdraw ownerless recapitalization USDG
+- 98795 [SC-Medium] an open or increase never lowers the liquidation reserve to its new target, so collateral the spec defines as PnL pledge is held as reserve, positions are liquidated early and the excess is charged to the trader or taken from LPs
+- 98827 [SC-Medium] Keeper can lose an entire order batch to a revert on a valid mixed-time historical basket due to cache reuse checking stored feeds against the newest component time
+- 98841 [SC-Medium] Retained liquidation reserve allows premature liquidation and transfers a healthy trader's USDG to a permissionless keeper
+- 98857 [SC-Medium] Incorrect Timestamp Check in `PletherOracle.updateBatchOrderExecutionPrice()` Causes `executeOrderBatch()` to Revert on Multi-Feed Baskets, Breaking Batch Execution and Griefing Queued Orders
+- 98875 [SC-Medium] Close execution fee offset by a VPI rebate is never credited to treasury, unlike on opens
+- 98877 [SC-Medium] A winning trader can exit an oracle frozen window through its own liquidation and skip the LP owned frozen close spread
+- 98915 [SC-Medium] Close planner never tops up the execution fee netted into a VPI rebate, so the treasury misses that fee
+- 98936 [SC-Medium] Heavy-side close nets the execution fee against the VPI rebate: the trader is charged the fee, the treasury receives 0 and LPs keep it, while an open with the same rebate pays the treasury in full
+- 98964 [SC-Medium] Traders can self liquidate during frozen weekend to bypass the 0.50% spread owed to LPs and the 0.04% fee owed to the treasury
+- 98976 [SC-Medium] Liquidation at the frozen weekend mark is not charged the 0.50% frozen-close spread, so a hedged trader drops its losing leg at Friday's price for 0.075% and LPs pay the weekend gap
+- 98992 [SC-Medium] Unassigned cash is capped by an unrealized loss, then seeded to junior
+- 98994 [SC-Medium] Collecting a marked trader loss transfers quarantined assets to existing LP shares
+- 99011 [SC-Medium] Open admission and the LP firewall spend cash already owed to an open winner, leaving trader claims larger than all pool assets
+- 99038 [SC-Medium] Missing treasury fee credit on net-rebate closes leads to theft of unclaimed yield
+- 99045 [SC-Medium] # Inconsistent Pyth Coverage Check in `_requireStoredFeedCoverage` Blocks Batch Basket Cache Reuse in `executeOrderBatch`
+- 99081 [SC-Medium] Close execution fee lost to LPs when VPI rebate dominates, depriving treasury of promised protocol revenue
+- 99141 [SC-Medium] Skew-reducing close nets the VPI rebate against the execution fee, so the treasury funds the rebate instead of pool assets
+- 99211 [SC-Medium] `executeOrderBatch` reverts on its own freshly proven cache when the first post-commit Pyth basket has unequal component times, rolling back every order already executed in the batch
+- 99231 [SC-Medium] Unassigned Assets Lost in a Deep Drawdown Are Not Restored on Recovery, Moving Ownerless Value to Junior
+- 99311 [SC-Medium] Batch order execution reverts completely when the reused price basket is not covered by stored Pyth feeds
+- 99327 [SC-Medium] Batch order execution reverts on its own Pyth cache when basket components have different publish times, undoing orders already executed in the batch
+- 99336 [SC-Medium] Profitable position with a carry-drained pledge can self-liquidate over the weekend and skip the frozen-close spread
+- 99341 [SC-Medium] Batch execution reverts on a valid basket whose components were published at different seconds
+- 99372 [SC-Medium] Negative-VPI closes route charged execution fees to Junior LPs instead of treasury
+- 99405 [SC-Medium] Public LP epoch diverts owner governed reserves into wiped Junior shares
+- 99407 [SC-Medium] Inconsistent historical-basket cache validation reverts otherwise executable FIFO order batches
+- 99422 [SC-Medium] MED-10 fix misses frozen liquidations: a capped SHORT can be liquidated while solvent
+- 99438 [SC-Medium] Reconcile permanently caps `unassignedAssets` at a transient mark-to-market value, so a mark round trip moves ownerless pool value into junior LP principal
+- 99456 [SC-Medium] Transient marked NAV permanently reduces Owner-funded unassigned assets and diverts USDG to an existing Junior LP
+- 99500 [SC-Medium] A 10% mark deletes parked recap, and the flat settle pays it to junior
+- 99501 [SC-Medium] A temporary favorable mark at the first LP settlement after a recapitalization strands the recapitalization as ownerless value and leaves Senior impaired
+- 99521 [SC-Medium] Normal per-feed publish-time divergence makes OrderRouter.executeOrderBatch revert for the whole batch, so a valid order committed in the same second is never executed and keepers must fall back to single-order execution
+- 99530 [SC-Medium] executeOrderBatch reverts entirely when two orders share a basket whose components were published one second apart
+- 99596 [SC-Medium] Incomplete MED-10 fix: frozen-market liquidations subtract the confidence shift from the already-capped mark
+- 99599 [SC-Medium]  _planCloseActionSettlement folds the execution fee into the VPI rebate and clamps it before the free-cash top-up, so a skew-reducing close credits the treasury no execution fee and the LP pool keeps it
+- 99604 [SC-Medium] Incomplete MED-10 fix permits forced liquidation of solvent SHORT positions during oracle-frozen windows
+- 99616 [SC-Medium] Incomplete fix of audit finding MED-10 in `PletherOracle`: frozen-regime liquidation still subtracts the confidence shift from the already capped mark, so keepers can liquidate SHORT positions that are solvent at the policy price
+- 99632 [SC-Medium] A trader can self-liquidate during a frozen weekend window and exit at the stale Friday mark
+- 99635 [SC-Medium] Valid order batches revert when Pyth components publish at different seconds
+- 99647 [SC-Medium] planReconcile's irreversible unassignedAssets cap turns a temporary marked loss into permanent Junior LP capture of ownerless recap funds
+- 99648 [SC-Medium] Batch cache reuse checks Pyth storage against the newest component time, so executeOrderBatch reverts on the basket it just cached
+- 99654 [SC-Medium] During an oracle freeze, a trader can schedule its own liquidation and exit without paying the LP-owned frozen-close spread
+- 99675 [SC-Medium] Staggered Pyth component times make valid order batches revert
+- 99697 [SC-Medium] Frozen-weekend exits can avoid the 50 bps LP frozen-close spread by electing liquidation: a position held at the FAD margin leaves at the stale mark for 7.5–12.5 bps instead of 54 bps
+- 99698 [SC-Medium] Execution fee is not credited to the treasury on closes whose VPI rebate covers it (it stays in the LP pool), while the open path tops the same netted fee up to the treasury
+- 99731 [SC-Medium] Frozen-window liquidation is electable while solvent, so the 50 bps LP spread is never assessed
+- 99757 [SC-Medium] A historical basket cache can roll back a close before Friday deleveraging
+- 99763 [SC-Medium] traders exit the weekly freeze through a self-timed liquidation, skipping the frozen-close spread that prices voluntary stale-price exits
+- 99795 [SC-Medium] A pending full close allows margin withdrawal that waives VPI charges owed to the Pool
+- 99817 [SC-Medium] Oracle-frozen liquidation pricing subtracts the SHORT adverse shift from an already-capped mark, letting any keeper liquidate healthy short positions during weekend/holiday market closures
+- 99819 [SC-Medium] Holiday override stays frozen after the FX reopen, letting traders and LPs exit at stale prices at LP expense
+- 99825 [SC-Medium] Incorrect price base in frozen-oracle liquidation (capped Engine mark shifted instead of the stored uncapped basket) leads to griefing: any keeper can liquidate solvent SHORTs at the cap once the weekly freeze starts.
+- 99826 [SC-Medium] A trader can exit a weekend position at Friday's frozen price by liquidating it himself, skipping the 50 bps frozen-close spread, and take Monday's gap out of LP capital
+- 99831 [SC-Medium] After a trader adds to a position at a lower price, a keeper can liquidate the account while it is still above maintenance and take the liquidation charge
+- 99842 [SC-Medium] executeOrderBatch reverts and rolls back executed orders when a reused Pyth basket has unequal component times
+- 99845 [SC-Medium] Close execution fee is lost for the treasury when the close has a VPI rebate
+- 99852 [SC-Medium] Whole-UTC-day holiday overrides keep oracle-frozen pricing active for ~2h after the 22:00 UTC FX reopen, giving traders a free option to close at the stale pre-holiday mark against HousePool LP funds whenever the reopen gap exceeds the frozen-close spread
+- 99885 [SC-Medium] A settlement at a temporary low mark permanently clips `unassignedAssets` in `planReconcile`, and the rebound moves the owner's recapitalization into Junior principal that the attacker redeems
+- 99905 [SC-Medium] A reversible terminal mark lets wiped Junior shares capture quarantined recovery assets
+- 99914 [SC-Medium] Incomplete fix of Cecuro MED-10 (frozen path): during an oracle freeze, liquidations shift the already-capped Engine mark, so SHORTs that are solvent at CAP are liquidated at `CAP - shift`
+- 99921 [SC-Medium] Reversible mark converts ownerless reserve into redeemable Junior principal
+- 99925 [SC-Medium] A temporary terminal liability permanently changes the owner of recapitalization surplus
+- 99946 [SC-Medium] A trader can choose liquidation during an oracle freeze
+- 99953 [SC-Medium] Mark-fresh reconcile truncates unassignedAssets, permanently forfeiting part of the reserve to Junior LPs
+- 99960 [SC-Medium] A trader withdraws free settlement before a full close and the close waives the action charge that settlement would have paid
+- 99963 [SC-Medium] Transient terminal loss erases an owner-funded unassigned accounting reservation and credits old Junior shares on recovery
+- 99967 [SC-Medium] Batch order execution reverts when basket components have different publish times: #120 changed the meaning of `cache.publishTime` but left #103's reuse check on it
+- 99976 [SC-Medium] `PletherOracle.updateBatchOrderExecutionPrice` Checks `cache.publishTime` (`maxPublishTime`) Instead of Per-Feed / `oldestPublishTime` Coverage, Causing `executeOrderBatch` to Revert on Any Mixed-Timestamp Historical Basket
+- 100002 [SC-Medium] Reversible trader liability lets LPs withdraw governance-quarantined recapitalization
+- 100009 [SC-Medium] Legal Pyth Timestamp Skew Causes Atomic Reverts in Batched Order Execution
+- 100017 [SC-Medium] Batch execution reverts when a historical basket's feeds have different publish times, although each order executes alone
+- 100029 [SC-Medium] An LP epoch settled during a temporary drawdown permanently shrinks the ownerless reserve, and the recovery is redeemed by Junior LPs
+- 100030 [SC-Medium] Valid batches revert on staggered Pyth publication times
+- 100040 [SC-Medium] Temporary adverse mark turns ownerless reserve into Junior principal
+- 100054 [SC-Medium] Batch price-cache reuse checks every feed against the newest component's publish time, so any multi-order batch reverts `PletherOracle__StoredFeedBehind` when component publish times differ (`PletherOracle.sol`)
+- 100059 [SC-Medium] executeOrderBatch is bricked by same-batch cache reuse
+- 100095 [SC-Medium] Retained-basket coverage keyed to the newest component time can revert valid batch reuse and enables liquidation-bounty theft
+- 100096 [SC-Medium] Fresh reconciliation permanently transfers unassigned assets to junior holders
+- 100104 [SC-Medium] Close-time price-impact rebates reduce the treasury’s execution fee despite available pool cash
+- 100105 [SC-Medium] override days let traders close at stale marks while live prices move
+
+</details>
+
+<details>
+
+<summary>Low</summary>
+
+- 97600 [SC-Low] Anyone can plant a zero-value redeem request under another LP's name, so the victim's ERC-7540 redeem, withdraw, maxRedeem and maxWithdraw all report zero or revert over a fully funded claim
+- 97602 [SC-Low] A scheduled treasury rotation changes the execution config hash with no transaction, so every pinned pending order becomes clearable by anyone and the clearer is paid each victim's open bounty
+- 97610 [SC-Low] LOW-59 fix is incomplete: `CfdEngine` and `CfdEngineAdmin` still allow `renounceOwnership()`, which makes degraded mode permanent
+- 97622 [SC-Low] PositionProtectionBook: stale accepted-basket check after order fills makes stop-loss creation revert
+- 97637 [SC-Low] Scheduled treasury activation silently changes the execution-config hash and voids every queued pinned order
+- 97650 [SC-Low] The #120 fix leaves every zero-fee publish-order consumer unavailable after any delayed-order execution
+- 97661 [SC-Low] Dead fallback in PositionProtectionBook lets any trader block TP/SL creation after every order execution
+- 97696 [SC-Low] Anyone can poison an LP's withdrawal queue with a 1-wei redeem request, bricking their standard redeem/withdraw interface and forcing a 1-hour wallet-wide lock to clear it
+- 97699 [SC-Low] Protocol treasury is part of the execution config digest but resolves by timestamp, so a scheduled rotation silently invalidates every pending config-pinned order and can cost traders their position margin
+- 97709 [SC-Low] Anyone can plant an unclaimable redeem lot at the head of an LP's queue; clearing it restarts the LP's cooldown
+- 97715 [SC-Low] Recap after a full tranche wipe resets the Senior high-water mark, diverting Senior restoration value to wiped Junior
+- 97733 [SC-Low] Committed minority-side increases can be cancelled after the fill print for 0.20 USDG: CfdEngine funds VPI reserve from free settlement withdrawable from MarginClearinghouse
+- 97766 [SC-Low] Protection create and replace revert after any live order fills until the next mark refresh, because the MED-28 fix rejects a state its own guard accepts
+- 97792 [SC-Low] Any address can insert a request at the head of another controller's queue, and the ERC-4626 claim entrypoints and `max*` views only read that head
+- 97807 [SC-Low] An incomplete ownership-renunciation fix can permanently freeze matured but unfunded LP redemptions
+- 97830 [SC-Low] Stop-loss/take-profit creation, replacement and protected opens revert with `PriceOutOfOrder` after any delayed-order fill, until someone pays for a separate live price refresh
+- 97833 [SC-Low] Increase commits collect carry outside pinned limits: Contract fails to deliver promised returns, but doesn't lose value
+- 97836 [SC-Low] executeLiquidationBatch stops at index 0 on every call when the calling keeper holds a position, because the per-item gas budget omits the keeper's curve sync and carry realization
+- 97847 [SC-Low] Opening bounty reservation bypasses carry debit bounds
+- 97850 [SC-Low] Anyone can plant zero-value redemption requests at the head of another LP's queue, disabling its ERC-7540 withdraw until it accepts a cooldown
+- 97857 [SC-Low] Anyone holding one share-wei can plant an unclaimable redeem lot at the head of an LP's queue; the LP must choose between a dead withdrawal path and a one-hour lock on her shares, every hour
+- 97866 [SC-Low] High-water-mark overwrite in HousePool recapitalization settlement (`HousePoolPendingPreviewLib.applyClaimantRecapitalizationIntent`) lets any `settleLpEpoch` caller move Senior LP principal to Junior LPs and to new unprivileged entrants.
+- 97875 [SC-Low] PositionProtectionBook._freshProtectionObservation Calls oracle.getLatestPrice(MarkRefresh) Before _acceptedMarkInstalled(), Bricking TP/SL Creation, Replacement, and Attached-Open Commits After Any Historical Order Execution
+- 97892 [SC-Low] TrancheVault.requestRedeem accepts any controller, so a stranger can plant a refund-pending head on an LP's redeem queue
+- 97893 [SC-Low] Order execution applies the adverse confidence shift to the already-CAP-clamped price (execution/liquidation parity break)
+- 97932 [SC-Low] Protocol treasury rotation silently invalidates pending protective closes, enabling liquidation and direct loss of the trader's margin
+- 97938 [SC-Low] Scheduled protocol-treasury rotation fails every in-flight order at the lock expiry: opens forfeit their bounty, closes leave positions open
+- 97960 [SC-Low] Unsolicited controller dust poisons LP redemption heads and makes cleanup reset the victim's cooldown
+- 97970 [SC-Low] Increase commitments collect accrued carry outside the caller's gross-debit and action-charge limits, and the authenticated receipt omits it
+- 97971 [SC-Low] Self-triggered position protection collects accrued carry outside the trader's retained close limits and the close's authenticated receipt
+- 97978 [SC-Low] Recapitalization after a total tranche wipe replaces the surviving Senior high-water mark with the recap size (knife-edge on juniorPrincipal == 0), silently handing the restoration entitlement to first-loss Junior LPs
+- 97980 [SC-Low] Protection arming is blocked after every ordinary order execution because PositionProtectionBook's oracle read enforces publish order against the Engine mark
+- 97991 [SC-Low] Scheduled treasury rotation silently flips the pinned execution-config hash and terminally kills every in-flight pinned order, moving their reserved execution bounties to the cleanup caller
+- 98032 [SC-Low] A trader with an open position can drop a pending increase after seeing its fill price by withdrawing the fee cash, turning a "binding" order into a free option against LPs
+- 98039 [SC-Low] Committed open orders can be cancelled at no cost after their fill price is known, because any caller can shrink HousePool depth through OrderRouter.settleLpEpoch (incomplete fix of SC-M4 component 3)
+- 98054 [SC-Low]  Trader can cancel a committed skew-reducing open after its fill price is known
+- 98055 [SC-Low] A legitimate treasury rotation voids an already-committed order, including a trader's own exit
+- 98063 [SC-Low] Publish-order check in `PositionProtectionBook._freshProtectionObservation()` blocks TP/SL changes after a historical fill until the next live refresh
+- 98088 [SC-Low] LOW-59 fix is incomplete: `CfdEngine` and `CfdEngineAdmin` still allow `renounceOwnership()`, which makes degraded mode permanent
+- 98131 [SC-Low] Incomplete LOW-59 fix leaves CfdEngine ownership renounceable and can permanently freeze LP settlement
+- 98155 [SC-Low] Timestamp-only treasury activation silently changes the execution config hash, so every pending pinned order fails terminally and its bounty goes to the keeper
+- 98170 [SC-Low] Commit-time open preflight ignores the account's own queued opens, causing false rejections of valid increases and false acceptances that forfeit the execution bounty
+- 98171 [SC-Low] Anyone can plant a 1-share "dust" redeem in another LP's queue and block that LP's standard `redeem`/`withdraw` until the LP cleans it up
+- 98185 [SC-Low] Binding queued opens can be killed after the execution price is known, giving traders a near-free option against LPs
+- 98193 [SC-Low] Autonomous Timestamp-Driven CfdTreasury Rotation Mutates OrderLifecycleBook.currentExecutionConfigHash(), Terminating In-Flight Orders with Bounty Loss and Stripping Cancelled TP/SL Protection
+- 98198 [SC-Low] Carry collected when an increase order is committed bypasses the trader's pinned maxActionChargeAssets / maxGrossAccountDebitAssets and is missing from the commitment receipt
+- 98200 [SC-Low] assessCommittedOrder enforces close bounds in two passes, commitment carry only in the second: the public view and the authenticated receipt report a non-canonical constraint and an understated actual
+- 98219 [SC-Low] A trader can make its committed order valid or invalid after seeing later prices (addMargin, withdraw, same-side order), so binding orders become free options even with a 60 s window and keeper-only execution
+- 98223 [SC-Low] Scheduled treasury activation invalidates queued close and protection orders without an activation transaction
+- 98268 [SC-Low] Post-wipe recap overwrites the kept Senior HWM in `HousePoolPendingPreviewLib.applyClaimantRecapitalizationIntent()`, handing Senior-owed LP revenue to Junior
+- 98273 [SC-Low] Order admission counts unreserved free settlement in OrderLiquidationBatchLogic._validatedOpenBounty, allowing any trader to cancel its own committed open at no cost after seeing the fill tick, so Junior LPs absorb only the fills that favour the trader
+- 98293 [SC-Low] Open-order carry checkpoint bypasses the trader's charge limits
+- 98320 [SC-Low] Unconsented redemption-controller assignment poisons standard claims, and clearing the head restarts a cooldown
+- 98337 [SC-Low] Engine renunciation permanently locks mature LP redemptions after recoverable containment
+- 98366 [SC-Low] Account for carry in delegated order limits and authenticated receipts
+- 98392 [SC-Low]  Recapitalizing a fully wiped pool erases Senior's unrecovered principal and hands its recovery to Junior
+- 98406 [SC-Low] LOW-59 fix is incomplete: CfdEngine can still renounce ownership, so the next degraded-mode latch can never be cleared and LP epoch settlement stops for good
+- 98433 [SC-Low] Missing receiver/controller-authorization check in requestRedeem lets an unprivileged attacker force any address into deposit cooldown, repeatably
+- 98516 [SC-Low] TP/SL creation and replacement revert after a historical fill because the MED-28 fix added a check that contradicts _acceptedMarkInstalled()
+- 98520 [SC-Low] A scheduled treasury rotation silently flips `currentExecutionConfigHash()` at expiry, so every pending order is killed as `ConfigMismatch` and its 0.2 USDG bounty goes to the keeper; the trader cannot cancel or avoid it
+- 98557 [SC-Low] MED-28 fix introduces a new bug: `PositionProtectionBook` reads `getLatestPrice(MarkRefresh)`, so stop-loss / take-profit creation, replacement and protected opens revert after any delayed-order fill
+- 98575 [SC-Low] Withdraw guard checks health at the neutral cached mark, but frozen-window liquidation applies a side-adverse shift to the same mark — a withdrawal-approved position is liquidatable in the same block
+- 98601 [SC-Low] Open/increase bounty reservation checkpoints and transfers accrued carry but reports a bounty-only commitment, bypassing both signed debit ceilings
+- 98603 [SC-Low] Stranger-planted redeem head blinds a victim's ERC-7540 claim and imposes the LP cooldown
+- 98619 [SC-Low] Scheduled protocol-treasury activation changes the execution-config hash by timestamp with no transaction, event or timelock: pinned pending orders fail as ConfigMismatch (open bounties go to the keeper) and commits built from the old hash are rejected
+- 98650 [SC-Low] renounceOwnership() is still live on CfdEngine, MarginClearinghouse and CfdEngineAdmin while the other three owner contracts revert it
+- 98680 [SC-Low] Post-wipeout recapitalization over-credits Senior beyond its high-water mark and inflates the HWM
+- 98692 [SC-Low] `CfdEngine.addMargin()` has no pending-order check, so a trader decides after seeing the price whether its committed close fills
+- 98701 [SC-Low] `CfdEngine` can still renounce ownership, so the next ordinary degraded-mode latch can never be cleared and LP capital is frozen permanently
+- 98706 [SC-Low] Unfunded equity bounds and later margin additions let traders selectively activate precommitted round trips at LP expense
+- 98707 [SC-Low] a pending recapitalization backs new trading exposure but is held out of the tranche waterfall, so a loss on that exposure zeroes an impaired Senior and the bootstrap branch resets the Senior high-water mark
+- 98708 [SC-Low] any order fill blocks every trader from arming, replacing or attaching a stop-loss or take-profit until someone pays for a separate live refresh, so a griefer can keep a victim's position unprotected by re-filling after each refresh
+- 98727 [SC-Low] Collected execution fee is reported fully recovered but its treasury delivery is cash-capped: the residual is credited to no party and survives the netting fix — a profit close at low pool cash strands the fee in pool custody
+- 98732 [SC-Low] CfdEngine.addMargin lets a trader meet its pending order's equity or leverage bound after the price moves, leading to direct theft of user funds from LPs
+- 98755 [SC-Low] Any order execution blocks TP/SL creation and stop-loss replacement for every account, and a stranger can keep it blocked at zero cost
+- 98762 [SC-Low] Commit-time open admission uses the unshifted mark, so admitted opens fail at an unchanged price and forfeit their bounty
+- 98764 [SC-Low] Plether: anyone can plant a dust redeem request in another LP's claim queue and disable ERC-4626 redeem/withdraw
+- 98782 [SC-Low] Trader can turn a "binding" queued order into a free conditional fill by pinning an unattainable equity/leverage bound and toggling it with `addMargin` after seeing post-tick prices
+- 98789 [SC-Low] The MED-28 fix makes protection create, replace and attached open revert after an ordinary Router fill until a live mark refresh
+- 98811 [SC-Low] Carry collected at an increase-open commitment escapes the trader's signed `maxGrossAccountDebitAssets` / `maxActionChargeAssets` bounds and is recorded as 0, while the same open's execution policy counts carry inside those bounds
+- 98822 [SC-Low] Routine or scheduled treasury rotation changes the execution-config digest, terminally fails pending orders, and pays the trader's bounty to the cleanup caller
+- 98838 [SC-Low] A queued open is not binding: the trader decides after its fill price is public whether it stands (equity bound re-read after addMargin) and takes fast price moves from LPs for 0.20 USDG per attempt
+- 98843 [SC-Low] Unconsented `controller` in `TrancheVault.requestRedeem` lets anyone block an LP's ERC-7540 claims and impose the LP cooldown on its shares, which the LOW-40 fix does not cover
+- 98851 [SC-Low] Partial recapitalization after a full wipeout permanently erases the senior high-water mark, redirecting recovery entitlement from Senior to Junior LPs
+- 98883 [SC-Low] Timestamp activated treasury successor silently invalidates every pending order, letting anyone flush them for bounties
+- 98884 [SC-Low] Incomplete fix for Cecuro LOW-59: CfdEngine can still renounce ownership, making the degraded-mode latch permanent and freezing all LP settlement
+- 98905 [SC-Low] Withdrawing free settlement in MarginClearinghouse cancels the owner's own pinned skew-reducing open, leading to direct theft of LP funds
+- 98912 [SC-Low] TrancheVault.requestRedeem lets any share holder plant a one-share request in another account's controller queue: the victim's standard claims stop working and the only call that clears it restarts the victim's one-hour cooldown
+- 98935 [SC-Low] Unrecorded Carry Realization During Same Side Increase Order Commitment Bypasses User Specified Financial Bounds (`maxGrossAccountDebitAssets` and `maxActionChargeAssets`)
+- 98940 [SC-Low] Incomplete LOW-59 fix: `renounceOwnership` is still callable on the engine, the engine admin and the clearinghouse
+- 98956 [SC-Low] A permissionless `clearInvalidOrders` call credits up to 64 traders' reserved execution bounties to the caller, because `_validateBountyDisposition` pays the order's destroyer on a protocol-side config change that flips with no transaction and no event
+- 98961 [SC-Low] Senior redemption at a few atoms of Senior principal removes more high-water mark than the redeemed share: an exit of half the shares cancels 2/3 of the recovery protection (99,903 USDG beyond its share in the test)
+- 98975 [SC-Low] A trader can commit an order that only its own later `addMargin` makes fillable, so a prompt keeper can only cancel it and the price fixed at commit becomes a free option that LPs pay for
+- 99017 [SC-Low] A partial post-wipe recapitalization erases the preserved senior high-water mark, so the pool's subsequent recovery revenue is diverted to junior LPs, who redeem it in real tokens while senior LPs recover almost nothing
+- 99028 [SC-Low] A trader can cancel its own committed open after seeing the price by withdrawing free settlement
+- 99034 [SC-Low] Virtual offset rounding in Senior redemptions, combined with funded asset HWM scaling, erases remaining Senior holders' high water mark recovery entitlement
+- 99048 [SC-Low] Unreserved VPI funding lets traders selectively void losing committed skew-reducing opens
+- 99052 [SC-Low] A trader flips its own pending order's financial bounds after the fill price prints (addMargin, a same-side order or LP-epoch pool depth), so binding orders are free options; #97733's fix leaves every lever open
+- 99091 [SC-Low] Senior LPs lose their protected entitlement to Junior LPs: after an LP wipe, the recapitalization bootstrap overwrites the Senior high-water mark, so recovery the waterfall owes Senior is paid to Junior
+- 99093 [SC-Low] Third-party requestRedeem plants a dust request at the head of another controller's queue, zeroing the standard ERC-7540 claim surface and forcing a cooldown restart to clear it
+- 99094 [SC-Low] Controller-Queue Hijack
+- 99095 [SC-Low] Anyone can plant a dust redeem request on any controller and disable its standard ERC-7540 claims (`redeem` / `withdraw` / `maxRedeem` / `maxWithdraw`)
+- 99124 [SC-Low] Renouncing CfdEngine ownership permanently freezes matured LP deposits and redemptions after degraded mode
+- 99129 [SC-Low] Open-order bounty reservation collects carry beyond signed debit ceilings and authenticates a zero-carry commitment
+- 99146 [SC-Low] Virtual-offset Senior redemption diverts a surviving LP's principal recovery to Junior after the MED-11 fix
+- 99152 [SC-Low] Both requestDeposit and requestRedeem accept an arbitrary controller without consent, enabling unsolicited queue entries and cooldown manipulation
+- 99157 [SC-Low] A historical order fill blocks position-protection creation, replacement and attached staging until a new signed oracle refresh, contradicting the Book's own accepted-basket guard
+- 99159 [SC-Low] CfdEngineAdmin and MarginClearinghouse do not override renounceOwnership, unlike the three other Ownable2Step contracts that explicitly block it
+- 99160 [SC-Low] A same-side open queued behind the account's own full close is rejected at commit, because admission previews it as an increase of the position that the queued close removes
+- 99172 [SC-Low] TrancheVault: anyone can poison another controller's redeem-queue head with a 1-share request, hiding and blocking their funded redemption on the ERC-7540 claim surface
+- 99173 [SC-Low] Missing controller authorization in `TrancheVault.requestRedeem()` allows unauthorized queue-head poisoning and standard withdrawal griefing
+- 99174 [SC-Low] Partial Senior redemption erases surviving HWM and diverts principal recovery to Junior
+- 99177 [SC-Low] Trader can cancel a committed skew-reducing open after its settlement tick by withdrawing unreserved free settlement
+- 99209 [SC-Low] Unauthenticated choice of redemption controller lets a dust refund pin another controller's standard claim queue.
+- 99218 [SC-Low] Attacker with Junior LP shares takes Senior LPs' remaining principal by erasing Senior's high-water mark after an owner top-up with an impaired pool
+- 99225 [SC-Low] Anyone holding one share atom can plant a zero-value redeem request at another LP's redeem head, so standard `redeem`/`withdraw` revert on that LP's funded redemptions
+- 99229 [SC-Low] Recapitalizing a wiped pool overwrites the senior high-water mark.
+- 99261 [SC-Low] Partial Senior redemption after owner recovery deletes another LP's principal-recovery priority
+- 99291 [SC-Low] Post-commit margin changes let traders select historical partial-close fills and extract LP cash
+- 99329 [SC-Low] A third party can plant a zero-value redeem request at the head of any LP's queue, breaking the standard `redeem`/`withdraw` claim path for that LP
+- 99333 [SC-Low] Permissionless controller gifts make TrancheVault's head-based claim functions revert for the controller's own settled request
+- 99348 [SC-Low] Any share holder can disable another LP's ERC-7540 standard claims with a one-atom redemption request
+- 99368 [SC-Low] Incomplete MED-14 fix rejects valid same-side reopens behind queued full closes through a live-position skew check
+- 99373 [SC-Low] Carry collected when committing an increase order bypasses `maxGrossAccountDebitAssets` / `maxActionChargeAssets` and is missing from the `OrderReceipt`
+- 99378 [SC-Low] Queued increases can be enabled after a price move, giving traders a free option
+- 99392 [SC-Low] Trader-controlled execution bounds let a trader cancel a binding order after its fill price is known, turning queued closes into a zero-cost free option paid for by LPs
+- 99418 [SC-Low] Virtual-share rounding in Senior redemption erases surviving LP recovery priority and diverts USDG to Junior LPs
+- 99429 [SC-Low] A pending recapitalization settled at a transient adverse mark overwrites `seniorHighWaterMark`, permanently cutting senior LP principal and moving it to junior LPs and unassigned assets
+- 99455 [SC-Low] After any historical order fill, nobody can create, replace or attach position protection until a live mark is pushed
+- 99458 [SC-Low] Position-increase commitment bypasses debit limits and understates execution receipts
+- 99463 [SC-Low] LOW-40 fix incomplete: a 1-atom requestRedeem naming another controller hides its funded USDG from redeem / withdraw
+- 99469 [SC-Low] Owner-sent protection trigger collects the owner's pending carry via creditBounty, outside its close limits and the receipt
+- 99470 [SC-Low] `assignUnassignedAssets(false, …)` has no senior-impairment gate, so a routine owner call lets junior capital in, and out, while senior is still below its high-water mark
+- 99476 [SC-Low] A one-wei redemption request gifted to another LP stalls that LP's standard claims and forces a cooldown restart to clear it
+- 99483 [SC-Low] A committed open is cancellable by its owner after the fill price is public, breaking binding-intent and handing the trader a free option on the pool
+- 99496 [SC-Low] A queued open or increase can be switched off and on by its own account after commit, turning orders into free look-back options
+- 99498 [SC-Low] A temporary adverse mark at the first LP settlement after a recapitalization resets the Senior high-water mark and pays Senior principal to Junior
+- 99531 [SC-Low] A stranger's failed order blocks every trader from placing or changing stop-loss / take-profit protection
+- 99540 [SC-Low] Any address can be named as controller of a Senior or Junior LP request without its consent: a 1 share-wei redeem request disables the victim's standard `redeem`/`withdraw` claims, and 1 USDG deposit lots keep its wallet in cooldown
+- 99550 [SC-Low] Anyone can plant a zero-value redemption request in another LP's queue, hiding the LP's funded claim from the standard ERC-7540 surface and restarting its cooldown
+- 99551 [SC-Low] Close orders admitted against the queued-position projection are re-checked by the Engine against the live position, so a trader cannot queue its full exit behind its own pending partial close
+- 99552 [SC-Low] Scheduled treasury succession changes the execution config digest at a timestamp with no transaction, terminally invalidating pending orders and paying their bounties to whoever clears them
+- 99556 [SC-Low] CfdEngine remains renounceable after LOW-59 remediation, permanently disabling degraded-mode recovery
+- 99571 [SC-Low] Carry collected when committing an increase order bypasses the trader's signed V3 financial ceilings
+- 99586 [SC-Low] A third-party dust redemption blocks another LP's documented withdrawal path
+- 99590 [SC-Low] Underestimated Item Gas Budget in `executeLiquidationBatch` Leads to Non-Progressing Batches for Keepers Holding Positions
+- 99592 [SC-Low] Plether: any ordinary order fill makes creating or replacing a stop-loss or take-profit revert until someone pays for a live mark refresh
+- 99602 [SC-Low] A close committed while the oracle is live loses its MEV boundary if executed after the freeze, and settles at a mark published before its own `commitTime`
+- 99603 [SC-Low] An unsolicited deposit request blocks another LP's documented deposit claim path
+- 99608 [SC-Low] Publish-order check added by the MED-28 fix lets any order fill block take-profit / stop-loss creation for all accounts, leading to griefing
+- 99613 [SC-Low] Historical order execution advances only the Engine mark, so the oracle's publish-order check in `PositionProtectionBook` rejects a fresh, consistent price and blocks stop-loss/take-profit creation 
+- 99621 [SC-Low] Zero-output redemptions can repeatedly occupy another LP's FIFO claim head
+- 99622 [SC-Low] A valid historical fill makes another trader's protection creation and replacement revert
+- 99623 [SC-Low] An order whose equity floor is unreachable can only be executed by its owner, giving the trader a free option on an already-known fill price
+- 99640 [SC-Low] Creating, replacing or attaching a stop loss reverts after an order execution until a separate mark refresh lands, and an order that costs its sender nothing breaks the create again, so the trader's position is liquidated instead of stopped out
+- 99642 [SC-Low] A failed historical order blocks another trader from arming stop-loss protection
+- 99646 [SC-Low] Liquidation batches repeatedly stop at index zero when the keeper holds a position because the per-item gas budget omits keeper-side accounting
+- 99655 [SC-Low] Any order fill blocks TP/SL creation, replacement and protected opens until a paid mark refresh
+- 99657 [SC-Low] Open/increase commitments collect accrued carry beyond the trader's financial limits and omit the debit from the order receipt
+- 99663 [SC-Low] Incomplete LOW-44 fix allows a dust partial close to bypass the configured minimum after an earlier queued close fails
+- 99664 [SC-Low] Owner-mutable leverage checks allow selective execution of queued orders and LP losses
+- 99665 [SC-Low] Open/increase commitment collects carry but reports it as zero, silently bypassing the trader's pinned gross-debit and action-charge caps
+- 99669 [SC-Low] CfdEngine omits the renounceOwnership override its three siblings carry, so a renounced owner latches degradedMode permanently and freezes all unfunded LP redemptions forever
+- 99678 [SC-Low] A one-atom Senior redemption erases half the recovery high-water mark
+- 99679 [SC-Low] Same-batch recapitalization collapses the Senior high-water mark and misroutes impaired-Senior revenue to Junior LPs
+- 99680 [SC-Low] Creating or replacing TP/SL protection reverts after any ordinary order fill until a paid live oracle refresh
+- 99684 [SC-Low] Another trader's historical fill blocks protection creation and replacement
+- 99688 [SC-Low] An increase executes above the trader's action-charge and gross-debit limits
+- 99696 [SC-Low] Creating, replacing or attaching TP/SL protection reverts after any order execution until a separate live mark refresh lands (redundant accepted-basket read added by the MED-28 fix)
+- 99699 [SC-Low] A keeper address that holds an open position cannot use executeLiquidationBatch: the per-item gas budget omits the keeper-side curve sync, so every batch stops at index 0
+- 99701 [SC-Low] Any share holder can plant a worthless dust redeem request at the head of another LP's queue, blocking standard ERC-7540/ERC-4626 claims
+- 99703 [SC-Low] Scheduled treasury activation cancels pending closes and pays bounties for failed opens
+- 99705 [SC-Low] An open or increase commit debits the trader's accrued carry outside the pinned maxGrossAccountDebitAssets and maxActionChargeAssets bounds, and permanently records carryCollectedAsset s == 0 for the commit that collected it
+- 99707 [SC-Low] TrancheVault: anyone can queue a 1-wei redeem request under another controller, which blocks that controller's ERC-4626/7540 claims and forces a cooldown restart to clear
+- 99720 [SC-Low] recapitalizePool after a full LP wipe overwrites the Senior high-water mark with the recapitalization amount, so revenue owed to pre-wipe Senior LPs is credited to Junior principal
+- 99746 [SC-Low] Recapitalizing a fully wiped HousePool overwrites the senior high-water mark, so later revenue skips senior restoration and lands on junior
+- 99768 [SC-Low] One-atom Senior redemption halves the Senior high-water mark
+- 99771 [SC-Low] Commit-time carry escapes the financial limits of increase orders
+- 99773 [SC-Low] Incomplete fix of Cecuro MED-10: order execution still caps the basket before the adverse confidence shift, so SHORT closes above CAP are filled at `CAP - shift` instead of `CAP`
+- 99777 [SC-Low] Post-commit `addMargin` lets a trader decide after the fact whether a committed partial close executes, turning binding orders into a free option paid for by LPs
+- 99780 [SC-Low] Dust redemption request blocks another LP's `withdraw` and `redeem` claims
+- 99796 [SC-Low] Dust-principal redemption erases the recovery rights of surviving Senior shares
+- 99807 [SC-Low] CfdEngine and CfdTreasury's live, unguarded renounceOwnership() — unlike three sibling contracts — is not disclosed anywhere in the project's documentation
+- 99811 [SC-Low] Signed post-trade bounds plus `addMargin` turn binding queued orders into free options against LPs
+- 99813 [SC-Low] A skew-reducing open funds its VPI reserve from withdrawable free settlement, so withdrawing after the fill tick cancels the open and binding opens become free options
+- 99821 [SC-Low] Recapitalizing a wiped pool overwrites the Senior high-water mark, so later revenue skips Senior and goes to Junior
+- 99832 [SC-Low] A trader adds margin after a queued order's price is fixed, so only the orders that win against LPs fill
+- 99833 [SC-Low] A trader withdraws free balance after their queued order is priced, so only the orders that win against LPs fill
+- 99843 [SC-Low] Anyone can put a 1-share redeem request at the front of another LP's queue, blocking their redeem and withdraw and locking their shares for 1 hour to clear it
+- 99862 [SC-Low] Trigger-bounty carry checkpoint lets an owner-triggered protected close exceed its stored charge ceilings
+- 99869 [SC-Low] Withdrawing settlement after a price update cancels a binding skew-reducing open and costs LPs cash
+- 99871 [SC-Low] Any caller can put the Engine mark ahead of the oracle's accepted price every second with self-executed failing orders; creating or replacing a position protection then reverts for every account until a live refresh at or after that mark is accepted
+- 99873 [SC-Low] LP epoch settlement lets a trader arm or void a binding open after seeing the next price
+- 99875 [SC-Low] `addMargin` turns a binding open into a trader-selected fill at LP expense
+- 99876 [SC-Low] Missing Controller Authorization in TrancheVault Lets Dust Requests Disable Standard Redemption Claims
+- 99879 [SC-Low] Unreported commit-time carry on open/increase orders bypasses the trader's maxActionChargeAssets and maxGrossAccountDebitAssets limits
+- 99881 [SC-Low] MED-14 fix is incomplete: a valid same-side re-open queued behind a full close is rejected under a fresh mark
+- 99887 [SC-Low] `applyClaimantRecapitalizationIntent` overwrites the Senior high-water mark when one owner recapitalization meets exactly zero LP equity, so the revenue owed to Senior is paid to Junior
+- 99889 [SC-Low] The MED-28 fix makes stop-loss/take-profit arming revert after any order execution, so any account can block every trader's protection at no cost
+- 99891 [SC-Low] The MED-14 fix screens an open against the live position instead of the account's queued orders: with a fresh mark, provably invalid opens are admitted and valid same-side opens are refused
+- 99893 [SC-Low] TrancheVault.requestRedeem lets any share holder name another account as controller: a request of one share atom becomes that account's redeem head, and its standard ERC-7575 claims on later funded lots report 0 and revert
+- 99899 [SC-Low] The MED-10 fix is incomplete: delayed-order execution still subtracts confidence from the already-capped basket, so above CAP a SHORT close fills below the cap
+- 99903 [SC-Low] A committed open can be ended by its own account after later prices are known, through a withdrawal of free balance
+- 99912 [SC-Low] Unconsented controller requests block another LP's standard deposit and withdrawal claims
+- 99915 [SC-Low] Queued partial closes are not binding: a trader can decide after commit whether its own close executes (an equity bound with addMargin, or a free-settlement withdrawal on an ordinary close)
+- 99919 [SC-Low] Incomplete renounceOwnership fix: CfdEngine (via CfdTreasury), CfdEngineAdmin and MarginClearinghouse remain one-call renounceable, making a degradedMode latch permanently irreversible and freezing LP withdrawals/settlement with no on-chain recovery
+- 99926 [SC-Low] Settling a matured LP epoch before execution cancels a queued open for free, so binding opens become options against LPs
+- 99931 [SC-Low] Attached TP/SL is armed at parent fill without re-checking trigger prices, so a leg already crossed at fill lets any keeper force-close the fresh position one block later
+- 99933 [SC-Low] Partial close erases unpaid carry when a VPI rebate is cash-capped
+- 99954 [SC-Low] Pending recapitalization resets a surviving Senior high-water mark and diverts Senior principal to old Junior shares
+- 99961 [SC-Low] Recapitalizing a fully wiped pool overwrites the senior high-water mark and strands the recovery inflow as unassigned assets
+- 99973 [SC-Low] Passive protocol treasury activation alters execution config hash, leading to deterministic theft of trader bounties and permanent loss of position protection
+- 99974 [SC-Low] Unconditional `engine.creditBounty` call on self-triggered position protection prematurely strips PnL pledge, bypasses `MED-9` `closeLimits`, and corrupts `OrderFinalized` receipts
+- 99975 [SC-Low] Any order execution makes every trader's stop-loss and take-profit creation revert until someone pays a fresh mark update, which an unprivileged actor can trigger on demand (griefing)
+- 99978 [SC-Low] Historical order execution advances `CfdEngine.lastMarkTime` without updating `PletherOracle._acceptedBasket`, causing `oracle.getLatestPrice` to revert with `PletherOracle__PriceOutOfOrder` and bricking `replacePositionProtection`
+- 99981 [SC-Low]  Final principal atom erases remaining Senior recovery rights
+- 99982 [SC-Low] TrancheVault.requestRedeem lets any share owner name another account as controller, so a 1 wei request blocks that account's redeem and withdraw until it claims a refund that restarts its cooldown
+- 99999 [SC-Low] TrancheVault: a one-share-wei redeem request filed in another LP's name blocks that LP's standard claims on a funded redemption, and clearing it restarts the LP's one-hour cooldown
+- 100013 [SC-Low] Recapitalization on a wiped book silently resets `seniorHighWaterMark` — senior LPs permanently lose their restoration entitlement and every subsequent revenue inflow is diverted to junior LPs
+- 100022 [SC-Low] Committing an open order collects carry from the account without applying the order's maxGrossAccountDebitAssets and maxActionChargeAssets
+- 100028 [SC-Low] A one-atom recovery boundary resets surviving Senior LPs' high-water mark and redirects 500,000 USDG of recoverable funds to withdrawable Junior principal
+- 100037 [SC-Low] Partial Senior redemption erases recovery owed to surviving shares
+- 100058 [SC-Low] Execution-config digest docs omit that a scheduled treasury activation changes `currentExecutionConfigHash()` with no transaction, terminating every pending config-pinned order (`OrderLifecycleBook.sol`)
+- 100065 [SC-Low] CfdEngineAdmin and MarginClearinghouse omit the renounceOwnership guard already applied to three sibling contracts, permanently disabling timelocked admin configuration
+- 100068 [SC-Low] Scheduled treasury succession flips `currentExecutionConfigHash` by clock alone; `clearInvalidOrders` pays the victim's trader-funded bounty to the pruning caller
+- 100071 [SC-Low] The Engine still accepts `renounceOwnership()`, so after a renounce a degraded-mode latch blocks LP settlement and no account can clear it
+- 100077 [SC-Low] A full Senior exit at a dust principal strips the remaining Senior holders' high-water-mark protection, because the HWM is cut by assets paid while the redemption quote adds a virtual +1 asset
+- 100078 [SC-Low] Carry realized during order commit bypasses signed debit bounds and enables liquidation-bounty theft
+- 100091 [SC-Low] A one-atom Senior redemption erases the Senior high-water mark and routes future restoration value to Junior
+- 100098 [SC-Low] Oracle state mismatch after an order fill blocks stop-loss and take-profit creation or replacement
+
+</details>
+
+<details>
+
+<summary>Insight</summary>
+
+- 97618 [SC-Insight] Matured LP deposit requests have no cancellation path while activation is deferred — extend the Senior hold-escape to all deferral causes and both tranches
+- 97619 [SC-Insight] `HousePool` and `MarginClearinghouse` can recover mistakenly sent tokens, but `TrancheVault` has no rescue path, so USDG or ERC-20s sent to it are stuck forever
+- 97644 [SC-Insight] `setTerminalNavBook` does not validate the book's size quantum, contrary to its NatSpec and SECURITY.md
+- 97668 [SC-Insight] TrancheVault totalAssets / convertToAssets flip between two NAVs on the 60 s mark-freshness clock, dropping collected revenue and hiding LP losses
+- 97669 [SC-Insight] Harmonise the free-cash floor across the four `HousePool.payOut` callers: the open-path rebate is the only one that does not apply it
+- 97689 [SC-Insight] FrozenCloseSpreadSettled reports the whole frozen spread as waived even when LPs retained part of it through the VPI rebate netting
+- 97723 [SC-Insight] Caching Loop Boundaries and Host State Eliminates Redundant STATICCALLs in Batch Execution Loop Saving ~56% Gas
+- 97743 [SC-Insight] TrancheVault: repeated wipe recovery overflows bootstrap share supply
+- 97793 [SC-Insight] `PletherOracle._invertPythPrice` rounds half-up at 1e-26 and then floors to 1e-8, so inverted basket components are always truncated
+- 97794 [SC-Insight] `IPletherOracle` NatSpec contradicts the implementation: snapshot `publishTime` is the newest component time (since the MED-23 fix), and empty payloads are valid replays
+- 97796 [SC-Insight] OrderRouter NatSpec says the oracle refunds excess ETH, but the Router refunds it into a ledger that emits no credit event
+- 97800 [SC-Insight] Correct the liquidation documentation: excess price loss is written off, not booked as protocol bad debt
+- 97871 [SC-Insight] Liquidation plan decides "claim" using stale keeper carry, but live execution realizes the keeper's carry first and pays cash, so `planLiquidation` and the executed liquidation disagree
+- 97901 [SC-Insight] Guardian settlement-hold NatSpec says LP request admission is unaffected, but the hold closes Senior admission and unlocks committed Senior deposits
+- 98151 [SC-Insight] Deferred-ETH refund mechanism in OrderRouterAdmin omits lifecycle events (credit + self-claim), inconsistent with the protocol's own PletherOracle precedent, leaving off-chain monitors unable to detect failed/deferred user refunds
+- 98187 [SC-Insight] A rejected deposit epoch or a refund-only redeem epoch stays at the head of the controller's queue, so the standard ERC-4626/7540 claim surface reports 0 and reverts while a later epoch of the same controller is already claimable
+- 98248 [SC-Insight] Whitepaper promises pre-maturity cancellation of firm Senior deposits
+- 98249 [SC-Insight] SECURITY.md says frozen closes retain confidence validation, but the oracle replays a cached mark
+- 98253 [SC-Insight] Flawed validation on order admissions for opposing sides when failure is predictable
+- 98314 [SC-Insight] Direct donations to `TrancheVault` remain unaccounted and cannot be recovered, unlike `HousePool`
+- 98370 [SC-Insight] Docs and NatSpec disagree with the code on settlement-hold request gating, the router ETH-refund ledger, and Senior deposit cancellation
+- 98439 [SC-Insight] PriceSnapshot NatSpec labels the newest component timestamp as the earliest
+- 98441 [SC-Insight] Remove the unreachable HousePool reconciliation entrypoint to recover 100 runtime bytes
+- 98532 [SC-Insight] Clarify that uncovered carry blocks partial close commitment instead of remaining unsettled
+- 98536 [SC-Insight] Opens whose execution window crosses the FAD start can be liquidated as soon as FAD begins, with no price move
+- 98538 [SC-Insight] Withdrawal guard interfaces omit four blockers and misstate flat-account and margin behavior
+- 98539 [SC-Insight] Reuse the deposit preflight's terminal-wipe result to save 49,256 gas on a Senior request
+- 98540 [SC-Insight] Remove the always-no-op senior-coupon checkpoint helper to recover 127 HousePool runtime bytes
+- 98660 [SC-Insight]  Frozen-close spread attribution ignores negative VPI, so every skew-reducing frozen close reports `|vpiDelta|` of a fully collected spread as "waived"
+- 98757 [SC-Insight] Two interface NatSpecs contradict the implementation: `PriceSnapshot.publishTime` is the newest component time, not the earliest, and the withdraw guard does not pass every account without a position
+- 98809 [SC-Insight] Settlement-hold NatSpec gives conflicting request-admission rules across tranche and request type
+- 98815 [SC-Insight] Document the valid empty-payload replay branches in the public oracle interface
+- 98816 [SC-Insight] Document Paused in IProtocolViews instead of describing every remaining phase as Active
+- 98820 [SC-Insight] Document that frozen, degraded, and terminal-deficit states reject LP entry requests
+- 98898 [SC-Insight] Terminal receipts stamp the L1 ancestor block on Arbitrum, diverging from the L2 commit block
+- 99005 [SC-Insight] Already-expired predecessor close stays linked, admitting a doomed reversal open whose victim-funded execution bounty an unrelated public keeper collects
+- 99154 [SC-Insight] HousePool.cancelPoolConfigProposal does not emit an event, breaking the consistent governance-event pattern used by all other admin cancel functions
+- 99180 [SC-Insight] deposit() is the only user-facing function on MarginClearinghouse without nonReentrant, breaking the contract's otherwise consistent reentrancy-guard pattern
+- 99192 [SC-Insight] ClosePreview.executionFeeAssets NatSpec says the fee is assessed, but the field returns the capped and credited value, which is zero when a VPI rebate absorbs the fee
+- 99199 [SC-Insight] IPletherOracle.PriceSnapshot.publishTime is documented as the earliest component publish time, but the implementation returns the newest
+- 99367 [SC-Insight] No contract can call HousePool.reconcile(), yet its NatSpec and the security notes describe it as a live vault hook
+- 99388 [SC-Insight] CEI deviation in `CfdEngine.settleTraderClaim`: claim ledger is decremented after the external payout
+- 99417 [SC-Insight] Liquidations have no sequencer-downtime grace period, although the repository's spot package already implements one with a sequencer uptime feed
+- 99452 [SC-Insight] PositionProtectionBook.StoredProtection can be packed into 11 slots instead of 12
+- 99453 [SC-Insight] Repeated curve and carry work adds 51,574 gas to live-position withdrawals
+- 99454 [SC-Insight] Repeated borrow-base sync adds gas to valid close commitments
+- 99598 [SC-Insight] Liquidation previews understate the account's post-liquidation settlement by the keeper share when the account liquidates itself
+- 99749 [SC-Insight] MarginClearinghouse.deposit(address,uint256) is the only user-facing margin entry lacking the nonReentrant guard applied to all four sibling deposit/withdraw functions
+- 99769 [SC-Insight] Four identical Pyth-fee quote-and-require blocks in OrderLiquidationBatchLogic can share one helper
+- 99880 [SC-Insight] Senior pending-deposit cancellation is unconditionally blocked, contradicting the whitepaper's promise of pre-maturity cancellation
+- 99916 [SC-Insight] Missing per-leg price bounds in PletherOracle allows extreme Pyth quotes (price = 1) to silently distort the basket mark
+- 99918 [SC-Insight] The MED-14 fix counts an expired queued open as live exposure: a flat trader's opposing open is refused until the dead order is pruned
+- 99962 [SC-Insight] CfdEngineLens.previewClose reports the execution fee net of the VPI rebate, contradicting its documented field and overstating close proceeds
+- 99983 [SC-Insight] Self-liquidation makes the liquidation preview understate the final account settlement by the keeper bounty
+- 100049 [SC-Insight] Full-balance redemption exemption is checked after, not before, a fallible Pool pricing view
+- 100060 [SC-Insight] Whitepaper documents a Senior-capacity cancellation escape that cancelPendingDeposit does not implement
+- 100061 [SC-Insight] LP settlement hold is documented as stopping Senior requests, but Senior `requestRedeem` is still admitted and cannot be funded until the hold is released (`TrancheVault.sol`)
+- 100063 [SC-Insight] `MarginClearinghouse.deposit(address,uint256)` is the only custody-changing user entry point without `nonReentrant` (`MarginClearinghouse.sol`)
+- 100082 [SC-Insight] Queued-position projection walk pays two unused clearinghouse reservation reads per pending order
+- 100084 [SC-Insight] Realized carry settlement routes through the engine before reaching the pool, adding an unnecessary transfer
+- 100085 [SC-Insight] A matured Junior LP deposit can neither activate nor be cancelled during degraded mode or an oracle freeze, temporarily freezing segregated escrow
+- 100103 [SC-Insight] RiskParams occupies ten storage words, though seven of its ten fields are tightly bounded enough to pack into one
+- 100111 [SC-Insight] RouterAdmin's ETH ledger lifecycle is missing deferred-refund credit and self-claim events
+- 100115 [SC-Insight] Enforce Engine, Clearinghouse, and Router host-ABI conformance at compile time
+
+</details>
+
+## Reports by Type
+
+<details>
+
+<summary>Smart Contract</summary>
+
+- 97590 [SC-High] Fully margined hedged pair lets any trader latch degraded mode and freeze LP deposits and trader margin
+- 97591 [SC-Critical] HousePool prices Junior entry and exit with open positions' refundable VPI in NAV, so a trading LP takes incumbent Junior principal each cycle
+- 97592 [SC-High] Permissionless atomic protection retries prevent owners from repairing close limits and freeze position margin for over 24 hours
+- 97595 [SC-Critical] An LP who also trades can take other junior LPs' principal by moving junior NAV around its own epoch deposit or redemption
+- 97596 [SC-High] A hedged trader can latch degraded mode on demand, freezing every LP settlement and every trader's margin withdrawal, and can re-latch immediately after the owner recapitalizes and clears it
+- 97598 [SC-High] Permissionless terminalize-plus-retry consumes the protection owner's amendment state
+- 97599 [SC-High] Permissionless retryPositionProtectionClose lets anyone deny a trader the only remedy for a latched stop-loss, locking the account out of every exit until liquidation
+- 97600 [SC-Low] Anyone can plant a zero-value redeem request under another LP's name, so the victim's ERC-7540 redeem, withdraw, maxRedeem and maxWithdraw all report zero or revert over a fully funded claim
+- 97601 [SC-Medium] CfdEngine's whole-UTC-day calendar cannot follow Pyth's December 24 and 31 FX early close, freezing open positions' funds and matured LP redemptions for about 7 hours
+- 97602 [SC-Low] A scheduled treasury rotation changes the execution config hash with no transaction, so every pinned pending order becomes clearable by anyone and the clearer is paid each victim's open bounty
+- 97603 [SC-Medium] executeOrderBatch reverts as a whole whenever Pyth component publish times differ, because batch cache reuse checks every stored feed against the newest component time
+- 97605 [SC-Medium] Open admission spends cash already owed to open winners, so one same-price close latches degraded mode and blocks all new trading
+- 97606 [SC-Medium] Incorrect stored-feed coverage check in batch cache reuse causes executeOrderBatch to revert and roll back executed orders on any unequal-time Pyth basket
+- 97608 [SC-Critical] Plether Perps: returnable positive VPI booked as distributable LP equity lets a redeeming LP cohort export the close-side rebate onto the remaining junior tranche
+- 97610 [SC-Low] LOW-59 fix is incomplete: `CfdEngine` and `CfdEngineAdmin` still allow `renounceOwnership()`, which makes degraded mode permanent
+- 97615 [SC-High] Unprivileged attacker can permanently pre-empt the owner-only amendLatchedPositionProtectionCloseLimits remedy, locking a trader out of their triggered TP/SL position
+- 97618 [SC-Insight] Matured LP deposit requests have no cancellation path while activation is deferred — extend the Senior hold-escape to all deferral causes and both tranches
+- 97619 [SC-Insight] `HousePool` and `MarginClearinghouse` can recover mistakenly sent tokens, but `TrancheVault` has no rescue path, so USDG or ERC-20s sent to it are stuck forever
+- 97620 [SC-Critical] Booked VPI charge is not reserved against its later rebate: a junior LP can exit at a higher share price and re-enter
+- 97621 [SC-Critical] Refundable VPI sits in Junior NAV, so an LP exit settled before the close leaves the remaining LPs funding the rebate
+- 97622 [SC-Low] PositionProtectionBook: stale accepted-basket check after order fills makes stop-loss creation revert
+- 97625 [SC-Critical] Refundable positive VPI is counted in LP NAV when collected, so LPs who exit at high skew take value that the remaining Junior LPs later rebate to traders
+- 97626 [SC-High] Permissionless retry locks a latched protection's owner out of every exit for over 24 hours
+- 97628 [SC-High] Near-zero junior principal lets any depositor overflow the junior deposit quote and freeze all LP epoch settlement, including senior redemptions
+- 97632 [SC-Medium] Stale storage-coverage check in PletherOracle batch cache reuse makes executeOrderBatch revert (StoredFeedBehind) on any natural Pyth component skew, breaking keeper batch execution
+- 97635 [SC-Medium] Inconsistent storage-coverage check on batch price reuse makes executeOrderBatch revert on the Router's own valid cache whenever basket component times differ
+- 97636 [SC-Critical] Refundable open-VPI is booked into Junior NAV, so an LP who also trades can round-trip around its own redemption and take other Junior LPs’ principal
+- 97637 [SC-Low] Scheduled treasury activation silently changes the execution-config hash and voids every queued pinned order
+- 97640 [SC-Medium] Whole-UTC-day holiday overrides cannot match Pyth's New York-time FX closures, freezing the market while Pyth is live and letting losing traders close at a stale mark against LPs
+- 97643 [SC-Medium] Batch cache reuse skips the Oracle's stored-feed coverage check, so a staggered basket reverts the whole `executeOrderBatch` instead of falling back to a fresh parse
+- 97644 [SC-Insight] `setTerminalNavBook` does not validate the book's size quantum, contrary to its NatSpec and SECURITY.md
+- 97649 [SC-Medium] Missing keeper != account check plus under-priced liquidation lets a trader liquidate their own position as a fee-free exit, bypassing the 50 bps frozen-close spread, the 4 bps execution fee and close VPI every weekend
+- 97650 [SC-Low] The #120 fix leaves every zero-fee publish-order consumer unavailable after any delayed-order execution
+- 97655 [SC-Medium] Missing keeper-identity check in MarginClearinghouse lets a trader liquidate themselves and keep the keeper’s share of their own liquidation penalty
+- 97657 [SC-Critical] Positive VPI is booked into Junior LP NAV but refunded on close, so a Junior LP redeems the lift and takes other LPs' deposited funds
+- 97661 [SC-Low] Dead fallback in PositionProtectionBook lets any trader block TP/SL creation after every order execution
+- 97663 [SC-Critical] VPI float lets an exiting junior LP take principal from remaining LPs
+- 97667 [SC-Critical] Junior LP redemption settled between a VPI charge and its rebate is priced on a temporary NAV lift, letting a redeeming LP take funds from remaining LPs
+- 97668 [SC-Insight] TrancheVault totalAssets / convertToAssets flip between two NAVs on the 60 s mark-freshness clock, dropping collected revenue and hiding LP losses
+- 97669 [SC-Insight] Harmonise the free-cash floor across the four `HousePool.payOut` callers: the open-path rebate is the only one that does not apply it
+- 97670 [SC-Critical] Collected VPI charges counted as LP equity while still refundable let a redeeming LP take other LPs' funds
+- 97673 [SC-High] Permissionless protection retry can pin a latched stop-loss and block owner recovery and full-position exit
+- 97674 [SC-High] Anyone can keep a `Latched` TP/SL permanently in flight via `retryPositionProtectionClose`, locking the trader out of amend, cancel and every close path while their margin stays pledged and liquidation remains live
+- 97675 [SC-High] Permissionless protection retries deny owners their stale-limit recovery window
+- 97677 [SC-Critical] Uncollected flat-short receivable is paid from the other junior's cash
+- 97680 [SC-High] Any unprivileged account can force degradedMode with a balanced long/short book, freezing LP capital and trader collateral until the owner injects capital
+- 97682 [SC-Critical] LP NAV leaves out the VPI rebate that every skew-reducing position must return to the pool, so Junior deposits activated while such a position is open take value from existing Junior LPs
+- 97689 [SC-Insight] FrozenCloseSpreadSettled reports the whole frozen spread as waived even when LPs retained part of it through the VPI rebate netting
+- 97690 [SC-Critical] VPI excluded from LP NAV but always reversed by the lifetime clamp lets an LP time its own position around epoch boundaries to take incumbent Junior funds
+- 97693 [SC-Medium] Batch cache reuse reverts on spread baskets (StoredFeedBehind); the router's documented fallback never runs
+- 97695 [SC-Critical] Junior LP exits are priced on a VPI charge that is refunded at close, letting a trader-LP take other Junior LPs' principal
+- 97696 [SC-Low] Anyone can poison an LP's withdrawal queue with a 1-wei redeem request, bricking their standard redeem/withdraw interface and forcing a 1-hour wallet-wide lock to clear it
+- 97698 [SC-Critical] Junior LP can steal other Junior LPs' funds by redeeming at a NAV inflated with its own refundable VPI
+- 97699 [SC-Low] Protocol treasury is part of the execution config digest but resolves by timestamp, so a scheduled rotation silently invalidates every pending config-pinned order and can cost traders their position margin
+- 97701 [SC-High] permissionless `retryPositionProtectionClose()` re-queues a rejected stop-loss close before its owner can amend it, freezing the position and its margin for more than 24 hours
+- 97709 [SC-Low] Anyone can plant an unclaimable redeem lot at the head of an LP's queue; clearing it restarts the LP's cooldown
+- 97711 [SC-Critical] Refundable VPI open charge is booked as realised LP revenue in HousePool, so any LP can inflate tranche NAV at epoch settlement and redeem other LPs' principal
+- 97714 [SC-Critical] Junior LP NAV counts refundable VPI charges as revenue, letting an attacker redeem at an inflated price and steal other LPs' principal
+- 97715 [SC-Low] Recap after a full tranche wipe resets the Senior high-water mark, diverting Senior restoration value to wiped Junior
+- 97717 [SC-Critical] Incorrect LP NAV accounting for reversible VPI enables repeatable theft of incumbent LP principal
+- 97722 [SC-Critical] Refundable opening VPI enters Junior NAV and lets an LP/trader take other LPs' USDG
+- 97723 [SC-Insight] Caching Loop Boundaries and Host State Eliminates Redundant STATICCALLs in Batch Execution Loop Saving ~56% Gas
+- 97724 [SC-Critical] Redeeming Junior shares before closing one's own position makes the remaining Junior LPs pay back its VPI
+- 97728 [SC-High] `payOut` spends recapitalization cash without reducing `pendingRecapitalizationAssets`, so that memo stays pending after its cash has left custody
+- 97729 [SC-Critical] Open-time VPI is booked as LP revenue while the matching close rebate is never reserved, so a Junior LP who also trades redeems in between and takes the rebate out of the remaining LPs' principal
+- 97733 [SC-Low] Committed minority-side increases can be cancelled after the fill print for 0.20 USDG: CfdEngine funds VPI reserve from free settlement withdrawable from MarginClearinghouse
+- 97734 [SC-Critical] Cross-tranche LP rotation captures a VPI clawback and shifts the later rebate loss to existing Junior LPs
+- 97737 [SC-High] Anyone can keep re-queuing a failing protection close, so its owner cannot amend the limits or exi
+- 97743 [SC-Insight] TrancheVault: repeated wipe recovery overflows bootstrap share supply
+- 97744 [SC-Medium] During the oracle freeze, being liquidated costs less than closing, and the owner can liquidate itself on purpose
+- 97748 [SC-Medium] VPI rebate is netted against the protocol execution fee on skew-reducing closes, so the treasury loses up to the entire close fee (griefing / damage to the protocol)
+- 97755 [SC-Medium] Carry-timed self-liquidation during the frozen weekend exits at the stale Friday mark for ~7.5 bps, bypassing the 50 bps LP-owned frozen-close spread
+- 97760 [SC-High] A leftover `pendingRecapitalizationAssets` residual reserves LP free cash and makes `settleLpEpoch` revert every time, so LP exits stay frozen after an honest recapitalization
+- 97763 [SC-High] An untrusted zero-net-exposure hedged pair latches `degradedMode` on a ~1% move; LP settlement, deposits and new opens then stay blocked until the owner clears it, even after the book is flat and solvent
+- 97766 [SC-Low] Protection create and replace revert after any live order fills until the next mark refresh, because the MED-28 fix rejects a state its own guard accepts
+- 97770 [SC-Critical] Positive VPI from an open position is counted as distributable Junior NAV, letting an LP-trader redeem above fair value and take principal from other Junior LPs
+- 97772 [SC-Medium] Self-liquidation during oracle-frozen windows bypasses the LP-owned frozen-close spread
+- 97783 [SC-High] Permissionless retries of a failed protection close can indefinitely block the owner's limit amendment, forcing a worse exit
+- 97784 [SC-Critical] Attacker extracts refundable VPI from a pending Junior LP depositor through epoch-timed redemption
+- 97789 [SC-High] MED-9 fix incomplete: permissionless retryPositionProtectionClose keeps the owner-only amend gate closed, so a failing stop-loss is pinned until the trader is liquidated (griefing)
+- 97792 [SC-Low] Any address can insert a request at the head of another controller's queue, and the ERC-4626 claim entrypoints and `max*` views only read that head
+- 97793 [SC-Insight] `PletherOracle._invertPythPrice` rounds half-up at 1e-26 and then floors to 1e-8, so inverted basket components are always truncated
+- 97794 [SC-Insight] `IPletherOracle` NatSpec contradicts the implementation: snapshot `publishTime` is the newest component time (since the MED-23 fix), and empty payloads are valid replays
+- 97795 [SC-Medium] Batch cache reuse checks every Pyth feed against the newest component time, so executeOrderBatch reverts for valid orders when basket components have different publish times
+- 97796 [SC-Insight] OrderRouter NatSpec says the oracle refunds excess ETH, but the Router refunds it into a ledger that emits no credit event
+- 97800 [SC-Insight] Correct the liquidation documentation: excess price loss is written off, not booked as protocol bad debt
+- 97801 [SC-Medium] Make terminal close and liquidation accounting coalition-neutral when the trader controls the keeper
+- 97802 [SC-High] Permissionless atomic retries consume the Latched amendment window and lock protected position margin
+- 97803 [SC-Critical] Refundable VPI charge is booked as Junior NAV at open, so a Junior LP can redeem at an inflated price and leave the refund to the remaining Junior LPs
+- 97807 [SC-Low] An incomplete ownership-renunciation fix can permanently freeze matured but unfunded LP redemptions
+- 97810 [SC-Critical] Exit pricing ignores pending VPI rebates in HousePool LP epoch settlement, leading to theft of LP funds
+- 97812 [SC-Critical] Skew-reducing open rebates are paid from pool cash but excluded from LP NAV, letting a depositor activate Junior shares at a discount and dilute incumbent LPs
+- 97814 [SC-High] Permissionless protection retry blocks the owner's latched close-limit amendment and locks the trader in the position
+- 97816 [SC-Critical] LP who is also a trader books its own VPI into Junior NAV, redeems it, and makes the remaining LPs pay the rebate
+- 97823 [SC-Critical] Unreserved refundable positive VPI in Junior NAV lets an LP-trader redeem at an inflated price, taking unclaimed yield from honest Junior LPs
+- 97825 [SC-Medium] Open-entry solvency accounting treats realizable winner PnL as free liquidity, allowing a same-price close to halt new trading
+- 97826 [SC-High] Third party can latch owner-only degraded mode, freezing LP settlement
+- 97827 [SC-High] Latched position-protection can be held un-closeable indefinitely by a permissionless, zero-cost retry race
+- 97830 [SC-Low] Stop-loss/take-profit creation, replacement and protected opens revert with `PriceOutOfOrder` after any delayed-order fill, until someone pays for a separate live price refresh
+- 97831 [SC-Medium] Open and close handle the treasury's 4 bp fee differently under a VPI rebate: open credits the full fee, close nets the rebate against it, so the two paths disagree
+- 97832 [SC-High] Permissionless hedged book can latch sticky degradedMode and freeze LP settlement on a solvent pool
+- 97833 [SC-Low] Increase commits collect carry outside pinned limits: Contract fails to deliver promised returns, but doesn't lose value
+- 97834 [SC-Critical] VPI cash is priced into LP NAV but its refund is not, so a large Junior LP can redeem at an inflated price
+- 97835 [SC-Medium] Router `executeOrderBatch` deterministically reverts on honest mixed-time Unique baskets and rolls back earlier fills
+- 97836 [SC-Low] executeLiquidationBatch stops at index 0 on every call when the calling keeper holds a position, because the per-item gas budget omits the keeper's curve sync and carry realization
+- 97839 [SC-Medium] `executeOrderBatch` reverts the whole batch when a reused price basket's components carry different publish times and Pyth storage has not been refreshed
+- 97841 [SC-Critical] Junior LP share price marks refundable positive VPI as equity, letting an LP-trader redeem it while remaining LPs fund the rebate (theft of LP value)
+- 97844 [SC-High] Repeated capped recapitalization erases Senior's recovery watermark
+- 97847 [SC-Low] Opening bounty reservation bypasses carry debit bounds
+- 97848 [SC-Medium] Temporary deficits transfer unassigned assets to LPs
+- 97849 [SC-High] Permissionless one-way `degradedMode` latch: a hedged pair freezes LP redemptions and deposits until the owner intervenes
+- 97850 [SC-Low] Anyone can plant zero-value redemption requests at the head of another LP's queue, disabling its ERC-7540 withdraw until it accepts a cooldown
+- 97857 [SC-Low] Anyone holding one share-wei can plant an unclaimable redeem lot at the head of an LP's queue; the LP must choose between a dead withdrawal path and a one-hour lock on her shares, every hour
+- 97858 [SC-Critical] Owner-controlled solvency check in OrderRouter.executeOrder lets a trader void and revive its own pending open, leading to direct theft of user funds from LPs
+- 97860 [SC-High] Residual recapitalization re-runs the empty bootstrap on every LP settlement, lowering the Senior high-water mark with no loss and shifting Senior recovery to Junior
+- 97861 [SC-Critical] LP deposit NAV ignores the certain clawback of a VPI rebate, so an attacker mints junior shares cheaply and dilutes existing junior LPs
+- 97862 [SC-Critical] Attacker takes Junior LP principal by depositing into the NAV dip that its own VPI rebate creates
+- 97863 [SC-Critical] An LP who is also a trader can mint Junior shares at a self-depressed NAV by round-tripping a VPI rebate around an LP epoch settlement, stealing principal from existing Junior LPs; the documented anti-sandwich clamp does not cover this path
+- 97864 [SC-High] Atomic order cleanup and permissionless retryPositionProtectionClose bypasses the MED-9 fix and locks triggered positions
+- 97866 [SC-Low] High-water-mark overwrite in HousePool recapitalization settlement (`HousePoolPendingPreviewLib.applyClaimantRecapitalizationIntent`) lets any `settleLpEpoch` caller move Senior LP principal to Junior LPs and to new unprivileged entrants.
+- 97871 [SC-Insight] Liquidation plan decides "claim" using stale keeper carry, but live execution realizes the keeper's carry first and pays cash, so `planLiquidation` and the executed liquidation disagree
+- 97873 [SC-High] Per-pass re-credit of the pending recapitalization bucket in HousePool settlement (`HousePool.sol:1833` cap plus reserve-ahead) lets any `settleLpEpoch` caller drain the owner recapitalization and Senior LP principal into Junior LPs
+- 97875 [SC-Low] PositionProtectionBook._freshProtectionObservation Calls oracle.getLatestPrice(MarkRefresh) Before _acceptedMarkInstalled(), Bricking TP/SL Creation, Replacement, and Attached-Open Commits After Any Historical Order Execution
+- 97876 [SC-High] Permissionless retry keeps a gapped stop-loss in `Triggered`, owner's MED-9 amend never lands and traders cannot exit
+- 97877 [SC-Medium] PletherOracle.updateBatchOrderExecutionPrice Checks _requireStoredFeedCoverage Against cache.publishTime Instead of cache.oldestPublishTime, Reverting executeOrderBatch With PletherOracle__StoredFeedBehind on Valid Multi-Feed Skew
+- 97881 [SC-High] Unredeemable Senior seed counted by the Junior withdrawal covenant in HousePool leads to temporary freezing of funds for at least 24 hours
+- 97883 [SC-Medium] Keeper batches revert and roll back valid fills whenever a basket's component ticks differ (regression from the newest-component-time change)
+- 97887 [SC-Critical] Refundable VPI priced as Junior NAV at LP epoch settlement allows a Junior LP to take the principal of remaining Junior LPs by redeeming between its own open and close
+- 97888 [SC-Critical] A Junior LP redeems at a NAV raised by its own refundable VPI charge, and the remaining Junior LPs pay for the refund
+- 97891 [SC-High] A second partial recapitalization reconcile resets the Senior high-water mark and moves restored Senior principal to Junior
+- 97892 [SC-Low] TrancheVault.requestRedeem accepts any controller, so a stranger can plant a refund-pending head on an LP's redeem queue
+- 97893 [SC-Low] Order execution applies the adverse confidence shift to the already-CAP-clamped price (execution/liquidation parity break)
+- 97901 [SC-Insight] Guardian settlement-hold NatSpec says LP request admission is unaffected, but the hold closes Senior admission and unlocks committed Senior deposits
+- 97903 [SC-High] Close VPI is unbounded at small nonzero net pool depth: a healthy close or keeper-triggered stop-loss loses the whole account balance in degraded mode
+- 97904 [SC-Medium] Batch historical-price cache reuse checks every feed against the basket's maximum component publish time instead of that feed's own time, spuriously reverting valid batch order executions at a measured, uncompensated cost
+- 97905 [SC-Critical] Refundable VPI inflates NAV, letting a Junior LP steal from other Junior LPs
+- 97906 [SC-Critical] Delayed orders fill at a stale Pyth tick at macro releases: repeatable, net-profitable LP extraction
+- 97910 [SC-Medium] Oracle-frozen exits bypass the LP-owned frozen close spread through a steered self-liquidation
+- 97912 [SC-High] Any caller can keep a Latched TP/SL protection permanently "Triggered" with stale close limits, locking the owner out of amending limits and closing the position
+- 97918 [SC-High] Unprivileged attacker can freeze all LP withdrawals on demand by arming CfdEngine's sticky degradedMode latch, leading to temporary freezing of funds for at least 24 hours
+- 97932 [SC-Low] Protocol treasury rotation silently invalidates pending protective closes, enabling liquidation and direct loss of the trader's margin
+- 97933 [SC-Critical] A skew charge booked as Junior equity at open is refunded at close, so a large Junior LP can exit at an inflated share price
+- 97938 [SC-Low] Scheduled protocol-treasury rotation fails every in-flight order at the lock expiry: opens forfeit their bounty, closes leave positions open
+- 97939 [SC-Medium] PR #120 (MED-23 fix) makes the Router's own mixed-time batch cache fail its stored-feed coverage check, reverting the whole `executeOrderBatch` instead of falling back to a fresh historical resolution
+- 97943 [SC-Critical] Omitted positive-VPI refund liability from LP NAV lets ownership rotation steal later LP principal
+- 97946 [SC-High] Permissionless retries can repeatedly preempt owner amendments to failed protection close limits
+- 97950 [SC-Critical] Refundable VPI is booked into LP NAV but not as a liability, so a Junior LP can redeem at an inflated share price and reclaim the charge from the remaining LPs (direct theft of LP principal)
+- 97954 [SC-High] Per-item solvency check inside a keeper-ordered liquidation batch latches degraded mode on a solvent book at the FAD window, freezing all LP deposits, redemptions and settlement until the owner intervenes
+- 97957 [SC-High] Close-time VPI charge is bounded only at exactly zero pool depth, so at attacker-tuned tiny non-zero depth a skew-increasing close is assessed many times the position's notional and seizes the trader's entire account into LP revenue
+- 97958 [SC-High] Residual pending recapitalization is reserved against cash that has already left the pool, so LP epoch settlement reverts with no-progress indefinitely and no permissionless action can clear it
+- 97960 [SC-Low] Unsolicited controller dust poisons LP redemption heads and makes cleanup reset the victim's cooldown
+- 97967 [SC-High] Third party can force a stop-loss latch and pre-empt the owner's standalone amendment via permissionless retry, blocking the exit
+- 97968 [SC-High] Incomplete MED-12 fix: after partial Senior impairment, later LP revenue displaces the owner's recapitalization into unassignedAssets
+- 97969 [SC-Critical] Lifetime VPI clamp is bypassed across roles: a trader who also makes the Junior deposit profits from the minority VPI depth attack
+- 97970 [SC-Low] Increase commitments collect accrued carry outside the caller's gross-debit and action-charge limits, and the authenticated receipt omits it
+- 97971 [SC-Low] Self-triggered position protection collects accrued carry outside the trader's retained close limits and the close's authenticated receipt
+- 97978 [SC-Low] Recapitalization after a total tranche wipe replaces the surviving Senior high-water mark with the recap size (knife-edge on juniorPrincipal == 0), silently handing the restoration entitlement to first-loss Junior LPs
+- 97979 [SC-Medium] Recovered execution fee on a net-rebate close is credited to nobody: the treasury receives no fee, the pool silently keeps it, and the receipts report it as never assessed
+- 97980 [SC-Low] Protection arming is blocked after every ordinary order execution because PositionProtectionBook's oracle read enforces publish order against the Engine mark
+- 97983 [SC-Critical] A skew-reducing open pays its VPI rebate out of pool cash while NAV ignores the guaranteed clawback, so a depositor can activate Junior shares inside a self-created NAV dip and take incumbent Junior LPs' funds
+- 97991 [SC-Low] Scheduled treasury rotation silently flips the pinned execution-config hash and terminally kills every in-flight pinned order, moving their reserved execution bounties to the cleanup caller
+- 97992 [SC-High] Permissionless atomic protection retries censor the owner's MED-9 limit amendment and freeze the position for over one hour
+- 98001 [SC-High] Permissionless protection retries can preempt limit repair and freeze trader collateral
+- 98002 [SC-High] Permissionless protection-close retry loop locks a trader out of amending limits, cancelling, or closing their position for over 1 hour
+- 98008 [SC-High] Permissionless protection retry can prevent the owner from amending close limits, freezing a position's margin
+- 98010 [SC-High] Permissionless retry can stop a trader from amending the close limits of a latched protection
+- 98012 [SC-High] Permissionless retry of a failed stop-loss blocks the owner from amending, locking the position
+- 98014 [SC-Critical] Oracle rotation resets accepted per-feed watermarks
+- 98017 [SC-High] Permissionless protection retries can consume the owner-only repair state and freeze exits for at least 24 hours
+- 98018 [SC-High] Permissionless expiry/retry race temporarily freezes part of trader margin for over one hour
+- 98019 [SC-High] Permissionless protection retry preempts the owner's amendment window and causes exit griefing
+- 98024 [SC-Critical] Refundable VPI inflates Junior redemption NAV before the trader reclaims it, letting a Junior LP/trader extract USDG from other Junior LPs
+- 98025 [SC-High] Recapitalizing after a trader-claim deficit leaves the injection pending after the claim is paid, so matured Senior redemptions cannot settle
+- 98028 [SC-Critical] Refundable positive VPI is counted in Junior NAV at open, so a large Junior LP can redeem at an inflated price and take the remaining LPs' principal when the position closes
+- 98030 [SC-Critical] A skew-reducing open's VPI rebate is paid from pool cash but its guaranteed clawback is left out of LP NAV, so a Junior deposit activated in that window takes value from existing Junior LPs
+- 98031 [SC-Critical] Open-side price-impact revenue is priced into the payer's own same-epoch LP redemption and then reclaimed as a close rebate, letting a dual-role LP and trader skim incumbent LP yield
+- 98032 [SC-Low] A trader with an open position can drop a pending increase after seeing its fill price by withdrawing the fee cash, turning a "binding" order into a free option against LPs
+- 98033 [SC-High] Atomic expire-and-retry keeps a triggered protection out of the Latched state, so the owner cannot amend close limits and the position stays locked for over an hour
+- 98034 [SC-Medium] Open admission spends cash already owed to open winners, so one same-price close latches degraded mode and blocks all new trading
+- 98035 [SC-Critical] Unclamped open rebate after a depth collapse takes the remaining junior's USDC
+- 98038 [SC-High] Permissionless retry chained with attempt termination denies the owner of a latched position protection its only amend window and locks the protected position for as long as a third party pays gas
+- 98039 [SC-Low] Committed open orders can be cancelled at no cost after their fill price is known, because any caller can shrink HousePool depth through OrderRouter.settleLpEpoch (incomplete fix of SC-M4 component 3)
+- 98040 [SC-High] Permissionless atomic protection retries can starve the owner's limit amendment and keep the position trade-locked
+- 98044 [SC-High] Coupon-reset Junior pricing exponentially amplifies share supply and freezes matured deposits
+- 98045 [SC-Critical] Repeated Junior entry around a VPI rebate round trip makes incumbent Junior LPs redeem below deposit
+- 98054 [SC-Low]  Trader can cancel a committed skew-reducing open after its fill price is known
+- 98055 [SC-Low] A legitimate treasury rotation voids an already-committed order, including a trader's own exit
+- 98056 [SC-Critical] Refundable VPI open charge booked as realized LP revenue in CfdEngineSettlementSidecar lets a dual-role LP+trader steal remaining LPs' principal by redeeming around the charge
+- 98057 [SC-Critical] Skew-reducing-open VPI rebate paid from pool cash with no receivable in `CfdEngineSettlementSidecar` lets an LP entering between the rebate and its clawback take incumbent LPs' principal
+- 98063 [SC-Low] Publish-order check in `PositionProtectionBook._freshProtectionObservation()` blocks TP/SL changes after a historical fill until the next live refresh
+- 98066 [SC-High] Pending recapitalization is not reduced when its cash pays trader claims, so every later reconcile re-applies it and cuts Senior's recovery target
+- 98069 [SC-Critical] Refundable VPI open charge inflates Junior NAV at redemption, letting an LP-trader take remaining Junior LPs' principal
+- 98076 [SC-Critical]  LP NAV counts refundable VPI charges as revenue, so a Junior LP who also trades can redeem above fair value and steal other Junior LPs' principal
+- 98079 [SC-High] Queued recapitalization is applied after later revenue, so the recap overflows into unassignedAssets and surviving Junior owners lose revenue the vendor's reference model gives them
+- 98081 [SC-High] # Repeated settlement of residual recapitalization erases Senior recovery priority and diverts trading revenue to Junior LPs
+- 98088 [SC-Low] LOW-59 fix is incomplete: `CfdEngine` and `CfdEngineAdmin` still allow `renounceOwnership()`, which makes degraded mode permanent
+- 98102 [SC-Critical] VPI charge captured by exiting Trader/LP is later refunded at a passive Junior LP's expense
+- 98114 [SC-Critical] LP ownership rotation lets a trader redeem positive VPI revenue and make a queued depositor fund the matching rebate
+- 98117 [SC-Critical] Omission of Backed VPI Rebate Reserves from HousePool NAV Enables Risk Free Yield Extraction and Dilution of Incumbent LPs
+- 98123 [SC-Critical] Close-path VPI refund is funded from the liability reserve because the refund obligation is never reserved, breaching the settlement buffer and latching degraded mode
+- 98125 [SC-High] Atomic protection retry preempts direct-EOA recovery, enabling griefing and avoidable liquidation
+- 98131 [SC-Low] Incomplete LOW-59 fix leaves CfdEngine ownership renounceable and can permanently freeze LP settlement
+- 98132 [SC-Critical] Immediate recognition of reversible VPI revenue lets a trader-LP extract new Junior LP funds
+- 98133 [SC-Critical] Junior LP redemption priced between an opening VPI charge and its same-position close rebate transfers principal from the remaining LPs to the redeemer
+- 98140 [SC-High] Junior Deposit Quote Overflow at Near-Zero Junior Principal in TrancheVault Lets an LP Freeze HousePool Redemption Funding
+- 98142 [SC-Medium] Skew-reducing closes net the VPI rebate against the execution fee, diverting the treasury's unclaimed fee yield to LPs
+- 98145 [SC-High] # Permissionless `retryPositionProtectionClose()` lets anyone block a non-batched `amendLatchedPositionProtectionCloseLimits()` and hold a failing stop open
+- 98151 [SC-Insight] Deferred-ETH refund mechanism in OrderRouterAdmin omits lifecycle events (credit + self-claim), inconsistent with the protocol's own PletherOracle precedent, leaving off-chain monitors unable to detect failed/deferred user refunds
+- 98153 [SC-Critical] Enforce the Junior raw-plus-pending-fee supply bound across ordinary lifecycle paths
+- 98154 [SC-High] Permissionless `retryPositionProtectionClose` lets anyone keep a protected trader from amending limits, cancelling, or closing (griefing)
+- 98155 [SC-Low] Timestamp-only treasury activation silently changes the execution config hash, so every pending pinned order fails terminally and its bounty goes to the keeper
+- 98158 [SC-High] Incomplete SC-L1 fix: repeated reconciliation steals Senior principal via zero-value Junior shares
+- 98162 [SC-Critical] LP/trader can withdraw positive VPI as Junior NAV and reclaim it as a close rebate
+- 98166 [SC-High] Permissionless retry lets anyone freeze a latched TP/SL position's collateral for 24+ hours, pre-empting the owner-only amendment added by the MED-9 fix
+- 98170 [SC-Low] Commit-time open preflight ignores the account's own queued opens, causing false rejections of valid increases and false acceptances that forfeit the execution bounty
+- 98171 [SC-Low] Anyone can plant a 1-share "dust" redeem in another LP's queue and block that LP's standard `redeem`/`withdraw` until the LP cleans it up
+- 98172 [SC-Critical] Unbounded Junior share amplification reaches terminal supply and permanently freezes LP funds
+- 98174 [SC-High] Replaying unchanged recovery buckets erases Senior restoration priority and pays Junior
+- 98177 [SC-Critical] Junior tranche NAV counts refundable virtual price impact as pool revenue, enabling direct theft of principal from the Junior holders who remain
+- 98178 [SC-High] Paying a trader claim leaves a phantom recapitalization reserve that freezes matured Senior redemptions
+- 98184 [SC-High] Permissionless Close Ordering Latches `degradedMode` With The Pool Solvent, Temporarily Freezing LP Redemptions
+- 98185 [SC-Low] Binding queued opens can be killed after the execution price is known, giving traders a near-free option against LPs
+- 98187 [SC-Insight] A rejected deposit epoch or a refund-only redeem epoch stays at the head of the controller's queue, so the standard ERC-4626/7540 claim surface reports 0 and reverts while a later epoch of the same controller is already claimable
+- 98190 [SC-High] Protection Retry Amendment Starvation
+- 98193 [SC-Low] Autonomous Timestamp-Driven CfdTreasury Rotation Mutates OrderLifecycleBook.currentExecutionConfigHash(), Terminating In-Flight Orders with Bounty Loss and Stripping Cancelled TP/SL Protection
+- 98197 [SC-Medium] executeOrderBatch reverts as a whole when it reuses a valid historical basket with unequal component publish times (coverage checked against the basket's newest component instead of each feed's own time)
+- 98198 [SC-Low] Carry collected when an increase order is committed bypasses the trader's pinned maxActionChargeAssets / maxGrossAccountDebitAssets and is missing from the commitment receipt
+- 98200 [SC-Low] assessCommittedOrder enforces close bounds in two passes, commitment carry only in the second: the public view and the authenticated receipt report a non-canonical constraint and an understated actual
+- 98202 [SC-High] Close VPI is uncapped when economic depth is tiny but non-zero, so a closing trader (or its keeper-triggered stop-loss) forfeits its whole settlement, which an attacker holding Senior shares then redeems
+- 98206 [SC-High] PositionProtectionBook: anyone can keep a failed stop-loss re-queued, so a sequential trader cannot amend its limits and margin stays locked (25 h)
+- 98209 [SC-Critical] assignUnassignedAssets mints Junior shares at zero NAV while the old shares are still outstanding, so one receiver takes the existing Junior holders' recovery
+- 98212 [SC-Critical] Refundable VPI open charge inflates LP NAV and is stolen via redeem-before-close
+- 98214 [SC-High] Owner rescue plus cash-paid trader claims leaves leftover credit that freezes Senior withdrawals
+- 98216 [SC-Critical] Refundable VPI counts as redeemable LP value, so an exiting LP takes a remaining LP's principal
+- 98217 [SC-Critical] Trader-LP exits Junior between VPI charge and rebate, taking principal from other Junior LPs
+- 98219 [SC-Low] A trader can make its committed order valid or invalid after seeing later prices (addMargin, withdraw, same-side order), so binding orders become free options even with a 60 s window and keeper-only execution
+- 98222 [SC-High] Permissionless protection retry preempts owner limit amendment and griefs protected closes
+- 98223 [SC-Low] Scheduled treasury activation invalidates queued close and protection orders without an activation transaction
+- 98232 [SC-Medium] Close-side VPI rebate is netted against the protocol execution fee: the trader is charged the fee, the treasury receives 0 (the open path tops it up), and CfdEngineLens.previewClose reports executionFeeAssets 0 against the receipt's full fee
+- 98236 [SC-High] Anyone can block the owner's only repair path for a Latched protection (incomplete MED-9 fix), keeping the trader locked in a losing position
+- 98238 [SC-Critical] Positive VPI is marked into LP NAV at open although the close returns it: any Junior LP redeeming in between withdraws its share, and the LPs present at the close fund the refund
+- 98239 [SC-Medium] holiday overrides keep stale-mark pricing through up to 22 hours of live Pyth trading, letting traders exit losing positions at the pre-holiday price and steal LP yield
+- 98248 [SC-Insight] Whitepaper promises pre-maturity cancellation of firm Senior deposits
+- 98249 [SC-Insight] SECURITY.md says frozen closes retain confidence validation, but the oracle replays a cached mark
+- 98253 [SC-Insight] Flawed validation on order admissions for opposing sides when failure is predictable
+- 98255 [SC-High] Anyone can re-queue a Latched TP/SL protection before the owner changes the limits, and keep the position open until liquidation
+- 98257 [SC-High] Phantom loss from recounting recapitalization residual lowers the senior high water mark that losses must never reduce
+- 98258 [SC-Critical] Bootstrap mint is quoted before the principal credit: `assignUnassignedAssets` on a wiped Junior tranche mints `amount × (totalSupply + 1000)` shares and permanently transfers the surviving LPs' entire forward revenue claim to the bootstrap receiver
+- 98267 [SC-High] Residual recapitalization bucket in HousePool settlement (`settleLpEpoch`) lets any matured Senior redemption revert all LP settlement (`HousePool__NoLpEpochProgress`), freezing LP deposits and withdrawals until the owner recapitalizes the full residual
+- 98268 [SC-Low] Post-wipe recap overwrites the kept Senior HWM in `HousePoolPendingPreviewLib.applyClaimantRecapitalizationIntent()`, handing Senior-owed LP revenue to Junior
+- 98269 [SC-High] Permissionless degraded-mode latch in CfdEngine (`_enterDegradedModeIfInsolvent`) lets any user freeze open-position bystanders' free settlement and all LP settlement for 24h+ by closing the winning leg of a hedged pair
+- 98273 [SC-Low] Order admission counts unreserved free settlement in OrderLiquidationBatchLogic._validatedOpenBounty, allowing any trader to cancel its own committed open at no cost after seeing the fill tick, so Junior LPs absorb only the fills that favour the trader
+- 98274 [SC-High] Residual Recapitalization Enables Direct Theft of Senior LP Funds
+- 98277 [SC-Critical] Attacker steals Junior principal by redeeming shares priced with VPI the pool later rebates to them
+- 98279 [SC-High] Owner forced to repeatedly recapitalize, traders' free margin frozen: by a hedged pair latching degraded mode
+- 98281 [SC-Medium] A close whose VPI refund exceeds its execution fee charges the trader the 4 bp fee but never credits it to the treasury; the pool keeps it
+- 98282 [SC-Critical] A Junior LP who also trades can inflate their own exit price with refundable VPI, and the remaining LPs pay the refund
+- 98283 [SC-High] # Permissionless protection retry keeps a position Triggered, locking the owner out of amend/cancel/close
+- 98284 [SC-High] One atom of claim-net depth turns a triggered take-profit into a charge of 21.6 times its own notional and takes the owner's entire settlement balance
+- 98285 [SC-Medium] Weekend self-liquidation skips the LP frozen-close spread
+- 98287 [SC-Critical] Junior exit is priced on refundable VPI so an LP who also trades takes value from the Junior LPs who stay
+- 98290 [SC-Critical] HousePool.assignUnassignedAssets inverted bootstrap mint confiscates surviving juniors' later trading revenue
+- 98293 [SC-Low] Open-order carry checkpoint bypasses the trader's charge limits
+- 98294 [SC-High] the owner's amend of a latched protection's close ceilings only works in a state any caller can keep from existing, so the documented remedy for a failing triggered close is blocked and the triggered position stays open for as long as the griefer continues
+- 98299 [SC-Critical] Junior deposits are priced without the reserve-backed negative-VPI clawback: an LP-trader buys Junior at a depressed NAV and takes incumbent principal (not fixed by the #97591 remediation)
+- 98300 [SC-High] post-recapitalization revenue is misrouted into `unassignedAssets`
+- 98311 [SC-High] Permissionless retry lets anyone block the owner from amending a latched protection's close limits
+- 98314 [SC-Insight] Direct donations to `TrancheVault` remain unaccounted and cannot be recovered, unlike `HousePool`
+- 98316 [SC-High] A hedged book's profitable close latches degraded mode while LP NAV rises, and LP settlement stays frozen after the positions are gone
+- 98319 [SC-Medium] Stale batch cache check on mixed-timestamp price baskets breaks batch execution and forces per-order keeper retries"
+- 98320 [SC-Low] Unconsented redemption-controller assignment poisons standard claims, and clearing the head restarts a cooldown
+- 98328 [SC-High] in a pool at admission capacity, one unprivileged smaller-side trader's profitable close latches `degradedMode` and freezes other users' pending LP deposits long after it has exited
+- 98332 [SC-Critical] Trader exits Junior at VPI-inflated NAV, then receives the same VPI rebate
+- 98337 [SC-Low] Engine renunciation permanently locks mature LP redemptions after recoverable containment
+- 98340 [SC-Medium] Trader-timed frozen liquidation lets a hedged trader exit at a stale mark, shifting value from LPs
+- 98346 [SC-High] Any trader can latch degraded mode with a hedged book and freeze all LP epoch settlement and pending deposits until the owner pays the shortfall
+- 98347 [SC-Medium] Frozen-window liquidation settles at the stale Friday mark with no spread, so a hedged trader can drop the losing leg of a weekend position at Friday's price and keep the winner for the gap
+- 98354 [SC-Critical] Junior LP entry omits a funded VPI clawback and diverts incumbent principal
+- 98355 [SC-Critical] Temporary Junior LP redeems its share of opening VPI before the trader receives the same charge back on close
+- 98356 [SC-Medium] Valid skewed Pyth basket is rejected on batch cache reuse, reverting earlier order execution
+- 98359 [SC-Medium] Closes that earn a VPI rebate credit the treasury none of the execution fee; the fee stays in LP assets
+- 98361 [SC-Critical] LP share prices count VPI that the position's close will refund, so an LP exiting at an hourly round takes value from the LPs who stay
+- 98365 [SC-High] Permissionless protection-close retry blocks owner limit amendment, freezing a trader's exit
+- 98366 [SC-Low] Account for carry in delegated order limits and authenticated receipts
+- 98370 [SC-Insight] Docs and NatSpec disagree with the code on settlement-hold request gating, the router ETH-refund ledger, and Senior deposit cancellation
+- 98371 [SC-Critical] Early Junior LP redemption captures refundable VPI charges and shifts rebate losses to incoming LPs
+- 98372 [SC-Medium] LPs lose the 50 bps frozen-close spread because a trader can make their own account liquidatable during the freeze and exit at the stale mark
+- 98375 [SC-Critical] Assigning unassigned assets at zero junior NAV pays the receiver the existing junior principal
+- 98377 [SC-Critical] Refundable positive VPI is priced into Junior NAV during LP epoch settlement, leading to direct theft of Junior LP funds
+- 98385 [SC-High] An unprivileged hedged position latches degraded mode while the pool is solvent, freezing LP settlement, pending-deposit cancellation and position-holders' withdrawals until the owner recapitalizes
+- 98391 [SC-High] Attacker-Induced DegradedMode Latch Blocks Innocent LP Redemptions via Sequential Hedge Settlement
+- 98392 [SC-Low]  Recapitalizing a fully wiped pool erases Senior's unrecovered principal and hands its recovery to Junior
+- 98394 [SC-High] An untrusted hedged pair latches degradedMode and freezes LP settlement, withdrawals, deposit/redeem cancels and new trading until owner intervention
+- 98398 [SC-High] Anyone can keep a Latched position protection re-queued with free retries, locking the owner out of amending, cancelling, or closing the position until it is liquidated
+- 98399 [SC-High] anyone can stop an owner from amending the close limits of a failed protection
+- 98402 [SC-High] Repeated reconciliation of partially settled recapitalization reduces Senior’s recovery priority
+- 98406 [SC-Low] LOW-59 fix is incomplete: CfdEngine can still renounce ownership, so the next degraded-mode latch can never be cleared and LP epoch settlement stops for good
+- 98407 [SC-Critical] # [HIGH] VPI reserve NAV exclusion lets a trader-LP steal incumbent LP revenue
+- 98416 [SC-High] Calendar override days adjacent to the weekend exceed fadMaxStaleness: frozen closes, liquidations, LP epoch settlement and withdrawals revert for 3–24 h (temporary freezing of funds)
+- 98417 [SC-Critical] Junior Share Supply Overflow
+- 98431 [SC-High] Repeated settlement double-counts pending rescue and lowers the Senior recovery target, sending later Senior income to Junior
+- 98433 [SC-Low] Missing receiver/controller-authorization check in requestRedeem lets an unprivileged attacker force any address into deposit cooldown, repeatably
+- 98437 [SC-Medium] Cache reuse can demand stronger feed coverage than its populating parse proved
+- 98438 [SC-High] Permissionless retryPositionProtectionClose pre-empts the owner-only latched-limit amendment, trapping a failed TP/SL close and griefing the trader
+- 98439 [SC-Insight] PriceSnapshot NatSpec labels the newest component timestamp as the earliest
+- 98441 [SC-Insight] Remove the unreachable HousePool reconciliation entrypoint to recover 100 runtime bytes
+- 98453 [SC-High] Owner-only `CfdEngine.clearDegradedMode()` lets an unprivileged trader freeze all LP exits for ≥ 24 h on a solvent pool
+- 98492 [SC-Medium] In a frozen (weekend) market a trader can exit through self-liquidation and skip the 50 bp frozen-close spread, paying about 1/5 of the price the spread was meant to charge
+- 98496 [SC-High] Permissionless `retryPositionProtectionClose` lets any third party keep a Latched protection owner from amending, cancelling or closing, because `amendLatchedPositionProtectionCloseLimits` needs `pendingOrderCounts(owner) == 0`
+- 98508 [SC-Medium] executeOrderBatch reverts when a later order reuses a basket whose feeds have different publish times
+- 98510 [SC-Critical] Exact-headroom Junior mint permanently poisons virtual-share pricing and freezes LP funds
+- 98513 [SC-Critical] Junior redeemer takes collected open VPI from HousePool before the close pays it back
+- 98514 [SC-Critical] LP share pricing ignores outstanding VPI, so a timed Junior LP entry or exit steals honest Junior principal
+- 98516 [SC-Low] TP/SL creation and replacement revert after a historical fill because the MED-28 fix added a check that contradicts _acceptedMarkInstalled()
+- 98520 [SC-Low] A scheduled treasury rotation silently flips `currentExecutionConfigHash()` at expiry, so every pending order is killed as `ConfigMismatch` and its 0.2 USDG bounty goes to the keeper; the trader cannot cancel or avoid it
+- 98527 [SC-Critical] Positive VPI counts as junior LP equity before it is refunded, so LPs who exit while a skew is open take value from the remaining junior LPs
+- 98532 [SC-Insight] Clarify that uncovered carry blocks partial close commitment instead of remaining unsettled
+- 98536 [SC-Insight] Opens whose execution window crosses the FAD start can be liquidated as soon as FAD begins, with no price move
+- 98538 [SC-Insight] Withdrawal guard interfaces omit four blockers and misstate flat-account and margin behavior
+- 98539 [SC-Insight] Reuse the deposit preflight's terminal-wipe result to save 49,256 gas on a Senior request
+- 98540 [SC-Insight] Remove the always-no-op senior-coupon checkpoint helper to recover 127 HousePool runtime bytes
+- 98542 [SC-Critical] assignUnassignedAssets bypasses the zero-NAV Junior entry check, letting the receiver withdraw existing Junior LPs' funds after recovery
+- 98543 [SC-High] Permissionless protection retry can be bundled with attempt terminalization to deny a Latched trader the documented amend remedy and hold the position open
+- 98547 [SC-High]  Recapitalizing during a terminal deficit leaves the trader-paid part pending as phantom LP value, freezing recovered LP capital and stalling LP settlement
+- 98549 [SC-Critical] Junior LP who also trades captures its own VPI charge as LP NAV on exit and gets it refunded on close, paid by the remaining junior LPs
+- 98552 [SC-High] Permissionless retry of a Latched stop-loss blocks the owner's amend
+- 98553 [SC-High] Hedged-pair degraded latch freezes LP deposit escrow for over 24h
+- 98556 [SC-Medium] MED-23 fix introduces a new bug: batch cache reuse checks Pyth storage against the newest component time, so `executeOrderBatch` reverts on honest baskets with unequal component times
+- 98557 [SC-Low] MED-28 fix introduces a new bug: `PositionProtectionBook` reads `getLatestPrice(MarkRefresh)`, so stop-loss / take-profit creation, replacement and protected opens revert after any delayed-order fill
+- 98559 [SC-High] Permissionless protection retries prevent owners from amending failed close limits, freezing position funds for over 24 hours
+- 98563 [SC-Critical] Unreserved VPI rebate lets an attacker-LP drain honest LP capital
+- 98565 [SC-High] Permissionless retryPositionProtectionClose keeps a latched protection re-queued with stale limits, so the owner can never amend them or exit the position
+- 98575 [SC-Low] Withdraw guard checks health at the neutral cached mark, but frozen-window liquidation applies a side-adverse shift to the same mark — a withdrawal-approved position is liquidatable in the same block
+- 98583 [SC-High] Two holiday override days before a weekend push the frozen mark past `fadMaxStaleness`, blocking closes, liquidations, margin withdrawals and LP settlement for 22 hours
+- 98594 [SC-High] Repeated LP settlements reuse recapitalization backing and redirect Senior recovery to Junior
+- 98596 [SC-Critical] Refundable positive VPI can fund an LP redemption and then be repaid from remaining LP backing
+- 98601 [SC-Low] Open/increase bounty reservation checkpoints and transfers accrued carry but reports a bounty-only commitment, bypassing both signed debit ceilings
+- 98602 [SC-High] Residual recapitalization reserve makes LP reconciliation depend on redemption progress
+- 98603 [SC-Low] Stranger-planted redeem head blinds a victim's ERC-7540 claim and imposes the LP cooldown
+- 98608 [SC-Critical] Positive VPI paid by an open position is priced into Junior NAV although the lifetime clamp returns it on that position's skew-restoring close, so a Junior LP can redeem at a self-inflated NAV and take incumbent Junior LPs' funds
+- 98615 [SC-Medium] Ownerless HousePool reserve is permanently consumed by an unrealized mark and its recovery is paid to Junior
+- 98619 [SC-Low] Scheduled protocol-treasury activation changes the execution-config hash by timestamp with no transaction, event or timelock: pinned pending orders fail as ConfigMismatch (open bounties go to the keeper) and commits built from the old hash are rejected
+- 98620 [SC-Medium] Incorrect fee accounting in the close planner nets the treasury's execution fee into the VPI rebate, so the protocol permanently loses all or part of the fee on skew-reducing closes
+- 98623 [SC-High] Owner-configured override days are UTC-day aligned, so a closure spanning a weekend keeps the oracle frozen for over 3 days: the stored mark passes fadMaxStaleness and closes, liquidations, LP settlement and refresh all revert StalePrice until it ends
+- 98640 [SC-Critical] The refundable positive-VPI float is unreserved and unmarked: an LP-trader can exit between the two legs of their own VPI round trip and steal incumbent LP NAV (and the same unbacked float drains the solvency base to latch degraded mode)
+- 98645 [SC-Medium] executeOrderBatch's historical-basket reuse rejects every legitimately skewed basket: multi-order batches revert whole, rolling back already-finalized orders and re-burning their gas on every attempt
+- 98647 [SC-Critical] HousePool counts refundable VPI in LP NAV, letting a Junior redeemer steal from remaining Junior LPs
+- 98649 [SC-Medium] Batch basket reuse skips the Pyth storage coverage check, so two same-second orders with an ordinary split-second basket revert every `executeOrderBatch` and roll back the orders already filled in it
+- 98650 [SC-Low] renounceOwnership() is still live on CfdEngine, MarginClearinghouse and CfdEngineAdmin while the other three owner contracts revert it
+- 98655 [SC-High] Permissionless protection retry lets anyone block the owner's limit amendment and keep a triggered stop-loss open
+- 98660 [SC-Insight]  Frozen-close spread attribution ignores negative VPI, so every skew-reducing frozen close reports `|vpiDelta|` of a fully collected spread as "waived"
+- 98667 [SC-High] Booked senior principal is paid to junior when the recap mark is replaced
+- 98680 [SC-Low] Post-wipeout recapitalization over-credits Senior beyond its high-water mark and inflates the HWM
+- 98687 [SC-High] Extra LP settlements after a recapitalization erase the Senior recovery target, so later LP revenue goes to Junior holders
+- 98689 [SC-Critical] A trader who is also a Junior LP can exit at an inflated share price and take the VPI back from the remaining Junior LPs
+- 98692 [SC-Low] `CfdEngine.addMargin()` has no pending-order check, so a trader decides after seeing the price whether its committed close fills
+- 98695 [SC-Medium] Valid Staggered Pyth Basket Causes Atomic Multi-Order Batch Revert and Keeper Gas Loss
+- 98701 [SC-Low] `CfdEngine` can still renounce ownership, so the next ordinary degraded-mode latch can never be cleared and LP capital is frozen permanently
+- 98703 [SC-Medium] the MED-23 fix made the cached basket time the newest component time but left the batch-reuse coverage check unchanged, so honest misaligned Pyth ticks revert the whole `executeOrderBatch` instead of falling back to a fresh resolution
+- 98706 [SC-Low] Unfunded equity bounds and later margin additions let traders selectively activate precommitted round trips at LP expense
+- 98707 [SC-Low] a pending recapitalization backs new trading exposure but is held out of the tranche waterfall, so a loss on that exposure zeroes an impaired Senior and the bootstrap branch resets the Senior high-water mark
+- 98708 [SC-Low] any order fill blocks every trader from arming, replacing or attaching a stop-loss or take-profit until someone pays for a separate live refresh, so a griefer can keep a victim's position unprotected by re-filling after each refresh
+- 98709 [SC-Medium] Trader-controllable liquidation eligibility during oracle freeze lets traders self-liquidate at the stale Friday mark, bypassing the LP-owned frozen-close spread and leading to griefing of LPs
+- 98711 [SC-Critical] Junior LP redeeming between its own open and close captures the refundable VPI from the Junior LPs who stay (remaining LP redeems below its deposit at an unchanged price)
+- 98712 [SC-High] Anyone can hold a triggered protection out of Latched and block the owner amendment and exit for over a day
+- 98713 [SC-High] Repeated partial recapitalization resets Senior's recovery target and pays later revenue to Junior
+- 98727 [SC-Low] Collected execution fee is reported fully recovered but its treasury delivery is cash-capped: the residual is credited to no party and survives the netting fix — a profit close at low pool cash strands the fee in pool custody
+- 98728 [SC-High] Close VPI is exempt only at exactly zero depth, so at small positive depth a minority-side full close can take the trader's whole account
+- 98732 [SC-Low] CfdEngine.addMargin lets a trader meet its pending order's equity or leverage bound after the price moves, leading to direct theft of user funds from LPs
+- 98734 [SC-High] Close VPI has no cap as net depth approaches zero, so a light-side full close can take the trader's whole clearinghouse balance
+- 98743 [SC-High] Trading revenue that lands before a queued recapitalization is reconciled is taken from surviving Junior LPs
+- 98750 [SC-High] Atomic public protection retries block EOA owner amendments and freeze margin for over an hour
+- 98751 [SC-High] Ordinary LP settlements erase Senior's principal-recovery target after a terminal-deficit recapitalization, so a Junior holder redeems the USDG that restores Senior principal
+- 98752 [SC-High] Public protection retries can interrupt EOA owner repair and increase closing losses
+- 98754 [SC-High] Near-zero Junior share inflation makes every `settleLpEpoch` overflow and freezes Senior redemptions for days
+- 98755 [SC-Low] Any order execution blocks TP/SL creation and stop-loss replacement for every account, and a stranger can keep it blocked at zero cost
+- 98757 [SC-Insight] Two interface NatSpecs contradict the implementation: `PriceSnapshot.publishTime` is the newest component time, not the earliest, and the withdraw guard does not pass every account without a position
+- 98759 [SC-Medium] Batch execution reverts in full when it reuses a historical basket with staggered component times
+- 98762 [SC-Low] Commit-time open admission uses the unshifted mark, so admitted opens fail at an unchanged price and forfeit their bounty
+- 98764 [SC-Low] Plether: anyone can plant a dust redeem request in another LP's claim queue and disable ERC-4626 redeem/withdraw
+- 98767 [SC-Medium] Plether: close-leg execution fees are kept by the LP pool instead of the protocol treasury whenever the close earns a VPI rebate
+- 98770 [SC-High] Plether: anyone can keep a triggered stop-loss or take-profit from being repaired by its owner, holding the position locked until liquidation
+- 98782 [SC-Low] Trader can turn a "binding" queued order into a free conditional fill by pinning an unattainable equity/leverage bound and toggling it with `addMargin` after seeing post-tick prices
+- 98785 [SC-Critical] Premature recognition of refundable positive VPI as Junior LP revenue and omission from withdrawal reserves leads to direct theft of remaining Junior LPs' principal*
+- 98789 [SC-Low] The MED-28 fix makes protection create, replace and attached open revert after an ordinary Router fill until a live mark refresh
+- 98790 [SC-Medium] Asymmetric mark to market write down of `unassignedAssets` in `HousePoolReconcilePlanLib.planReconcile()` lets Junior LPs withdraw ownerless recapitalization USDG
+- 98794 [SC-Critical] `assignUnassignedAssets` revives a wiped Junior tranche at a near-zero NAV, so any depositor buys the wiped holders' recovery and the receiver takes the rest
+- 98795 [SC-Medium] an open or increase never lowers the liquidation reserve to its new target, so collateral the spec defines as PnL pledge is held as reserve, positions are liquidated early and the excess is charged to the trader or taken from LPs
+- 98809 [SC-Insight] Settlement-hold NatSpec gives conflicting request-admission rules across tranche and request type
+- 98811 [SC-Low] Carry collected at an increase-open commitment escapes the trader's signed `maxGrossAccountDebitAssets` / `maxActionChargeAssets` bounds and is recorded as 0, while the same open's execution policy counts carry inside those bounds
+- 98812 [SC-High] A frozen-epoch Senior wind-down credits the 25 bps frozen fee to the permanently locked Senior seed, so the Junior withdrawal covenant traps the last Junior LP's matured redemption with no user-side exit
+- 98815 [SC-Insight] Document the valid empty-payload replay branches in the public oracle interface
+- 98816 [SC-Insight] Document Paused in IProtocolViews instead of describing every remaining phase as Active
+- 98818 [SC-Critical] Refundable VPI charge is recognised as distributable Junior LP NAV, letting an LP-trader extract from the remaining LPs
+- 98820 [SC-Insight] Document that frozen, degraded, and terminal-deficit states reject LP entry requests
+- 98822 [SC-Low] Routine or scheduled treasury rotation changes the execution-config digest, terminally fails pending orders, and pays the trader's bounty to the cleanup caller
+- 98823 [SC-High] Permissionless protection retry pins obsolete close limits and repeatedly denies the owner's amendment and exit window
+- 98825 [SC-High] Permissionless liquidation order leaves an owner-cleared degraded latch and freezes a mature third-party deposit
+- 98827 [SC-Medium] Keeper can lose an entire order batch to a revert on a valid mixed-time historical basket due to cache reuse checking stored feeds against the newest component time
+- 98828 [SC-High] LP can erase Senior restoration entitlement after a deficit recapitalization due to the residual recapitalization bucket being re-settled against restored Senior principal
+- 98834 [SC-Critical] An LP can mint Junior shares at a discount it creates itself by parking pool cash in its own VPI reserve
+- 98835 [SC-Critical] Junior deposit pricing in HousePool LP epoch settlement ignores the outstanding VPI rebate reserve, which leads to direct theft of incumbent Junior LP funds
+- 98837 [SC-High] Atomic expiry-and-retry rotation denies protected-position recovery and keeps margin locked beyond 24 hours
+- 98838 [SC-Low] A queued open is not binding: the trader decides after its fill price is public whether it stands (equity bound re-read after addMargin) and takes fast price moves from LPs for 0.20 USDG per attempt
+- 98840 [SC-Critical] Open-time VPI is counted in Junior NAV while it is still refundable at close: an LP who exits between a position's open and its close is overpaid, and the LPs who stay fund the rebate
+- 98841 [SC-Medium] Retained liquidation reserve allows premature liquidation and transfers a healthy trader's USDG to a permissionless keeper
+- 98842 [SC-High] A trader can latch degraded mode with a hedged pair and hold it, halting LP epoch settlement and freezing matured Junior deposit escrow until the owner recapitalizes
+- 98843 [SC-Low] Unconsented `controller` in `TrancheVault.requestRedeem` lets anyone block an LP's ERC-7540 claims and impose the LP cooldown on its shares, which the LOW-40 fix does not cover
+- 98845 [SC-High] An extra reconcile during recovery cuts the Senior high-water mark, permanently handing Senior LP principal to Junior
+- 98847 [SC-Critical] Junior LP can take other LPs' principal by redeeming at a share price inflated by its own VPI charge due to refundable VPI being booked as immediate LP revenue
+- 98849 [SC-High] Atomic expire-and-retry lets any outsider consume the owner-only Latched repair window
+- 98851 [SC-Low] Partial recapitalization after a full wipeout permanently erases the senior high-water mark, redirecting recovery entitlement from Senior to Junior LPs
+- 98854 [SC-Critical] Missing pending-order check in CfdEngine.addMargin lets a trader rescue an increase that fails its initial-margin check at its pinned price, leading to direct theft of user funds from LPs
+- 98857 [SC-Medium] Incorrect Timestamp Check in `PletherOracle.updateBatchOrderExecutionPrice()` Causes `executeOrderBatch()` to Revert on Multi-Feed Baskets, Breaking Batch Execution and Griefing Queued Orders
+- 98858 [SC-Critical] A skew-reducing open is paid its VPI rebate from LP cash while the reserve-backed clawback stays outside terminal NAV, so a timed Junior deposit enters below NAV and takes value from incumbent and same-epoch exiting Junior LPs
+- 98860 [SC-High] Replaying a partial recovery converts restored Senior principal into withdrawable Junior assets
+- 98865 [SC-Critical] Junior Share Underpricing During VPI Rebate Reserve Window Leads to Theft of Incumbent LP Principal
+- 98869 [SC-High] Close VPI counts the closer's own carry as pool depth (CfdEnginePlanLib.sol:638): a keeper close at zero economic depth takes the trader's whole balance for Junior LPs
+- 98870 [SC-Critical] Missing ordering state on oracle rotation in `OrderLiquidationBatchLogic.applyOracleConfig` allows any keeper to liquidate a healthy trader on a signed price older than the one the protocol already accepted
+- 98873 [SC-High] Incomplete recapitalization fix erases Senior recovery priority and transfers redeemable USDG to a Junior LP
+- 98875 [SC-Medium] Close execution fee offset by a VPI rebate is never credited to treasury, unlike on opens
+- 98877 [SC-Medium] A winning trader can exit an oracle frozen window through its own liquidation and skip the LP owned frozen close spread
+- 98883 [SC-Low] Timestamp activated treasury successor silently invalidates every pending order, letting anyone flush them for bounties
+- 98884 [SC-Low] Incomplete fix for Cecuro LOW-59: CfdEngine can still renounce ownership, making the degraded-mode latch permanent and freezing all LP settlement
+- 98891 [SC-High]   Permissionless retryPositionProtectionClose lets a third party re-queue a failed protection close in the same transaction, blocking the owner's documented amend and every exit from the position
+- 98895 [SC-Critical] A Junior LP withdraws a position's VPI charge as pool revenue before the close refunds it, and the remaining Junior LPs pay the refund
+- 98898 [SC-Insight] Terminal receipts stamp the L1 ancestor block on Arbitrum, diverging from the L2 commit block
+- 98901 [SC-Critical] Redeemable VPI charges let an LP/trader shift a later rebate onto remaining Junior LPs
+- 98902 [SC-Critical] Junior LP mints cheap shares by parking a refundable VPI rebate in vpiRebateReserve (excluded from the NAV snapshot), stealing incumbent Junior principal — deposit-side, independently-fixable mirror of the reported close/redeem VPI-NAV finding (H01)
+- 98905 [SC-Low] Withdrawing free settlement in MarginClearinghouse cancels the owner's own pinned skew-reducing open, leading to direct theft of LP funds
+- 98906 [SC-High] Trader-triggered degradedMode latch freezes matured Junior deposits and LP epoch settlement until the owner acts
+- 98911 [SC-Critical] Incomplete fix of Cecuro LOW-72: three sibling quotes still price a wiped tranche, and assignUnassignedAssets mints at that quote
+- 98912 [SC-Low] TrancheVault.requestRedeem lets any share holder plant a one-share request in another account's controller queue: the victim's standard claims stop working and the only call that clears it restarts the victim's one-hour cooldown
+- 98914 [SC-High] A trader can latch degradedMode through public order flow and freeze the whole pool's LP epoch settlement (deposits, activations, redemptions, maintenance) until the owner manually recapitalizes
+- 98915 [SC-Medium] Close planner never tops up the execution fee netted into a VPI rebate, so the treasury misses that fee
+- 98919 [SC-Critical] LP NAV omits VPI liabilities of both signs: #97682 covered the reserved negative-VPI clawback; this report covers the trader-refundable positive VPI, which overpays junior redeemers at the expense of the LPs who stay
+- 98921 [SC-Critical]  Junior LP redeems at a share price inflated by its own refundable VPI charge, stealing principal from other LPs
+- 98924 [SC-High] Permissionless protection retries keep a triggered position locked and deny the owner's recovery action
+- 98935 [SC-Low] Unrecorded Carry Realization During Same Side Increase Order Commitment Bypasses User Specified Financial Bounds (`maxGrossAccountDebitAssets` and `maxActionChargeAssets`)
+- 98936 [SC-Medium] Heavy-side close nets the execution fee against the VPI rebate: the trader is charged the fee, the treasury receives 0 and LPs keep it, while an open with the same rebate pays the treasury in full
+- 98940 [SC-Low] Incomplete LOW-59 fix: `renounceOwnership` is still callable on the engine, the engine admin and the clearinghouse
+- 98941 [SC-Critical] Liquidation cleanup refunds a pending open in OrderRouter, so an owner cancels its own pinned open for free and takes LP funds
+- 98956 [SC-Low] A permissionless `clearInvalidOrders` call credits up to 64 traders' reserved execution bounties to the caller, because `_validateBountyDisposition` pays the order's destroyer on a protocol-side config change that flips with no transaction and no event
+- 98961 [SC-Low] Senior redemption at a few atoms of Senior principal removes more high-water mark than the redeemed share: an exit of half the shares cancels 2/3 of the recovery protection (99,903 USDG beyond its share in the test)
+- 98964 [SC-Medium] Traders can self liquidate during frozen weekend to bypass the 0.50% spread owed to LPs and the 0.04% fee owed to the treasury
+- 98965 [SC-High] Permissionless retry of unchanged failing `closeLimits` eliminates the sole `amendLatchedPositionProtectionCloseLimits` window, keeping margin unclosable
+- 98975 [SC-Low] A trader can commit an order that only its own later `addMargin` makes fillable, so a prompt keeper can only cancel it and the price fixed at commit becomes a free option that LPs pay for
+- 98976 [SC-Medium] Liquidation at the frozen weekend mark is not charged the 0.50% frozen-close spread, so a hedged trader drops its losing leg at Friday's price for 0.075% and LPs pay the weekend gap
+- 98985 [SC-High] Junior share-supply overflow rolls back Senior redemption funding
+- 98992 [SC-Medium] Unassigned cash is capped by an unrealized loss, then seeded to junior
+- 98994 [SC-Medium] Collecting a marked trader loss transfers quarantined assets to existing LP shares
+- 98998 [SC-High] PositionProtectionBook permits an unbounded close retry chain that blocks an EOA owner's manual exit
+- 99000 [SC-High] HousePool keeps the whole owner recapitalization queued as a reservation after a tranche wipe although only part of it becomes LP equity: the stale remainder blocks senior exits and each later settlement lowers the senior high-water mark
+- 99003 [SC-Critical] LP NAV omits the guaranteed VPI rebate receivable, letting a timed deposit mint excess tranche shares and withdraw other LPs' deposited principal
+- 99004 [SC-Critical] HousePool counts a refundable VPI charge as LP equity, so an exiting Junior LP is paid the closing trader's rebate by the remaining LPs
+- 99005 [SC-Insight] Already-expired predecessor close stays linked, admitting a doomed reversal open whose victim-funded execution bounty an unrelated public keeper collects
+- 99008 [SC-High] Pending recapitalization is counted twice in HousePool, letting Junior holders take revenue owed to Senior LPs
+- 99011 [SC-Medium] Open admission and the LP firewall spend cash already owed to an open winner, leaving trader claims larger than all pool assets
+- 99015 [SC-High] Holiday override days are never checked against fadMaxStaleness: overrides next to a weekend can stretch the oracle-frozen span past 72 hours, so frozen closes, liquidations and LP exits revert for up to 24 hours before reopening
+- 99017 [SC-Low] A partial post-wipe recapitalization erases the preserved senior high-water mark, so the pool's subsequent recovery revenue is diverted to junior LPs, who redeem it in real tokens while senior LPs recover almost nothing
+- 99023 [SC-High] Permissionless `retryPositionProtectionClose` blocks the owner's only repair path for a failing stop-loss, so a gapped position runs to liquidation (MED-9 fix incomplete)
+- 99025 [SC-High] Permissionless Junior LP settlements ratchet down Senior recovery and reduce an unrelated LP's final payout
+- 99028 [SC-Low] A trader can cancel its own committed open after seeing the price by withdrawing free settlement
+- 99029 [SC-Critical] Oracle rotation resets accepted feed timestamps, enabling false protection closes and keeper USDG theft
+- 99034 [SC-Low] Virtual offset rounding in Senior redemptions, combined with funded asset HWM scaling, erases remaining Senior holders' high water mark recovery entitlement
+- 99038 [SC-Medium] Missing treasury fee credit on net-rebate closes leads to theft of unclaimed yield
+- 99044 [SC-Critical] LP NAV drops the open VPI rebate but ignores its fully collateralised clawback, so a trader deposits Junior at the depressed price and takes the clawback from incumbent LPs (not fixed by the #97729 fix)
+- 99045 [SC-Medium] # Inconsistent Pyth Coverage Check in `_requireStoredFeedCoverage` Blocks Batch Basket Cache Reuse in `executeOrderBatch`
+- 99048 [SC-Low] Unreserved VPI funding lets traders selectively void losing committed skew-reducing opens
+- 99049 [SC-Critical] LP share price books a refundable VPI charge as junior equity, so an LP who is also the trader redeems at an inflated NAV and takes deposited principal from the LPs who stay
+- 99052 [SC-Low] A trader flips its own pending order's financial bounds after the fill price prints (addMargin, a same-side order or LP-epoch pool depth), so binding orders are free options; #97733's fix leaves every lever open
+- 99060 [SC-High] Unbacked recapitalization residual is consumed on repeated LP settlements, diverting the Senior tranche's restoration to Junior LPs
+- 99063 [SC-High] Overly conservative degraded-mode solvency check enables attacker-controlled LP fund freeze exceeding 24 hours
+- 99069 [SC-High] Unbounded Junior share supply overflows deposit activation, so LP epoch settlement reverts and queued LP deposits and redemptions are frozen
+- 99070 [SC-High] At dust Junior NAV, an attacker pumps Junior share supply to ~2^256 for 268 USDG, after which any Junior deposit overflows activation and reverts every weekday `settleLpEpoch`
+- 99073 [SC-High] Repeated partial recapitalization resets Senior recovery mark and diverts funded assets to Junior
+- 99075 [SC-Critical] Junior maintenance fee overflows `accruedTotalSupply()` once Junior supply is near 2^256, so every `settleLpEpoch` reverts forever and the owner cannot turn the fee off
+- 99076 [SC-Critical] LP entry pricing omits the funded negative-VPI clawback reserve, letting a new Junior LP take the incumbent LP's principal
+- 99080 [SC-High] Permissionless protection retries keep a Latched protection's close pending: the owner's amend and its other single-call exits revert, and an under-margined position whose owner tries only those is held until liquidation
+- 99081 [SC-Medium] Close execution fee lost to LPs when VPI rebate dominates, depriving treasury of promised protocol revenue
+- 99085 [SC-High] Recapitalization after an LP wipe resets Senior's high-water mark, and repeated settlements consume the residual against already credited assets
+- 99086 [SC-High] # Violation of Idempotence in `HousePool._reconcile` Double-Counts `pendingRecapitalizationAssets`, Prematurely Clears Recapitalization Accounting, Slashes `seniorHighWaterMark` and Diverts Senior Recovery Capital to Junior LP
+- 99088 [SC-High] Repeated partial recapitalization settlement erases the Senior high-water mark and redirects realized recovery revenue   to Junior LPs
+- 99089 [SC-High] Partially settled owner recapitalization is settled again on every later reconcile, lowering the senior high-water mark
+- 99090 [SC-High] Permissionless protection retries pre-empt the owner's amendment window, temporarily freezing margin for over one hour
+- 99091 [SC-Low] Senior LPs lose their protected entitlement to Junior LPs: after an LP wipe, the recapitalization bootstrap overwrites the Senior high-water mark, so recovery the waterfall owes Senior is paid to Junior
+- 99093 [SC-Low] Third-party requestRedeem plants a dust request at the head of another controller's queue, zeroing the standard ERC-7540 claim surface and forcing a cooldown restart to clear it
+- 99094 [SC-Low] Controller-Queue Hijack
+- 99095 [SC-Low] Anyone can plant a dust redeem request on any controller and disable its standard ERC-7540 claims (`redeem` / `withdraw` / `maxRedeem` / `maxWithdraw`)
+- 99099 [SC-High] Unbacked recapitalization is re-settled every LP epoch and the empty-pool bootstrap drops the old mark, moving Senior's protected recovery to Junior
+- 99101 [SC-Critical] Junior LP redeems at a price including its own refundable VPI charge and takes principal from the other Junior LPs
+- 99103 [SC-Critical] Refundable open VPI is priced into LP exits, letting an exiting Junior LP take value from the Junior LPs who stay
+- 99111 [SC-High] Senior exit fee retained by the permanent seed during frozen settlement leads to temporary freezing of Junior LP funds
+- 99114 [SC-High] # An 8+ Order-of-Magnitude Discontinuity in `CloseAccountingLib.buildCloseState` When `0 < netDepthAssets << skew` Blocks All Protective Exits and Confiscates 100% of Remaining Balance
+- 99115 [SC-High] Re-reserved recapitalization residual in HousePool lowers the Senior high-water mark and lets Junior take Senior's recovery
+- 99123 [SC-High] CfdEngine: a hedged pair's winning close latches degraded mode, and a zero-carry losing leg keeps all LP settlement frozen until the owner pays
+- 99124 [SC-Low] Renouncing CfdEngine ownership permanently freezes matured LP deposits and redemptions after degraded mode
+- 99129 [SC-Low] Open-order bounty reservation collects carry beyond signed debit ceilings and authenticates a zero-carry commitment
+- 99130 [SC-High] Partial Recapitalization Overwrites The Senior Recovery Target
+- 99132 [SC-Critical] Refundable VPI in HousePool LP Share Pricing Lets a Trader-LP Coalition Withdraw Other LPs' Principal
+- 99136 [SC-Critical] Missing minimum execution window in the OrderRouter commit check turns every pinned order into a free option and leads to direct theft of LP funds
+- 99141 [SC-Medium] Skew-reducing close nets the VPI rebate against the execution fee, so the treasury funds the rebate instead of pool assets
+- 99145 [SC-Critical] Refundable VPI Inflates Junior NAV, Enabling Profitable Extraction of Passive LP Principal
+- 99146 [SC-Low] Virtual-offset Senior redemption diverts a surviving LP's principal recovery to Junior after the MED-11 fix
+- 99149 [SC-High] A second settlement pass after a partial owner recapitalization re-bootstraps Senior from the shrinking residual, so Senior LP funds are moved to Junior LPs at constant pool value
+- 99150 [SC-High] Public Junior epoch diverts Senior recovery yield and delays recapitalization
+- 99152 [SC-Low] Both requestDeposit and requestRedeem accept an arbitrary controller without consent, enabling unsolicited queue entries and cooldown manipulation
+- 99153 [SC-Critical] Refundable opening VPI is counted as withdrawable LP cash, so an LP withdrawal followed by the VPI close rebate makes the protocol insolvent and freezes redemptions
+- 99154 [SC-Insight] HousePool.cancelPoolConfigProposal does not emit an event, breaking the consistent governance-event pattern used by all other admin cancel functions
+- 99157 [SC-Low] A historical order fill blocks position-protection creation, replacement and attached staging until a new signed oracle refresh, contradicting the Book's own accepted-basket guard
+- 99159 [SC-Low] CfdEngineAdmin and MarginClearinghouse do not override renounceOwnership, unlike the three other Ownable2Step contracts that explicitly block it
+- 99160 [SC-Low] A same-side open queued behind the account's own full close is rejected at commit, because admission previews it as an increase of the position that the queued close removes
+- 99161 [SC-Critical] Junior share supply pumped to within 1000 of `2^256-1` makes `supply + VIRTUAL_SHARES` overflow in every `settleLpEpoch`, permanently freezing all LP settlement (untrusted actor only, weekends included)
+- 99163 [SC-Critical] Refundable VPI charge in Junior redemption NAV lets a trader-LP withdraw incumbent principal
+- 99166 [SC-Critical] Funded negative-VPI rebate reserve omitted from Junior entry NAV enables yield theft
+- 99167 [SC-High] A hedged pair at the admission limit latches degraded mode and keeps LP settlement frozen after solvency returns until the owner acts
+- 99170 [SC-Critical] A Junior LP can pay VPI just before its redemption is priced and take it back right after, draining passive Junior principal
+- 99172 [SC-Low] TrancheVault: anyone can poison another controller's redeem-queue head with a 1-share request, hiding and blocking their funded redemption on the ERC-7540 claim surface
+- 99173 [SC-Low] Missing controller authorization in `TrancheVault.requestRedeem()` allows unauthorized queue-head poisoning and standard withdrawal griefing
+- 99174 [SC-Low] Partial Senior redemption erases surviving HWM and diverts principal recovery to Junior
+- 99177 [SC-Low] Trader can cancel a committed skew-reducing open after its settlement tick by withdrawing unreserved free settlement
+- 99180 [SC-Insight] deposit() is the only user-facing function on MarginClearinghouse without nonReentrant, breaking the contract's otherwise consistent reentrancy-guard pattern
+- 99189 [SC-Critical] Missing VPI rebate reserve in LP NAV in `HousePoolAccountingLib.buildReconcileSnapshot()` lets a trader-LP take Junior LPs' principal
+- 99192 [SC-Insight] ClosePreview.executionFeeAssets NatSpec says the fee is assessed, but the field returns the capped and credited value, which is zero when a VPI rebate absorbs the fee
+- 99194 [SC-High] Any caller can retry a protection close, stealing the owner's only repair window.
+- 99197 [SC-High] Recapitalization that pays a trader-claim deficit stays queued as LP claimant value
+- 99199 [SC-Insight] IPletherOracle.PriceSnapshot.publishTime is documented as the earliest component publish time, but the implementation returns the newest
+- 99200 [SC-Critical] Unchecked `supply + virtualShares` in Junior redemption pricing lets anyone plant an uncancellable redeem head that reverts every `settleLpEpoch` forever
+- 99206 [SC-High] Any account can keep a triggered stop-loss owner trapped in their position by consuming the only exit state, `amendLatchedPositionProtectionCloseLimits`
+- 99207 [SC-Critical] Refundable open-time VPI is credited to junior NAV before the close returns it, so a timed LP exit takes value from the remaining LPs
+- 99208 [SC-High] Close VPI is waived only at exactly zero net depth, so just above zero an ordinary close takes the trader's whole collateral, and the order of closes decides who loses it
+- 99209 [SC-Low] Unauthenticated choice of redemption controller lets a dust refund pin another controller's standard claim queue.
+- 99211 [SC-Medium] `executeOrderBatch` reverts on its own freshly proven cache when the first post-commit Pyth basket has unequal component times, rolling back every order already executed in the batch
+- 99212 [SC-High] Late trading revenue bypasses a pending recapitalization bucket and strands value that blocks LP deposits.
+- 99217 [SC-High] Permissionless protection retry blocks the owner's only Latched remedy (incomplete MED-9 fix), freezing the position until liquidation
+- 99218 [SC-Low] Attacker with Junior LP shares takes Senior LPs' remaining principal by erasing Senior's high-water mark after an owner top-up with an impaired pool
+- 99219 [SC-Critical] A missing guard on the Junior assignment path mints shares at a near-zero price and dilutes existing Junior LPs out of their recovery
+- 99220 [SC-High] Residual Pending Recapitalization Is Re-Settled Against Already Allocated Equity in _reconcile, Diverting Senior Recapitalization to Junior Holders
+- 99225 [SC-Low] Anyone holding one share atom can plant a zero-value redeem request at another LP's redeem head, so standard `redeem`/`withdraw` revert on that LP's funded redemptions
+- 99228 [SC-High] Atomic Protection Retry in PositionProtectionBook Lets Callers Grief Owner Recovery
+- 99229 [SC-Low] Recapitalizing a wiped pool overwrites the senior high-water mark.
+- 99231 [SC-Medium] Unassigned Assets Lost in a Deep Drawdown Are Not Restored on Recovery, Moving Ownerless Value to Junior
+- 99237 [SC-High] A later Junior deposit overflows a shared epoch quote and freezes an earlier depositor
+- 99261 [SC-Low] Partial Senior redemption after owner recovery deletes another LP's principal-recovery priority
+- 99264 [SC-Critical] Junior redemptions are priced while a skew-reducing VPI rebate is outstanding but not counted in NAV, even though its clawback is certain, so a junior LP who stays takes q·r from the junior LPs who redeem
+- 99266 [SC-Critical] VPI LP sandwich: refundable VPI is counted in Junior NAV, so an attacker redeems it and the LPs who stay pay the refund
+- 99268 [SC-Critical] Refundable VPI charge inflates Junior NAV and lets an LP-trader drain other LPs
+- 99271 [SC-Critical] A refundable VPI charge restores an impaired Senior / wiped Junior for one settlement, so a deferred junior deposit is activated and then pays that charge back to the trader
+- 99272 [SC-High] Minority close drains idle collateral at near-zero pool depth
+- 99276 [SC-Critical] VPI rebate cross-cohort funding lets an exiting LP capture principal from remaining LPs
+- 99277 [SC-Critical] New Junior LPs capture the VPI rebate clawback owed to incumbents
+- 99280 [SC-Critical] Close admission in OrderLiquidationBatchLogic counts the account's pending increases, so an owner can cancel its own committed close after the pinned price prints, leading to direct theft of user funds from LPs
+- 99282 [SC-High] Lack of access control in retryPositionProtectionClose leads to griefing: any caller locks a latched stop-loss owner out of amending its limits or closing
+- 99284 [SC-High] A trader keeping the losing leg of a two-sided position open holds degraded mode latched: LP settlement, deposit activation and positioned traders' withdrawals stay frozen, and the owner's clear reverts unless the owner recapitalizes
+- 99285 [SC-High] Double reservation of a queued recapitalization in `HousePool._settleablePendingClaimantBuckets()` lets any LP-epoch settler erode the Senior recovery target and hand Senior-owed revenue to Junior
+- 99289 [SC-Critical] Junior entry pricing excludes outstanding VPI rebate reserves, allowing unprivileged depositors to extract existing Junior LP capital
+- 99290 [SC-High] Unbounded Junior Share Minting at Dust Principal Overflows `settleLpEpoch` Freezing Senior LP Redemptions
+- 99291 [SC-Low] Post-commit margin changes let traders select historical partial-close fills and extract LP cash
+- 99298 [SC-Critical] Junior LP withdraws own VPI charge before close and takes another LP's principal
+- 99304 [SC-High] Permissionless protection retry loop can block EOA position exits for over 24 hours
+- 99309 [SC-High] Permissionless atomic expiry-and-retry starves the owner-only close-limit amendment, denying a trader the protocol's recovery path for a failed protection close
+- 99311 [SC-Medium] Batch order execution reverts completely when the reused price basket is not covered by stored Pyth feeds
+- 99321 [SC-High] Public protection retries deny owner limit repair
+- 99323 [SC-High] Permissionless expire+retry keeps a failing protection from ever being Latched, so the owner can never amend its close limits
+- 99324 [SC-High] A net-zero hedged pair latches degraded mode and holds every LP exit frozen until the owner recapitalizes the pool
+- 99326 [SC-High] Permissionless protection retry lets anyone repeatedly revoke a trader's amendment window and keep a failed stop-loss position open
+- 99327 [SC-Medium] Batch order execution reverts on its own Pyth cache when basket components have different publish times, undoing orders already executed in the batch
+- 99329 [SC-Low] A third party can plant a zero-value redeem request at the head of any LP's queue, breaking the standard `redeem`/`withdraw` claim path for that LP
+- 99330 [SC-High] Any account can keep a triggered stop-loss owner trapped in their position by consuming the only exit state, `amendLatchedPositionProtectionCloseLimits`
+- 99331 [SC-Critical] Missing zero-NAV gate in `HousePool.assignUnassignedAssets()` lets the bootstrap receiver take a wiped Junior cohort's recovery
+- 99333 [SC-Low] Permissionless controller gifts make TrancheVault's head-based claim functions revert for the controller's own settled request
+- 99334 [SC-Critical] Opening a position before a redemption and closing it after extracts a self-refunding VPI charge from co-LPs
+- 99335 [SC-Critical] Junior share price counts a refundable VPI charge as revenue, letting an LP redeem against its own trade
+- 99336 [SC-Medium] Profitable position with a carry-drained pledge can self-liquidate over the weekend and skip the frozen-close spread
+- 99337 [SC-Critical] Refundable positive VPI is counted as Junior equity at LP epoch settlement, letting a Junior LP who also trades redeem above fair value
+- 99341 [SC-Medium] Batch execution reverts on a valid basket whose components were published at different seconds
+- 99344 [SC-High] Frozen-window exit fee of the last senior LP is stranded in the permanently locked senior seed, which keeps drawing the junior-funded coupon
+- 99348 [SC-Low] Any share holder can disable another LP's ERC-7540 standard claims with a one-atom redemption request
+- 99352 [SC-Critical] Negative-VPI reserve timing allows a new Junior LP to capture value from existing LPs
+- 99353 [SC-High] Double-counting of the pending recapitalization residual in `HousePool` reconciliation collapses the senior high-water mark, permanently diverting senior LPs' protected recovery revenue to junior LPs
+- 99356 [SC-High] Interim trading revenue bypasses surviving Junior owners while recapitalization is queued
+- 99366 [SC-Critical] Trader-chosen execution window as short as 1 second lets traders keep a free option on queued orders at LPs' expense
+- 99367 [SC-Insight] No contract can call HousePool.reconcile(), yet its NatSpec and the security notes describe it as a live vault hook
+- 99368 [SC-Low] Incomplete MED-14 fix rejects valid same-side reopens behind queued full closes through a live-position skew check
+- 99371 [SC-High]  Residual recapitalization erases Senior recovery priority and diverts revenue to Junior
+- 99372 [SC-Medium] Negative-VPI closes route charged execution fees to Junior LPs instead of treasury
+- 99373 [SC-Low] Carry collected when committing an increase order bypasses `maxGrossAccountDebitAssets` / `maxActionChargeAssets` and is missing from the `OrderReceipt`
+- 99374 [SC-High] Near-Zero Claim-Net Depth in Close VPI Pricing Lets a Losing Close Freeze Other Traders' Margin in Degraded Mode
+- 99378 [SC-Low] Queued increases can be enabled after a price move, giving traders a free option
+- 99385 [SC-High] Cash-less pending recapitalization bucket in HousePool deadlocks settleLpEpoch and temporarily freezes senior LP redemptions
+- 99386 [SC-Critical] Positive VPI is recognized into Junior LP NAV before its rebate obligation settles, letting a Junior-LP trader redeem the charge from the remaining LPs (theft of unclaimed yield)
+- 99388 [SC-Insight] CEI deviation in `CfdEngine.settleTraderClaim`: claim ledger is decremented after the external payout
+- 99392 [SC-Low] Trader-controlled execution bounds let a trader cancel a binding order after its fill price is known, turning queued closes into a zero-cost free option paid for by LPs
+- 99393 [SC-High] Close VPI at a dust pool depth takes a minority-side trader's whole clearinghouse account, including idle collateral
+- 99399 [SC-High] Any account's retry blocks the owner's amend of a failed stop-loss (incomplete MED-9 fix): the position stays open past its stop
+- 99404 [SC-High] Permissionless LP Settlement Resets Senior High-Water Mark and Diverts Recovery Revenue to Junior
+- 99405 [SC-Medium] Public LP epoch diverts owner governed reserves into wiped Junior shares
+- 99407 [SC-Medium] Inconsistent historical-basket cache validation reverts otherwise executable FIFO order batches
+- 99408 [SC-High] An unprivileged hedged portfolio can latch degraded mode and block uncancellable LP escrow for over 24 hours
+- 99410 [SC-Critical] Unchecked virtual-share headroom lets an attacker poison Junior supply and block Senior LP withdrawals
+- 99411 [SC-High] Permissionless protection retry race enables griefing by preempting owner recovery
+- 99417 [SC-Insight] Liquidations have no sequencer-downtime grace period, although the repository's spot package already implements one with a sequencer uptime feed
+- 99418 [SC-Low] Virtual-share rounding in Senior redemption erases surviving LP recovery priority and diverts USDG to Junior LPs
+- 99420 [SC-Critical] Negative-VPI rebates let new Junior deposits capture value from existing LPs
+- 99422 [SC-Medium] MED-10 fix misses frozen liquidations: a capped SHORT can be liquidated while solvent
+- 99424 [SC-Critical] Negative-VPI Clawback Excluded from HousePool LP Share Pricing Lets a Trader-LP Coalition Withdraw Other LPs' Principal
+- 99428 [SC-Critical] Refundable VPI is counted as Junior NAV: an exiting LP is paid a share, remaining LPs refund it
+- 99429 [SC-Low] A pending recapitalization settled at a transient adverse mark overwrites `seniorHighWaterMark`, permanently cutting senior LP principal and moving it to junior LPs and unassigned assets
+- 99438 [SC-Medium] Reconcile permanently caps `unassignedAssets` at a transient mark-to-market value, so a mark round trip moves ownerless pool value into junior LP principal
+- 99445 [SC-High] Permissionless protection retries let anyone deny the owner's latched close-limit amendment, defeating the MED-9 remediation
+- 99451 [SC-High] Any reconcile between a recapitalization and new revenue hands Senior's recovery to Junior
+- 99452 [SC-Insight] PositionProtectionBook.StoredProtection can be packed into 11 slots instead of 12
+- 99453 [SC-Insight] Repeated curve and carry work adds 51,574 gas to live-position withdrawals
+- 99454 [SC-Insight] Repeated borrow-base sync adds gas to valid close commitments
+- 99455 [SC-Low] After any historical order fill, nobody can create, replace or attach position protection until a live mark is pushed
+- 99456 [SC-Medium] Transient marked NAV permanently reduces Owner-funded unassigned assets and diverts USDG to an existing Junior LP
+- 99458 [SC-Low] Position-increase commitment bypasses debit limits and understates execution receipts
+- 99463 [SC-Low] LOW-40 fix incomplete: a 1-atom requestRedeem naming another controller hides its funded USDG from redeem / withdraw
+- 99466 [SC-High] Junior deposit quote overflow at near-zero Junior NAV reverts LP epoch settlement and freezes matured Senior exits
+- 99468 [SC-High] Anyone can repeatedly re-seize a `Latched` protection's order slot, denying the owner the amend window the MED-9 remediation depends on
+- 99469 [SC-Low] Owner-sent protection trigger collects the owner's pending carry via creditBounty, outside its close limits and the receipt
+- 99470 [SC-Low] `assignUnassignedAssets(false, …)` has no senior-impairment gate, so a routine owner call lets junior capital in, and out, while senior is still below its high-water mark
+- 99474 [SC-High] A permissionless protection retry can repeatedly take away the Latched window the owner needs to amend a failing stop-loss / take-profit close, keeping the position open while the price moves against it
+- 99476 [SC-Low] A one-wei redemption request gifted to another LP stalls that LP's standard claims and forces a cooldown restart to clear it
+- 99483 [SC-Low] A committed open is cancellable by its owner after the fill price is public, breaking binding-intent and handing the trader a free option on the pool
+- 99485 [SC-High] Anyone can lock a triggered TP/SL position: a permissionless retry keeps the protection out of Latched, the only state in which the owner can amend its limits
+- 99490 [SC-High] Positive Junior NAV permits share-supply overflow that blocks LP epoch settlement
+- 99496 [SC-Low] A queued open or increase can be switched off and on by its own account after commit, turning orders into free look-back options
+- 99498 [SC-Low] A temporary adverse mark at the first LP settlement after a recapitalization resets the Senior high-water mark and pays Senior principal to Junior
+- 99499 [SC-Critical] Successful Junior mints overflow virtual-share headroom and permanently freeze funds
+- 99500 [SC-Medium] A 10% mark deletes parked recap, and the flat settle pays it to junior
+- 99501 [SC-Medium] A temporary favorable mark at the first LP settlement after a recapitalization strands the recapitalization as ownerless value and leaves Senior impaired
+- 99504 [SC-High] SC-L1 fix incomplete: every later settlement re-applies the unbacked residual recapitalization, moving Senior LP principal to Junior LPs
+- 99509 [SC-Critical] Liquidation cancels a losing queued open after its opposite fills at the bound price
+- 99510 [SC-High] LP epoch settlement reserves pending claimant amounts the pool does not hold against all its cash, so free cash is 0 and redemptions freeze
+- 99512 [SC-High] Frozen-mode staleness limit shorter than a Sunday + Monday holiday override in PletherOracle leads to temporary freezing of funds for at least 1 hour
+- 99521 [SC-Medium] Normal per-feed publish-time divergence makes OrderRouter.executeOrderBatch revert for the whole batch, so a valid order committed in the same second is never executed and keepers must fall back to single-order execution
+- 99526 [SC-Critical] VPI rebate reserve is left out of Junior NAV although its clawback is guaranteed, so an LP entry timed before the close takes the incumbents' principal
+- 99529 [SC-High] Any account can lock a trader's triggered stop loss open for more than 24 hours by denying the owner's only limit-amend lane, leaving the position impossible to close or cancel
+- 99530 [SC-Medium] executeOrderBatch reverts entirely when two orders share a basket whose components were published one second apart
+- 99531 [SC-Low] A stranger's failed order blocks every trader from placing or changing stop-loss / take-profit protection
+- 99536 [SC-Critical] Missing pending-order check in CfdEngine.settleTraderClaim lets an owner cancel its own pinned open after the fill price is public, leading to direct theft of LP funds
+- 99540 [SC-Low] Any address can be named as controller of a Senior or Junior LP request without its consent: a 1 share-wei redeem request disables the victim's standard `redeem`/`withdraw` claims, and 1 USDG deposit lots keep its wallet in cooldown
+- 99550 [SC-Low] Anyone can plant a zero-value redemption request in another LP's queue, hiding the LP's funded claim from the standard ERC-7540 surface and restarting its cooldown
+- 99551 [SC-Low] Close orders admitted against the queued-position projection are re-checked by the Engine against the live position, so a trader cannot queue its full exit behind its own pending partial close
+- 99552 [SC-Low] Scheduled treasury succession changes the execution config digest at a timestamp with no transaction, terminally invalidating pending orders and paying their bounties to whoever clears them
+- 99553 [SC-High] Settlement-order-dependent degraded-mode latch blocks LP funding after reserve recovery
+- 99556 [SC-Low] CfdEngine remains renounceable after LOW-59 remediation, permanently disabling degraded-mode recovery
+- 99562 [SC-High] Permissionless `retryPositionProtectionClose` lets any third party keep a latched protection's only exit (`amendLatchedPositionProtectionCloseLimits`) indefinitely unreachable, locking the trader in a position they cannot close 
+- 99567 [SC-High] An exit authorized before pool depth falls near zero can transfer the trader's whole account to the pool because close-time VPI has no upper bound
+- 99569 [SC-Critical] Refundable positive VPI is counted in Junior redemption NAV, letting an exiting LP take value that remaining LPs must fund when the trader closes
+- 99570 [SC-High] Frozen-window senior exit fee accrues to the floored senior seed and pins the last junior LP's redemption
+- 99571 [SC-Low] Carry collected when committing an increase order bypasses the trader's signed V3 financial ceilings
+- 99573 [SC-Critical] Reserve-backed opening VPI rebate is booked as a final Junior NAV loss, so an LP depositing while it is outstanding takes the clawback from existing LPs
+- 99574 [SC-High] A leftover recapitalization intent is settled against later trading revenue and paid to Senior above its high-water mark
+- 99577 [SC-Critical] Reserve-backed negative VPI is excluded from Junior deposit pricing, letting a new LP capture existing LP principal
+- 99586 [SC-Low] A third-party dust redemption blocks another LP's documented withdrawal path
+- 99588 [SC-Critical] Plether: a positive VPI charge is booked as LP revenue but never reserved against its own refund, so a majority Junior LP can redeem at the inflated NAV and skim it from the LPs who stay
+- 99589 [SC-Critical] Pending historical open lets a Junior LP exit before its already-fixed trader liability
+- 99590 [SC-Low] Underestimated Item Gas Budget in `executeLiquidationBatch` Leads to Non-Progressing Batches for Keepers Holding Positions
+- 99592 [SC-Low] Plether: any ordinary order fill makes creating or replacing a stop-loss or take-profit revert until someone pays for a live mark refresh
+- 99594 [SC-Critical] Refundable VPI charge is booked into LP NAV before its close-time rebate settles, letting a large junior LP/trader redeem at the inflated price and drain the remaining juniors
+- 99596 [SC-Medium] Incomplete MED-10 fix: frozen-market liquidations subtract the confidence shift from the already-capped mark
+- 99598 [SC-Insight] Liquidation previews understate the account's post-liquidation settlement by the keeper share when the account liquidates itself
+- 99599 [SC-Medium]  _planCloseActionSettlement folds the execution fee into the VPI rebate and clamps it before the free-cash top-up, so a skew-reducing close credits the treasury no execution fee and the LP pool keeps it
+- 99600 [SC-Critical] Junior share price counts refundable opening VPI as revenue, so a holder who redeems between its own position's open and close takes value from the other Junior holders
+- 99602 [SC-Low] A close committed while the oracle is live loses its MEV boundary if executed after the freeze, and settles at a mark published before its own `commitTime`
+- 99603 [SC-Low] An unsolicited deposit request blocks another LP's documented deposit claim path
+- 99604 [SC-Medium] Incomplete MED-10 fix permits forced liquidation of solvent SHORT positions during oracle-frozen windows
+- 99605 [SC-High] Permissionless protection retries repeatedly block the owner's close-limit amendment
+- 99606 [SC-Critical] Junior LP redemption funded before close-VPI rebate transfers value from remaining LPs to the exiting trader
+- 99607 [SC-Critical] Refundable VPI charges are counted as LP equity as soon as they are collected, so exiting LPs are overpaid and the LPs who stay fund the rebate
+- 99608 [SC-Low] Publish-order check added by the MED-28 fix lets any order fill block take-profit / stop-loss creation for all accounts, leading to griefing
+- 99611 [SC-Critical] Plether: the unreserved positive-VPI NAV term also mis-prices DEPOSITS — a passive new Junior LP that deposits while a trader's positive VPI is outstanding is minted too few shares and loses to the LPs already in the pool
+- 99613 [SC-Low] Historical order execution advances only the Engine mark, so the oracle's publish-order check in `PositionProtectionBook` rejects a fresh, consistent price and blocks stop-loss/take-profit creation 
+- 99616 [SC-Medium] Incomplete fix of audit finding MED-10 in `PletherOracle`: frozen-regime liquidation still subtracts the confidence shift from the already capped mark, so keepers can liquidate SHORT positions that are solvent at the policy price
+- 99620 [SC-Critical] Refundable VPI is booked into Junior NAV before the trader can reclaim it
+- 99621 [SC-Low] Zero-output redemptions can repeatedly occupy another LP's FIFO claim head
+- 99622 [SC-Low] A valid historical fill makes another trader's protection creation and replacement revert
+- 99623 [SC-Low] An order whose equity floor is unreachable can only be executed by its owner, giving the trader a free option on an already-known fill price
+- 99626 [SC-High] Close VPI is unbounded as depth shrinks, and the charge reaches the closer's entire account
+- 99631 [SC-High] Self-offsetting book at the admission boundary lets any trader latch degraded mode on an ordinary ~1% move and hold all LP redemptions, deposits and trading frozen
+- 99632 [SC-Medium] A trader can self-liquidate during a frozen weekend window and exit at the stale Friday mark
+- 99635 [SC-Medium] Valid order batches revert when Pyth components publish at different seconds
+- 99638 [SC-High] Repeated reconciles after a recapitalization decay Senior's high-water mark
+- 99640 [SC-Low] Creating, replacing or attaching a stop loss reverts after an order execution until a separate mark refresh lands, and an order that costs its sender nothing breaks the create again, so the trader's position is liquidated instead of stopped out
+- 99641 [SC-High] Permissionless protection retry pre-empts the owner's amend of a Latched stop-loss, freezing the position and its margin through the weekend
+- 99642 [SC-Low] A failed historical order blocks another trader from arming stop-loss protection
+- 99646 [SC-Low] Liquidation batches repeatedly stop at index zero when the keeper holds a position because the per-item gas budget omits keeper-side accounting
+- 99647 [SC-Medium] planReconcile's irreversible unassignedAssets cap turns a temporary marked loss into permanent Junior LP capture of ownerless recap funds
+- 99648 [SC-Medium] Batch cache reuse checks Pyth storage against the newest component time, so executeOrderBatch reverts on the basket it just cached
+- 99653 [SC-High] A partly settled recapitalization is settled again on the next reconcile, moving Senior principal to Junior
+- 99654 [SC-Medium] During an oracle freeze, a trader can schedule its own liquidation and exit without paying the LP-owned frozen-close spread
+- 99655 [SC-Low] Any order fill blocks TP/SL creation, replacement and protected opens until a paid mark refresh
+- 99656 [SC-High] Permissionless protection retries can starve the owner's amendment window and force a protected position to remain open until liquidation
+- 99657 [SC-Low] Open/increase commitments collect accrued carry beyond the trader's financial limits and omit the debit from the order receipt
+- 99660 [SC-High] Permissionless protection retries keep a gapped stop-loss out of `Latched`, so its owner cannot amend the close limits or exit in a single call, and the position can be liquidated
+- 99663 [SC-Low] Incomplete LOW-44 fix allows a dust partial close to bypass the configured minimum after an earlier queued close fails
+- 99664 [SC-Low] Owner-mutable leverage checks allow selective execution of queued orders and LP losses
+- 99665 [SC-Low] Open/increase commitment collects carry but reports it as zero, silently bypassing the trader's pinned gross-debit and action-charge caps
+- 99669 [SC-Low] CfdEngine omits the renounceOwnership override its three siblings carry, so a renounced owner latches degradedMode permanently and freezes all unfunded LP redemptions forever
+- 99671 [SC-High] Public protection retries lock owners out of fixing a latched stop-loss
+- 99675 [SC-Medium] Staggered Pyth component times make valid order batches revert
+- 99678 [SC-Low] A one-atom Senior redemption erases half the recovery high-water mark
+- 99679 [SC-Low] Same-batch recapitalization collapses the Senior high-water mark and misroutes impaired-Senior revenue to Junior LPs
+- 99680 [SC-Low] Creating or replacing TP/SL protection reverts after any ordinary order fill until a paid live oracle refresh
+- 99684 [SC-Low] Another trader's historical fill blocks protection creation and replacement
+- 99687 [SC-Critical] Oracle rotation resets accepted feed timestamps and permits a forced liquidation
+- 99688 [SC-Low] An increase executes above the trader's action-charge and gross-debit limits
+- 99690 [SC-Critical] Open-path VPI rebate is booked as an immediate junior LP loss, so a trader can enter the junior tranche at a depressed price and capture the clawback
+- 99693 [SC-High] The unsettled part of a recapitalization is counted in both Senior's high-water mark and the pending queue, so later LP revenue ends up as unassigned assets
+- 99695 [SC-Critical] Trader can cancel its own binding open after the price moves by settling its deferred trader claim
+- 99696 [SC-Low] Creating, replacing or attaching TP/SL protection reverts after any order execution until a separate live mark refresh lands (redundant accepted-basket read added by the MED-28 fix)
+- 99697 [SC-Medium] Frozen-weekend exits can avoid the 50 bps LP frozen-close spread by electing liquidation: a position held at the FAD margin leaves at the stale mark for 7.5–12.5 bps instead of 54 bps
+- 99698 [SC-Medium] Execution fee is not credited to the treasury on closes whose VPI rebate covers it (it stays in the LP pool), while the open path tops the same netted fee up to the treasury
+- 99699 [SC-Low] A keeper address that holds an open position cannot use executeLiquidationBatch: the per-item gas budget omits the keeper-side curve sync, so every batch stops at index 0
+- 99701 [SC-Low] Any share holder can plant a worthless dust redeem request at the head of another LP's queue, blocking standard ERC-7540/ERC-4626 claims
+- 99703 [SC-Low] Scheduled treasury activation cancels pending closes and pays bounties for failed opens
+- 99705 [SC-Low] An open or increase commit debits the trader's accrued carry outside the pinned maxGrossAccountDebitAssets and maxActionChargeAssets bounds, and permanently records carryCollectedAsset s == 0 for the commit that collected it
+- 99707 [SC-Low] TrancheVault: anyone can queue a 1-wei redeem request under another controller, which blocks that controller's ERC-4626/7540 claims and forces a cooldown restart to clear
+- 99709 [SC-Critical] # Security Best Practices Insight: Inconsistent pricing when assigning `unassignedAssets` dilutes existing LPs' recovery entitlement
+- 99719 [SC-Critical] Incorrect NAV accounting (refundable VPI counted as LP equity) lets a trader-LP steal incumbent Junior LP principal
+- 99720 [SC-Low] recapitalizePool after a full LP wipe overwrites the Senior high-water mark with the recapitalization amount, so revenue owed to pre-wipe Senior LPs is credited to Junior principal
+- 99726 [SC-High] unassignedAssets>0 blocks activation while the senior-whole lock blocks cancellation, freezing a committed Senior deposit
+- 99731 [SC-Medium] Frozen-window liquidation is electable while solvent, so the 50 bps LP spread is never assessed
+- 99735 [SC-High] An extra permissionless settlement pass lets Senior exit with HousePool Junior principal
+- 99738 [SC-High] Frozen-oracle windows longer than fadMaxStaleness freeze LP redemptions, margin withdrawals, closes and liquidations with no in-freeze recovery path
+- 99741 [SC-High] Holiday override outlasts the frozen mark's 72-hour freshness limit, blocking position exits and liquidations for two hours
+- 99745 [SC-Critical] Refundable open VPI is priced into LP exits as final revenue, letting a Junior LP who trades steal other LPs' funds
+- 99746 [SC-Low] Recapitalizing a fully wiped HousePool overwrites the senior high-water mark, so later revenue skips senior restoration and lands on junior
+- 99747 [SC-Critical] Junior share price omits the VPI rebate owed back to the pool, so deposits during an open rebate mint cheap shares at existing LPs' expense
+- 99749 [SC-Insight] MarginClearinghouse.deposit(address,uint256) is the only user-facing margin entry lacking the nonReentrant guard applied to all four sibling deposit/withdraw functions
+- 99752 [SC-High] Close VPI divides by economic depth with no cap, so a minority-side close in a thin pool is charged several times its notional and the trader's whole account is swept into the pool
+- 99753 [SC-High] Unbounded Junior share issuance freezes matured LP deposits for over 24 hours
+- 99755 [SC-Critical] Finding 9: Trader-controlled LP exit shifts a VPI rebate onto another Junior L
+- 99756 [SC-Critical] A zero-value Senior head defers a Junior exit while admitting a new Junior LP
+- 99757 [SC-Medium] A historical basket cache can roll back a close before Friday deleveraging
+- 99759 [SC-High] Repeated claimant reservation lowers the Senior high-water mark and diverts later return
+- 99762 [SC-High] An unbacked recapitalization residual ratchets down the Senior high-water mark and redirects recovery revenue to Junior
+- 99763 [SC-Medium] traders exit the weekly freeze through a self-timed liquidation, skipping the frozen-close spread that prices voluntary stale-price exits
+- 99768 [SC-Low] One-atom Senior redemption halves the Senior high-water mark
+- 99769 [SC-Insight] Four identical Pyth-fee quote-and-require blocks in OrderLiquidationBatchLogic can share one helper
+- 99771 [SC-Low] Commit-time carry escapes the financial limits of increase orders
+- 99773 [SC-Low] Incomplete fix of Cecuro MED-10: order execution still caps the basket before the adverse confidence shift, so SHORT closes above CAP are filled at `CAP - shift` instead of `CAP`
+- 99777 [SC-Low] Post-commit `addMargin` lets a trader decide after the fact whether a committed partial close executes, turning binding orders into a free option paid for by LPs
+- 99779 [SC-High] Permissionless protection retry lets anyone block the owner's only exit from a failing triggered stop-loss
+- 99780 [SC-Low] Dust redemption request blocks another LP's `withdraw` and `redeem` claims
+- 99783 [SC-High] Leftover of a partly settled recapitalization is re-settled against Senior's own principal, letting Junior LPs withdraw Senior funds
+- 99788 [SC-Critical] TrancheVault.quoteBootstrapDeposit lacks the zero-principal guard that estimateDepositShares enforces, minting massively diluted shares on a wiped tranche
+- 99794 [SC-High] Repeated partial-recapitalization reconciliation diverts Senior recovery to Junior
+- 99795 [SC-Medium] A pending full close allows margin withdrawal that waives VPI charges owed to the Pool
+- 99796 [SC-Low] Dust-principal redemption erases the recovery rights of surviving Senior shares
+- 99800 [SC-High] Missing owner check in retryPositionProtectionClose lets anyone block the owner's amend and freeze a position's margin
+- 99807 [SC-Low] CfdEngine and CfdTreasury's live, unguarded renounceOwnership() — unlike three sibling contracts — is not disclosed anywhere in the project's documentation
+- 99808 [SC-High] Any trader can force engine degraded mode with a hedged pair and one profitable close, freezing LP epoch settlement and matured LP escrow; the owner's recap-and-clear cure does not hold
+- 99811 [SC-Low] Signed post-trade bounds plus `addMargin` turn binding queued orders into free options against LPs
+- 99813 [SC-Low] A skew-reducing open funds its VPI reserve from withdrawable free settlement, so withdrawing after the fill tick cancels the open and binding opens become free options
+- 99817 [SC-Medium] Oracle-frozen liquidation pricing subtracts the SHORT adverse shift from an already-capped mark, letting any keeper liquidate healthy short positions during weekend/holiday market closures
+- 99819 [SC-Medium] Holiday override stays frozen after the FX reopen, letting traders and LPs exit at stale prices at LP expense
+- 99821 [SC-Low] Recapitalizing a wiped pool overwrites the Senior high-water mark, so later revenue skips Senior and goes to Junior
+- 99824 [SC-High] Reconcile ordering lets same-pass revenue fill the Senior gap before the recap, sending Junior's revenue to unassigned assets
+- 99825 [SC-Medium] Incorrect price base in frozen-oracle liquidation (capped Engine mark shifted instead of the stored uncapped basket) leads to griefing: any keeper can liquidate solvent SHORTs at the cap once the weekly freeze starts.
+- 99826 [SC-Medium] A trader can exit a weekend position at Friday's frozen price by liquidating it himself, skipping the 50 bps frozen-close spread, and take Monday's gap out of LP capital
+- 99828 [SC-High] Permissionless retry in the same transaction as the relatch removes the owner's only amend window, locking a failing protected position open
+- 99829 [SC-Critical] LP share price counts refundable VPI of open positions as earned, so a Junior LP can redeem above fair value with its own trade
+- 99830 [SC-Critical] A trader holding Junior shares opens a rebated trade before an LP epoch, and the LPs who redeem in that epoch are paid as if the rebate never comes back
+- 99831 [SC-Medium] After a trader adds to a position at a lower price, a keeper can liquidate the account while it is still above maintenance and take the liquidation charge
+- 99832 [SC-Low] A trader adds margin after a queued order's price is fixed, so only the orders that win against LPs fill
+- 99833 [SC-Low] A trader withdraws free balance after their queued order is priced, so only the orders that win against LPs fill
+- 99834 [SC-Critical] An LP with a matured request settles the epoch before a priced queued order fills, and the LPs who stay pay that order's result
+- 99835 [SC-Critical] Secured negative VPI is omitted from Junior entry NAV, letting a new LP take incumbent principal
+- 99836 [SC-Critical] assignUnassignedAssets mints Junior shares at zero principal, so the receiver takes the whole future recovery of a wiped Junior tranche
+- 99837 [SC-High] The owner's recapitalization after a Senior loss sends Junior's unreconciled revenue to an ownerless balance
+- 99838 [SC-High] A reconcile with nothing changed re-applies a partly used recapitalization and cuts Senior's high-water mark
+- 99839 [SC-High] Junior share supply can be inflated until an ordinary Junior deposit overflows settleLpEpoch, freezing that deposit and all LP redemption funding
+- 99841 [SC-High] Anyone can re-queue a failed protection close before the owner can amend its limits, so the trader cannot exit the position
+- 99842 [SC-Medium] executeOrderBatch reverts and rolls back executed orders when a reused Pyth basket has unequal component times
+- 99843 [SC-Low] Anyone can put a 1-share redeem request at the front of another LP's queue, blocking their redeem and withdraw and locking their shares for 1 hour to clear it
+- 99845 [SC-Medium] Close execution fee is lost for the treasury when the close has a VPI rebate
+- 99850 [SC-Critical] Refundable lifetime VPI omitted from LP NAV lets trader-LPs extract other Junior LPs' principal around epoch settlement
+- 99852 [SC-Medium] Whole-UTC-day holiday overrides keep oracle-frozen pricing active for ~2h after the 22:00 UTC FX reopen, giving traders a free option to close at the stale pre-holiday mark against HousePool LP funds whenever the reopen gap exceeds the frozen-close spread
+- 99855 [SC-Critical] Gross pending trading revenue is never netted against trader payouts, letting Junior LPs withdraw quarantined `unassignedAssets`
+- 99857 [SC-Critical] Unbounded Junior share inflation overflows virtual-offset redemption math and blocks LP settlement
+- 99859 [SC-Critical] Junior LP deposit is priced below value while a VPI rebate is outstanding, stealing principal from other junior LPs
+- 99862 [SC-Low] Trigger-bounty carry checkpoint lets an owner-triggered protected close exceed its stored charge ceilings
+- 99866 [SC-High] A trader can latch degraded mode at will and freeze every LP deposit and redemption until the owner intervenes
+- 99867 [SC-High] HousePool: pending recapitalization outlives its paid-out cash, freezing Senior LP funds
+- 99869 [SC-Low] Withdrawing settlement after a price update cancels a binding skew-reducing open and costs LPs cash
+- 99871 [SC-Low] Any caller can put the Engine mark ahead of the oracle's accepted price every second with self-executed failing orders; creating or replacing a position protection then reverts for every account until a live refresh at or after that mark is accepted
+- 99873 [SC-Low] LP epoch settlement lets a trader arm or void a binding open after seeing the next price
+- 99875 [SC-Low] `addMargin` turns a binding open into a trader-selected fill at LP expense
+- 99876 [SC-Low] Missing Controller Authorization in TrancheVault Lets Dust Requests Disable Standard Redemption Claims
+- 99879 [SC-Low] Unreported commit-time carry on open/increase orders bypasses the trader's maxActionChargeAssets and maxGrossAccountDebitAssets limits
+- 99880 [SC-Insight] Senior pending-deposit cancellation is unconditionally blocked, contradicting the whitepaper's promise of pre-maturity cancellation
+- 99881 [SC-Low] MED-14 fix is incomplete: a valid same-side re-open queued behind a full close is rejected under a fresh mark
+- 99885 [SC-Medium] A settlement at a temporary low mark permanently clips `unassignedAssets` in `planReconcile`, and the rebound moves the owner's recapitalization into Junior principal that the attacker redeems
+- 99887 [SC-Low] `applyClaimantRecapitalizationIntent` overwrites the Senior high-water mark when one owner recapitalization meets exactly zero LP equity, so the revenue owed to Senior is paid to Junior
+- 99888 [SC-High] LP settlement reserves the whole pending recapitalization and rolls back its own reconcile when no epoch is processed: after an owner recapitalization below about twice the deficit, a Senior exit partly funded before the loss freezes LP exits and deposits
+- 99889 [SC-Low] The MED-28 fix makes stop-loss/take-profit arming revert after any order execution, so any account can block every trader's protection at no cost
+- 99891 [SC-Low] The MED-14 fix screens an open against the live position instead of the account's queued orders: with a fresh mark, provably invalid opens are admitted and valid same-side opens are refused
+- 99893 [SC-Low] TrancheVault.requestRedeem lets any share holder name another account as controller: a request of one share atom becomes that account's redeem head, and its standard ERC-7575 claims on later funded lots report 0 and revert
+- 99894 [SC-Critical] LP epoch settlement omits pending orders whose fill prices are already fixed, so the order of permissionless calls moves their PnL between the epoch's depositors and redeemers
+- 99895 [SC-High] Repeated reconciliation of a partially settled recapitalization resets Senior's recovery high-water mark and lets Junior LPs redeem value that should restore Senior first
+- 99897 [SC-High] After an owner recapitalization, a trader win that leaves pool equity at or below half the recap intent blocks every LP epoch settlement until new income arrives
+- 99899 [SC-Low] The MED-10 fix is incomplete: delayed-order execution still subtracts confidence from the already-capped basket, so above CAP a SHORT close fills below the cap
+- 99902 [SC-Critical] Queue mode records trading revenue gross while the rebates that reverse it are paid from the owner's unassigned quarantine: an account with no LP shares drains the owner's recapitalization at its own cost
+- 99903 [SC-Low] A committed open can be ended by its own account after later prices are known, through a withdrawal of free balance
+- 99904 [SC-Critical] Junior LP entry and exit prices ignore the VPI an open position will take back, so an LP who trades around its own redemption or deposit moves value from the other Junior LPs
+- 99905 [SC-Medium] A reversible terminal mark lets wiped Junior shares capture quarantined recovery assets
+- 99911 [SC-Critical] Junior share-supply overflow makes a matured redemption head permanently freeze Junior LP funds
+- 99912 [SC-Low] Unconsented controller requests block another LP's standard deposit and withdrawal claims
+- 99913 [SC-Critical] LOW-72 fix incomplete: for a wiped tranche estimateDepositShares returns 0, but estimateMintAssets still quotes a price
+- 99914 [SC-Medium] Incomplete fix of Cecuro MED-10 (frozen path): during an oracle freeze, liquidations shift the already-capped Engine mark, so SHORTs that are solvent at CAP are liquidated at `CAP - shift`
+- 99915 [SC-Low] Queued partial closes are not binding: a trader can decide after commit whether its own close executes (an equity bound with addMargin, or a free-settlement withdrawal on an ordinary close)
+- 99916 [SC-Insight] Missing per-leg price bounds in PletherOracle allows extreme Pyth quotes (price = 1) to silently distort the basket mark
+- 99918 [SC-Insight] The MED-14 fix counts an expired queued open as live exposure: a flat trader's opposing open is refused until the dead order is pruned
+- 99919 [SC-Low] Incomplete renounceOwnership fix: CfdEngine (via CfdTreasury), CfdEngineAdmin and MarginClearinghouse remain one-call renounceable, making a degradedMode latch permanently irreversible and freezing LP withdrawals/settlement with no on-chain recovery
+- 99921 [SC-Medium] Reversible mark converts ownerless reserve into redeemable Junior principal
+- 99924 [SC-High] Permissionless protection retries obstruct the owner's amendment after a failed close
+- 99925 [SC-Medium] A temporary terminal liability permanently changes the owner of recapitalization surplus
+- 99926 [SC-Low] Settling a matured LP epoch before execution cancels a queued open for free, so binding opens become options against LPs
+- 99931 [SC-Low] Attached TP/SL is armed at parent fill without re-checking trigger prices, so a leg already crossed at fill lets any keeper force-close the fresh position one block later
+- 99933 [SC-Low] Partial close erases unpaid carry when a VPI rebate is cash-capped
+- 99934 [SC-Critical] A trader-chosen execution deadline turns committed orders into a free option paid by LPs: the fix for pre-audit SC-M4 is incomplete
+- 99937 [SC-High] Cash-less `pendingRecapitalizationAssets` bucket makes every `settleLpEpoch` revert, freezing Senior LP redemptions for 7–30+ days (`HousePool.sol`)
+- 99940 [SC-Critical] Refundable VPI inflates a Junior LP redemption
+- 99944 [SC-High] Tiny positive pool depth can prevent a trader's exit
+- 99945 [SC-High] Missing owner priority in retryPositionProtectionClose allows any caller to keep amendLatchedPositionProtectionCloseLimits reverting and hold a triggered stop-loss position open
+- 99946 [SC-Medium] A trader can choose liquidation during an oracle freeze
+- 99947 [SC-High] Permissionless atomic protection retries can censor owner recovery for more than 24 hours
+- 99953 [SC-Medium] Mark-fresh reconcile truncates unassignedAssets, permanently forfeiting part of the reserve to Junior LPs
+- 99954 [SC-Low] Pending recapitalization resets a surviving Senior high-water mark and diverts Senior principal to old Junior shares
+- 99955 [SC-Critical] Incomplete LOW-72 fix: `convertToShares` and `estimateMintAssets` still quote a terminally wiped tranche
+- 99956 [SC-High] Each committed LP settlement re-applies an unbacked recapitalization residual to equity Senior already owns, overwriting the Senior high-water mark downward, so later trader-loss revenue that should restore Senior is paid to wiped Junior holders
+- 99959 [SC-High] Close price impact has no depth floor: a close at depleted pool depth confiscates the trader's whole margin account or freezes it for days
+- 99960 [SC-Medium] A trader withdraws free settlement before a full close and the close waives the action charge that settlement would have paid
+- 99961 [SC-Low] Recapitalizing a fully wiped pool overwrites the senior high-water mark and strands the recovery inflow as unassigned assets
+- 99962 [SC-Insight] CfdEngineLens.previewClose reports the execution fee net of the VPI rebate, contradicting its documented field and overstating close proceeds
+- 99963 [SC-Medium] Transient terminal loss erases an owner-funded unassigned accounting reservation and credits old Junior shares on recovery
+- 99964 [SC-Critical] Junior LP exit is priced on a refundable VPI charge and takes remaining LPs' principal
+- 99967 [SC-Medium] Batch order execution reverts when basket components have different publish times: #120 changed the meaning of `cache.publishTime` but left #103's reuse check on it
+- 99971 [SC-High] Unbacked Recapitalization Reserve Makes `settleLpEpoch` Revert After the Terminal Deficit Runbook, Freezing Matured Senior Redemptions
+- 99973 [SC-Low] Passive protocol treasury activation alters execution config hash, leading to deterministic theft of trader bounties and permanent loss of position protection
+- 99974 [SC-Low] Unconditional `engine.creditBounty` call on self-triggered position protection prematurely strips PnL pledge, bypasses `MED-9` `closeLimits`, and corrupts `OrderFinalized` receipts
+- 99975 [SC-Low] Any order execution makes every trader's stop-loss and take-profit creation revert until someone pays a fresh mark update, which an unprivileged actor can trigger on demand (griefing)
+- 99976 [SC-Medium] `PletherOracle.updateBatchOrderExecutionPrice` Checks `cache.publishTime` (`maxPublishTime`) Instead of Per-Feed / `oldestPublishTime` Coverage, Causing `executeOrderBatch` to Revert on Any Mixed-Timestamp Historical Basket
+- 99977 [SC-Critical] Refundable VPI in Junior redemption NAV lets a trader-LP extract funds from other LPs
+- 99978 [SC-Low] Historical order execution advances `CfdEngine.lastMarkTime` without updating `PletherOracle._acceptedBasket`, causing `oracle.getLatestPrice` to revert with `PletherOracle__PriceOutOfOrder` and bricking `replacePositionProtection`
+- 99979 [SC-High] Holiday closures longer than `fadMaxStaleness` make every price read revert for the rest of the freeze, blocking withdrawals, closes and liquidations with no way for governance to intervene in time
+- 99981 [SC-Low]  Final principal atom erases remaining Senior recovery rights
+- 99982 [SC-Low] TrancheVault.requestRedeem lets any share owner name another account as controller, so a 1 wei request blocks that account's redeem and withdraw until it claims a refund that restarts its cooldown
+- 99983 [SC-Insight] Self-liquidation makes the liquidation preview understate the final account settlement by the keeper bounty
+- 99984 [SC-High] Bootstrap Branch Overwrites The Senior High-Water Mark With an Unbacked Recapitalization Residual Leading to Theft Of Senior Restoration Yield by Junior Holders
+- 99986 [SC-High] An unprivileged hedged two-account close latches a false `degradedMode` insolvency on a solvent pool, freezing all LP epoch settlement and every escrowed deposit, made permanent by the owner's routine `renounceOwnership`
+- 99991 [SC-Critical] A skew-increasing open books its refundable VPI charge as un-reserved, immediately-distributable LP Revenue, letting a dominant junior LP redeem at the inflated NAV and then close to drain the rebate from the LPs who stayed
+- 99998 [SC-High] Attacker-forced, renewable global freeze: the degradedMode containment latch outlives its own trigger, gates the innocent-user claim/escrow/settlement exits, and can be re-armed across owner rescues
+- 99999 [SC-Low] TrancheVault: a one-share-wei redeem request filed in another LP's name blocks that LP's standard claims on a funded redemption, and clearing it restarts the LP's one-hour cooldown
+- 100002 [SC-Medium] Reversible trader liability lets LPs withdraw governance-quarantined recapitalization
+- 100004 [SC-High] Permissionless protection retry preempts owner amendment and can freeze a position for 24 hours
+- 100005 [SC-High] MED-12 survives its fix: with Senior impaired, a recapitalization settled in the same reconcile as revenue is booked to unassignedAssets and Junior holders do not receive the revenue
+- 100008 [SC-High] A Junior share-quote overflow freezes matured deposit principal for more than 24 hours
+- 100009 [SC-Medium] Legal Pyth Timestamp Skew Causes Atomic Reverts in Batched Order Execution
+- 100012 [SC-High] Close-side VPI charge is uncapped (one-sided lifetime clamp): a clean inverse-depth law up to total collateral confiscation
+- 100013 [SC-Low] Recapitalization on a wiped book silently resets `seniorHighWaterMark` — senior LPs permanently lose their restoration entitlement and every subsequent revenue inflow is diverted to junior LPs
+- 100014 [SC-High] Junior share-supply overflow permanently freezes LP deposits and redemptions
+- 100015 [SC-High] Missing staleness validation in applyCalendarConfig lets holiday overrides outlast fadMaxStaleness, leading to temporary freezing of trader collateral and LP redemptions
+- 100016 [SC-High] Anyone can bundle failed protection attempt + retry to keep the owner's MED-9 amend window shut, locking a position 24h+
+- 100017 [SC-Medium] Batch execution reverts when a historical basket's feeds have different publish times, although each order executes alone
+- 100018 [SC-High] Repeated LP settlement erases Senior recovery priority and diverts later yield to Junior
+- 100020 [SC-High] Unbounded share-quote overflow in TrancheVault.quoteDepositFromState reverts LP epoch settlement and freezes Junior deposits for 24+ hours
+- 100022 [SC-Low] Committing an open order collects carry from the account without applying the order's maxGrossAccountDebitAssets and maxActionChargeAssets
+- 100025 [SC-Critical] A Junior LP can redeem against its own refundable VPI charge and take the refund from the LPs that stay
+- 100028 [SC-Low] A one-atom recovery boundary resets surviving Senior LPs' high-water mark and redirects 500,000 USDG of recoverable funds to withdrawable Junior principal
+- 100029 [SC-Medium] An LP epoch settled during a temporary drawdown permanently shrinks the ownerless reserve, and the recovery is redeemed by Junior LPs
+- 100030 [SC-Medium] Valid batches revert on staggered Pyth publication times
+- 100032 [SC-Critical] Missing Junior fee-share supply headroom lets a public deposit permanently freeze LP settlement
+- 100034 [SC-High] Unpaid mark refresh plus a frozen regime longer than fadMaxStaleness hard-reverts every close, liquidation, LP settlement and the mark refresh itself for 33 h on a normal weekend, with no governance action
+- 100036 [SC-High] Recapitalization and later settlements lower Senior's recovery mark
+- 100037 [SC-Low] Partial Senior redemption erases recovery owed to surviving shares
+- 100038 [SC-High] Permissionless retries preempt a protection owner's amendment
+- 100040 [SC-Medium] Temporary adverse mark turns ownerless reserve into Junior principal
+- 100048 [SC-High] Deliberate degraded-mode latch via a direction-neutral pair freezes ~2.0M USDG LP capital and all open-trader margin with owner-only recovery (`CfdEngine.sol`)
+- 100049 [SC-Insight] Full-balance redemption exemption is checked after, not before, a fallible Pool pricing view
+- 100050 [SC-High] Permissionless `retryPositionProtectionClose` keeps a triggered stop-loss out of `Latched`, so owner `amendLatchedPositionProtectionCloseLimits` always reverts (incomplete MED-9 fix), locking margin or forcing liquidation (`PositionProtectionBook.sol`)
+- 100053 [SC-High] Repeated settlement lowers Senior's recovery target and reassigns funded recapitalization
+- 100054 [SC-Medium] Batch price-cache reuse checks every feed against the newest component's publish time, so any multi-order batch reverts `PletherOracle__StoredFeedBehind` when component publish times differ (`PletherOracle.sol`)
+- 100058 [SC-Low] Execution-config digest docs omit that a scheduled treasury activation changes `currentExecutionConfigHash()` with no transaction, terminating every pending config-pinned order (`OrderLifecycleBook.sol`)
+- 100059 [SC-Medium] executeOrderBatch is bricked by same-batch cache reuse
+- 100060 [SC-Insight] Whitepaper documents a Senior-capacity cancellation escape that cancelPendingDeposit does not implement
+- 100061 [SC-Insight] LP settlement hold is documented as stopping Senior requests, but Senior `requestRedeem` is still admitted and cannot be funded until the hold is released (`TrancheVault.sol`)
+- 100062 [SC-Critical] Attacker steals Junior LP principal by activating its deposit while its own open-time VPI rebate is outstanding
+- 100063 [SC-Insight] `MarginClearinghouse.deposit(address,uint256)` is the only custody-changing user entry point without `nonReentrant` (`MarginClearinghouse.sol`)
+- 100064 [SC-Critical] assignUnassignedAssets into a wiped tranche mints ~the whole share supply to the receiver, permanently confiscating surviving wiped-tranche LPs' recovery entitlement
+- 100065 [SC-Low] CfdEngineAdmin and MarginClearinghouse omit the renounceOwnership guard already applied to three sibling contracts, permanently disabling timelocked admin configuration
+- 100068 [SC-Low] Scheduled treasury succession flips `currentExecutionConfigHash` by clock alone; `clearInvalidOrders` pays the victim's trader-funded bounty to the pruning caller
+- 100069 [SC-Critical]  Reversible positive VPI is distributed to LP principal at once, so an exiting trader-LP takes it and the remaining LPs pay the rebate
+- 100070 [SC-High] Repeated settlement lowers the senior recovery target from residual recap intent
+- 100071 [SC-Low] The Engine still accepts `renounceOwnership()`, so after a renounce a degraded-mode latch blocks LP settlement and no account can clear it
+- 100072 [SC-Critical] Junior NAV counts refundable open VPI as earned revenue, so an LP who also trades can sandwich `settleLpEpoch` with a skew round trip and steal the remaining Junior LPs' principal
+- 100074 [SC-High] Junior maintenance-fee supply overflow permanently blocks unfunded LP redemptions
+- 100077 [SC-Low] A full Senior exit at a dust principal strips the remaining Senior holders' high-water-mark protection, because the HWM is cut by assets paid while the redemption quote adds a virtual +1 asset
+- 100078 [SC-Low] Carry realized during order commit bypasses signed debit bounds and enables liquidation-bounty theft
+- 100079 [SC-High] A trader hedged across two accounts can latch degraded mode on demand in a pool whose collateral covers its worst-case liability, freezing other users' idle balances and LP settlement until the owner pays to clear it
+- 100080 [SC-High] One-sided lifetime VPI clamp: third parties inflate a trader's close charge without bound via skew or pool depth, up to total collateral confiscation
+- 100082 [SC-Insight] Queued-position projection walk pays two unused clearinghouse reservation reads per pending order
+- 100083 [SC-Critical] Reversible positive VPI is distributed to LP principal at once, so an exiting trader-LP takes it and the remaining LPs pay the rebate
+- 100084 [SC-Insight] Realized carry settlement routes through the engine before reaching the pool, adding an unnecessary transfer
+- 100085 [SC-Insight] A matured Junior LP deposit can neither activate nor be cancelled during degraded mode or an oracle freeze, temporarily freezing segregated escrow
+- 100086 [SC-High] Permissionless `retryPositionProtectionClose` lets anyone re-queue a failing TP/SL close in the same transaction, blocking the owner's documented amend-limits recovery and keeping the position locked
+- 100087 [SC-Critical] A partial close of a claim-backed position releases pledge down to "maintenance + 1 atom", so any keeper can liquidate the residual in the next block
+- 100091 [SC-Low] A one-atom Senior redemption erases the Senior high-water mark and routes future restoration value to Junior
+- 100092 [SC-High] Share quote overflow in `TrancheVault.quoteDepositFromState()` lets any depositor freeze LP epoch settlement for more than 24 hours
+- 100094 [SC-High] repeated reconciliation replays pending claims and reallocates tranche value
+- 100095 [SC-Medium] Retained-basket coverage keyed to the newest component time can revert valid batch reuse and enables liquidation-bounty theft
+- 100096 [SC-Medium] Fresh reconciliation permanently transfers unassigned assets to junior holders
+- 100098 [SC-Low] Oracle state mismatch after an order fill blocks stop-loss and take-profit creation or replacement
+- 100099 [SC-Critical] `buildReconcileSnapshot` excludes refundable VPI from LP NAV, enabling value extraction
+- 100103 [SC-Insight] RiskParams occupies ten storage words, though seven of its ten fields are tightly bounded enough to pack into one
+- 100104 [SC-Medium] Close-time price-impact rebates reduce the treasury’s execution fee despite available pool cash
+- 100105 [SC-Medium] override days let traders close at stale marks while live prices move
+- 100107 [SC-Critical] Refundable open VPI is redeemable LP equity, so an LP-trader can withdraw it and then take it back as a close rebate
+- 100111 [SC-Insight] RouterAdmin's ETH ledger lifecycle is missing deferred-refund credit and self-claim events
+- 100115 [SC-Insight] Enforce Engine, Clearinghouse, and Router host-ABI conformance at compile time
+
+</details>
