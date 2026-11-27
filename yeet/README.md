@@ -8,7 +8,6 @@
 
 * \#41695 \[SC-Critical] StakeV2 leaks user tokens as rewards and eventually will become insolvent.
 * \#42725 \[SC-Critical] startUnstake() Reduces Total Supply, but StakingToken Balance in contract Remains Constant, Leading to Inflated accumulatedDeptRewardsYeet()
-* \#41740 \[SC-Critical] \`accumulatedDeptRewardsYeet\` doe not return correct value
 * \#41365 \[SC-Critical] Vested tokens are counted as accumulated revenue
 * \#41521 \[SC-Critical] Unstaked tokens incorrectly counted as rewards during vesting period
 * \#41549 \[SC-Critical] users funds can get lost when the executeRewardDistributionYeet function invoked after users unstake
@@ -168,7 +167,6 @@
 * \#41788 \[SC-Medium] High - Yield theft because of compound function design
 * \#42725 \[SC-Critical] startUnstake() Reduces Total Supply, but StakingToken Balance in contract Remains Constant, Leading to Inflated accumulatedDeptRewardsYeet()
 * \#41841 \[SC-Low] Risk of Reward Loss and Gain Manipulation Due to Untimely Claims and Reward Cap Adjustments
-* \#41740 \[SC-Critical] \`accumulatedDeptRewardsYeet\` doe not return correct value
 * \#41741 \[SC-Insight] Improper Input Validation in zapInNative Leads to Theft of Residual Funds
 * \#41876 \[SC-Insight] User may receive boosted values which are non-concave
 * \#41758 \[SC-Insight] The code comment to \`BOOSTRAP\_PHASE\_DURATION\` is incorrect

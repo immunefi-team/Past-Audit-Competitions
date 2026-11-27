@@ -68,7 +68,6 @@
 * \#88969 \[BC-High] Unbounded recursive decoding of opaque multisig calls makes block authors repeatedly execute unpaid mempool poison
 * \#89095 \[W\&A-High] Android process death defeats recovery-phrase clipboard expiry and exposes the mnemonic to later foreground apps
 * \#88348 \[W\&A-High] Exponential synchronous decoding of a 213-byte Utility.if\_else proposal leaves the mobile wallet unable to render a frame or accept input whenever the affected multisig account loads
-* \#88498 \[BC-High] Non-quantized mining payouts permanently strand approximately 0.786% of block-author yield
 * \#89062 \[BC-High] Remote unauthenticated block-production DoS: fee-free unverifiable wormhole exit proofs force unbounded failed ZK verifications on every block producer (up to the full 9s build budg...
 * \#90133 \[BC-High] Mining rewards are minted at raw precision but their ZK leaves commit only `floor(amount / 0.01 QUAN)`, permanently freezing every remainder and making ordinary fee yield wholly unc...
 * \#88483 \[W\&A-High] Official Multisig.approve displays a zero-value call and still signs a full vault transfer
@@ -265,7 +264,6 @@
 * \#89091 \[BC-Medium] Quantus adopts an sr25519-calibrated base weight for ML-DSA signatures, undercharging signed extrinsics by 79.58%
 * \#89098 \[BC-Low] Multisig execute wraps transfers at zero proof-recording weight
 * \#88628 \[BC-Critical] `Balances::transfer_allow_death` debits the sender, credits the recipient nothing, and reports success
-* \#88498 \[BC-High] Non-quantized mining payouts permanently strand approximately 0.786% of block-author yield
 * \#89062 \[BC-High] Remote unauthenticated block-production DoS: fee-free unverifiable wormhole exit proofs force unbounded failed ZK verifications on every block producer (up to the full 9s build budg...
 * \#88633 \[BC-Medium] ExtrinsicBaseWeight does not account for ML-DSA-87 verification — every signed extrinsic undercharges node CPU by at least 55.7%
 * \#90133 \[BC-High] Mining rewards are minted at raw precision but their ZK leaves commit only `floor(amount / 0.01 QUAN)`, permanently freezing every remainder and making ordinary fee yield wholly unc...

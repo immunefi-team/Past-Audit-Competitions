@@ -25,7 +25,6 @@
 * \#90415 \[SC-High] rescueWithdrawFromBlocklisted marks the period claimed so a later self-withdraw cannot be claimed
 * \#89549 \[SC-High] rescue leaves a sticky claimed flag that permanently freezes a later same-period withdrawal
 * \#89865 \[SC-High] Period-boundary withdrawal rewrites the period-start exposure checkpoint in FirelightVault, letting a staker evade incident slashing and permanently underpaying the incident payout
-* \#90182 \[SC-High] Period-boundary withdrawal zeroes the payout cap and lets stakers escape incident slashing
 * \#90183 \[SC-High] Rescue tombstone permanently freezes newly funded same-bucket withdrawals after unblock
 * \#89198 \[SC-High] Stale collateral snapshot in \_computeAvailableCapacity lets the protocol sell cover against funds it has already paid out, driving CAR to 0.17 against the enforced 1.2 floor
 * \#88479 \[SC-High] Rescue flags a still-open withdrawal bucket, permanently freezing the victim's later withdrawals for that period
@@ -65,7 +64,6 @@
 * \#89085 \[SC-High] `payout()`'s exposure-cap snapshot can be corrupted by an ordinary user's withdrawal request landing at a period boundary, causing incident claims to be permanently underpaid
 * \#90080 \[SC-High] Period-start redemption appends a deflated exposure checkpoint and underpays valid cover claims
 * \#88604 \[SC-High] Stale collateral basis in `_computeAvailableCapacity` lets a period underwrite cover below the protocol's own minimum backing
-* \#89344 \[SC-High] FirelightVault: any depositor can zero the payout exposure cap via a same-timestamp checkpoint overwrite at period start, leaving verified incident claims permanently unpaid and eva...
 * \#88308 \[SC-High] `totalAssetsAt` resolves a period's opening assets inclusively, so a withdrawal in the boundary second redefines the ceiling on every claim against that period
 * \#89090 \[SC-High] A period-C payout executed during C+1 is invisible to CoverOrderAllocator's period-start capacity snapshot, letting a full book of C+1 cover be sold and settled against a vault the ...
 * \#88615 \[SC-High] Stale period-start capacity snapshot lets the allocator over-sell cover after a mid-period payout, causing protocol insolvency
@@ -96,8 +94,6 @@
 * \#88473 \[SC-High] mutable period start checkpoint causes protocol insolvency by underpaying approved cover claims
 * \#88772 \[SC-High] Stale claimed flag after compliance rescue permanently freezes a later withdrawal credited to the same period
 * \#89946 \[SC-High] Period-start withdrawal corrupts collateral accounting, allowing settled cover to pay zero while the staker reclaims slashable assets
-* \#90289 \[SC-High] Inclusive period-boundary checkpoint lets LPs evade withdrawal slashing, underpaying valid claims and causing protocol insolvency.
-* \#89586 \[SC-High] Unprivileged exact-boundary withdrawal excludes slashable collateral from a valid payout, causing protocol insolvency
 * \#89908 \[SC-High] Mutable period-start exposure snapshot in `FirelightVault.payout()` leads to protocol insolvency (approved incident claims underpaid)
 * \#89958 \[SC-High] Rescuing an unmatured withdrawal lets fresh post-unblock shares be burned into a permanently closed period
 * \#88753 \[SC-High] Boundary Snapshot Lets Withdrawals Escape Claims
@@ -145,11 +141,9 @@
 * \#89659 \[SC-Medium] Exact period-boundary deposits and withdrawals corrupt the opening-assets checkpoint
 * \#89556 \[SC-Medium] A boundary withdrawal can zero the capture-period exposure cap and prevent incident payouts
 * \#89500 \[SC-Medium] A deposit placed right after a payout drains the vault mints shares against a near-zero `totalAssets()` — the premium income pre-incident LPs underwrote for goes to whoever deposi...
-* \#89670 \[SC-Medium] Mutable period-start vault checkpoint after capacity commitment causes valid cover to receive a zero payout
 * \#89677 \[SC-Medium] `rescueWithdrawFromBlocklisted` can pre-claim a live withdrawal bucket and make later withdrawals unclaimable
 * \#90409 \[SC-Medium] A slash collapses the share price to near zero, and deposits reopen in the same transaction, letting anyone mint the vault's entire future value for dust
 * \#90175 \[SC-Medium] Exact-period-start withdrawal redefines opening exposure and lets an LP evade a valid slash
-* \#90187 \[SC-Medium] Exact period-start withdrawal rewrites the exposure snapshot and underpays valid incident payouts
 * \#88347 \[SC-Medium] Rescue writes a terminal claimed-flag onto a still-open withdrawal bucket, permanently trapping the account's next withdrawal
 * \#90014 \[SC-Medium] Exact-timestamp withdrawals at period boundaries permanently corrupt total asset snapshots, truncating claim payouts and DoS'ing cover underwriting
 * \#90025 \[SC-Medium] A dust deposit after a total-loss payout captures approximately 99% of all future vault inflows
@@ -166,7 +160,6 @@
 * \#88839 \[SC-Medium] Exact-boundary checkpoint overwrite suppresses payout exposure
 * \#88416 \[SC-Medium] Post-payout share-price collapse in `FirelightVault.payout` lets an unprivileged 100-wei deposit capture \~99% of the slashed LPs' subsequent premium, leading to theft of unclaimed...
 * \#89238 \[SC-Medium] Unblocking after rescue can permanently freeze same-period withdrawals
-* \#90278 \[SC-Medium] Mutable period-start checkpoint causes zero payout and lets a staker escape slashing
 * \#89222 \[SC-Medium] A withdrawal at the exact period-start second halves the cover payout
 * \#89834 \[SC-Medium] An attacker can grief `commitAllocation` when the `matchingCapacity` is calculated at `block.timestamp = periodStart timestamp`
 * \#89904 \[SC-Medium] rescueWithdrawFromBlocklisted marks a still-future withdrawal period as claimed, permanently locking any withdrawal the rescued account later makes into that period
@@ -185,7 +178,6 @@
 * \#89813 \[SC-Low] `maxMint` overstates the executable cap after a direct asset transfer changes the asset-to-share ratio
 * \#89812 \[SC-Low] `maxDeposit` advertises positive capacity that no `deposit` call can execute after a direct asset transfer
 * \#90313 \[SC-Low] `FirelightVault` can return positive ERC-4626 entry maxima that cannot be executed
-* \#90070 \[SC-Low] `maxDeposit` and `maxMint` advertise amounts that deterministically revert once ordinary vault yield raises the share price, breaking the ERC-4626 limit-function guarantee
 * \#90328 \[SC-Low] Period-open totalAssetsAt(P\_start) is overwritten by any vault flow in the boundary second, mis-sizing the payout cap and matching capacity
 * \#88551 \[SC-Low] The capacity guard does not bound vault quantity drift
 * \#88234 \[SC-Low] `maxMint` and `maxDeposit` advertise amounts that revert (EIP-4626 violation)
@@ -205,7 +197,6 @@
 * \#89825 \[SC-Low] Missing assets==0 guard in FirelightVault.redeem() burns a user's shares for zero withdrawal credit when the share price is below 1
 * \#89876 \[SC-Low] Rounding-inconsistent `maxDeposit` and `maxMint` values can advertise vault entry that necessarily reverts
 * \#89290 \[SC-Low] `maxDeposit()` can advertise a positive amount that `deposit()` deterministically rejects after legitimate rewards
-* \#89287 \[SC-Low] `maxMint()` can return a share amount that reverts on `mint()` due to a rounding direction mismatch
 * \#90489 \[SC-Low] FirelightVault.maxMint() returns a share count larger than mint() will accept, violating EIP-4626's "MUST NOT be higher than the actual maximum" — the standard mint(maxMint(u), u) in...
 * \#88835 \[SC-Low] `maxDeposit` can advertise an amount that `deposit` always rejects
 * \#90153 \[SC-Low] CR-01 fix bypass: maxMint() converts the absolute cap instead of remaining capacity, causing mint(maxMint) to revert after rewards
@@ -250,7 +241,6 @@
 * \#89500 \[SC-Medium] A deposit placed right after a payout drains the vault mints shares against a near-zero `totalAssets()` — the premium income pre-incident LPs underwrote for goes to whoever deposi...
 * \#88534 \[SC-High] Checkpoint accounting desync in the payout function leads to protocol insolvency: a withdrawal at the exact period start collapses the exposure cap
 * \#90295 \[SC-Low] maxMint() can return an unmintable share amount, causing mint() to revert and violating ERC-4626
-* \#89670 \[SC-Medium] Mutable period-start vault checkpoint after capacity commitment causes valid cover to receive a zero payout
 * \#89677 \[SC-Medium] `rescueWithdrawFromBlocklisted` can pre-claim a live withdrawal bucket and make later withdrawals unclaimable
 * \#90401 \[SC-High] Exact-boundary withdrawal overwrites opening exposure and underpays valid claims by 50% at launch leverage
 * \#90409 \[SC-Medium] A slash collapses the share price to near zero, and deposits reopen in the same transaction, letting anyone mint the vault's entire future value for dust
@@ -260,9 +250,7 @@
 * \#89813 \[SC-Low] `maxMint` overstates the executable cap after a direct asset transfer changes the asset-to-share ratio
 * \#89865 \[SC-High] Period-boundary withdrawal rewrites the period-start exposure checkpoint in FirelightVault, letting a staker evade incident slashing and permanently underpaying the incident payout
 * \#90175 \[SC-Medium] Exact-period-start withdrawal redefines opening exposure and lets an LP evade a valid slash
-* \#90182 \[SC-High] Period-boundary withdrawal zeroes the payout cap and lets stakers escape incident slashing
 * \#90183 \[SC-High] Rescue tombstone permanently freezes newly funded same-bucket withdrawals after unblock
-* \#90187 \[SC-Medium] Exact period-start withdrawal rewrites the exposure snapshot and underpays valid incident payouts
 * \#89198 \[SC-High] Stale collateral snapshot in \_computeAvailableCapacity lets the protocol sell cover against funds it has already paid out, driving CAR to 0.17 against the enforced 1.2 floor
 * \#88479 \[SC-High] Rescue flags a still-open withdrawal bucket, permanently freezing the victim's later withdrawals for that period
 * \#89812 \[SC-Low] `maxDeposit` advertises positive capacity that no `deposit` call can execute after a direct asset transfer
@@ -280,7 +268,6 @@
 * \#88525 \[SC-High] Missing upper bound in addPeriodConfiguration leads to permanent freezing of withdrawals
 * \#89122 \[SC-High] Same-block period-start withdrawal can lower the payout exposure cap after cover capacity is committed
 * \#90067 \[SC-High] `rescueWithdrawFromBlocklisted` latches `isWithdrawClaimed` on a withdrawal bucket that is still accepting credits, permanently freezing every later withdrawal credited into it
-* \#90070 \[SC-Low] `maxDeposit` and `maxMint` advertise amounts that deterministically revert once ordinary vault yield raises the share price, breaking the ERC-4626 limit-function guarantee
 * \#90066 \[SC-High] Function `rescueWithdrawFromBlocklisted` permanently freezes a rescued account's future withdrawals
 * \#88741 \[SC-High] # \[C-1] `FirelightVault::rescueWithdrawFromBlocklisted()` permanently poisons a still-open withdrawal bucket, freezing a staker's funds with no recovery path
 * \#88963 \[SC-Insight] `CapacityConfig` field order wastes a full storage slot
@@ -321,7 +308,6 @@
 * \#90080 \[SC-High] Period-start redemption appends a deflated exposure checkpoint and underpays valid cover claims
 * \#90085 \[SC-Low] The withdraw side of the share/asset conversion has no zero-output guard, so `redeem()` can burn a holder's shares while crediting nothing claimable
 * \#88604 \[SC-High] Stale collateral basis in `_computeAvailableCapacity` lets a period underwrite cover below the protocol's own minimum backing
-* \#89344 \[SC-High] FirelightVault: any depositor can zero the payout exposure cap via a same-timestamp checkpoint overwrite at period start, leaving verified incident claims permanently unpaid and eva...
 * \#88308 \[SC-High] `totalAssetsAt` resolves a period's opening assets inclusively, so a withdrawal in the boundary second redefines the ceiling on every claim against that period
 * \#90093 \[SC-Medium] A boundary withdrawal changes the period-start exposure lookup after capacity is committed, causing an approved claim to be underpaid, up to zero
 * \#88313 \[SC-Low] `maxMint` floors through `convertToShares` while `mint` prices with `Ceil`, so the advertised maximum can exceed the deposit limit by the rounding residue
@@ -369,14 +355,11 @@
 * \#88772 \[SC-High] Stale claimed flag after compliance rescue permanently freezes a later withdrawal credited to the same period
 * \#89486 \[SC-Low] Incorrect rounding in maxMint() causes mint(maxMint()) to revert with DepositLimitExceeded, violating ERC-4626 spec
 * \#89946 \[SC-High] Period-start withdrawal corrupts collateral accounting, allowing settled cover to pay zero while the staker reclaims slashable assets
-* \#90289 \[SC-High] Inclusive period-boundary checkpoint lets LPs evade withdrawal slashing, underpaying valid claims and causing protocol insolvency.
-* \#89586 \[SC-High] Unprivileged exact-boundary withdrawal excludes slashable collateral from a valid payout, causing protocol insolvency
 * \#89908 \[SC-High] Mutable period-start exposure snapshot in `FirelightVault.payout()` leads to protocol insolvency (approved incident claims underpaid)
 * \#89958 \[SC-High] Rescuing an unmatured withdrawal lets fresh post-unblock shares be burned into a permanently closed period
 * \#88753 \[SC-High] Boundary Snapshot Lets Withdrawals Escape Claims
 * \#89854 \[SC-High] Same-block withdrawal rewrites committed period-start assets and makes valid cover payouts zero
 * \#89856 \[SC-High] Rescue path permanently freezes a user's funds by marking a future period as already claimed
-* \#90278 \[SC-Medium] Mutable period-start checkpoint causes zero payout and lets a staker escape slashing
 * \#89777 \[SC-High] Valid target-period withdrawal becomes unclaimable after rescue and unblock
 * \#89803 \[SC-High] A withdrawal at the exact period start rewrites the historical asset snapshot, so approved incident claims are underpaid or paid nothing while the vault still holds the money
 * \#89825 \[SC-Low] Missing assets==0 guard in FirelightVault.redeem() burns a user's shares for zero withdrawal credit when the share price is below 1
@@ -389,7 +372,6 @@
 * \#88395 \[SC-High] Claim-state poisoning in blocklist rescue permanently freezes a later withdrawal
 * \#88338 \[SC-High] Stale vault capacity lets Firelight sell cover against collateral owed to prior claims
 * \#90086 \[SC-High] Inclusive period-boundary checkpoint substitution in FirelightVault.withdraw() lets a withdrawing shareholder retain funds owed to an approved claimant
-* \#89287 \[SC-Low] `maxMint()` can return a share amount that reverts on `mint()` due to a rounding direction mismatch
 * \#89222 \[SC-Medium] A withdrawal at the exact period-start second halves the cover payout
 * \#90488 \[SC-High] Exact-Boundary Withdrawal Retroactively Shrinks the Period Snapshot After
 * \#90484 \[SC-High] Mutable period-start exposure snapshot in FirelightVault lets a redeeming LP retain slashable assets and underpays a valid cover claim
